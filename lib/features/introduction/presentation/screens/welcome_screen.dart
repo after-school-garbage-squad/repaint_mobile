@@ -46,7 +46,7 @@ class WelcomeScreen extends StatelessWidget {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
           child: Column(
             children: [
               ConstrainedBox(
