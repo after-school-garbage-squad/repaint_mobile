@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="repaint_mobile"
+        android:label="Re:paint"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
