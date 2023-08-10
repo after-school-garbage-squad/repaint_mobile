@@ -61,7 +61,7 @@ class WelcomeScreen extends StatelessWidget {
               const SizedBox(height: 12.0),
               Text(
                 "ようこそ!",
-                style: Theme.of(context).textTheme.headlineMedium,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 12.0),
               const WelcomeText(),
