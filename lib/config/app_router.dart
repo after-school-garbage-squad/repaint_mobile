@@ -22,7 +22,7 @@ class AppRouter extends $AppRouter {
               transitionsBuilder: TransitionsBuilders.slideLeft,
             ),
             CustomRoute(
-              path: 'qrcode',
+              path: 'qrcode_reader',
               page: QRCodeReaderRoute.page,
               transitionsBuilder: TransitionsBuilders.slideLeft,
             ),

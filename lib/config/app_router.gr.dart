@@ -15,7 +15,7 @@ import 'package:repaint_mobile/features/introduction/presentation/screens/introd
     as _i2;
 import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_settings_screen.dart'
     as _i3;
-import 'package:repaint_mobile/features/introduction/presentation/screens/qrcode_reader.dart'
+import 'package:repaint_mobile/features/introduction/presentation/screens/qrcode_reader_screen.dart'
     as _i4;
 import 'package:repaint_mobile/features/introduction/presentation/screens/welcome_screen.dart'
     as _i5;
