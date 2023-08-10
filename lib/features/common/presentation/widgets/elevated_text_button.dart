@@ -43,6 +43,7 @@ class ElevatedTextButton extends StatelessWidget {
             side: BorderSide(color: borderColor),
             borderRadius: BorderRadius.circular(8.0),
           ),
+          surfaceTintColor: Colors.white,
           elevation: 4.0,
         ),
         child: Text(
