@@ -14,17 +14,22 @@ class AppRouter extends $AppRouter {
               path: 'welcome',
               page: WelcomeRoute.page,
               initial: true,
-              transitionsBuilder: TransitionsBuilders.noTransition,
+              transitionsBuilder: TransitionsBuilders.slideLeft,
             ),
             CustomRoute(
               path: 'explain',
               page: ExplainRoute.page,
-              transitionsBuilder: TransitionsBuilders.noTransition,
+              transitionsBuilder: TransitionsBuilders.slideLeft,
             ),
             CustomRoute(
               path: 'qrcode',
               page: QRCodeReaderRoute.page,
-              transitionsBuilder: TransitionsBuilders.noTransition,
+              transitionsBuilder: TransitionsBuilders.slideLeft,
+            ),
+            CustomRoute(
+              path: 'settings',
+              page: IntroductionSettingsRoute.page,
+              transitionsBuilder: TransitionsBuilders.slideLeft,
             )
           ],
         )
