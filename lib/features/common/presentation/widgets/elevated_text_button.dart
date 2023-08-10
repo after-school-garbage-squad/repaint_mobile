@@ -1,41 +1,56 @@
 import 'package:flutter/material.dart';
 
+class ElevatedTextButtonColors {
+  const ElevatedTextButtonColors({
+    this.borderColor,
+    this.backgroundColor,
+    this.textColor,
+  });
+
+  final Color? borderColor;
+  final Color? backgroundColor;
+  final Color? textColor;
+}
+
 class ElevatedTextButton extends StatelessWidget {
   const ElevatedTextButton({
     super.key,
     required this.onPressed,
     required this.text,
-    this.borderColor,
-    this.textColor,
+    this.colors,
   });
 
   final VoidCallback onPressed;
   final String text;
-  final Color? borderColor;
-  final Color? textColor;
+  final ElevatedTextButtonColors? colors;
 
   @override
   Widget build(BuildContext context) {
+    final borderColor =
+        colors?.borderColor ?? Theme.of(context).colorScheme.primary;
+    final backgroundColor = colors?.backgroundColor ??
+        Theme.of(context).colorScheme.primaryContainer;
+    final textColor = colors?.textColor ?? Colors.black;
+
     return ConstrainedBox(
       constraints:
           const BoxConstraints(minWidth: double.infinity, minHeight: 48.0),
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+          backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
-            side: BorderSide(
-              color: borderColor ?? Theme.of(context).colorScheme.primary,
-            ),
+            side: BorderSide(color: borderColor),
             borderRadius: BorderRadius.circular(8.0),
           ),
+          elevation: 4.0,
         ),
         child: Text(
           text,
           style: Theme.of(context)
               .textTheme
               .bodyMedium
-              ?.copyWith(color: textColor ?? Colors.black),
+              ?.copyWith(color: textColor),
         ),
       ),
     );
