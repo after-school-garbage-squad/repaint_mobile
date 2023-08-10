@@ -145,12 +145,19 @@ dart fix --apply
 
 ### ブランチ
 
-- mainブランチの保護ルールについて
+- 詳しくはgit-flowモデルを参照してください。
+  - mainブランチは、プロダクションリリース用のブランチです。
+  - developブランチは、開発用のブランチです。
+  - featureブランチは、機能追加用のブランチです。
+  - releaseブランチは、リリース準備用のブランチです。
+  - hotfixブランチは、緊急のバグ修正用のブランチです。
+- main, developブランチの保護ルールについて
   - Require a pull request before merging. 有効化済み (直接pushはできません)
     - Required number of approvals before merging: 1 (1人以上のレビューが必要です)
   - Require signed commits. 有効化済み (署名済みのコミットが必要です)
-- mainブランチからfeatures/xxxブランチのようにブランチを切って、作業を行ってください。
-- 作業が完了したら、mainブランチに向けてPull Requestを作成してください。
+- developブランチからfeature/xxxのようにブランチを切って、作業を行ってください。
+- 作業が完了したら、developブランチに向けてPull Requestを作成してください。
+- プロダクションリリース時には、developブランチからmainブランチに向けてPull Requestを作成してください。
 - (今後導入予定) ~~CI/CDが実行され、問題がなければ自動でデプロイされます。~~
 
 ### コミットメッセージ
