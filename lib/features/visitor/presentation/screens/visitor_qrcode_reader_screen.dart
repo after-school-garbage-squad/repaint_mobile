@@ -1,10 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:repaint_mobile/features/common/presentation/widgets/elevated_text_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 
 @RoutePage()
-class QRCodeReaderScreen extends StatelessWidget {
+class VisitorQRCodeReaderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,23 +25,9 @@ class QRCodeReaderScreen extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  "QRコードを読み取ってください",
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const SizedBox(height: 20.0),
-                Text(
-                  'カメラが起動しない場合は、設定から使用許可をお願いします',
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  'スポットのQRコードを読み込んでください',
+                  style: Theme.of(context).textTheme.bodyLarge,
                   textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 16.0),
-                ElevatedTextButton(
-                  // TODO: 設定画面に遷移できるようにする
-                  onPressed: () {},
-                  text: "設定に進む",
-                  colors: const ElevatedTextButtonColors(
-                    backgroundColor: Colors.white,
-                  ),
                 ),
               ],
             ),

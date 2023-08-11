@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:repaint_mobile/features/common/presentation/widgets/elevated_text_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 
-class WelcomeText extends StatelessWidget {
-  const WelcomeText({super.key});
+class IntroductionWelcomeText extends StatelessWidget {
+  const IntroductionWelcomeText({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class WelcomeText extends StatelessWidget {
 }
 
 @RoutePage()
-class WelcomeScreen extends StatelessWidget {
+class IntroductionWelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,9 +65,10 @@ class WelcomeScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 12.0),
-              const WelcomeText(),
+              const IntroductionWelcomeText(),
               const Spacer(),
-              ElevatedTextButton(
+              // TODO: 権限の許可を求める
+              WideElevatedButton.withTemplate(
                 onPressed: () {
                   context.navigateNamedTo("explain");
                 },

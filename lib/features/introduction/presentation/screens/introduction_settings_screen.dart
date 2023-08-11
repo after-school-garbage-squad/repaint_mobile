@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:repaint_mobile/features/common/presentation/widgets/elevated_text_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 
 @RoutePage()
 class IntroductionSettingsScreen extends StatelessWidget {
@@ -27,10 +27,11 @@ class IntroductionSettingsScreen extends StatelessWidget {
                   Text("管理者設定", style: Theme.of(context).textTheme.titleLarge),
             ),
             const SizedBox(height: 16),
-            ElevatedTextButton(
+            // TODO: 管理者機能を実装する
+            WideElevatedButton.withTemplate(
               onPressed: () {},
               text: "管理者としてログイン",
-              colors: const ElevatedTextButtonColors(
+              colors: const WideElevatedButtonColors(
                 backgroundColor: Colors.white,
                 borderColor: Colors.white,
               ),
