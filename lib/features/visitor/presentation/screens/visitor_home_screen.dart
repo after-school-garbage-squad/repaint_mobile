@@ -73,10 +73,14 @@ class VisitorHomeScreen extends StatelessWidget {
               const SizedBox(height: 32.0),
               Row(
                 children: [
-                  // TODO: QRコードの表示機能を実装する
                   Expanded(
                     child: ActionElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => const QRCodeViewDialog(),
+                        );
+                      },
                       text: "QRコードの表示",
                       icon: Icons.qr_code,
                       colors: ActionElevatedButtonColors(
@@ -116,6 +120,47 @@ class VisitorHomeScreen extends StatelessWidget {
         ),
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
+    );
+  }
+}
+
+class QRCodeViewDialog extends StatelessWidget {
+  const QRCodeViewDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      alignment: Alignment.center,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+      ),
+      elevation: 0.0,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                FlatIconButton(
+                  onPressed: context.popRoute,
+                  icon: Icons.chevron_left,
+                ),
+                const Spacer()
+              ],
+            ),
+            const SizedBox(height: 24.0),
+            // TODO: QRコードを実際の画像に設定する
+            const Icon(Icons.qr_code, size: 200.0),
+            const SizedBox(height: 24.0),
+            Text(
+              "写真撮影の際にご掲示ください",
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
