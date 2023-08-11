@@ -26,7 +26,7 @@ class VisitorQRCodeReaderScreen extends StatelessWidget {
               children: [
                 Text(
                   'スポットのQRコードを読み込んでください',
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  style: Theme.of(context).textTheme.bodyLarge,
                   textAlign: TextAlign.center,
                 ),
               ],
