@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/action_elevated_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 
@@ -46,14 +47,33 @@ class VisitorHomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16.0),
-              WideElevatedButton.withTemplate(
-                onPressed: () {
-                  context.navigateNamedTo("qrcode_reader");
-                },
-                text: "QRコードの読み取り",
-                colors: const WideElevatedButtonColors(
-                  backgroundColor: Colors.white,
-                ),
+              Row(
+                children: [
+                  // TODO: QRコードの表示機能を実装する
+                  Expanded(
+                    child: ActionElevatedButton(
+                      onPressed: () {},
+                      text: "QRコードの表示",
+                      icon: Icons.qr_code,
+                      colors: ActionElevatedButtonColors(
+                        borderColor: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 40.0),
+                  Expanded(
+                    child: ActionElevatedButton(
+                      onPressed: () {
+                        context.navigateNamedTo("qrcode_reader");
+                      },
+                      text: "QRコードの読み取り",
+                      icon: Icons.qr_code_scanner,
+                      colors: ActionElevatedButtonColors(
+                        borderColor: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  )
+                ],
               ),
               const SizedBox(height: 16.0),
               const Spacer(),
