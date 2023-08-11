@@ -47,10 +47,8 @@ class VisitorHomeScreen extends StatelessWidget {
               const SizedBox(height: 16.0),
               const Spacer(),
               ElevatedTextButton(
-                onPressed: () {
-                  context.navigateNamedTo("explain");
-                },
-                text: "進む",
+                onPressed: () {},
+                text: "イベントHPを見る",
               ),
               ConstrainedBox(
                 constraints: const BoxConstraints(minHeight: 96.0),
