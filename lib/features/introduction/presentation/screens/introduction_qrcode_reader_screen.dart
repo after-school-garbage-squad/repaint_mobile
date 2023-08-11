@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:repaint_mobile/features/common/presentation/widgets/elevated_text_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 
 @RoutePage()
 class IntroductionQRCodeReaderScreen extends StatelessWidget {
@@ -36,11 +36,11 @@ class IntroductionQRCodeReaderScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 16.0),
-                ElevatedTextButton(
+                WideElevatedButton.withTemplate(
                   // TODO: 設定画面に遷移できるようにする
                   onPressed: () {},
                   text: "設定に進む",
-                  colors: const ElevatedTextButtonColors(
+                  colors: const WideElevatedButtonColors(
                     backgroundColor: Colors.white,
                   ),
                 ),

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:repaint_mobile/features/common/presentation/widgets/elevated_text_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 
 @RoutePage()
 class VisitorHomeScreen extends StatelessWidget {
@@ -35,20 +35,35 @@ class VisitorHomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16.0),
-              ElevatedTextButton(
+              // TODO: ダウンロード機能を実装する
+              WideElevatedButton.withTemplate(
+                onPressed: () {},
+                text: "ダウンロード",
+                icon: Icons.group,
+                colors: WideElevatedButtonColors(
+                  backgroundColor: Theme.of(context).colorScheme.surface,
+                  borderColor: Theme.of(context).colorScheme.surface,
+                ),
+              ),
+              const SizedBox(height: 16.0),
+              WideElevatedButton.withTemplate(
                 onPressed: () {
                   context.navigateNamedTo("qrcode_reader");
                 },
                 text: "QRコードの読み取り",
-                colors: const ElevatedTextButtonColors(
+                colors: const WideElevatedButtonColors(
                   backgroundColor: Colors.white,
                 ),
               ),
               const SizedBox(height: 16.0),
               const Spacer(),
-              ElevatedTextButton(
+              // TODO: イベントHPに遷移できるようにする
+              WideElevatedButton.withTemplate(
                 onPressed: () {},
                 text: "イベントHPを見る",
+                colors: const WideElevatedButtonColors(
+                  backgroundColor: Colors.white,
+                ),
               ),
               ConstrainedBox(
                 constraints: const BoxConstraints(minHeight: 96.0),
