@@ -8,74 +8,120 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i6;
-import 'package:repaint_mobile/features/introduction/presentation/screens/explain_screen.dart'
+import 'package:auto_route/auto_route.dart' as _i10;
+import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_explain_screen.dart'
     as _i1;
-import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_screen.dart'
+import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_qrcode_reader_screen.dart'
     as _i2;
-import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_settings_screen.dart'
+import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_screen.dart'
     as _i3;
-import 'package:repaint_mobile/features/introduction/presentation/screens/qrcode_reader_screen.dart'
+import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_settings_screen.dart'
     as _i4;
-import 'package:repaint_mobile/features/introduction/presentation/screens/welcome_screen.dart'
+import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_welcome_screen.dart'
     as _i5;
+import 'package:repaint_mobile/features/visitor/presentation/screens/visitor_home_screen.dart'
+    as _i6;
+import 'package:repaint_mobile/features/visitor/presentation/screens/visitor_qrcode_reader_screen.dart'
+    as _i7;
+import 'package:repaint_mobile/features/visitor/presentation/screens/visitor_screen.dart'
+    as _i8;
+import 'package:repaint_mobile/features/visitor/presentation/screens/visitor_settings_screen.dart'
+    as _i9;
 
-abstract class $AppRouter extends _i6.RootStackRouter {
+abstract class $AppRouter extends _i10.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i6.PageFactory> pagesMap = {
-    ExplainRoute.name: (routeData) {
-      return _i6.AutoRoutePage<dynamic>(
+  final Map<String, _i10.PageFactory> pagesMap = {
+    IntroductionExplainRoute.name: (routeData) {
+      return _i10.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i1.ExplainScreen(),
+        child: _i1.IntroductionExplainScreen(),
+      );
+    },
+    IntroductionQRCodeReaderRoute.name: (routeData) {
+      return _i10.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i2.IntroductionQRCodeReaderScreen(),
       );
     },
     IntroductionRoute.name: (routeData) {
-      return _i6.AutoRoutePage<dynamic>(
+      return _i10.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i2.IntroductionScreen(),
+        child: _i3.IntroductionScreen(),
       );
     },
     IntroductionSettingsRoute.name: (routeData) {
-      return _i6.AutoRoutePage<dynamic>(
+      return _i10.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i3.IntroductionSettingsScreen(),
+        child: _i4.IntroductionSettingsScreen(),
       );
     },
-    QRCodeReaderRoute.name: (routeData) {
-      return _i6.AutoRoutePage<dynamic>(
+    IntroductionWelcomeRoute.name: (routeData) {
+      return _i10.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i4.QRCodeReaderScreen(),
+        child: _i5.IntroductionWelcomeScreen(),
       );
     },
-    WelcomeRoute.name: (routeData) {
-      return _i6.AutoRoutePage<dynamic>(
+    VisitorHomeRoute.name: (routeData) {
+      return _i10.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i5.WelcomeScreen(),
+        child: _i6.VisitorHomeScreen(),
+      );
+    },
+    VisitorQRCodeReaderRoute.name: (routeData) {
+      return _i10.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i7.VisitorQRCodeReaderScreen(),
+      );
+    },
+    VisitorRoute.name: (routeData) {
+      return _i10.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i8.VisitorScreen(),
+      );
+    },
+    VisitorSettingsRoute.name: (routeData) {
+      return _i10.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: _i9.VisitorSettingsScreen(),
       );
     },
   };
 }
 
 /// generated route for
-/// [_i1.ExplainScreen]
-class ExplainRoute extends _i6.PageRouteInfo<void> {
-  const ExplainRoute({List<_i6.PageRouteInfo>? children})
+/// [_i1.IntroductionExplainScreen]
+class IntroductionExplainRoute extends _i10.PageRouteInfo<void> {
+  const IntroductionExplainRoute({List<_i10.PageRouteInfo>? children})
       : super(
-          ExplainRoute.name,
+          IntroductionExplainRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'ExplainRoute';
+  static const String name = 'IntroductionExplainRoute';
 
-  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
+  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i2.IntroductionScreen]
-class IntroductionRoute extends _i6.PageRouteInfo<void> {
-  const IntroductionRoute({List<_i6.PageRouteInfo>? children})
+/// [_i2.IntroductionQRCodeReaderScreen]
+class IntroductionQRCodeReaderRoute extends _i10.PageRouteInfo<void> {
+  const IntroductionQRCodeReaderRoute({List<_i10.PageRouteInfo>? children})
+      : super(
+          IntroductionQRCodeReaderRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'IntroductionQRCodeReaderRoute';
+
+  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i3.IntroductionScreen]
+class IntroductionRoute extends _i10.PageRouteInfo<void> {
+  const IntroductionRoute({List<_i10.PageRouteInfo>? children})
       : super(
           IntroductionRoute.name,
           initialChildren: children,
@@ -83,13 +129,13 @@ class IntroductionRoute extends _i6.PageRouteInfo<void> {
 
   static const String name = 'IntroductionRoute';
 
-  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
+  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i3.IntroductionSettingsScreen]
-class IntroductionSettingsRoute extends _i6.PageRouteInfo<void> {
-  const IntroductionSettingsRoute({List<_i6.PageRouteInfo>? children})
+/// [_i4.IntroductionSettingsScreen]
+class IntroductionSettingsRoute extends _i10.PageRouteInfo<void> {
+  const IntroductionSettingsRoute({List<_i10.PageRouteInfo>? children})
       : super(
           IntroductionSettingsRoute.name,
           initialChildren: children,
@@ -97,33 +143,75 @@ class IntroductionSettingsRoute extends _i6.PageRouteInfo<void> {
 
   static const String name = 'IntroductionSettingsRoute';
 
-  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
+  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i4.QRCodeReaderScreen]
-class QRCodeReaderRoute extends _i6.PageRouteInfo<void> {
-  const QRCodeReaderRoute({List<_i6.PageRouteInfo>? children})
+/// [_i5.IntroductionWelcomeScreen]
+class IntroductionWelcomeRoute extends _i10.PageRouteInfo<void> {
+  const IntroductionWelcomeRoute({List<_i10.PageRouteInfo>? children})
       : super(
-          QRCodeReaderRoute.name,
+          IntroductionWelcomeRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'QRCodeReaderRoute';
+  static const String name = 'IntroductionWelcomeRoute';
 
-  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
+  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i5.WelcomeScreen]
-class WelcomeRoute extends _i6.PageRouteInfo<void> {
-  const WelcomeRoute({List<_i6.PageRouteInfo>? children})
+/// [_i6.VisitorHomeScreen]
+class VisitorHomeRoute extends _i10.PageRouteInfo<void> {
+  const VisitorHomeRoute({List<_i10.PageRouteInfo>? children})
       : super(
-          WelcomeRoute.name,
+          VisitorHomeRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'WelcomeRoute';
+  static const String name = 'VisitorHomeRoute';
 
-  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
+  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i7.VisitorQRCodeReaderScreen]
+class VisitorQRCodeReaderRoute extends _i10.PageRouteInfo<void> {
+  const VisitorQRCodeReaderRoute({List<_i10.PageRouteInfo>? children})
+      : super(
+          VisitorQRCodeReaderRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'VisitorQRCodeReaderRoute';
+
+  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i8.VisitorScreen]
+class VisitorRoute extends _i10.PageRouteInfo<void> {
+  const VisitorRoute({List<_i10.PageRouteInfo>? children})
+      : super(
+          VisitorRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'VisitorRoute';
+
+  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i9.VisitorSettingsScreen]
+class VisitorSettingsRoute extends _i10.PageRouteInfo<void> {
+  const VisitorSettingsRoute({List<_i10.PageRouteInfo>? children})
+      : super(
+          VisitorSettingsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'VisitorSettingsRoute';
+
+  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
 }
