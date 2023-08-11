@@ -22,11 +22,11 @@ class WideElevatedButton extends StatelessWidget {
     required this.colors,
   });
 
-  factory WideElevatedButton.template({
+  factory WideElevatedButton.withTemplate({
     Key? key,
     required VoidCallback onPressed,
     required String text,
-    required IconData icon,
+    IconData? icon,
     WideElevatedButtonColors? colors,
   }) = _WideElevatedButtonWithTemplate;
 
