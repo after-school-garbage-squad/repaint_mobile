@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/action_elevated_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
+import 'package:repaint_mobile/features/visitor/presentation/widgets/dot_indicator.dart';
+import 'package:repaint_mobile/features/visitor/presentation/widgets/progress_bar.dart';
 
 @RoutePage()
 class VisitorHomeScreen extends StatelessWidget {
@@ -21,7 +25,7 @@ class VisitorHomeScreen extends StatelessWidget {
         ],
         backgroundColor: Theme.of(context).colorScheme.background,
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
           child: Column(
@@ -35,7 +39,27 @@ class VisitorHomeScreen extends StatelessWidget {
                   child: Placeholder(fallbackWidth: double.infinity),
                 ),
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 12.0),
+              // TODO: ドットインジケーターの値を実際の値に合わせる
+              SizedBox(
+                height: 32.0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    DotIndicator(onPressed: () {}, enabled: true),
+                    const SizedBox(width: 32.0),
+                    DotIndicator(onPressed: () {}),
+                    const SizedBox(width: 32.0),
+                    DotIndicator(onPressed: () {}),
+                    const SizedBox(width: 32.0),
+                    DotIndicator(onPressed: () {}),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 12.0),
+              // TODO: プログレスバーの値を実際の値に合わせる
+              ProgressBar(progress: Random().nextDouble()),
+              const SizedBox(height: 32.0),
               // TODO: ダウンロード機能を実装する
               WideElevatedButton.withTemplate(
                 onPressed: () {},
@@ -46,7 +70,7 @@ class VisitorHomeScreen extends StatelessWidget {
                   borderColor: Theme.of(context).colorScheme.surface,
                 ),
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 32.0),
               Row(
                 children: [
                   // TODO: QRコードの表示機能を実装する
@@ -76,7 +100,6 @@ class VisitorHomeScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16.0),
-              const Spacer(),
               // TODO: イベントHPに遷移できるようにする
               WideElevatedButton.withTemplate(
                 onPressed: () {},
