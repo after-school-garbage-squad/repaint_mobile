@@ -4,7 +4,7 @@ import 'package:repaint_mobile/features/common/presentation/widgets/elevated_tex
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 
 @RoutePage()
-class QRCodeReaderScreen extends StatelessWidget {
+class IntroductionQRCodeReaderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

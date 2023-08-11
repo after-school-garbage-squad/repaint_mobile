@@ -3,46 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/elevated_text_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 
-class WelcomeText extends StatelessWidget {
-  const WelcomeText({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final baseStyle = Theme.of(context).textTheme.bodyMedium;
-    final boldStyle = baseStyle?.copyWith(color: Colors.red);
-
-    return Text.rich(
-      TextSpan(
-        children: [
-          TextSpan(text: "「Re:Paint」を正しくご利用していただくために、", style: baseStyle),
-          TextSpan(text: "通知", style: boldStyle),
-          TextSpan(text: "と", style: baseStyle),
-          TextSpan(text: "位置情報", style: boldStyle),
-          TextSpan(
-            text: "の使用の許可する必要があります。\n\n「進む」を押した後に許可をお願いしいたします。",
-            style: baseStyle,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 @RoutePage()
-class WelcomeScreen extends StatelessWidget {
+class IntroductionExplainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        actions: [
-          FlatIconButton(
-            onPressed: () {
-              context.navigateNamedTo("settings");
-            },
-            icon: Icons.settings,
-          )
-        ],
+        leading: FlatIconButton(
+          onPressed: context.popRoute,
+          icon: Icons.chevron_left,
+        ),
         backgroundColor: Theme.of(context).colorScheme.background,
       ),
       body: Center(
@@ -59,19 +29,18 @@ class WelcomeScreen extends StatelessWidget {
                   child: Placeholder(fallbackWidth: double.infinity),
                 ),
               ),
-              const SizedBox(height: 12.0),
+              const SizedBox(height: 32.0),
               Text(
-                "ようこそ!",
-                style: Theme.of(context).textTheme.titleLarge,
+                '参加するためには、配布されたQRコードを読み取る必要があります。',
+                style: Theme.of(context).textTheme.bodyMedium,
+                textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 12.0),
-              const WelcomeText(),
               const Spacer(),
               ElevatedTextButton(
                 onPressed: () {
-                  context.navigateNamedTo("explain");
+                  context.navigateNamedTo("qrcode_reader");
                 },
-                text: "進む",
+                text: "QRコードの読み取りに進む",
               ),
               ConstrainedBox(
                 constraints: const BoxConstraints(minHeight: 96.0),
