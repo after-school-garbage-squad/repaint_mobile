@@ -4,8 +4,8 @@ class WideElevatedButtonColors {
   const WideElevatedButtonColors({
     this.borderColor,
     this.backgroundColor,
-    this.textColor,
-    this.iconColor,
+    this.textColor = Colors.black,
+    this.iconColor = Colors.black,
   });
 
   final Color? borderColor;
@@ -75,7 +75,7 @@ class _WideElevatedButtonWithTemplate extends WideElevatedButton {
               _WideElevatedButtonText(text: text, colors: colors),
               if (icon != null) ...[
                 const SizedBox(width: 8.0),
-                Icon(icon, color: colors?.iconColor ?? Colors.black),
+                Icon(icon, color: colors?.iconColor),
               ]
             ],
           ),
@@ -101,7 +101,7 @@ class _WideElevatedButtonText extends StatelessWidget {
       style: Theme.of(context)
           .textTheme
           .bodyMedium
-          ?.copyWith(color: colors?.textColor ?? Colors.black),
+          ?.copyWith(color: colors?.textColor),
     );
   }
 }
