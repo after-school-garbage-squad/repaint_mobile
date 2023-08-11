@@ -7,8 +7,31 @@ class AppRouter extends $AppRouter {
   List<AutoRoute> get routes => [
         AutoRoute(
           path: '/',
-          page: MyHomePage.page,
+          page: IntroductionRoute.page,
           initial: true,
+          children: [
+            CustomRoute(
+              path: 'welcome',
+              page: WelcomeRoute.page,
+              initial: true,
+              transitionsBuilder: TransitionsBuilders.slideLeft,
+            ),
+            CustomRoute(
+              path: 'explain',
+              page: ExplainRoute.page,
+              transitionsBuilder: TransitionsBuilders.slideLeft,
+            ),
+            CustomRoute(
+              path: 'qrcode_reader',
+              page: QRCodeReaderRoute.page,
+              transitionsBuilder: TransitionsBuilders.slideLeft,
+            ),
+            CustomRoute(
+              path: 'settings',
+              page: IntroductionSettingsRoute.page,
+              transitionsBuilder: TransitionsBuilders.slideLeft,
+            )
+          ],
         )
       ];
 }
