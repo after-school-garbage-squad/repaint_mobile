@@ -1,22 +1,30 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/camera_scaffold.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 
 @RoutePage()
 class OperatorCameraScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("カメラ"),
-        centerTitle: true,
-        leading: FlatIconButton(
-          onPressed: context.popRoute,
-          icon: Icons.chevron_left,
+    return CameraScaffold(
+      // TODO: カメラを実装する
+      preview: const Expanded(child: Placeholder()),
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 64.0),
+          child: Center(
+            child: FlatIconButton(
+              onPressed: () {
+                // TODO: 撮影処理の実装
+                context.navigateNamedTo("camera/preview");
+              },
+              icon: Icons.camera,
+              iconSize: 64.0,
+            ),
+          ),
         ),
-        backgroundColor: Theme.of(context).colorScheme.background,
-      ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      ],
     );
   }
 }
