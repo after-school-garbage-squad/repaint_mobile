@@ -76,6 +76,11 @@ class AppRouter extends $AppRouter {
               transitionsBuilder: TransitionsBuilders.slideLeft,
             ),
             CustomRoute(
+              path: 'camera/preview',
+              page: OperatorCameraPreviewRoute.page,
+              transitionsBuilder: TransitionsBuilders.slideLeft,
+            ),
+            CustomRoute(
               path: 'beacon',
               page: OperatorBeaconListRoute.page,
               transitionsBuilder: TransitionsBuilders.slideLeft,
