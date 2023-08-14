@@ -56,7 +56,7 @@ class VisitorSettingsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             // TODO: ログアウト機能を実装する
-            WideElevatedButton.withTemplate(
+            WideElevatedButton(
               onPressed: () {},
               text: "ログアウト",
               colors: const WideElevatedButtonColors(

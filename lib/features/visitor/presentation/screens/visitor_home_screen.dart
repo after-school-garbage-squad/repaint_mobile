@@ -61,7 +61,7 @@ class VisitorHomeScreen extends StatelessWidget {
               ProgressBar(progress: Random().nextDouble()),
               const SizedBox(height: 32.0),
               // TODO: ダウンロード機能を実装する
-              WideElevatedButton.withTemplate(
+              WideElevatedButton(
                 onPressed: () {},
                 text: "ダウンロード",
                 icon: Icons.group,
@@ -105,7 +105,7 @@ class VisitorHomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16.0),
               // TODO: イベントHPに遷移できるようにする
-              WideElevatedButton.withTemplate(
+              WideElevatedButton(
                 onPressed: () {},
                 text: "イベントHPを見る",
                 colors: const WideElevatedButtonColors(

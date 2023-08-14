@@ -36,7 +36,7 @@ class IntroductionExplainScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const Spacer(),
-              WideElevatedButton.withTemplate(
+              WideElevatedButton(
                 onPressed: () {
                   context.navigateNamedTo("qrcode_reader");
                 },

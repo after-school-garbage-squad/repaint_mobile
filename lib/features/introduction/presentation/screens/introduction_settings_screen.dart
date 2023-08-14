@@ -27,9 +27,11 @@ class IntroductionSettingsScreen extends StatelessWidget {
                   Text("管理者設定", style: Theme.of(context).textTheme.titleLarge),
             ),
             const SizedBox(height: 16),
-            // TODO: 管理者機能を実装する
-            WideElevatedButton.withTemplate(
-              onPressed: () {},
+            WideElevatedButton(
+              onPressed: () {
+                // TODO: Auth0の管理者ログイン画面に遷移する
+                context.navigateNamedTo("/operator/home");
+              },
               text: "管理者としてログイン",
               colors: const WideElevatedButtonColors(
                 backgroundColor: Colors.white,

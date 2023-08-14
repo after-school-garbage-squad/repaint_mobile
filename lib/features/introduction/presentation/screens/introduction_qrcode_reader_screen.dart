@@ -23,7 +23,7 @@ class IntroductionQRCodeReaderScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16.0),
-            WideElevatedButton.withTemplate(
+            WideElevatedButton(
               // TODO: 設定画面に遷移できるようにする
               onPressed: () {},
               text: "設定に進む",

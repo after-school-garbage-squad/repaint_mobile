@@ -68,7 +68,7 @@ class IntroductionWelcomeScreen extends StatelessWidget {
               const IntroductionWelcomeText(),
               const Spacer(),
               // TODO: 権限の許可を求める
-              WideElevatedButton.withTemplate(
+              WideElevatedButton(
                 onPressed: () {
                   context.navigateNamedTo("explain");
                 },
