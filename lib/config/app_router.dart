@@ -54,6 +54,43 @@ class AppRouter extends $AppRouter {
               transitionsBuilder: TransitionsBuilders.slideLeft,
             ),
           ],
+        ),
+        AutoRoute(
+          path: '/operator',
+          page: OperatorRoute.page,
+          children: [
+            CustomRoute(
+              path: 'home',
+              page: OperatorHomeRoute.page,
+              initial: true,
+              transitionsBuilder: TransitionsBuilders.slideLeft,
+            ),
+            CustomRoute(
+              path: 'qrcode_reader',
+              page: OperatorQRCodeReaderRoute.page,
+              transitionsBuilder: TransitionsBuilders.slideLeft,
+            ),
+            CustomRoute(
+              path: 'camera',
+              page: OperatorCameraRoute.page,
+              transitionsBuilder: TransitionsBuilders.slideLeft,
+            ),
+            CustomRoute(
+              path: 'beacon',
+              page: OperatorBeaconListRoute.page,
+              transitionsBuilder: TransitionsBuilders.slideLeft,
+            ),
+            CustomRoute(
+              path: 'beacon/:id',
+              page: OperatorBeaconSettingsRoute.page,
+              transitionsBuilder: TransitionsBuilders.slideLeft,
+            ),
+            CustomRoute(
+              path: 'settings',
+              page: OperatorSettingsRoute.page,
+              transitionsBuilder: TransitionsBuilders.slideLeft,
+            ),
+          ],
         )
       ];
 }
