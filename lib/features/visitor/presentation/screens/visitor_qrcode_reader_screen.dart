@@ -7,9 +7,8 @@ class VisitorQRCodeReaderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CameraScaffold(
-      preview: const Expanded(
-        child: Placeholder(),
-      ),
+      // TODO: カメラを実装する
+      preview: const Expanded(child: Placeholder()),
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 64.0),
@@ -20,9 +19,6 @@ class VisitorQRCodeReaderScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-        ),
-        ConstrainedBox(
-          constraints: const BoxConstraints(minHeight: 96.0),
         ),
       ],
     );

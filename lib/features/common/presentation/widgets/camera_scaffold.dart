@@ -28,7 +28,14 @@ class CameraScaffold extends StatelessWidget {
           if (children != null)
             ConstrainedBox(
               constraints: const BoxConstraints(maxHeight: 294),
-              child: Column(children: children!),
+              child: Column(
+                children: [
+                  ...children!,
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(minHeight: 96.0),
+                  ),
+                ],
+              ),
             ),
         ],
       ),

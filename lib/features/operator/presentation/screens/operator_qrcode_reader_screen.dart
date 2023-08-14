@@ -45,9 +45,6 @@ class OperatorQRCodeReaderScreen extends StatelessWidget {
             ),
           ),
         ),
-        ConstrainedBox(
-          constraints: const BoxConstraints(minHeight: 96.0),
-        ),
       ],
     );
   }
