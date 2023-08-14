@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:repaint_mobile/features/common/presentation/widgets/qrcode_reader_scaffold.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/camera_scaffold.dart';
 
 @RoutePage()
 class VisitorQRCodeReaderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return QRCodeReaderScaffold(
+    return CameraScaffold(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
         child: Column(
