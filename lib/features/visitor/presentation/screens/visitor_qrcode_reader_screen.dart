@@ -7,18 +7,24 @@ class VisitorQRCodeReaderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CameraScaffold(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
-        child: Column(
-          children: [
-            Text(
+      preview: const Expanded(
+        child: Placeholder(),
+      ),
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 64.0),
+          child: Center(
+            child: Text(
               'スポットのQRコードを読み込んでください',
               style: Theme.of(context).textTheme.bodyLarge,
               textAlign: TextAlign.center,
             ),
-          ],
+          ),
         ),
-      ),
+        ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 96.0),
+        ),
+      ],
     );
   }
 }

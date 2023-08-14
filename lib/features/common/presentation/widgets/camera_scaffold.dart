@@ -5,10 +5,12 @@ import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_bu
 class CameraScaffold extends StatelessWidget {
   const CameraScaffold({
     super.key,
-    required this.child,
+    required this.preview,
+    this.children,
   });
 
-  final Widget child;
+  final Widget preview;
+  final List<Widget>? children;
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +24,8 @@ class CameraScaffold extends StatelessWidget {
       ),
       body: Column(
         children: [
-          // TODO: カメラを実装する
-          const Expanded(
-            child: Placeholder(),
-          ),
-          child,
-          ConstrainedBox(
-            constraints: const BoxConstraints(minHeight: 96.0),
-          ),
+          preview,
+          if (children != null) ...children!,
         ],
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
