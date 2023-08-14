@@ -25,7 +25,11 @@ class CameraScaffold extends StatelessWidget {
       body: Column(
         children: [
           preview,
-          if (children != null) ...children!,
+          if (children != null)
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxHeight: 294),
+              child: Column(children: children!),
+            ),
         ],
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
