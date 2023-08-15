@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
+import 'package:repaint_mobile/features/operator/presentation/widgets/elevated_tile.dart';
 
 @RoutePage()
 class OperatorHomeScreen extends StatelessWidget {
@@ -22,6 +24,52 @@ class OperatorHomeScreen extends StatelessWidget {
           const SizedBox(width: 16.0)
         ],
         backgroundColor: Theme.of(context).colorScheme.background,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+        child: Column(
+          children: [
+            ElevatedTile(
+              automaticallyImplyTail: false,
+              padding: const EdgeInsets.all(16),
+              direction: Axis.vertical,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("選択中のイベント", style: Theme.of(context).textTheme.titleLarge),
+                const SizedBox(height: 16),
+                WideElevatedButton(
+                  // TODO: イベントを変更する機能を実装する
+                  onPressed: () {},
+                  text: "イベントを変更",
+                  colors: WideElevatedButtonColors(
+                    backgroundColor: Colors.transparent,
+                    borderColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                    textColor: Theme.of(context).colorScheme.primary,
+                  ),
+                  elevation: 0.0,
+                )
+              ],
+            ),
+            const SizedBox(height: 16),
+            ElevatedTile.action(
+              onTap: () {
+                context.navigateNamedTo("camera");
+              },
+              title: "写真を撮影する",
+              icon: Icons.camera_alt,
+            ),
+            const SizedBox(height: 16),
+            ElevatedTile.action(
+              onTap: () {
+                context.navigateNamedTo("beacon");
+              },
+              title: "ビーコンを設定する",
+              // TODO: 仮で設定した下記のアイコンを変更するかを検討する
+              icon: Icons.settings_input_antenna,
+            ),
+          ],
+        ),
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
     );
