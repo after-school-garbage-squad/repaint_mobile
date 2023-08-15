@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 
-class SettingsScaffold extends StatelessWidget {
-  const SettingsScaffold({
+class ListScaffold extends StatelessWidget {
+  const ListScaffold({
     super.key,
     this.title = "設定",
     required this.children,
