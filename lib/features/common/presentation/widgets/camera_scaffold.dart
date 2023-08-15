@@ -26,6 +26,7 @@ class CameraScaffold extends StatelessWidget {
             ),
           ],
         ),
+        leadingWidth: 64.0,
         backgroundColor: Colors.transparent,
       ),
       body: Column(

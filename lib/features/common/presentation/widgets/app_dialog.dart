@@ -25,8 +25,8 @@ class AppDialog extends StatelessWidget {
       elevation: 0.0,
       child: Container(
         // TODO: デザイン通りになるように実装したが調整するべき
-        width: 360,
-        height: 360,
+        width: 384,
+        height: 384,
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
         alignment: Alignment.center,
         child: Column(
@@ -37,7 +37,6 @@ class AppDialog extends StatelessWidget {
                   FlatIconButton(
                     onPressed: context.popRoute,
                     icon: Icons.chevron_left,
-                    size: 24.0,
                   ),
                 if (leading != null) leading!,
                 const Spacer()

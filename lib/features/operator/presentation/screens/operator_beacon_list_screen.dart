@@ -19,6 +19,7 @@ class OperatorBeaconListScreen extends StatelessWidget {
             ),
           ],
         ),
+        leadingWidth: 64.0,
         backgroundColor: Theme.of(context).colorScheme.background,
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
