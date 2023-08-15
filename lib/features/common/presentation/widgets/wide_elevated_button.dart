@@ -4,12 +4,14 @@ class WideElevatedButtonColors {
   const WideElevatedButtonColors({
     this.borderColor,
     this.backgroundColor,
+    this.shadowColor,
     this.textColor = Colors.black,
     this.iconColor = Colors.black,
   });
 
   final Color? borderColor;
   final Color? backgroundColor;
+  final Color? shadowColor;
   final Color? textColor;
   final Color? iconColor;
 }
@@ -21,12 +23,14 @@ class WideElevatedButton extends StatelessWidget {
     required this.text,
     this.icon,
     this.colors,
+    this.elevation = 2.0,
   });
 
   final VoidCallback onPressed;
   final String text;
   final IconData? icon;
   final WideElevatedButtonColors? colors;
+  final double elevation;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +38,7 @@ class WideElevatedButton extends StatelessWidget {
         colors?.borderColor ?? Theme.of(context).colorScheme.primary;
     final backgroundColor = colors?.backgroundColor ??
         Theme.of(context).colorScheme.primaryContainer;
+    final shadowColor = colors?.shadowColor ?? Theme.of(context).shadowColor;
 
     return ConstrainedBox(
       constraints:
@@ -47,7 +52,8 @@ class WideElevatedButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.0),
           ),
           surfaceTintColor: Colors.white,
-          elevation: 4.0,
+          elevation: elevation,
+          shadowColor: shadowColor,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
