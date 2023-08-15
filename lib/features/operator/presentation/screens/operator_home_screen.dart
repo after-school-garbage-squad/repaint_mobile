@@ -8,12 +8,19 @@ class OperatorHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text("管理者画面"),
         centerTitle: true,
-        leading: FlatIconButton(
-          onPressed: context.popRoute,
-          icon: Icons.chevron_left,
-        ),
+        actions: [
+          FlatIconButton(
+            onPressed: () {
+              context.navigateNamedTo("settings");
+            },
+            icon: Icons.settings,
+          ),
+          // TODO: https://github.com/flutter/flutter/issues/118965
+          const SizedBox(width: 16.0)
+        ],
         backgroundColor: Theme.of(context).colorScheme.background,
       ),
       backgroundColor: Theme.of(context).colorScheme.background,

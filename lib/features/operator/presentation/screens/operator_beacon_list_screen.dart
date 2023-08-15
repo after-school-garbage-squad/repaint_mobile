@@ -10,9 +10,14 @@ class OperatorBeaconListScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("ビーコン一覧"),
         centerTitle: true,
-        leading: FlatIconButton(
-          onPressed: context.popRoute,
-          icon: Icons.chevron_left,
+        leading: Row(
+          children: [
+            const SizedBox(width: 16.0),
+            FlatIconButton(
+              onPressed: context.popRoute,
+              icon: Icons.chevron_left,
+            ),
+          ],
         ),
         backgroundColor: Theme.of(context).colorScheme.background,
       ),

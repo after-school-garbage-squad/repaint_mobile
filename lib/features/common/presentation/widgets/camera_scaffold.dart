@@ -17,9 +17,14 @@ class CameraScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: FlatIconButton(
-          onPressed: context.popRoute,
-          icon: Icons.chevron_left,
+        leading: Row(
+          children: [
+            const SizedBox(width: 16.0),
+            FlatIconButton(
+              onPressed: context.popRoute,
+              icon: Icons.chevron_left,
+            ),
+          ],
         ),
         backgroundColor: Colors.transparent,
       ),

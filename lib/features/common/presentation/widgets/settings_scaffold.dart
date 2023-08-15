@@ -18,9 +18,14 @@ class SettingsScaffold extends StatelessWidget {
       appBar: AppBar(
         title: Text(title!),
         centerTitle: true,
-        leading: FlatIconButton(
-          onPressed: context.popRoute,
-          icon: Icons.chevron_left,
+        leading: Row(
+          children: [
+            const SizedBox(width: 16.0),
+            FlatIconButton(
+              onPressed: context.popRoute,
+              icon: Icons.chevron_left,
+            ),
+          ],
         ),
         backgroundColor: Theme.of(context).colorScheme.background,
       ),

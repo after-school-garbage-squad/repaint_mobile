@@ -6,36 +6,46 @@ class ChevronDialog extends StatelessWidget {
   const ChevronDialog({
     super.key,
     required this.children,
+    this.physics = const NeverScrollableScrollPhysics(),
   });
 
   final List<Widget> children;
+  final ScrollPhysics physics;
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
       alignment: Alignment.center,
+      insetPadding: const EdgeInsets.all(16.0),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(8.0)),
       ),
       elevation: 0.0,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                FlatIconButton(
-                  onPressed: context.popRoute,
-                  icon: Icons.chevron_left,
-                ),
-                const Spacer()
-              ],
-            ),
-            const SizedBox(height: 24.0),
-            ...children,
-          ],
+      child: Container(
+        // TODO: デザイン通りになるように実装したが調整するべき
+        width: 359,
+        height: 359,
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
+        alignment: Alignment.center,
+        child: SingleChildScrollView(
+          physics: physics,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  FlatIconButton(
+                    onPressed: context.popRoute,
+                    icon: Icons.chevron_left,
+                    size: 24.0,
+                  ),
+                  const Spacer()
+                ],
+              ),
+              const SizedBox(height: 24.0),
+              ...children,
+            ],
+          ),
         ),
       ),
     );
