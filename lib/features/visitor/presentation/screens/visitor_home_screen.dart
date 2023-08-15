@@ -82,7 +82,7 @@ class VisitorHomeScreen extends StatelessWidget {
                       onPressed: () {
                         showDialog(
                           context: context,
-                          builder: (context) => const QRCodeViewDialog(),
+                          builder: (context) => const _QRCodeViewDialog(),
                         );
                       },
                       text: "QRコードの表示",
@@ -126,8 +126,8 @@ class VisitorHomeScreen extends StatelessWidget {
   }
 }
 
-class QRCodeViewDialog extends StatelessWidget {
-  const QRCodeViewDialog({super.key});
+class _QRCodeViewDialog extends StatelessWidget {
+  const _QRCodeViewDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
