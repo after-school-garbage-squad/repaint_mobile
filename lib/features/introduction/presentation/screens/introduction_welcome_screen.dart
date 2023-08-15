@@ -15,7 +15,7 @@ class IntroductionWelcomeText extends StatelessWidget {
     return Text.rich(
       TextSpan(
         children: [
-          TextSpan(text: "「Re:Paint」を正しくご利用していただくために、", style: baseStyle),
+          TextSpan(text: "「Re:paint」を正しくご利用していただくために、", style: baseStyle),
           TextSpan(text: "通知", style: boldStyle),
           TextSpan(text: "と", style: baseStyle),
           TextSpan(text: "位置情報", style: boldStyle),
