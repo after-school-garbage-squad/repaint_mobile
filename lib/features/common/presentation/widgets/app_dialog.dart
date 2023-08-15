@@ -6,10 +6,12 @@ class AppDialog extends StatelessWidget {
   const AppDialog({
     super.key,
     required this.children,
+    this.automaticallyImplyLeading = true,
     this.leading,
   });
 
   final List<Widget> children;
+  final bool automaticallyImplyLeading;
   final Widget? leading;
 
   @override
@@ -31,12 +33,13 @@ class AppDialog extends StatelessWidget {
           children: [
             Row(
               children: [
-                leading ??
-                    FlatIconButton(
-                      onPressed: context.popRoute,
-                      icon: Icons.chevron_left,
-                      size: 24.0,
-                    ),
+                if (automaticallyImplyLeading)
+                  FlatIconButton(
+                    onPressed: context.popRoute,
+                    icon: Icons.chevron_left,
+                    size: 24.0,
+                  ),
+                if (leading != null) leading!,
                 const Spacer()
               ],
             ),
