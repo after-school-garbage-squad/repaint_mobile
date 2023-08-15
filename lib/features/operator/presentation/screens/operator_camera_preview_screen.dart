@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:repaint_mobile/config/app_router.gr.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/app_dialog.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 
@@ -49,7 +51,10 @@ class OperatorCameraPreviewScreen extends StatelessWidget {
                   child: WideElevatedButton(
                     onPressed: () {
                       // TODO: 写真の登録処理を実装する
-                      context.popRoute();
+                      showDialog(
+                        context: context,
+                        builder: (_) => const _PictureRegisteredDialog(),
+                      );
                     },
                     text: "登録する",
                   ),
@@ -61,6 +66,27 @@ class OperatorCameraPreviewScreen extends StatelessWidget {
         ),
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
+    );
+  }
+}
+
+class _PictureRegisteredDialog extends StatelessWidget {
+  const _PictureRegisteredDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AppDialog(
+      automaticallyImplyLeading: false,
+      children: [
+        const Expanded(child: Center(child: Text("登録しました！"))),
+        WideElevatedButton(
+          onPressed: () {
+            context.back();
+            context.replaceRoute(const OperatorCameraRoute());
+          },
+          text: "写真撮影に戻る",
+        ),
+      ],
     );
   }
 }
