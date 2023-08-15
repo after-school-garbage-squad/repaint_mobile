@@ -18,8 +18,8 @@ class ChevronDialog extends StatelessWidget {
       elevation: 0.0,
       child: Container(
         // TODO: デザイン通りになるように実装したが調整するべき
-        width: 359,
-        height: 359,
+        width: 360,
+        height: 360,
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
         alignment: Alignment.center,
         child: Column(
