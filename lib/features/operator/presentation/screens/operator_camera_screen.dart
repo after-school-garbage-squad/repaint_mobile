@@ -20,7 +20,13 @@ class OperatorCameraScreen extends StatelessWidget {
                 context.navigateNamedTo("camera/preview");
               },
               icon: Icons.camera,
-              iconSize: 64.0,
+              size: const Size.square(67.0),
+              colors: const FlatIconButtonColors(
+                backgroundColor: Colors.white,
+                borderColor: Colors.black,
+                shadowColor: Colors.black,
+              ),
+              elevation: 4.0,
             ),
           ),
         ),
