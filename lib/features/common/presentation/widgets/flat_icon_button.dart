@@ -36,7 +36,6 @@ class FlatIconButton extends StatelessWidget {
       icon: Icon(icon),
       iconSize: size,
       padding: EdgeInsets.zero,
-      constraints: const BoxConstraints(),
       style: ButtonStyle(
         backgroundColor:
             MaterialStateProperty.all<Color>(colors!.backgroundColor!),
@@ -45,7 +44,6 @@ class FlatIconButton extends StatelessWidget {
           CircleBorder(side: BorderSide(color: colors!.borderColor!)),
         ),
         elevation: MaterialStateProperty.all<double>(elevation!),
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
     );
   }
