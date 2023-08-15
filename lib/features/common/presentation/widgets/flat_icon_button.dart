@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class FlatIconButtonColors {
   const FlatIconButtonColors({
-    this.borderColor,
-    this.backgroundColor,
+    this.borderColor = Colors.transparent,
+    this.backgroundColor = Colors.transparent,
   });
 
   final Color? borderColor;
@@ -15,9 +15,9 @@ class FlatIconButton extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.icon,
-    this.iconSize,
-    this.colors,
-    this.elevation,
+    this.iconSize = 32.0,
+    this.colors = const FlatIconButtonColors(),
+    this.elevation = 0.0,
   });
 
   final VoidCallback onPressed;
@@ -32,19 +32,14 @@ class FlatIconButton extends StatelessWidget {
       alignment: Alignment.center,
       onPressed: onPressed,
       icon: Icon(icon),
-      iconSize: iconSize ?? 32.0,
+      iconSize: iconSize,
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(
-          colors?.backgroundColor ?? Colors.transparent,
-        ),
+        backgroundColor:
+            MaterialStateProperty.all<Color>(colors!.backgroundColor!),
         shape: MaterialStateProperty.all<OutlinedBorder>(
-          CircleBorder(
-            side: BorderSide(
-              color: colors?.borderColor ?? Colors.transparent,
-            ),
-          ),
+          CircleBorder(side: BorderSide(color: colors!.borderColor!)),
         ),
-        elevation: MaterialStateProperty.all<double>(elevation ?? 0.0),
+        elevation: MaterialStateProperty.all<double>(elevation!),
       ),
     );
   }

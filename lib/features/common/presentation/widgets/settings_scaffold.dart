@@ -5,16 +5,18 @@ import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_bu
 class SettingsScaffold extends StatelessWidget {
   const SettingsScaffold({
     super.key,
+    this.title = "設定",
     required this.children,
   });
 
+  final String? title;
   final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("設定"),
+        title: Text(title!),
         centerTitle: true,
         leading: FlatIconButton(
           onPressed: context.popRoute,
