@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/app_dialog.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/camera_scaffold.dart';
-import 'package:repaint_mobile/features/common/presentation/widgets/chevron_dialog.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 
 @RoutePage()
@@ -56,7 +56,7 @@ class _QRCodeReaderConfirmDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChevronDialog(
+    return AppDialog(
       children: [
         const Spacer(),
         // TODO:各ボタンの挙動を実装する

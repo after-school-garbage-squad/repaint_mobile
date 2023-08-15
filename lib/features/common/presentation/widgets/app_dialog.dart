@@ -2,10 +2,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 
-class ChevronDialog extends StatelessWidget {
-  const ChevronDialog({super.key, required this.children});
+class AppDialog extends StatelessWidget {
+  const AppDialog({
+    super.key,
+    required this.children,
+    this.leading,
+  });
 
   final List<Widget> children;
+  final Widget? leading;
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +31,12 @@ class ChevronDialog extends StatelessWidget {
           children: [
             Row(
               children: [
-                FlatIconButton(
-                  onPressed: context.popRoute,
-                  icon: Icons.chevron_left,
-                  size: 24.0,
-                ),
+                leading ??
+                    FlatIconButton(
+                      onPressed: context.popRoute,
+                      icon: Icons.chevron_left,
+                      size: 24.0,
+                    ),
                 const Spacer()
               ],
             ),

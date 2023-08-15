@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/app_dialog.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
-import 'package:repaint_mobile/features/common/presentation/widgets/chevron_dialog.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/visitor/presentation/widgets/action_elevated_button.dart';
@@ -131,7 +131,7 @@ class _QRCodeViewDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChevronDialog(
+    return AppDialog(
       children: [
         // TODO: QRコードを実際の画像に設定する
         const Icon(Icons.qr_code, size: 200.0),
