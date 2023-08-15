@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/camera_scaffold.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/chevron_dialog.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 
 @RoutePage()
 class OperatorQRCodeReaderScreen extends StatelessWidget {
@@ -43,6 +45,31 @@ class OperatorQRCodeReaderScreen extends StatelessWidget {
             ),
           ),
         ),
+      ],
+    );
+  }
+}
+
+// TODO: ダイアログを表示させる
+class _QRCodeReaderConfirmDialog extends StatelessWidget {
+  const _QRCodeReaderConfirmDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ChevronDialog(
+      children: [
+        const Spacer(),
+        // TODO:各ボタンの挙動を実装する
+        WideElevatedButton(
+          onPressed: () {},
+          text: "続けて読み取る",
+        ),
+        const SizedBox(height: 32.0),
+        WideElevatedButton(
+          onPressed: () {},
+          text: "写真撮影に進む",
+        ),
+        const Spacer(),
       ],
     );
   }
