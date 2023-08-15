@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/chevron_dialog.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/visitor/presentation/widgets/action_elevated_button.dart';
@@ -128,38 +129,16 @@ class QRCodeViewDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      alignment: Alignment.center,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-      ),
-      elevation: 0.0,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                FlatIconButton(
-                  onPressed: context.popRoute,
-                  icon: Icons.chevron_left,
-                ),
-                const Spacer()
-              ],
-            ),
-            const SizedBox(height: 24.0),
-            // TODO: QRコードを実際の画像に設定する
-            const Icon(Icons.qr_code, size: 200.0),
-            const SizedBox(height: 24.0),
-            Text(
-              "写真撮影の際にご掲示ください",
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-          ],
+    return ChevronDialog(
+      children: [
+        // TODO: QRコードを実際の画像に設定する
+        const Icon(Icons.qr_code, size: 200.0),
+        const SizedBox(height: 24.0),
+        Text(
+          "写真撮影の際にご掲示ください",
+          style: Theme.of(context).textTheme.bodyLarge,
         ),
-      ),
+      ],
     );
   }
 }
