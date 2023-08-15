@@ -1,0 +1,80 @@
+import 'package:flutter/material.dart';
+
+class ElevatedTile extends StatelessWidget {
+  const ElevatedTile({
+    super.key,
+    required this.children,
+    this.width,
+    this.height,
+    this.padding = const EdgeInsets.all(8.0),
+    this.direction = Axis.horizontal,
+    this.mainAxisAlignment = MainAxisAlignment.spaceBetween,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.automaticallyImplyTail = true,
+    this.onTap,
+  });
+
+  final List<Widget> children;
+  final double? width;
+  final double? height;
+  final EdgeInsets padding;
+  final Axis direction;
+  final MainAxisAlignment mainAxisAlignment;
+  final CrossAxisAlignment crossAxisAlignment;
+  final bool automaticallyImplyTail;
+  final VoidCallback? onTap;
+
+  factory ElevatedTile.action({
+    required VoidCallback onTap,
+    required String title,
+    required IconData icon,
+  }) {
+    return ElevatedTile(
+      height: 96,
+      onTap: onTap,
+      children: [
+        Icon(icon, size: 60),
+        Text(title),
+      ],
+    );
+  }
+
+  factory ElevatedTile.beacon({
+    required VoidCallback onTap,
+  }) {
+    return ElevatedTile(
+      onTap: onTap,
+      children: const [],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      borderRadius: BorderRadius.circular(8.0),
+      elevation: 8.0,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(8.0),
+        child: Container(
+          width: width,
+          height: height,
+          padding: padding,
+          child: Flex(
+            direction: direction,
+            mainAxisAlignment: mainAxisAlignment,
+            crossAxisAlignment: crossAxisAlignment,
+            children: [
+              ...children,
+              if (automaticallyImplyTail)
+                Icon(
+                  Icons.arrow_forward_ios,
+                  color: Theme.of(context).colorScheme.primary,
+                )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
