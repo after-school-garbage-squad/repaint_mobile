@@ -3,14 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 
 class ChevronDialog extends StatelessWidget {
-  const ChevronDialog({
-    super.key,
-    required this.children,
-    this.physics = const NeverScrollableScrollPhysics(),
-  });
+  const ChevronDialog({super.key, required this.children});
 
   final List<Widget> children;
-  final ScrollPhysics physics;
 
   @override
   Widget build(BuildContext context) {
@@ -27,25 +22,21 @@ class ChevronDialog extends StatelessWidget {
         height: 359,
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
         alignment: Alignment.center,
-        child: SingleChildScrollView(
-          physics: physics,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                children: [
-                  FlatIconButton(
-                    onPressed: context.popRoute,
-                    icon: Icons.chevron_left,
-                    size: 24.0,
-                  ),
-                  const Spacer()
-                ],
-              ),
-              const SizedBox(height: 24.0),
-              ...children,
-            ],
-          ),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                FlatIconButton(
+                  onPressed: context.popRoute,
+                  icon: Icons.chevron_left,
+                  size: 24.0,
+                ),
+                const Spacer()
+              ],
+            ),
+            const SizedBox(height: 24.0),
+            ...children,
+          ],
         ),
       ),
     );
