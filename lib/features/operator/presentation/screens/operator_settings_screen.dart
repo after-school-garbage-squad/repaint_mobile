@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:repaint_mobile/features/common/presentation/widgets/settings_heading.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/list_heading.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/settings_scaffold.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 
@@ -10,7 +10,7 @@ class OperatorSettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SettingsScaffold(
       children: [
-        const SettingsHeading("アカウント設定"),
+        const ListHeading("アカウント設定"),
         const SizedBox(height: 16),
         WideElevatedButton(
           onPressed: () {

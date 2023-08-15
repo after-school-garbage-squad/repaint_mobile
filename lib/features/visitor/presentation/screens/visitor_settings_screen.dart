@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
-import 'package:repaint_mobile/features/common/presentation/widgets/settings_heading.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/list_heading.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/settings_tile.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 
@@ -29,7 +29,7 @@ class VisitorSettingsScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            const SettingsHeading("通知設定"),
+            const ListHeading("通知設定"),
             const SizedBox(height: 12),
             // TODO: 実際の通知設定を実装する
             SettingsTile.toggle(
@@ -50,7 +50,7 @@ class VisitorSettingsScreen extends StatelessWidget {
               onChanged: (value) {},
             ),
             const SizedBox(height: 32),
-            const SettingsHeading("アカウント設定"),
+            const ListHeading("アカウント設定"),
             const SizedBox(height: 12),
             WideElevatedButton(
               onPressed: () {

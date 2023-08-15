@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SettingsHeading extends StatelessWidget {
-  const SettingsHeading(this.text, {super.key});
+class ListHeading extends StatelessWidget {
+  const ListHeading(this.text, {super.key});
 
   final String text;
 
