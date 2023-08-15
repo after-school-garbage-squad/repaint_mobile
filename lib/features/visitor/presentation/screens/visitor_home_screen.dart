@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/visitor/presentation/widgets/action_elevated_button.dart';
@@ -112,9 +113,7 @@ class VisitorHomeScreen extends StatelessWidget {
                   backgroundColor: Colors.white,
                 ),
               ),
-              ConstrainedBox(
-                constraints: const BoxConstraints(minHeight: 96.0),
-              ),
+              const BottomConstrainedPadding(),
             ],
           ),
         ),
