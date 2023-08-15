@@ -31,7 +31,7 @@ class ListScaffold extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.background,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
         child: Column(children: children),
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
