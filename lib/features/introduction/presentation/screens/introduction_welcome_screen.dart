@@ -48,38 +48,36 @@ class IntroductionWelcomeScreen extends StatelessWidget {
         ],
         backgroundColor: Theme.of(context).colorScheme.background,
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
-          child: Column(
-            children: [
-              ConstrainedBox(
-                // TODO: 実際の画像のサイズに合わせる
-                constraints: const BoxConstraints(maxHeight: 480.0),
-                child: const AspectRatio(
-                  aspectRatio: 1,
-                  // TODO: 画像を設定する
-                  child: Placeholder(fallbackWidth: double.infinity),
-                ),
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
+        child: Column(
+          children: [
+            ConstrainedBox(
+              // TODO: 実際の画像のサイズに合わせる
+              constraints: const BoxConstraints(maxHeight: 480.0),
+              child: const AspectRatio(
+                aspectRatio: 1,
+                // TODO: 画像を設定する
+                child: Placeholder(fallbackWidth: double.infinity),
               ),
-              const SizedBox(height: 12.0),
-              Text(
-                "ようこそ!",
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const SizedBox(height: 12.0),
-              const IntroductionWelcomeText(),
-              const Spacer(),
-              // TODO: 権限の許可を求める
-              WideElevatedButton(
-                onPressed: () {
-                  context.navigateNamedTo("explain");
-                },
-                text: "進む",
-              ),
-              const BottomConstrainedPadding(),
-            ],
-          ),
+            ),
+            const SizedBox(height: 12.0),
+            Text(
+              "ようこそ!",
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 12.0),
+            const IntroductionWelcomeText(),
+            const Spacer(),
+            // TODO: 権限の許可を求める
+            WideElevatedButton(
+              onPressed: () {
+                context.navigateNamedTo("explain");
+              },
+              text: "進む",
+            ),
+            const BottomConstrainedPadding(),
+          ],
         ),
       ),
       backgroundColor: Theme.of(context).colorScheme.background,

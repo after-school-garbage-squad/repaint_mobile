@@ -21,36 +21,34 @@ class IntroductionExplainScreen extends StatelessWidget {
         ),
         backgroundColor: Theme.of(context).colorScheme.background,
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
-          child: Column(
-            children: [
-              ConstrainedBox(
-                // TODO: 実際の画像のサイズに合わせる
-                constraints: const BoxConstraints(maxHeight: 480.0),
-                child: const AspectRatio(
-                  aspectRatio: 1,
-                  // TODO: 画像を設定する
-                  child: Placeholder(fallbackWidth: double.infinity),
-                ),
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
+        child: Column(
+          children: [
+            ConstrainedBox(
+              // TODO: 実際の画像のサイズに合わせる
+              constraints: const BoxConstraints(maxHeight: 480.0),
+              child: const AspectRatio(
+                aspectRatio: 1,
+                // TODO: 画像を設定する
+                child: Placeholder(fallbackWidth: double.infinity),
               ),
-              const SizedBox(height: 32.0),
-              Text(
-                '参加するためには、配布されたQRコードを読み取る必要があります。',
-                style: Theme.of(context).textTheme.bodyMedium,
-                textAlign: TextAlign.center,
-              ),
-              const Spacer(),
-              WideElevatedButton(
-                onPressed: () {
-                  context.navigateNamedTo("qrcode_reader");
-                },
-                text: "QRコードの読み取りに進む",
-              ),
-              const BottomConstrainedPadding(),
-            ],
-          ),
+            ),
+            const SizedBox(height: 32.0),
+            Text(
+              '参加するためには、配布されたQRコードを読み取る必要があります。',
+              style: Theme.of(context).textTheme.bodyMedium,
+              textAlign: TextAlign.center,
+            ),
+            const Spacer(),
+            WideElevatedButton(
+              onPressed: () {
+                context.navigateNamedTo("qrcode_reader");
+              },
+              text: "QRコードの読み取りに進む",
+            ),
+            const BottomConstrainedPadding(),
+          ],
         ),
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
