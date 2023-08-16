@@ -5,7 +5,7 @@
     ":timezone(Asia/Tokyo)"
   ],
   "labels": ["renovate"],
-  "baseBranches": ["dev"],
+  "baseBranches": ["develop"],
   "dependencyDashboard": true,
   "automerge": true,
   "ignoreDeps": [
