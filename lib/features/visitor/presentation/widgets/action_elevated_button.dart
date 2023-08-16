@@ -66,7 +66,13 @@ class ActionElevatedButton extends StatelessWidget {
                   color: backgroundColor,
                   border: Border(top: borderSide),
                 ),
-                child: Text(text, style: TextStyle(color: colors?.textColor)),
+                child: Text(
+                  text,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: colors?.textColor,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                ),
               ),
             ),
           ],

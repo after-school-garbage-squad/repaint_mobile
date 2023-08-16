@@ -12,7 +12,7 @@ class IntroductionQRCodeReaderScreen extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Future.delayed(const Duration(seconds: 5)).then((_) {
         context.replaceRoute(const VisitorRoute());
-      });
+      }).catchError((error) {});
     });
 
     return CameraScaffold(
@@ -21,14 +21,13 @@ class IntroductionQRCodeReaderScreen extends StatelessWidget {
       children: [
         Text(
           "QRコードを読み取ってください",
-          style: Theme.of(context).textTheme.titleLarge,
+          style: Theme.of(context)
+              .textTheme
+              .bodyLarge
+              ?.copyWith(overflow: TextOverflow.ellipsis),
         ),
         const SizedBox(height: 20.0),
-        Text(
-          'カメラが起動しない場合は、設定から使用許可をお願いします',
-          style: Theme.of(context).textTheme.bodyMedium,
-          textAlign: TextAlign.center,
-        ),
+        const Text('カメラが起動しない場合は、設定から使用許可をお願いします'),
         const Spacer(),
         WideElevatedButton(
           // TODO: 設定画面に遷移できるようにする

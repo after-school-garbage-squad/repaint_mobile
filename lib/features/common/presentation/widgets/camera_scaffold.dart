@@ -17,40 +17,45 @@ class CameraScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: Row(
-          children: [
-            const SizedBox(width: 16.0),
-            FlatIconButton(
-              onPressed: onBackPressed ?? context.popRoute,
-              icon: Icons.chevron_left,
-            ),
-          ],
+    return DefaultTextStyle(
+      maxLines: 1,
+      softWrap: false,
+      style: Theme.of(context).textTheme.bodyMedium!,
+      child: Scaffold(
+        appBar: AppBar(
+          leading: Row(
+            children: [
+              const SizedBox(width: 16.0),
+              FlatIconButton(
+                onPressed: onBackPressed ?? context.popRoute,
+                icon: Icons.chevron_left,
+              ),
+            ],
+          ),
+          leadingWidth: 64.0,
+          backgroundColor: Colors.transparent,
         ),
-        leadingWidth: 64.0,
-        backgroundColor: Colors.transparent,
-      ),
-      body: Column(
-        children: [
-          preview,
-          if (children != null)
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxHeight: 294),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
-                child: Column(
-                  children: [
-                    ...children!,
-                    const BottomConstrainedPadding(),
-                  ],
+        body: Column(
+          children: [
+            preview,
+            if (children != null)
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxHeight: 294),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
+                  child: Column(
+                    children: [
+                      ...children!,
+                      const BottomConstrainedPadding(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-        ],
+          ],
+        ),
+        backgroundColor: Theme.of(context).colorScheme.background,
+        extendBodyBehindAppBar: true,
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
-      extendBodyBehindAppBar: true,
     );
   }
 }

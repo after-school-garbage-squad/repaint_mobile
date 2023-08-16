@@ -37,11 +37,7 @@ class IntroductionExplainScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 32.0),
-            Text(
-              '参加するためには、配布されたQRコードを読み取る必要があります。',
-              style: Theme.of(context).textTheme.bodyMedium,
-              textAlign: TextAlign.center,
-            ),
+            const Text('参加するためには、配布されたQRコードを読み取る必要があります。'),
             const Spacer(),
             WideElevatedButton(
               onPressed: () {

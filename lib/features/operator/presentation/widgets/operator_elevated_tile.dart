@@ -100,7 +100,10 @@ class _OperatorElevatedBeaconTile extends OperatorElevatedTile {
   @override
   Widget build(BuildContext context) {
     final formattedHwid = hwid.toRadixString(16).padLeft(10, "0").toUpperCase();
-    const valueTextStyle = TextStyle(color: Color(0xff9e9e9e));
+    final valueTextStyle = Theme.of(context)
+        .textTheme
+        .bodyMedium!
+        .copyWith(color: const Color(0xff9e9e9e));
 
     return OperatorElevatedTile(
       onTap: onTap,
@@ -109,7 +112,7 @@ class _OperatorElevatedBeaconTile extends OperatorElevatedTile {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: Theme.of(context).textTheme.titleMedium),
+              Text(title, style: Theme.of(context).textTheme.bodyLarge),
               const Divider(),
               // TODO: 表示する項目を変更する必要がある
               Row(

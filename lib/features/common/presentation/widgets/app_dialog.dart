@@ -25,8 +25,8 @@ class AppDialog extends StatelessWidget {
       elevation: 0.0,
       child: Container(
         // TODO: デザイン通りになるように実装したが調整するべき
-        width: 384,
-        height: 384,
+        width: 388,
+        height: 388,
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
         alignment: Alignment.center,
         child: Column(

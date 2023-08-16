@@ -14,16 +14,14 @@ class IntroductionWelcomeText extends StatelessWidget {
     final boldStyle = baseStyle?.copyWith(color: Colors.red);
 
     return Text.rich(
+      style: baseStyle,
       TextSpan(
         children: [
-          TextSpan(text: "「Re:paint」を正しくご利用していただくために、", style: baseStyle),
+          const TextSpan(text: "「Re:paint」を正しくご利用していただくために、"),
           TextSpan(text: "通知", style: boldStyle),
-          TextSpan(text: "と", style: baseStyle),
+          const TextSpan(text: "と"),
           TextSpan(text: "位置情報", style: boldStyle),
-          TextSpan(
-            text: "の使用の許可する必要があります。\n\n「進む」を押した後に許可をお願いしいたします。",
-            style: baseStyle,
-          ),
+          const TextSpan(text: "の使用の許可する必要があります。\n\n「進む」を押した後に許可をお願いしいたします。"),
         ],
       ),
     );
