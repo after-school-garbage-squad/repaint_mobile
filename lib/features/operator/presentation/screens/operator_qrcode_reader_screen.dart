@@ -8,6 +8,18 @@ import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevate
 class OperatorQRCodeReaderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    /*
+    There is currently no way to display the dialog,
+    so uncomment the code below if you want to check.
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showDialog(
+        context: context,
+        builder: (_) => const _QRCodeReaderConfirmDialog(),
+      );
+    });
+     */
+
     return CameraScaffold(
       preview: Expanded(
         child: Stack(
