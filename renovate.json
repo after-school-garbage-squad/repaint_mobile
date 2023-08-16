@@ -18,7 +18,6 @@
     },
     {
       "matchDepTypes": ["dependencies"],
-      "matchUpdateTypes": ["minor", "patch"],
       "groupName": "dependencies"
     },
     {
