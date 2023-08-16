@@ -98,6 +98,9 @@ class _OperatorElevatedBeaconTile extends OperatorElevatedTile {
 
   @override
   Widget build(BuildContext context) {
+    final formattedHwid = hwid.toRadixString(16).padLeft(10, "0").toUpperCase();
+    const valueTextStyle = TextStyle(color: Color(0xff9e9e9e));
+
     return OperatorElevatedTile(
       onTap: onTap,
       children: [
@@ -112,14 +115,14 @@ class _OperatorElevatedBeaconTile extends OperatorElevatedTile {
                 children: [
                   const Text("距離"),
                   const Spacer(),
-                  Text("${distance}m"),
+                  Text("${distance}m", style: valueTextStyle),
                 ],
               ),
               Row(
                 children: [
                   const Text("HWID"),
                   const Spacer(),
-                  Text(hwid.toRadixString(16).padLeft(10, "0").toUpperCase()),
+                  Text(formattedHwid, style: valueTextStyle),
                 ],
               ),
             ],
