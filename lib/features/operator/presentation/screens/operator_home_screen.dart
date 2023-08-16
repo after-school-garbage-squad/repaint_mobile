@@ -37,7 +37,10 @@ class OperatorHomeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // TODO: 選択中のイベントを表示する
-                Text("選択中のイベント", style: Theme.of(context).textTheme.titleLarge),
+                Text(
+                  "選択中のイベント",
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
                 const SizedBox(height: 16),
                 WideElevatedButton(
                   // TODO: イベントを変更する機能を実装する

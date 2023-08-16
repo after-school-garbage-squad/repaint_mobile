@@ -36,12 +36,7 @@ class OperatorQRCodeReaderScreen extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Center(
-                  child: Text(
-                    "1枚目",
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                ),
+                child: const Center(child: Text("1枚目")),
               ),
             ),
           ],

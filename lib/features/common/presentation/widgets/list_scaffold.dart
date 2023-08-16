@@ -14,27 +14,32 @@ class ListScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title!),
-        centerTitle: true,
-        leading: Row(
-          children: [
-            const SizedBox(width: 16.0),
-            FlatIconButton(
-              onPressed: context.popRoute,
-              icon: Icons.chevron_left,
-            ),
-          ],
+    return DefaultTextStyle(
+      style: const TextStyle(
+        overflow: TextOverflow.ellipsis,
+      ),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(title!),
+          centerTitle: true,
+          leading: Row(
+            children: [
+              const SizedBox(width: 16.0),
+              FlatIconButton(
+                onPressed: context.popRoute,
+                icon: Icons.chevron_left,
+              ),
+            ],
+          ),
+          leadingWidth: 64.0,
+          backgroundColor: Theme.of(context).colorScheme.background,
         ),
-        leadingWidth: 64.0,
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
+          child: Column(children: children),
+        ),
         backgroundColor: Theme.of(context).colorScheme.background,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
-        child: Column(children: children),
-      ),
-      backgroundColor: Theme.of(context).colorScheme.background,
     );
   }
 }

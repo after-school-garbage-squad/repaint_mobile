@@ -81,8 +81,8 @@ class _PictureRegisteredDialog extends StatelessWidget {
         const Expanded(child: Center(child: Text("登録しました！"))),
         WideElevatedButton(
           onPressed: () {
-            context.back();
             context.replaceRoute(const OperatorCameraRoute());
+            context.popRoute();
           },
           text: "写真撮影に戻る",
         ),

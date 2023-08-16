@@ -99,7 +99,7 @@ class VisitorHomeScreen extends StatelessWidget {
                       onPressed: () {
                         context.pushRoute(const VisitorQRCodeReaderRoute());
                       },
-                      text: "QRコードの読み取り",
+                      text: "QRコードの読取",
                       icon: Icons.qr_code_scanner,
                       colors: ActionElevatedButtonColors(
                         borderColor: Theme.of(context).colorScheme.primary,
@@ -132,15 +132,12 @@ class _QRCodeViewDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppDialog(
+    return const AppDialog(
       children: [
         // TODO: QRコードを実際の画像に設定する
-        const Icon(Icons.qr_code, size: 200.0),
-        const SizedBox(height: 24.0),
-        Text(
-          "写真撮影の際にご掲示ください",
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
+        Icon(Icons.qr_code, size: 200.0),
+        SizedBox(height: 24.0),
+        Text("写真撮影の際にご掲示ください"),
       ],
     );
   }

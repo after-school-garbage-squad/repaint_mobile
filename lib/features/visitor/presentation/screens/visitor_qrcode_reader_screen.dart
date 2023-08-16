@@ -6,19 +6,13 @@ import 'package:repaint_mobile/features/common/presentation/widgets/camera_scaff
 class VisitorQRCodeReaderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CameraScaffold(
+    return const CameraScaffold(
       // TODO: カメラを実装する
-      preview: const Expanded(child: Placeholder()),
+      preview: Expanded(child: Placeholder()),
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 64.0),
-          child: Center(
-            child: Text(
-              'スポットのQRコードを読み込んでください',
-              style: Theme.of(context).textTheme.bodyLarge,
-              textAlign: TextAlign.center,
-            ),
-          ),
+          padding: EdgeInsets.only(top: 64.0),
+          child: Center(child: Text('スポットのQRコードを読み込んでください')),
         ),
       ],
     );

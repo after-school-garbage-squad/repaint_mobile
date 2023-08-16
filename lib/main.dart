@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:repaint_mobile/config/app_router.dart';
 
 void main() {
-  runApp(RepaintApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((value) => runApp(RepaintApp()));
 }
 
 class RepaintApp extends StatelessWidget {

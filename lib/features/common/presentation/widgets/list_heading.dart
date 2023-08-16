@@ -9,7 +9,7 @@ class ListHeading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.centerLeft,
-      child: Text(text, style: Theme.of(context).textTheme.titleLarge),
+      child: Text(text, style: Theme.of(context).textTheme.titleMedium),
     );
   }
 }
