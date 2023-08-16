@@ -56,6 +56,14 @@ class OperatorHomeScreen extends StatelessWidget {
             const SizedBox(height: 16),
             OperatorElevatedTile.action(
               onTap: () {
+                context.pushRoute(const OperatorQRCodeReaderRoute());
+              },
+              title: "QRコードを読み取る",
+              icon: Icons.qr_code_scanner,
+            ),
+            const SizedBox(height: 16),
+            OperatorElevatedTile.action(
+              onTap: () {
                 context.pushRoute(const OperatorCameraRoute());
               },
               title: "写真を撮影する",
