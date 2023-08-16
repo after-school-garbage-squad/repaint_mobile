@@ -9,6 +9,7 @@
   "dependencyDashboard": true,
   "automerge": true,
   "ignoreDeps": [
+    "flutter",
     "flutter_test"
   ],
   "packageRules": [
