@@ -24,7 +24,7 @@ class OperatorCameraScreen extends StatelessWidget {
                 context.replaceRoute(const OperatorCameraPreviewRoute());
               },
               icon: Icons.camera_alt,
-              size: 67.0,
+              padding: const EdgeInsets.all(18.0),
               colors: const FlatIconButtonColors(
                 backgroundColor: Colors.white,
                 borderColor: Colors.black,
