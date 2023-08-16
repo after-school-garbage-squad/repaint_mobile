@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:repaint_mobile/config/app_router.gr.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/operator/presentation/widgets/operator_elevated_tile.dart';
@@ -16,7 +17,7 @@ class OperatorHomeScreen extends StatelessWidget {
         actions: [
           FlatIconButton(
             onPressed: () {
-              context.navigateNamedTo("settings");
+              context.pushRoute(const OperatorSettingsRoute());
             },
             icon: Icons.settings,
           ),
@@ -55,7 +56,7 @@ class OperatorHomeScreen extends StatelessWidget {
             const SizedBox(height: 16),
             OperatorElevatedTile.action(
               onTap: () {
-                context.navigateNamedTo("camera");
+                context.pushRoute(const OperatorCameraRoute());
               },
               title: "写真を撮影する",
               icon: Icons.camera_alt,
@@ -63,7 +64,7 @@ class OperatorHomeScreen extends StatelessWidget {
             const SizedBox(height: 16),
             OperatorElevatedTile.action(
               onTap: () {
-                context.navigateNamedTo("beacon");
+                context.pushRoute(const OperatorBeaconListRoute());
               },
               title: "ビーコンを設定する",
               // TODO: 仮で設定した下記のアイコンを変更するかを検討する

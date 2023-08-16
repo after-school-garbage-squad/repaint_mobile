@@ -11,7 +11,7 @@ class OperatorCameraScreen extends StatelessWidget {
     return CameraScaffold(
       // TODO: カメラを実装する
       onBackPressed: () {
-        context.replaceRoute(const OperatorHomeRoute());
+        context.navigateTo(const OperatorHomeRoute());
       },
       preview: const Expanded(child: Placeholder()),
       children: [

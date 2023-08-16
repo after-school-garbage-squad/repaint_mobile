@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:repaint_mobile/config/app_router.gr.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_heading.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/settings_tile.dart';
@@ -55,7 +56,7 @@ class VisitorSettingsScreen extends StatelessWidget {
             WideElevatedButton(
               onPressed: () {
                 // TODO: ログアウト機能を実装する
-                context.navigateNamedTo("/introduction");
+                context.replaceRoute(const IntroductionRoute());
               },
               text: "ログアウト",
               colors: const WideElevatedButtonColors(

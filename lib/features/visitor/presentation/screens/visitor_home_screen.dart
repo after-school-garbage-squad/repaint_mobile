@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:repaint_mobile/config/app_router.gr.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/app_dialog.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
@@ -20,7 +21,7 @@ class VisitorHomeScreen extends StatelessWidget {
         actions: [
           FlatIconButton(
             onPressed: () {
-              context.navigateNamedTo("settings");
+              context.pushRoute(const VisitorSettingsRoute());
             },
             icon: Icons.settings,
           ),
@@ -96,7 +97,7 @@ class VisitorHomeScreen extends StatelessWidget {
                   Expanded(
                     child: ActionElevatedButton(
                       onPressed: () {
-                        context.navigateNamedTo("qrcode_reader");
+                        context.pushRoute(const VisitorQRCodeReaderRoute());
                       },
                       text: "QRコードの読み取り",
                       icon: Icons.qr_code_scanner,

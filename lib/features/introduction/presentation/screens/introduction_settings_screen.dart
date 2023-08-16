@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:repaint_mobile/config/app_router.gr.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_heading.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_scaffold.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
@@ -15,7 +16,7 @@ class IntroductionSettingsScreen extends StatelessWidget {
         WideElevatedButton(
           onPressed: () {
             // TODO: Auth0の管理者ログイン画面に遷移する
-            context.navigateNamedTo("/operator/home");
+            context.navigateTo(const OperatorRoute());
           },
           text: "管理者としてログイン",
           colors: const WideElevatedButtonColors(

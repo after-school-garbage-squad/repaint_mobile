@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:repaint_mobile/config/app_router.gr.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
@@ -39,7 +40,7 @@ class IntroductionWelcomeScreen extends StatelessWidget {
         actions: [
           FlatIconButton(
             onPressed: () {
-              context.navigateNamedTo("settings");
+              context.pushRoute(const IntroductionSettingsRoute());
             },
             icon: Icons.settings,
           ),
@@ -72,7 +73,7 @@ class IntroductionWelcomeScreen extends StatelessWidget {
             // TODO: 権限の許可を求める
             WideElevatedButton(
               onPressed: () {
-                context.navigateNamedTo("explain");
+                context.pushRoute(const IntroductionExplainRoute());
               },
               text: "進む",
             ),
