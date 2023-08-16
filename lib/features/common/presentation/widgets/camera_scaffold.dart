@@ -7,10 +7,12 @@ class CameraScaffold extends StatelessWidget {
   const CameraScaffold({
     super.key,
     required this.preview,
+    this.onBackPressed,
     this.children,
   });
 
   final Widget preview;
+  final VoidCallback? onBackPressed;
   final List<Widget>? children;
 
   @override
@@ -21,7 +23,7 @@ class CameraScaffold extends StatelessWidget {
           children: [
             const SizedBox(width: 16.0),
             FlatIconButton(
-              onPressed: context.popRoute,
+              onPressed: onBackPressed ?? context.popRoute,
               icon: Icons.chevron_left,
             ),
           ],
