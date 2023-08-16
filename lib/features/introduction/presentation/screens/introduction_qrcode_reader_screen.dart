@@ -11,30 +11,23 @@ class IntroductionQRCodeReaderScreen extends StatelessWidget {
       // TODO: カメラを実装する
       preview: const Expanded(child: Placeholder()),
       children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
-          child: Column(
-            children: [
-              Text(
-                "QRコードを読み取ってください",
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const SizedBox(height: 20.0),
-              Text(
-                'カメラが起動しない場合は、設定から使用許可をお願いします',
-                style: Theme.of(context).textTheme.bodyMedium,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 16.0),
-              WideElevatedButton(
-                // TODO: 設定画面に遷移できるようにする
-                onPressed: () {},
-                text: "設定に進む",
-                colors: const WideElevatedButtonColors(
-                  backgroundColor: Colors.white,
-                ),
-              ),
-            ],
+        Text(
+          "QRコードを読み取ってください",
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        const SizedBox(height: 20.0),
+        Text(
+          'カメラが起動しない場合は、設定から使用許可をお願いします',
+          style: Theme.of(context).textTheme.bodyMedium,
+          textAlign: TextAlign.center,
+        ),
+        const Spacer(),
+        WideElevatedButton(
+          // TODO: 設定画面に遷移できるようにする
+          onPressed: () {},
+          text: "設定に進む",
+          colors: const WideElevatedButtonColors(
+            backgroundColor: Colors.white,
           ),
         ),
       ],
