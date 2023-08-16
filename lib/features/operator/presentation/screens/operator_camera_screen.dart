@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:repaint_mobile/config/app_router.gr.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/camera_scaffold.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 
@@ -9,6 +10,9 @@ class OperatorCameraScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return CameraScaffold(
       // TODO: カメラを実装する
+      onBackPressed: () {
+        context.replaceRoute(const OperatorHomeRoute());
+      },
       preview: const Expanded(child: Placeholder()),
       children: [
         Padding(
@@ -17,9 +21,9 @@ class OperatorCameraScreen extends StatelessWidget {
             child: FlatIconButton(
               onPressed: () {
                 // TODO: 撮影処理の実装
-                context.navigateNamedTo("camera/preview");
+                context.replaceRoute(const OperatorCameraPreviewRoute());
               },
-              icon: Icons.camera,
+              icon: Icons.camera_alt,
               size: 67.0,
               colors: const FlatIconButtonColors(
                 backgroundColor: Colors.white,
