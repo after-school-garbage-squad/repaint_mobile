@@ -1,6 +1,29 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:base",
+    ":timezone(Asia/Tokyo)"
+  ],
+  "labels": ["renovate"],
+  "baseBranches": ["develop"],
+  "dependencyDashboard": true,
+  "automerge": true,
+  "ignoreDeps": [
+    "flutter_test"
+  ],
+  "packageRules": [
+    {
+      "matchDepTypes": ["dev_dependencies"],
+      "groupName": "dev_dependencies"
+    },
+    {
+      "matchDepTypes": ["dependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "dependencies"
+    },
+    {
+      "matchPackageNames": ["gradle", "com.android.tools.build:gradle"],
+      "allowedVersions": "<8.0"
+    }
   ]
 }
