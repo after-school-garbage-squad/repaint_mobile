@@ -13,19 +13,30 @@ class OperatorBeaconListScreen extends StatelessWidget {
         const ListHeading("検知したビーコン"),
         const SizedBox(height: 16),
         OperatorElevatedTile.beacon(
-          onTap: () {},
+          onTap: () {
+            // TODO: タップした際の処理を実装する
+            context.navigateNamedTo("beacon/aaa");
+          },
           title: "登録済みの名前",
           distance: 10.0,
           hwid: 0x0000000000,
         ),
+        const SizedBox(height: 16),
         OperatorElevatedTile.beacon(
-          onTap: () {},
+          onTap: () {
+            // TODO: タップした際の処理を実装する
+            context.navigateNamedTo("beacon/bbb");
+          },
           title: "登録済みの名前",
           distance: 10.0,
           hwid: 0x0000000000,
         ),
+        const SizedBox(height: 16),
         OperatorElevatedTile.beacon(
-          onTap: () {},
+          onTap: () {
+            // TODO: タップした際の処理を実装する
+            context.navigateNamedTo("beacon/ccc");
+          },
           title: "登録済みの名前",
           distance: 10.0,
           hwid: 0x0000000000,
