@@ -24,5 +24,9 @@
       "matchPackageNames": ["gradle", "com.android.tools.build:gradle"],
       "allowedVersions": "<8.0"
     }
-  ]
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 4am on monday"]
+  }
 }
