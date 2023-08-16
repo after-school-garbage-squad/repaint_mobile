@@ -119,7 +119,7 @@ class _OperatorElevatedBeaconTile extends OperatorElevatedTile {
                 children: [
                   const Text("HWID"),
                   const Spacer(),
-                  Text(hwid.toRadixString(16)),
+                  Text(hwid.toRadixString(16).padLeft(10, "0").toUpperCase()),
                 ],
               ),
             ],
