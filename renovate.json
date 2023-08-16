@@ -20,6 +20,10 @@
       "matchDepTypes": ["dependencies"],
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "dependencies"
+    },
+    {
+      "matchPackageNames": ["gradle", "com.android.tools.build:gradle"],
+      "allowedVersions": "<8.0"
     }
   ]
 }
