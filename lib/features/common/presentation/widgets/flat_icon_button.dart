@@ -18,6 +18,7 @@ class FlatIconButton extends StatelessWidget {
     required this.onPressed,
     required this.icon,
     this.size = 32.0,
+    this.padding,
     this.colors = const FlatIconButtonColors(),
     this.elevation = 0.0,
   });
@@ -25,6 +26,7 @@ class FlatIconButton extends StatelessWidget {
   final VoidCallback onPressed;
   final IconData icon;
   final double size;
+  final EdgeInsets? padding;
   final FlatIconButtonColors? colors;
   final double? elevation;
 
@@ -35,6 +37,7 @@ class FlatIconButton extends StatelessWidget {
       onPressed: onPressed,
       icon: Icon(icon),
       iconSize: size,
+      padding: padding,
       style: ButtonStyle(
         backgroundColor:
             MaterialStateProperty.all<Color>(colors!.backgroundColor!),
