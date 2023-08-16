@@ -16,7 +16,7 @@ class IntroductionSettingsScreen extends StatelessWidget {
         WideElevatedButton(
           onPressed: () {
             // TODO: Auth0の管理者ログイン画面に遷移する
-            context.navigateTo(const OperatorRoute());
+            context.replaceRoute(const OperatorRoute());
           },
           text: "管理者としてログイン",
           colors: const WideElevatedButtonColors(
