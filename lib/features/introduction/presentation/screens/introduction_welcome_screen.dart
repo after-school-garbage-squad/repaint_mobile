@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:repaint_mobile/config/app_router.gr.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 
@@ -14,7 +16,7 @@ class IntroductionWelcomeText extends StatelessWidget {
     return Text.rich(
       TextSpan(
         children: [
-          TextSpan(text: "「Re:Paint」を正しくご利用していただくために、", style: baseStyle),
+          TextSpan(text: "「Re:paint」を正しくご利用していただくために、", style: baseStyle),
           TextSpan(text: "通知", style: boldStyle),
           TextSpan(text: "と", style: baseStyle),
           TextSpan(text: "位置情報", style: boldStyle),
@@ -38,47 +40,45 @@ class IntroductionWelcomeScreen extends StatelessWidget {
         actions: [
           FlatIconButton(
             onPressed: () {
-              context.navigateNamedTo("settings");
+              context.pushRoute(const IntroductionSettingsRoute());
             },
             icon: Icons.settings,
-          )
+          ),
+          // TODO: https://github.com/flutter/flutter/issues/118965
+          const SizedBox(width: 16.0)
         ],
         backgroundColor: Theme.of(context).colorScheme.background,
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
-          child: Column(
-            children: [
-              ConstrainedBox(
-                // TODO: 実際の画像のサイズに合わせる
-                constraints: const BoxConstraints(maxHeight: 480.0),
-                child: const AspectRatio(
-                  aspectRatio: 1,
-                  // TODO: 画像を設定する
-                  child: Placeholder(fallbackWidth: double.infinity),
-                ),
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
+        child: Column(
+          children: [
+            ConstrainedBox(
+              // TODO: 実際の画像のサイズに合わせる
+              constraints: const BoxConstraints(maxHeight: 480.0),
+              child: const AspectRatio(
+                aspectRatio: 1,
+                // TODO: 画像を設定する
+                child: Placeholder(fallbackWidth: double.infinity),
               ),
-              const SizedBox(height: 12.0),
-              Text(
-                "ようこそ!",
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const SizedBox(height: 12.0),
-              const IntroductionWelcomeText(),
-              const Spacer(),
-              // TODO: 権限の許可を求める
-              WideElevatedButton.withTemplate(
-                onPressed: () {
-                  context.navigateNamedTo("explain");
-                },
-                text: "進む",
-              ),
-              ConstrainedBox(
-                constraints: const BoxConstraints(minHeight: 96.0),
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 12.0),
+            Text(
+              "ようこそ!",
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const SizedBox(height: 12.0),
+            const IntroductionWelcomeText(),
+            const Spacer(),
+            // TODO: 権限の許可を求める
+            WideElevatedButton(
+              onPressed: () {
+                context.pushRoute(const IntroductionExplainRoute());
+              },
+              text: "進む",
+            ),
+            const BottomConstrainedPadding(),
+          ],
         ),
       ),
       backgroundColor: Theme.of(context).colorScheme.background,

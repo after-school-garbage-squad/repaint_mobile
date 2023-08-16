@@ -2,6 +2,9 @@ import 'dart:math';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:repaint_mobile/config/app_router.gr.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/app_dialog.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/visitor/presentation/widgets/action_elevated_button.dart';
@@ -18,10 +21,12 @@ class VisitorHomeScreen extends StatelessWidget {
         actions: [
           FlatIconButton(
             onPressed: () {
-              context.navigateNamedTo("settings");
+              context.pushRoute(const VisitorSettingsRoute());
             },
             icon: Icons.settings,
-          )
+          ),
+          // TODO: https://github.com/flutter/flutter/issues/118965
+          const SizedBox(width: 16.0)
         ],
         backgroundColor: Theme.of(context).colorScheme.background,
       ),
@@ -61,7 +66,7 @@ class VisitorHomeScreen extends StatelessWidget {
               ProgressBar(progress: Random().nextDouble()),
               const SizedBox(height: 32.0),
               // TODO: ダウンロード機能を実装する
-              WideElevatedButton.withTemplate(
+              WideElevatedButton(
                 onPressed: () {},
                 text: "ダウンロード",
                 icon: Icons.group,
@@ -78,7 +83,7 @@ class VisitorHomeScreen extends StatelessWidget {
                       onPressed: () {
                         showDialog(
                           context: context,
-                          builder: (context) => const QRCodeViewDialog(),
+                          builder: (context) => const _QRCodeViewDialog(),
                         );
                       },
                       text: "QRコードの表示",
@@ -92,7 +97,7 @@ class VisitorHomeScreen extends StatelessWidget {
                   Expanded(
                     child: ActionElevatedButton(
                       onPressed: () {
-                        context.navigateNamedTo("qrcode_reader");
+                        context.pushRoute(const VisitorQRCodeReaderRoute());
                       },
                       text: "QRコードの読み取り",
                       icon: Icons.qr_code_scanner,
@@ -105,16 +110,14 @@ class VisitorHomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16.0),
               // TODO: イベントHPに遷移できるようにする
-              WideElevatedButton.withTemplate(
+              WideElevatedButton(
                 onPressed: () {},
                 text: "イベントHPを見る",
                 colors: const WideElevatedButtonColors(
                   backgroundColor: Colors.white,
                 ),
               ),
-              ConstrainedBox(
-                constraints: const BoxConstraints(minHeight: 96.0),
-              ),
+              const BottomConstrainedPadding(),
             ],
           ),
         ),
@@ -124,43 +127,21 @@ class VisitorHomeScreen extends StatelessWidget {
   }
 }
 
-class QRCodeViewDialog extends StatelessWidget {
-  const QRCodeViewDialog({super.key});
+class _QRCodeViewDialog extends StatelessWidget {
+  const _QRCodeViewDialog();
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      alignment: Alignment.center,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-      ),
-      elevation: 0.0,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                FlatIconButton(
-                  onPressed: context.popRoute,
-                  icon: Icons.chevron_left,
-                ),
-                const Spacer()
-              ],
-            ),
-            const SizedBox(height: 24.0),
-            // TODO: QRコードを実際の画像に設定する
-            const Icon(Icons.qr_code, size: 200.0),
-            const SizedBox(height: 24.0),
-            Text(
-              "写真撮影の際にご掲示ください",
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-          ],
+    return AppDialog(
+      children: [
+        // TODO: QRコードを実際の画像に設定する
+        const Icon(Icons.qr_code, size: 200.0),
+        const SizedBox(height: 24.0),
+        Text(
+          "写真撮影の際にご掲示ください",
+          style: Theme.of(context).textTheme.bodyLarge,
         ),
-      ),
+      ],
     );
   }
 }

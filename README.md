@@ -124,7 +124,7 @@ flutter run -d chrome
 Reference: https://dart.dev/tools/dart-format
 
 ```shell
-dart format
+dart format .
 ```
 
 #### analyze

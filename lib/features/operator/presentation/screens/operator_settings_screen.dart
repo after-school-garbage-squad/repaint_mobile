@@ -6,22 +6,23 @@ import 'package:repaint_mobile/features/common/presentation/widgets/list_scaffol
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 
 @RoutePage()
-class IntroductionSettingsScreen extends StatelessWidget {
+class OperatorSettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListScaffold(
       children: [
-        const ListHeading("管理者設定"),
+        const ListHeading("アカウント設定"),
         const SizedBox(height: 16),
         WideElevatedButton(
           onPressed: () {
-            // TODO: Auth0の管理者ログイン画面に遷移する
-            context.navigateTo(const OperatorRoute());
+            // TODO: ログアウト処理を実装する
+            context.replaceRoute(const IntroductionRoute());
           },
-          text: "管理者としてログイン",
+          text: "ログアウト",
           colors: const WideElevatedButtonColors(
             backgroundColor: Colors.white,
             borderColor: Colors.white,
+            textColor: Colors.red,
           ),
         )
       ],
