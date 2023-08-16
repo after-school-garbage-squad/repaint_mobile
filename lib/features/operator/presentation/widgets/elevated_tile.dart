@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ElevatedTile extends StatelessWidget {
   const ElevatedTile({
     super.key,
-    required this.children,
+    this.children,
     this.width,
     this.height,
     this.padding = const EdgeInsets.all(8.0),
@@ -14,7 +14,7 @@ class ElevatedTile extends StatelessWidget {
     this.onTap,
   });
 
-  final List<Widget> children;
+  final List<Widget>? children;
   final double? width;
   final double? height;
   final EdgeInsets padding;
@@ -41,10 +41,15 @@ class ElevatedTile extends StatelessWidget {
 
   factory ElevatedTile.beacon({
     required VoidCallback onTap,
+    required String title,
+    required double distance,
+    required int hwid,
   }) {
-    return ElevatedTile(
+    return _ElevatedBeaconTile(
+      title: title,
+      distance: distance,
+      hwid: hwid,
       onTap: onTap,
-      children: const [],
     );
   }
 
@@ -65,7 +70,7 @@ class ElevatedTile extends StatelessWidget {
             mainAxisAlignment: mainAxisAlignment,
             crossAxisAlignment: crossAxisAlignment,
             children: [
-              ...children,
+              ...?children,
               if (automaticallyImplyTail)
                 Icon(
                   Icons.arrow_forward_ios,
@@ -75,6 +80,52 @@ class ElevatedTile extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _ElevatedBeaconTile extends ElevatedTile {
+  const _ElevatedBeaconTile({
+    required this.title,
+    required this.distance,
+    required this.hwid,
+    super.onTap,
+  });
+
+  final String title;
+  final double distance;
+  final int hwid;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedTile(
+      onTap: onTap,
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: Theme.of(context).textTheme.titleMedium),
+              const Divider(),
+              // TODO: 表示する項目を変更する必要がある
+              Row(
+                children: [
+                  const Text("距離"),
+                  const Spacer(),
+                  Text("${distance}m"),
+                ],
+              ),
+              Row(
+                children: [
+                  const Text("HWID"),
+                  const Spacer(),
+                  Text(hwid.toRadixString(16)),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
