@@ -14,14 +14,12 @@
   "packageRules": [
     {
       "matchDepTypes": ["dev_dependencies"],
-      "groupName": "dev_dependencies",
-      "rangeStrategy": "update-lockfile"
+      "groupName": "dev_dependencies"
     },
     {
       "matchDepTypes": ["dependencies"],
       "matchUpdateTypes": ["minor", "patch"],
-      "groupName": "dependencies (non-major)",
-      "rangeStrategy": "pin"
+      "groupName": "dependencies"
     }
   ]
 }
