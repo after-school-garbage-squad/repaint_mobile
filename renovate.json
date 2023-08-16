@@ -21,8 +21,18 @@
       "groupName": "dependencies"
     },
     {
-      "matchPackageNames": ["gradle", "com.android.tools.build:gradle"],
+      "matchPackageNames": [
+        "gradle",
+        "com.android.tools.build:gradle"
+      ],
       "allowedVersions": "<8.0"
+    },
+    {
+      "matchPackageNames": [
+        "org.jetbrains.kotlin:kotlin-stdlib-jdk7",
+        "org.jetbrains.kotlin:kotlin-gradle-plugin"
+      ],
+      "allowedVersions": "<1.8"
     }
   ],
   "lockFileMaintenance": {
