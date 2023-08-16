@@ -86,7 +86,7 @@ class AppRouter extends $AppRouter {
               transitionsBuilder: TransitionsBuilders.slideLeft,
             ),
             CustomRoute(
-              path: 'beacon/:id',
+              path: 'beacon/settings',
               page: OperatorBeaconSettingsRoute.page,
               transitionsBuilder: TransitionsBuilders.slideLeft,
             ),

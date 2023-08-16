@@ -8,6 +8,13 @@ import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevate
 
 @RoutePage()
 class OperatorBeaconSettingsScreen extends StatelessWidget {
+  const OperatorBeaconSettingsScreen({
+    super.key,
+    @PathParam('beaconId') required this.beaconId,
+  });
+
+  final String beaconId;
+
   @override
   Widget build(BuildContext context) {
     return ListScaffold(

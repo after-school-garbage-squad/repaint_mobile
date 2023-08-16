@@ -9,6 +9,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i18;
+import 'package:flutter/material.dart' as _i19;
 import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_explain_screen.dart'
     as _i1;
 import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_qrcode_reader_screen.dart'
@@ -86,9 +87,16 @@ abstract class $AppRouter extends _i18.RootStackRouter {
       );
     },
     OperatorBeaconSettingsRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<OperatorBeaconSettingsRouteArgs>(
+          orElse: () => OperatorBeaconSettingsRouteArgs(
+              beaconId: pathParams.getString('beaconId')));
       return _i18.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i7.OperatorBeaconSettingsScreen(),
+        child: _i7.OperatorBeaconSettingsScreen(
+          key: args.key,
+          beaconId: args.beaconId,
+        ),
       );
     },
     OperatorCameraPreviewRoute.name: (routeData) {
@@ -240,16 +248,42 @@ class OperatorBeaconListRoute extends _i18.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i7.OperatorBeaconSettingsScreen]
-class OperatorBeaconSettingsRoute extends _i18.PageRouteInfo<void> {
-  const OperatorBeaconSettingsRoute({List<_i18.PageRouteInfo>? children})
-      : super(
+class OperatorBeaconSettingsRoute
+    extends _i18.PageRouteInfo<OperatorBeaconSettingsRouteArgs> {
+  OperatorBeaconSettingsRoute({
+    _i19.Key? key,
+    required String beaconId,
+    List<_i18.PageRouteInfo>? children,
+  }) : super(
           OperatorBeaconSettingsRoute.name,
+          args: OperatorBeaconSettingsRouteArgs(
+            key: key,
+            beaconId: beaconId,
+          ),
+          rawPathParams: {'beaconId': beaconId},
           initialChildren: children,
         );
 
   static const String name = 'OperatorBeaconSettingsRoute';
 
-  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+  static const _i18.PageInfo<OperatorBeaconSettingsRouteArgs> page =
+      _i18.PageInfo<OperatorBeaconSettingsRouteArgs>(name);
+}
+
+class OperatorBeaconSettingsRouteArgs {
+  const OperatorBeaconSettingsRouteArgs({
+    this.key,
+    required this.beaconId,
+  });
+
+  final _i19.Key? key;
+
+  final String beaconId;
+
+  @override
+  String toString() {
+    return 'OperatorBeaconSettingsRouteArgs{key: $key, beaconId: $beaconId}';
+  }
 }
 
 /// generated route for
