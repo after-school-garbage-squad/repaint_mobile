@@ -221,7 +221,7 @@ packages:
     dependency: "direct main"
     description: flutter
     source: sdk
-    version: "0.0.0"
+    version: "3.10.6"
   flutter_hooks:
     dependency: "direct main"
     description:
