@@ -35,7 +35,6 @@ class FlatIconButton extends StatelessWidget {
       onPressed: onPressed,
       icon: Icon(icon),
       iconSize: size,
-      padding: EdgeInsets.zero,
       style: ButtonStyle(
         backgroundColor:
             MaterialStateProperty.all<Color>(colors!.backgroundColor!),
