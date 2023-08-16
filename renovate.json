@@ -1,6 +1,26 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:base",
+    ":timezone(Asia/Tokyo)"
+  ],
+  "labels": ["renovate"],
+  "dependencyDashboard": true,
+  "automerge": true,
+  "ignoreDeps": [
+    "flutter_test"
+  ],
+  "packageRules": [
+    {
+      "matchDepTypes": ["dev_dependencies"],
+      "groupName": "dev_dependencies",
+      "rangeStrategy": "update-lockfile"
+    },
+    {
+      "matchDepTypes": ["dependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "dependencies (non-major)",
+      "rangeStrategy": "pin"
+    }
   ]
 }
