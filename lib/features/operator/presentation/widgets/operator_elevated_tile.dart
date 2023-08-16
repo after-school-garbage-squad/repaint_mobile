@@ -57,6 +57,7 @@ class OperatorElevatedTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(8.0),
+      color: Colors.white,
       elevation: 4.0,
       child: InkWell(
         onTap: onTap,
