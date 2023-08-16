@@ -71,7 +71,7 @@ class OperatorCameraPreviewScreen extends StatelessWidget {
 }
 
 class _PictureRegisteredDialog extends StatelessWidget {
-  const _PictureRegisteredDialog({super.key});
+  const _PictureRegisteredDialog();
 
   @override
   Widget build(BuildContext context) {

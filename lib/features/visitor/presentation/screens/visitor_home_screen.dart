@@ -128,7 +128,7 @@ class VisitorHomeScreen extends StatelessWidget {
 }
 
 class _QRCodeViewDialog extends StatelessWidget {
-  const _QRCodeViewDialog({super.key});
+  const _QRCodeViewDialog();
 
   @override
   Widget build(BuildContext context) {

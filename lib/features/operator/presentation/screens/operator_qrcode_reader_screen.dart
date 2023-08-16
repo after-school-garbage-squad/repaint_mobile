@@ -51,8 +51,9 @@ class OperatorQRCodeReaderScreen extends StatelessWidget {
 }
 
 // TODO: ダイアログを表示させる
+// ignore: unused_element
 class _QRCodeReaderConfirmDialog extends StatelessWidget {
-  const _QRCodeReaderConfirmDialog({super.key});
+  const _QRCodeReaderConfirmDialog();
 
   @override
   Widget build(BuildContext context) {
