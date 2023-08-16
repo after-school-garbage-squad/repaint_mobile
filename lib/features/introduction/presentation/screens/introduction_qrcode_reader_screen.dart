@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:repaint_mobile/config/app_router.gr.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/camera_scaffold.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 
@@ -7,6 +8,13 @@ import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevate
 class IntroductionQRCodeReaderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // TODO: 不要になったら5秒後に自動で遷移するコード(デバッグ用)を削除する
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Future.delayed(const Duration(seconds: 5)).then((_) {
+        context.replaceRoute(const VisitorRoute());
+      });
+    });
+
     return CameraScaffold(
       // TODO: カメラを実装する
       preview: const Expanded(child: Placeholder()),
