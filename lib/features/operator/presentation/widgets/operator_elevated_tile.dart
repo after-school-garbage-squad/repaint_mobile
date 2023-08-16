@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ElevatedTile extends StatelessWidget {
-  const ElevatedTile({
+class OperatorElevatedTile extends StatelessWidget {
+  const OperatorElevatedTile({
     super.key,
     this.children,
     this.width,
@@ -24,12 +24,12 @@ class ElevatedTile extends StatelessWidget {
   final bool automaticallyImplyTail;
   final VoidCallback? onTap;
 
-  factory ElevatedTile.action({
+  factory OperatorElevatedTile.action({
     required VoidCallback onTap,
     required String title,
     required IconData icon,
   }) {
-    return ElevatedTile(
+    return OperatorElevatedTile(
       height: 96,
       onTap: onTap,
       children: [
@@ -39,13 +39,13 @@ class ElevatedTile extends StatelessWidget {
     );
   }
 
-  factory ElevatedTile.beacon({
+  factory OperatorElevatedTile.beacon({
     required VoidCallback onTap,
     required String title,
     required double distance,
     required int hwid,
   }) {
-    return _ElevatedBeaconTile(
+    return _OperatorElevatedBeaconTile(
       title: title,
       distance: distance,
       hwid: hwid,
@@ -84,8 +84,8 @@ class ElevatedTile extends StatelessWidget {
   }
 }
 
-class _ElevatedBeaconTile extends ElevatedTile {
-  const _ElevatedBeaconTile({
+class _OperatorElevatedBeaconTile extends OperatorElevatedTile {
+  const _OperatorElevatedBeaconTile({
     required this.title,
     required this.distance,
     required this.hwid,
@@ -98,7 +98,7 @@ class _ElevatedBeaconTile extends ElevatedTile {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedTile(
+    return OperatorElevatedTile(
       onTap: onTap,
       children: [
         Expanded(

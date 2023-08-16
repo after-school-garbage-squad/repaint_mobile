@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
-import 'package:repaint_mobile/features/operator/presentation/widgets/elevated_tile.dart';
+import 'package:repaint_mobile/features/operator/presentation/widgets/operator_elevated_tile.dart';
 
 @RoutePage()
 class OperatorHomeScreen extends StatelessWidget {
@@ -29,7 +29,7 @@ class OperatorHomeScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
         child: Column(
           children: [
-            ElevatedTile(
+            OperatorElevatedTile(
               automaticallyImplyTail: false,
               padding: const EdgeInsets.all(16),
               direction: Axis.vertical,
@@ -53,7 +53,7 @@ class OperatorHomeScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            ElevatedTile.action(
+            OperatorElevatedTile.action(
               onTap: () {
                 context.navigateNamedTo("camera");
               },
@@ -61,7 +61,7 @@ class OperatorHomeScreen extends StatelessWidget {
               icon: Icons.camera_alt,
             ),
             const SizedBox(height: 16),
-            ElevatedTile.action(
+            OperatorElevatedTile.action(
               onTap: () {
                 context.navigateNamedTo("beacon");
               },
