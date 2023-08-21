@@ -27,11 +27,13 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   auto_route: ^7.8.0
+  camera: ^0.10.5+3
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
   flutter_hooks: ^0.20.0
   hooks_riverpod: ^2.3.7
+  mobile_scanner: ^3.4.1
 
 dev_dependencies:
   auto_route_generator: ^7.3.0

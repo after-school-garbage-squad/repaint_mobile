@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:repaint_mobile/config/app_router.gr.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/camera_scaffold.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
@@ -8,16 +10,23 @@ import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevate
 class IntroductionQRCodeReaderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: 不要になったら5秒後に自動で遷移するコード(デバッグ用)を削除する
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Future.delayed(const Duration(seconds: 5)).then((_) {
-        context.replaceRoute(const VisitorRoute());
-      }).catchError((error) {});
-    });
+    if (kDebugMode) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        Future.delayed(const Duration(seconds: 5)).then((_) {
+          context.replaceRoute(const VisitorRoute());
+        }).catchError((error) {});
+      });
+    }
 
     return CameraScaffold(
-      // TODO: カメラを実装する
-      preview: const Expanded(child: Placeholder()),
+      preview: Expanded(
+        child: MobileScanner(
+          onDetect: (capture) {
+            // TODO: QRコードの内容を取得した際の処理を実装する
+            context.replaceRoute(const VisitorRoute());
+          },
+        ),
+      ),
       children: [
         Text(
           "QRコードを読み取ってください",
