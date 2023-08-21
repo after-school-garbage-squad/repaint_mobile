@@ -52,12 +52,10 @@ class IntroductionWelcomeScreen extends StatelessWidget {
         child: Column(
           children: [
             ConstrainedBox(
-              // TODO: 実際の画像のサイズに合わせる
               constraints: const BoxConstraints(maxHeight: 480.0),
-              child: const AspectRatio(
+              child: AspectRatio(
                 aspectRatio: 1,
-                // TODO: 画像を設定する
-                child: Placeholder(fallbackWidth: double.infinity),
+                child: Image.asset("assets/repaint.png"),
               ),
             ),
             const SizedBox(height: 12.0),
