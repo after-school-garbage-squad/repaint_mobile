@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:repaint_mobile/bootstrap.dart';
 import 'package:repaint_mobile/config/app_router.dart';
+import 'package:repaint_mobile/config/providers.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]).then((value) => runApp(RepaintApp()));
+void main() async {
+  runApp(
+    UncontrolledProviderScope(
+      container: await bootstrap(),
+      child: const RepaintApp(),
+    ),
+  );
 }
 
-class RepaintApp extends StatelessWidget {
-  RepaintApp({super.key});
-
-  final _appRouter = AppRouter();
+class RepaintApp extends ConsumerWidget {
+  const RepaintApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final permissionGuard = ref.watch(permissionGuardProvider);
+    final appRouter = AppRouter(permissionGuard: permissionGuard);
+
     return MaterialApp.router(
       title: 'Re:paint',
       theme: ThemeData(
@@ -32,7 +36,7 @@ class RepaintApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      routerConfig: _appRouter.config(),
+      routerConfig: appRouter.config(),
     );
   }
 }
