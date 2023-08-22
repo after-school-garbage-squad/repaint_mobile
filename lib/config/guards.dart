@@ -23,14 +23,7 @@ class PermissionGuard extends AutoRouteGuard {
     await permissions.request();
     final permission = await _ref.refresh(checkPermissionProvider.future);
 
-    if (permission) {
-      resolver.next();
-    } else {
-      resolver.next(false);
-      if (router.currentPath != '/introduction/welcome') {
-        resolver.redirect(const IntroductionRoute(), replace: true);
-      }
-    }
+    resolver.next(permission);
   }
 }
 
