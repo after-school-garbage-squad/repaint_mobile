@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:repaint_mobile/config/app_router.dart';
-import 'package:repaint_mobile/config/permissions.dart';
+import 'package:repaint_mobile/config/guards.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
@@ -46,7 +46,7 @@ class IntroductionWelcomeScreen extends ConsumerWidget {
             icon: Icons.settings,
           ),
           // TODO: https://github.com/flutter/flutter/issues/118965
-          const SizedBox(width: 16.0)
+          const SizedBox(width: 16.0),
         ],
         backgroundColor: Theme.of(context).colorScheme.background,
       ),
@@ -71,7 +71,7 @@ class IntroductionWelcomeScreen extends ConsumerWidget {
             const Spacer(),
             WideElevatedButton(
               onPressed: () async {
-                await permissions.request();
+                await PermissionGuard.permissions.request();
                 if (context.mounted) {
                   context.pushRoute(const IntroductionExplainRoute());
                 }

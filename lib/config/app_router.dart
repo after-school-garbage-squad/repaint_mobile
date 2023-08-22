@@ -1,9 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:repaint_mobile/config/permissions.dart';
-import 'package:repaint_mobile/config/providers.dart';
+import 'package:repaint_mobile/config/guards.dart';
 import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_explain_screen.dart';
 import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_qrcode_reader_screen.dart';
 import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_screen.dart';
@@ -129,28 +126,4 @@ class AppRouter extends _$AppRouter {
           ],
         ),
       ];
-}
-
-class PermissionGuard extends AutoRouteGuard {
-  PermissionGuard(this._ref);
-
-  final Ref _ref;
-
-  @override
-  Future<void> onNavigation(
-    NavigationResolver resolver,
-    StackRouter router,
-  ) async {
-    await permissions.request();
-    final permission = await _ref.refresh(checkPermissionProvider.future);
-
-    if (permission) {
-      resolver.next();
-    } else {
-      resolver.next(false);
-      if (router.currentPath != '/introduction/welcome') {
-        resolver.redirect(const IntroductionRoute(), replace: true);
-      }
-    }
-  }
 }
