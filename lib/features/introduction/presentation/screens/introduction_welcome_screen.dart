@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:repaint_mobile/config/app_router.gr.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:repaint_mobile/config/app_router.dart';
+import 'package:repaint_mobile/config/permissions.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
@@ -29,9 +32,9 @@ class IntroductionWelcomeText extends StatelessWidget {
 }
 
 @RoutePage()
-class IntroductionWelcomeScreen extends StatelessWidget {
+class IntroductionWelcomeScreen extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -66,10 +69,12 @@ class IntroductionWelcomeScreen extends StatelessWidget {
             const SizedBox(height: 12.0),
             const IntroductionWelcomeText(),
             const Spacer(),
-            // TODO: 権限の許可を求める
             WideElevatedButton(
-              onPressed: () {
-                context.pushRoute(const IntroductionExplainRoute());
+              onPressed: () async {
+                await permissions.request();
+                if (context.mounted) {
+                  context.pushRoute(const IntroductionExplainRoute());
+                }
               },
               text: "進む",
             ),
