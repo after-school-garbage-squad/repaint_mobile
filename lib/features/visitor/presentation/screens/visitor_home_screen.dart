@@ -26,7 +26,7 @@ class VisitorHomeScreen extends StatelessWidget {
             icon: Icons.settings,
           ),
           // TODO: https://github.com/flutter/flutter/issues/118965
-          const SizedBox(width: 16.0)
+          const SizedBox(width: 16.0),
         ],
         backgroundColor: Theme.of(context).colorScheme.background,
       ),
@@ -105,7 +105,7 @@ class VisitorHomeScreen extends StatelessWidget {
                         borderColor: Theme.of(context).colorScheme.primary,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
               const SizedBox(height: 16.0),

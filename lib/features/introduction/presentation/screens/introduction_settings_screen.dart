@@ -23,7 +23,7 @@ class IntroductionSettingsScreen extends StatelessWidget {
             backgroundColor: Colors.white,
             borderColor: Colors.white,
           ),
-        )
+        ),
       ],
     );
   }

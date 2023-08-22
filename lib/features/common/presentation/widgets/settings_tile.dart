@@ -28,7 +28,7 @@ class SettingsTile extends StatelessWidget {
             value: value,
             onChanged: onChanged,
             activeTrackColor: const Color(0xff49e400),
-          )
+          ),
         ],
       ),
     );

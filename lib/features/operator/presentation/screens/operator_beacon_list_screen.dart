@@ -41,7 +41,7 @@ class OperatorBeaconListScreen extends StatelessWidget {
           title: "登録済みの名前",
           distance: 10.0,
           hwid: 0x0000000000,
-        )
+        ),
       ],
     );
   }

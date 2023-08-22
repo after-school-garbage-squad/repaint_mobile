@@ -24,7 +24,7 @@ class OperatorSettingsScreen extends StatelessWidget {
             borderColor: Colors.white,
             textColor: Colors.red,
           ),
-        )
+        ),
       ],
     );
   }

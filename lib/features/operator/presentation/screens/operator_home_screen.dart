@@ -22,7 +22,7 @@ class OperatorHomeScreen extends StatelessWidget {
             icon: Icons.settings,
           ),
           // TODO: https://github.com/flutter/flutter/issues/118965
-          const SizedBox(width: 16.0)
+          const SizedBox(width: 16.0),
         ],
         backgroundColor: Theme.of(context).colorScheme.background,
       ),
@@ -53,7 +53,7 @@ class OperatorHomeScreen extends StatelessWidget {
                     textColor: Theme.of(context).colorScheme.primary,
                   ),
                   elevation: 0.0,
-                )
+                ),
               ],
             ),
             const SizedBox(height: 16),
