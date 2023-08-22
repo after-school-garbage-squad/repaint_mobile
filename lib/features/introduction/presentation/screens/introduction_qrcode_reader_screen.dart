@@ -1,19 +1,23 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:repaint_mobile/config/app_router.dart';
+import 'package:repaint_mobile/config/guards.dart';
+import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/camera_scaffold.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 
 @RoutePage()
-class IntroductionQRCodeReaderScreen extends StatelessWidget {
+class IntroductionQRCodeReaderScreen extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     if (kDebugMode) {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         Future.delayed(const Duration(seconds: 5)).then((_) {
+          ref.read(userTypeProvider.notifier).state = UserType.visitor;
           context.replaceRoute(const VisitorRoute());
         }).catchError((error) {});
       });
@@ -24,6 +28,7 @@ class IntroductionQRCodeReaderScreen extends StatelessWidget {
         child: MobileScanner(
           onDetect: (capture) {
             // TODO: QRコードの内容を取得した際の処理を実装する
+            ref.read(userTypeProvider.notifier).state = UserType.visitor;
             context.replaceRoute(const VisitorRoute());
           },
         ),

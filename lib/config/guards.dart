@@ -33,3 +33,54 @@ class PermissionGuard extends AutoRouteGuard {
     }
   }
 }
+
+enum UserType {
+  visitor,
+  operator,
+}
+
+class VisitorGuard extends AutoRouteGuard {
+  VisitorGuard(this._ref);
+
+  final Ref _ref;
+
+  @override
+  Future<void> onNavigation(
+    NavigationResolver resolver,
+    StackRouter router,
+  ) async {
+    final userType = _ref.read(userTypeProvider);
+
+    if (userType == UserType.visitor) {
+      resolver.next();
+    } else {
+      resolver.next(false);
+      if (router.currentPath != '/introduction/welcome') {
+        resolver.redirect(const IntroductionRoute(), replace: true);
+      }
+    }
+  }
+}
+
+class OperatorGuard extends AutoRouteGuard {
+  OperatorGuard(this._ref);
+
+  final Ref _ref;
+
+  @override
+  Future<void> onNavigation(
+    NavigationResolver resolver,
+    StackRouter router,
+  ) async {
+    final userType = _ref.read(userTypeProvider);
+
+    if (userType == UserType.operator) {
+      resolver.next();
+    } else {
+      resolver.next(false);
+      if (router.currentPath != '/introduction/welcome') {
+        resolver.redirect(const IntroductionRoute(), replace: true);
+      }
+    }
+  }
+}

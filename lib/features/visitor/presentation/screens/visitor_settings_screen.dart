@@ -1,15 +1,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:repaint_mobile/config/app_router.dart';
+import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_heading.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/settings_tile.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 
 @RoutePage()
-class VisitorSettingsScreen extends StatelessWidget {
+class VisitorSettingsScreen extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("設定"),
@@ -56,6 +58,7 @@ class VisitorSettingsScreen extends StatelessWidget {
             WideElevatedButton(
               onPressed: () {
                 // TODO: ログアウト機能を実装する
+                ref.read(userTypeProvider.notifier).state = null;
                 context.replaceRoute(const IntroductionRoute());
               },
               text: "ログアウト",

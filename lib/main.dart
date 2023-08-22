@@ -18,8 +18,11 @@ class RepaintApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final permissionGuard = ref.watch(permissionGuardProvider);
-    final appRouter = AppRouter(permissionGuard: permissionGuard);
+    final appRouter = AppRouter(
+      permissionGuard: ref.watch(permissionGuardProvider),
+      visitorGuard: ref.watch(visitorGuardProvider),
+      operatorGuard: ref.watch(operatorGuardProvider),
+    );
 
     return MaterialApp.router(
       title: 'Re:paint',

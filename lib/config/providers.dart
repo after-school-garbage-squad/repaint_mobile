@@ -12,9 +12,21 @@ Future<bool> checkPermission(CheckPermissionRef ref) async {
   ).then((statuses) => statuses.every((status) => status.isGranted));
 }
 
-@Riverpod(keepAlive: true)
+@Riverpod()
 PermissionGuard permissionGuard(PermissionGuardRef ref) {
   return PermissionGuard(ref);
+}
+
+final userTypeProvider = StateProvider<UserType?>((ref) => null);
+
+@Riverpod()
+VisitorGuard visitorGuard(VisitorGuardRef ref) {
+  return VisitorGuard(ref);
+}
+
+@Riverpod()
+OperatorGuard operatorGuard(OperatorGuardRef ref) {
+  return OperatorGuard(ref);
 }
 
 Future<void> initializeProviders(ProviderContainer container) async {

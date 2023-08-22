@@ -25,9 +25,13 @@ part 'app_router.gr.dart';
 class AppRouter extends _$AppRouter {
   AppRouter({
     required this.permissionGuard,
+    required this.visitorGuard,
+    required this.operatorGuard,
   });
 
   final PermissionGuard permissionGuard;
+  final VisitorGuard visitorGuard;
+  final OperatorGuard operatorGuard;
 
   @override
   List<AutoRoute> get routes => [
@@ -64,6 +68,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           path: '/visitor',
           page: VisitorRoute.page,
+          guards: [visitorGuard],
           children: [
             CustomRoute(
               path: 'home',
@@ -74,6 +79,7 @@ class AppRouter extends _$AppRouter {
             CustomRoute(
               path: 'qrcode_reader',
               page: VisitorQRCodeReaderRoute.page,
+              guards: [permissionGuard],
               transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
             ),
             CustomRoute(
@@ -86,6 +92,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           path: '/operator',
           page: OperatorRoute.page,
+          guards: [operatorGuard],
           children: [
             CustomRoute(
               path: 'home',
@@ -96,26 +103,31 @@ class AppRouter extends _$AppRouter {
             CustomRoute(
               path: 'qrcode_reader',
               page: OperatorQRCodeReaderRoute.page,
+              guards: [permissionGuard],
               transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
             ),
             CustomRoute(
               path: 'camera',
               page: OperatorCameraRoute.page,
+              guards: [permissionGuard],
               transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
             ),
             CustomRoute(
               path: 'camera/preview',
               page: OperatorCameraPreviewRoute.page,
+              guards: [permissionGuard],
               transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
             ),
             CustomRoute(
               path: 'beacon',
               page: OperatorBeaconListRoute.page,
+              guards: [permissionGuard],
               transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
             ),
             CustomRoute(
               path: 'beacon/settings',
               page: OperatorBeaconSettingsRoute.page,
+              guards: [permissionGuard],
               transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
             ),
             CustomRoute(
