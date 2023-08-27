@@ -27,12 +27,6 @@ abstract class _$AppRouter extends RootStackRouter {
         child: IntroductionQRCodeReaderScreen(),
       );
     },
-    IntroductionRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: IntroductionScreen(),
-      );
-    },
     IntroductionSettingsRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -88,12 +82,6 @@ abstract class _$AppRouter extends RootStackRouter {
         child: OperatorQRCodeReaderScreen(),
       );
     },
-    OperatorRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: OperatorScreen(),
-      );
-    },
     OperatorSettingsRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -110,12 +98,6 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: VisitorQRCodeReaderScreen(),
-      );
-    },
-    VisitorRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: VisitorScreen(),
       );
     },
     VisitorSettingsRoute.name: (routeData) {
@@ -151,20 +133,6 @@ class IntroductionQRCodeReaderRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'IntroductionQRCodeReaderRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [IntroductionScreen]
-class IntroductionRoute extends PageRouteInfo<void> {
-  const IntroductionRoute({List<PageRouteInfo>? children})
-      : super(
-          IntroductionRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'IntroductionRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -308,20 +276,6 @@ class OperatorQRCodeReaderRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [OperatorScreen]
-class OperatorRoute extends PageRouteInfo<void> {
-  const OperatorRoute({List<PageRouteInfo>? children})
-      : super(
-          OperatorRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'OperatorRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
 /// [OperatorSettingsScreen]
 class OperatorSettingsRoute extends PageRouteInfo<void> {
   const OperatorSettingsRoute({List<PageRouteInfo>? children})
@@ -359,20 +313,6 @@ class VisitorQRCodeReaderRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'VisitorQRCodeReaderRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [VisitorScreen]
-class VisitorRoute extends PageRouteInfo<void> {
-  const VisitorRoute({List<PageRouteInfo>? children})
-      : super(
-          VisitorRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'VisitorRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

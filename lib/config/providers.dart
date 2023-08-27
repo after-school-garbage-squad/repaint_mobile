@@ -1,34 +1,24 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:repaint_mobile/config/app_router.dart';
 import 'package:repaint_mobile/config/guards.dart';
+import 'package:repaint_mobile/features/common/providers/providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+export '../features/common/providers/providers.dart';
 
 part 'providers.g.dart';
 
-@Riverpod()
-Future<bool> checkPermission(CheckPermissionRef ref) async {
-  return Future.wait(
-    PermissionGuard.permissions.map((permission) => permission.status),
-  ).then((statuses) => statuses.every((status) => status.isGranted));
-}
-
-@Riverpod()
-PermissionGuard permissionGuard(PermissionGuardRef ref) {
-  return PermissionGuard(ref);
-}
-
-final userTypeProvider = StateProvider<UserType?>((ref) => null);
-
-@Riverpod()
-VisitorGuard visitorGuard(VisitorGuardRef ref) {
-  return VisitorGuard(ref);
-}
-
-@Riverpod()
-OperatorGuard operatorGuard(OperatorGuardRef ref) {
-  return OperatorGuard(ref);
+@Riverpod(keepAlive: true, dependencies: [User])
+Future<Raw<AppRouter>> appRouter(AppRouterRef ref) async {
+  return AppRouter(
+    await ref.read(userProvider.future),
+    PermissionGuard(ref),
+    ref.read(loggerProvider),
+  );
 }
 
 Future<void> initializeProviders(ProviderContainer container) async {
-  // TODO: 初期化が必要なプロバイダーがあればここで初期化する
+  await container.read(sharedPreferencesProvider.future);
+  await container.read(localDataSourceProvider.future);
+  await container.read(userProvider.future);
 }

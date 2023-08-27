@@ -14,16 +14,14 @@ class OperatorQRCodeReaderScreen extends StatelessWidget {
       preview: Expanded(
         child: Stack(
           children: [
-            Expanded(
-              child: MobileScanner(
-                onDetect: (capture) {
-                  // TODO: QRコードの内容を取得した際の処理を実装する
-                  showDialog(
-                    context: context,
-                    builder: (_) => const _QRCodeReaderConfirmDialog(),
-                  );
-                },
-              ),
+            MobileScanner(
+              onDetect: (capture) {
+                // TODO: QRコードの内容を取得した際の処理を実装する
+                showDialog(
+                  context: context,
+                  builder: (_) => const _QRCodeReaderConfirmDialog(),
+                );
+              },
             ),
             Positioned(
               right: 14,

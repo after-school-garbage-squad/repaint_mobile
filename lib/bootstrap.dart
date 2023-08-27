@@ -11,7 +11,7 @@ Future<ProviderContainer> bootstrap() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  final container = ProviderContainer(overrides: []);
+  final container = ProviderContainer();
   await providers.initializeProviders(container);
   return container;
 }
