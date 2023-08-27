@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:repaint_mobile/config/app_router.gr.dart';
+import 'package:repaint_mobile/config/app_router.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/operator/presentation/widgets/operator_elevated_tile.dart';
@@ -22,7 +22,7 @@ class OperatorHomeScreen extends StatelessWidget {
             icon: Icons.settings,
           ),
           // TODO: https://github.com/flutter/flutter/issues/118965
-          const SizedBox(width: 16.0)
+          const SizedBox(width: 16.0),
         ],
         backgroundColor: Theme.of(context).colorScheme.background,
       ),
@@ -53,7 +53,7 @@ class OperatorHomeScreen extends StatelessWidget {
                     textColor: Theme.of(context).colorScheme.primary,
                   ),
                   elevation: 0.0,
-                )
+                ),
               ],
             ),
             const SizedBox(height: 16),

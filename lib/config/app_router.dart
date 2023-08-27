@@ -1,101 +1,131 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:repaint_mobile/config/app_router.gr.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:logger/logger.dart';
+import 'package:repaint_mobile/config/guards.dart';
+import 'package:repaint_mobile/config/route.dart';
+import 'package:repaint_mobile/features/common/domain/entities/user_entity.dart';
+import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_explain_screen.dart';
+import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_qrcode_reader_screen.dart';
+import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_settings_screen.dart';
+import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_welcome_screen.dart';
+import 'package:repaint_mobile/features/operator/presentation/screens/operator_beacon_list_screen.dart';
+import 'package:repaint_mobile/features/operator/presentation/screens/operator_beacon_settings_screen.dart';
+import 'package:repaint_mobile/features/operator/presentation/screens/operator_camera_preview_screen.dart';
+import 'package:repaint_mobile/features/operator/presentation/screens/operator_camera_screen.dart';
+import 'package:repaint_mobile/features/operator/presentation/screens/operator_home_screen.dart';
+import 'package:repaint_mobile/features/operator/presentation/screens/operator_qrcode_reader_screen.dart';
+import 'package:repaint_mobile/features/operator/presentation/screens/operator_settings_screen.dart';
+import 'package:repaint_mobile/features/visitor/presentation/screens/visitor_home_screen.dart';
+import 'package:repaint_mobile/features/visitor/presentation/screens/visitor_qrcode_reader_screen.dart';
+import 'package:repaint_mobile/features/visitor/presentation/screens/visitor_settings_screen.dart';
+
+part 'app_router.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Screen,Route')
-class AppRouter extends $AppRouter {
+class AppRouter extends _$AppRouter implements AutoRouteGuard {
+  AppRouter(
+    this._user,
+    this._permissionGuard,
+    this._logger,
+  ) : super();
+
+  final UserEntity? _user;
+  final PermissionGuard _permissionGuard;
+  final Logger _logger;
+  bool _initialized = false;
+
   @override
-  List<AutoRoute> get routes => [
-        AutoRoute(
-          path: '/introduction',
-          page: IntroductionRoute.page,
+  Future<void> onNavigation(
+    NavigationResolver resolver,
+    StackRouter router,
+  ) async {
+    if (_initialized) {
+      _logger.i(
+        'from ${router.currentPath} to ${resolver.route.path}\n'
+        'as ${_user?.type}',
+      );
+      resolver.next();
+    } else {
+      _initialized = true;
+      if (_user?.type == UserType.visitor) {
+        _logger.i('redirect to visitor');
+        await resolver.redirect(const VisitorHomeRoute());
+      } else if (_user?.type == UserType.operator) {
+        _logger.i('redirect to operator');
+        await resolver.redirect(const OperatorHomeRoute());
+      } else {
+        _logger.i('default page');
+        await resolver.redirect(const IntroductionWelcomeRoute());
+      }
+    }
+  }
+
+  @override
+  List<RepaintRoute> get routes => [
+        RepaintRoute(
+          path: '/introduction/welcome',
+          page: IntroductionWelcomeRoute.page,
           initial: true,
-          children: [
-            CustomRoute(
-              path: 'welcome',
-              page: IntroductionWelcomeRoute.page,
-              initial: true,
-              transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
-            ),
-            CustomRoute(
-              path: 'explain',
-              page: IntroductionExplainRoute.page,
-              transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
-            ),
-            CustomRoute(
-              path: 'qrcode_reader',
-              page: IntroductionQRCodeReaderRoute.page,
-              transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
-            ),
-            CustomRoute(
-              path: 'settings',
-              page: IntroductionSettingsRoute.page,
-              transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
-            )
-          ],
         ),
-        AutoRoute(
-          path: '/visitor',
-          page: VisitorRoute.page,
-          children: [
-            CustomRoute(
-              path: 'home',
-              page: VisitorHomeRoute.page,
-              initial: true,
-              transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
-            ),
-            CustomRoute(
-              path: 'qrcode_reader',
-              page: VisitorQRCodeReaderRoute.page,
-              transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
-            ),
-            CustomRoute(
-              path: 'settings',
-              page: VisitorSettingsRoute.page,
-              transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
-            ),
-          ],
+        RepaintRoute(
+          path: '/introduction/explain',
+          page: IntroductionExplainRoute.page,
+          guards: [_permissionGuard],
         ),
-        AutoRoute(
-          path: '/operator',
-          page: OperatorRoute.page,
-          children: [
-            CustomRoute(
-              path: 'home',
-              page: OperatorHomeRoute.page,
-              initial: true,
-              transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
-            ),
-            CustomRoute(
-              path: 'qrcode_reader',
-              page: OperatorQRCodeReaderRoute.page,
-              transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
-            ),
-            CustomRoute(
-              path: 'camera',
-              page: OperatorCameraRoute.page,
-              transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
-            ),
-            CustomRoute(
-              path: 'camera/preview',
-              page: OperatorCameraPreviewRoute.page,
-              transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
-            ),
-            CustomRoute(
-              path: 'beacon',
-              page: OperatorBeaconListRoute.page,
-              transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
-            ),
-            CustomRoute(
-              path: 'beacon/settings',
-              page: OperatorBeaconSettingsRoute.page,
-              transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
-            ),
-            CustomRoute(
-              path: 'settings',
-              page: OperatorSettingsRoute.page,
-              transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
-            ),
-          ],
-        )
+        RepaintRoute(
+          path: '/introduction/qrcode_reader',
+          page: IntroductionQRCodeReaderRoute.page,
+          guards: [_permissionGuard],
+        ),
+        RepaintRoute(
+          path: '/introduction/settings',
+          page: IntroductionSettingsRoute.page,
+        ),
+        RepaintRoute(
+          path: '/visitor/home',
+          page: VisitorHomeRoute.page,
+        ),
+        RepaintRoute(
+          path: '/visitor/qrcode_reader',
+          page: VisitorQRCodeReaderRoute.page,
+          guards: [_permissionGuard],
+        ),
+        RepaintRoute(
+          path: '/visitor/settings',
+          page: VisitorSettingsRoute.page,
+        ),
+        RepaintRoute(
+          path: '/operator/home',
+          page: OperatorHomeRoute.page,
+        ),
+        RepaintRoute(
+          path: '/operator/qrcode_reader',
+          page: OperatorQRCodeReaderRoute.page,
+          guards: [_permissionGuard],
+        ),
+        RepaintRoute(
+          path: '/operator/camera',
+          page: OperatorCameraRoute.page,
+          guards: [_permissionGuard],
+        ),
+        RepaintRoute(
+          path: '/operator/camera/preview',
+          page: OperatorCameraPreviewRoute.page,
+          guards: [_permissionGuard],
+        ),
+        RepaintRoute(
+          path: '/operator/beacon',
+          page: OperatorBeaconListRoute.page,
+          guards: [_permissionGuard],
+        ),
+        RepaintRoute(
+          path: '/operator/beacon/settings',
+          page: OperatorBeaconSettingsRoute.page,
+          guards: [_permissionGuard],
+        ),
+        RepaintRoute(
+          path: '/operator/settings',
+          page: OperatorSettingsRoute.page,
+        ),
       ];
 }

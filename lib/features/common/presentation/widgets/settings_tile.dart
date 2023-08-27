@@ -21,14 +21,14 @@ class SettingsTile extends StatelessWidget {
   }) {
     return SettingsTile(
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(title),
-          const Spacer(),
           Switch(
             value: value,
             onChanged: onChanged,
             activeTrackColor: const Color(0xff49e400),
-          )
+          ),
         ],
       ),
     );

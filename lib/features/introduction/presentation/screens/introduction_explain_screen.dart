@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:repaint_mobile/config/app_router.gr.dart';
+import 'package:repaint_mobile/config/app_router.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
@@ -28,12 +28,10 @@ class IntroductionExplainScreen extends StatelessWidget {
         child: Column(
           children: [
             ConstrainedBox(
-              // TODO: 実際の画像のサイズに合わせる
               constraints: const BoxConstraints(maxHeight: 480.0),
-              child: const AspectRatio(
+              child: AspectRatio(
                 aspectRatio: 1,
-                // TODO: 画像を設定する
-                child: Placeholder(fallbackWidth: double.infinity),
+                child: Image.asset('assets/undraw_Mobile_app_re_catg.png'),
               ),
             ),
             const SizedBox(height: 32.0),

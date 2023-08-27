@@ -68,7 +68,7 @@ class WideElevatedButton extends StatelessWidget {
             if (icon != null) ...[
               const SizedBox(width: 8.0),
               Icon(icon, color: colors?.iconColor),
-            ]
+            ],
           ],
         ),
       ),

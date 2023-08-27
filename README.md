@@ -76,6 +76,20 @@ flutter pub get
 |--------|-----------------------------------------------------------|
 | ルーティング | [auto_route](https://pub.dev/packages/auto_route)         |
 
+### ビルド
+
+#### Android
+
+```shell
+flutter build apk --target-platform=android-arm64 --obfuscate --split-debug-info=build/obfuscate/android --split-per-abi
+```
+
+#### iOS
+
+```shell
+flutter build ios --obfuscate --split-debug-info=build/obfuscate/ios
+```
+
 ## 貢献
 
 ### ルーティング

@@ -39,7 +39,7 @@ class AppDialog extends StatelessWidget {
                     icon: Icons.chevron_left,
                   ),
                 if (leading != null) leading!,
-                const Spacer()
+                const Spacer(),
               ],
             ),
             const SizedBox(height: 24.0),

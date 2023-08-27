@@ -76,7 +76,7 @@ class OperatorElevatedTile extends StatelessWidget {
                 Icon(
                   Icons.arrow_forward_ios,
                   color: Theme.of(context).colorScheme.primary,
-                )
+                ),
             ],
           ),
         ),
