@@ -50,26 +50,38 @@ class IntroductionWelcomeScreen extends ConsumerWidget {
         ],
         backgroundColor: Theme.of(context).colorScheme.background,
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
-        child: Column(
-          children: [
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxHeight: 480.0),
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: Image.asset("assets/repaint.png"),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 32.0),
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(maxHeight: 480.0),
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: Image.asset("assets/repaint.png"),
+                      ),
+                    ),
+                    const SizedBox(height: 12.0),
+                    Text(
+                      "ようこそ!",
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    const SizedBox(height: 12.0),
+                    const IntroductionWelcomeText(),
+                    const SizedBox(height: 12.0),
+                  ],
+                ),
               ),
             ),
-            const SizedBox(height: 12.0),
-            Text(
-              "ようこそ!",
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 12.0),
-            const IntroductionWelcomeText(),
-            const Spacer(),
-            WideElevatedButton(
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: WideElevatedButton(
               onPressed: () async {
                 await PermissionGuard.permissions.request();
                 if (context.mounted) {
@@ -78,9 +90,9 @@ class IntroductionWelcomeScreen extends ConsumerWidget {
               },
               text: "進む",
             ),
-            const BottomConstrainedPadding(),
-          ],
-        ),
+          ),
+          const BottomConstrainedPadding(),
+        ],
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
     );
