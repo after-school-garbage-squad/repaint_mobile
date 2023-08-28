@@ -24,7 +24,7 @@ class IntroductionWelcomeText extends StatelessWidget {
           TextSpan(text: "通知", style: boldStyle),
           const TextSpan(text: "と"),
           TextSpan(text: "位置情報", style: boldStyle),
-          const TextSpan(text: "の使用の許可する必要があります。\n\n「進む」を押した後に許可をお願いしいたします。"),
+          const TextSpan(text: "の使用の許可する必要があります。\n\n「進む」を押した後に許可をお願いいたします。"),
         ],
       ),
     );
@@ -45,31 +45,43 @@ class IntroductionWelcomeScreen extends ConsumerWidget {
             },
             icon: Icons.settings,
           ),
-          // TODO: https://github.com/flutter/flutter/issues/118965
+          // https://github.com/flutter/flutter/issues/118965
           const SizedBox(width: 16.0),
         ],
         backgroundColor: Theme.of(context).colorScheme.background,
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
-        child: Column(
-          children: [
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxHeight: 480.0),
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: Image.asset("assets/repaint.png"),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 32.0),
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(maxHeight: 480.0),
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: Image.asset("assets/repaint.png"),
+                      ),
+                    ),
+                    const SizedBox(height: 12.0),
+                    Text(
+                      "ようこそ!",
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    const SizedBox(height: 12.0),
+                    const IntroductionWelcomeText(),
+                    const SizedBox(height: 12.0),
+                  ],
+                ),
               ),
             ),
-            const SizedBox(height: 12.0),
-            Text(
-              "ようこそ!",
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 12.0),
-            const IntroductionWelcomeText(),
-            const Spacer(),
-            WideElevatedButton(
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: WideElevatedButton(
               onPressed: () async {
                 await PermissionGuard.permissions.request();
                 if (context.mounted) {
@@ -78,9 +90,9 @@ class IntroductionWelcomeScreen extends ConsumerWidget {
               },
               text: "進む",
             ),
-            const BottomConstrainedPadding(),
-          ],
-        ),
+          ),
+          const BottomConstrainedPadding(),
+        ],
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
     );

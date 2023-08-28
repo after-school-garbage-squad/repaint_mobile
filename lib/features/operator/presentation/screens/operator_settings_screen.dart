@@ -13,7 +13,7 @@ class OperatorSettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ListScaffold(
-      children: [
+      scrollableChildren: [
         const ListHeading("アカウント設定"),
         const SizedBox(height: 16),
         WideElevatedButton(
