@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:repaint_mobile/features/common/domain/entities/beacon_entity.dart';
 
 class OperatorElevatedTile extends StatelessWidget {
   const OperatorElevatedTile({
@@ -41,13 +42,13 @@ class OperatorElevatedTile extends StatelessWidget {
 
   factory OperatorElevatedTile.beacon({
     required VoidCallback onTap,
-    required String title,
-    required double distance,
-    required int hwid,
+    required String name,
+    required BeaconProximity proximity,
+    required String hwid,
   }) {
     return _OperatorElevatedBeaconTile(
-      title: title,
-      distance: distance,
+      name: name,
+      proximity: proximity,
       hwid: hwid,
       onTap: onTap,
     );
@@ -87,19 +88,18 @@ class OperatorElevatedTile extends StatelessWidget {
 
 class _OperatorElevatedBeaconTile extends OperatorElevatedTile {
   const _OperatorElevatedBeaconTile({
-    required this.title,
-    required this.distance,
+    required this.name,
+    required this.proximity,
     required this.hwid,
     super.onTap,
   });
 
-  final String title;
-  final double distance;
-  final int hwid;
+  final String name;
+  final BeaconProximity proximity;
+  final String hwid;
 
   @override
   Widget build(BuildContext context) {
-    final formattedHwid = hwid.toRadixString(16).padLeft(10, "0").toUpperCase();
     final valueTextStyle = Theme.of(context)
         .textTheme
         .bodyMedium!
@@ -112,21 +112,20 @@ class _OperatorElevatedBeaconTile extends OperatorElevatedTile {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: Theme.of(context).textTheme.bodyLarge),
+              Text(name, style: Theme.of(context).textTheme.bodyLarge),
               const Divider(),
-              // TODO: 表示する項目を変更する必要がある
               Row(
                 children: [
-                  const Text("距離"),
+                  const Text("近接性"),
                   const Spacer(),
-                  Text("${distance}m", style: valueTextStyle),
+                  Text(proximity.name, style: valueTextStyle),
                 ],
               ),
               Row(
                 children: [
                   const Text("HWID"),
                   const Spacer(),
-                  Text(formattedHwid, style: valueTextStyle),
+                  Text(hwid, style: valueTextStyle),
                 ],
               ),
             ],

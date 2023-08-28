@@ -13,7 +13,7 @@ class IntroductionSettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ListScaffold(
-      children: [
+      scrollableChildren: [
         const ListHeading("管理者設定"),
         const SizedBox(height: 16),
         WideElevatedButton(

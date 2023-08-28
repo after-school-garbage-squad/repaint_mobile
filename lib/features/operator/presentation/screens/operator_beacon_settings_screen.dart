@@ -19,7 +19,7 @@ class OperatorBeaconSettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListScaffold(
       title: "ビーコン設定",
-      children: [
+      scrollableChildren: [
         const ListHeading("ビーコンの設定"),
         const SizedBox(height: 16),
         // TODO: ビーコンの名前変更処理を実装する
@@ -27,7 +27,8 @@ class OperatorBeaconSettingsScreen extends StatelessWidget {
           label: "ビーコンの名前",
           controller: TextEditingController(),
         ),
-        const Spacer(),
+      ],
+      bottomChildren: [
         Row(
           children: [
             Expanded(
