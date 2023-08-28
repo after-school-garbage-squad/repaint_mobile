@@ -24,7 +24,7 @@ class IntroductionWelcomeText extends StatelessWidget {
           TextSpan(text: "通知", style: boldStyle),
           const TextSpan(text: "と"),
           TextSpan(text: "位置情報", style: boldStyle),
-          const TextSpan(text: "の使用の許可する必要があります。\n\n「進む」を押した後に許可をお願いしいたします。"),
+          const TextSpan(text: "の使用の許可する必要があります。\n\n「進む」を押した後に許可をお願いいたします。"),
         ],
       ),
     );
