@@ -600,6 +600,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.11.3"
+  permission_handler_web:
+    dependency: "direct main"
+    description:
+      name: permission_handler_web
+      sha256: "78255957b505ae852b51d8894655f826ee48ad4b805c9552d8035a93b3ea9247"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   permission_handler_windows:
     dependency: transitive
     description:
