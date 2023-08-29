@@ -30,12 +30,8 @@ dependencies:
   camera: ^0.10.5+3
   flutter:
     sdk: flutter
-  flutter_hooks: ^0.20.0
   flutter_riverpod: ^2.3.7
-  fpdart: ^1.1.0
-  freezed: ^2.4.2
   freezed_annotation: ^2.4.1
-  hooks_riverpod: ^2.3.7
   json_annotation: ^4.8.1
   logger: ^2.0.1
   mobile_scanner: ^3.4.1
@@ -50,6 +46,7 @@ dev_dependencies:
   custom_lint: ^0.5.2
   flutter_test:
     sdk: flutter
+  freezed: ^2.4.2
   json_serializable: ^6.7.1
   lint: ^2.1.2
   riverpod_generator: ^2.2.6
