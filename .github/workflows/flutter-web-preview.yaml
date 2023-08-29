@@ -1,4 +1,4 @@
-name: github pages
+name: Flutter Web Preview for GitHub Pages
 
 on:
   push:
