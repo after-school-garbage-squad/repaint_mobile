@@ -1,6 +1,6 @@
 import "package:flutter/cupertino.dart";
 import "package:flutter/services.dart";
-import "package:hooks_riverpod/hooks_riverpod.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import 'package:repaint_mobile/config/providers.dart' as providers;
 
 Future<ProviderContainer> bootstrap() async {

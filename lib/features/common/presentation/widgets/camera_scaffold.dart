@@ -40,7 +40,7 @@ class CameraScaffold extends StatelessWidget {
             preview,
             if (children != null)
               ConstrainedBox(
-                constraints: const BoxConstraints(maxHeight: 294),
+                constraints: const BoxConstraints(maxHeight: 192),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
                   child: Column(

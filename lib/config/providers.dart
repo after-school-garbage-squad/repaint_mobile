@@ -1,4 +1,4 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import 'package:repaint_mobile/config/app_router.dart';
 import 'package:repaint_mobile/config/guards.dart';
 import 'package:repaint_mobile/features/common/providers/providers.dart';
