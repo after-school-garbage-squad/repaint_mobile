@@ -34,25 +34,23 @@ class CameraScaffold extends StatelessWidget {
           leadingWidth: 64.0,
           backgroundColor: Colors.transparent,
         ),
-        body: Expanded(
-          child: Column(
-            children: [
-              preview,
-              if (children != null) ...[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: children!,
-                  ),
+        body: Column(
+          children: [
+            preview,
+            if (children != null) ...[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: children!,
                 ),
-                Container(
-                  height: double.infinity,
-                  constraints: const BoxConstraints(maxHeight: 96.0),
-                ),
-              ],
+              ),
+              Container(
+                height: double.infinity,
+                constraints: const BoxConstraints(maxHeight: 96.0),
+              ),
             ],
-          ),
+          ],
         ),
         backgroundColor: Theme.of(context).colorScheme.background,
         extendBodyBehindAppBar: true,
