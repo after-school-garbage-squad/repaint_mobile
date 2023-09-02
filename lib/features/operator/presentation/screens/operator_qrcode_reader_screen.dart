@@ -40,13 +40,10 @@ class OperatorQRCodeReaderScreen extends StatelessWidget {
         ),
       ),
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 64.0),
-          child: Center(
-            child: Text(
-              "参加者のQRコードを読み取ってください",
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
+        Center(
+          child: Text(
+            "参加者のQRコードを読み取ってください",
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
         ),
       ],

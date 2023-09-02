@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 
 class CameraScaffold extends StatelessWidget {
@@ -35,23 +34,25 @@ class CameraScaffold extends StatelessWidget {
           leadingWidth: 64.0,
           backgroundColor: Colors.transparent,
         ),
-        body: Column(
-          children: [
-            preview,
-            if (children != null)
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxHeight: 192),
-                child: Padding(
+        body: Expanded(
+          child: Column(
+            children: [
+              preview,
+              if (children != null) ...[
+                Padding(
                   padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
                   child: Column(
-                    children: [
-                      ...children!,
-                      const BottomConstrainedPadding(),
-                    ],
+                    mainAxisSize: MainAxisSize.min,
+                    children: children!,
                   ),
                 ),
-              ),
-          ],
+                Container(
+                  height: double.infinity,
+                  constraints: const BoxConstraints(maxHeight: 96.0),
+                ),
+              ],
+            ],
+          ),
         ),
         backgroundColor: Theme.of(context).colorScheme.background,
         extendBodyBehindAppBar: true,

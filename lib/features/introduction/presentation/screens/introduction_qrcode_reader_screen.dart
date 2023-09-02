@@ -50,7 +50,7 @@ class IntroductionQRCodeReaderScreen extends ConsumerWidget {
         ),
         const SizedBox(height: 20.0),
         const Text('カメラが起動しない場合は、設定から使用許可をお願いします'),
-        const Spacer(),
+        const SizedBox(height: 20.0),
         const WideElevatedButton(
           onPressed: openAppSettings,
           text: "設定に進む",

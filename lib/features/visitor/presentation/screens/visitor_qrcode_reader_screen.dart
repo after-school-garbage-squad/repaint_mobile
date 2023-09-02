@@ -17,10 +17,7 @@ class VisitorQRCodeReaderScreen extends StatelessWidget {
         ),
       ),
       children: const [
-        Padding(
-          padding: EdgeInsets.only(top: 64.0),
-          child: Center(child: Text('スポットのQRコードを読み込んでください')),
-        ),
+        Center(child: Text('スポットのQRコードを読み込んでください')),
       ],
     );
   }
