@@ -13,18 +13,6 @@ import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevate
 class IntroductionQRCodeReaderScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Future.delayed(const Duration(seconds: 5)).then((_) async {
-        await ref.read(userProvider.notifier).setType(UserType.visitor);
-        if (context.mounted) {
-          await context.router.pushAndPopUntil(
-            const VisitorHomeRoute(),
-            predicate: (_) => false,
-          );
-        }
-      });
-    });
-
     return CameraScaffold(
       preview: Expanded(
         child: MobileScanner(
