@@ -5,19 +5,19 @@ class VisitorSettingsController {
 
   final VisitorSettings _settings;
 
-  Future<void> onSpotNotificationChanged(bool value) async {
+  Future<void> setSpotNotification(bool value) async {
     await _settings.setNotifications(
       (notifications) => notifications?.copyWith(spot: value),
     );
   }
 
-  Future<void> onEventNotificationChanged(bool value) async {
+  Future<void> setEventNotification(bool value) async {
     await _settings.setNotifications(
       (notifications) => notifications?.copyWith(event: value),
     );
   }
 
-  Future<void> onOtherNotificationChanged(bool value) async {
+  Future<void> setOtherNotification(bool value) async {
     await _settings.setNotifications(
       (notifications) => notifications?.copyWith(other: value),
     );
