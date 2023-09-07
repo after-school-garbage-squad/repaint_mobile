@@ -65,7 +65,7 @@ class VisitorSettingsScreen extends ConsumerWidget {
                 // TODO: ログアウト機能を実装する
                 await ref.read(userProvider.notifier).setType(UserType.unknown);
                 if (context.mounted) {
-                  await context.router.pushAndPopUntil(
+                  context.router.pushAndPopUntil(
                     const IntroductionWelcomeRoute(),
                     predicate: (_) => false,
                   );
