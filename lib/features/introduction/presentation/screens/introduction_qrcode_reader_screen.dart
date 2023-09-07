@@ -13,17 +13,21 @@ import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevate
 class IntroductionQRCodeReaderScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // final logger = ref.watch(loggerProvider);
+
     return CameraScaffold(
       preview: Expanded(
         child: MobileScanner(
           onDetect: (capture) async {
+            // logger.d('QRコードを読み取りました: ${capture.barcodes.first.rawValue}');
+
             // TODO: QRコードの内容を取得した際の処理を実装する
-            await ref.read(userProvider.notifier).setType(UserType.visitor);
             if (context.mounted) {
-              await context.router.pushAndPopUntil(
+              context.router.pushAndPopUntil(
                 const VisitorHomeRoute(),
                 predicate: (_) => false,
               );
+              await ref.read(userProvider.notifier).setType(UserType.visitor);
             }
           },
         ),

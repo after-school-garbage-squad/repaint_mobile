@@ -21,7 +21,7 @@ class IntroductionSettingsScreen extends ConsumerWidget {
             // TODO: Auth0の管理者ログイン画面に遷移する
             await ref.read(userProvider.notifier).setType(UserType.operator);
             if (context.mounted) {
-              await context.router.pushAndPopUntil(
+              context.router.pushAndPopUntil(
                 const OperatorHomeRoute(),
                 predicate: (_) => false,
               );
