@@ -13,13 +13,13 @@ import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevate
 class IntroductionQRCodeReaderScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final logger = ref.watch(loggerProvider);
+    final logger = ref.watch(loggerProvider);
 
     return CameraScaffold(
       preview: Expanded(
         child: MobileScanner(
           onDetect: (capture) async {
-            // logger.d('QRコードを読み取りました: ${capture.barcodes.first.rawValue}');
+            logger.d('QRコードを読み取りました: ${capture.barcodes.first.rawValue}');
 
             // TODO: QRコードの内容を取得した際の処理を実装する
             if (context.mounted) {
