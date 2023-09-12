@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 
 class CameraScaffold extends StatelessWidget {
@@ -45,10 +46,7 @@ class CameraScaffold extends StatelessWidget {
                   children: children!,
                 ),
               ),
-              Container(
-                height: double.infinity,
-                constraints: const BoxConstraints(maxHeight: 96.0),
-              ),
+              const BottomConstrainedPadding(),
             ],
           ],
         ),

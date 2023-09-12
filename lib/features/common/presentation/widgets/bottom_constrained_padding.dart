@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class BottomConstrainedPadding extends StatelessWidget {
@@ -5,6 +7,13 @@ class BottomConstrainedPadding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(constraints: const BoxConstraints(minHeight: 96.0));
+    if (Platform.isIOS) {
+      return Container(
+        height: double.infinity,
+        constraints: const BoxConstraints(maxHeight: 96.0),
+      );
+    } else {
+      return const SizedBox(height: 32.0);
+    }
   }
 }
