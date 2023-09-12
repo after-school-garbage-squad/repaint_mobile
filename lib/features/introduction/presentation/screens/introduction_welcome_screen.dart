@@ -8,29 +8,6 @@ import 'package:repaint_mobile/features/common/presentation/widgets/bottom_const
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 
-class IntroductionWelcomeText extends StatelessWidget {
-  const IntroductionWelcomeText({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final baseStyle = Theme.of(context).textTheme.bodyMedium;
-    final boldStyle = baseStyle?.copyWith(color: Colors.red);
-
-    return Text.rich(
-      style: baseStyle,
-      TextSpan(
-        children: [
-          const TextSpan(text: "「Re:paint」を正しくご利用していただくために、"),
-          TextSpan(text: "通知", style: boldStyle),
-          const TextSpan(text: "と"),
-          TextSpan(text: "位置情報", style: boldStyle),
-          const TextSpan(text: "の使用の許可する必要があります。\n\n「進む」を押した後に許可をお願いいたします。"),
-        ],
-      ),
-    );
-  }
-}
-
 @RoutePage()
 class IntroductionWelcomeScreen extends ConsumerWidget {
   @override
@@ -61,19 +38,13 @@ class IntroductionWelcomeScreen extends ConsumerWidget {
                     const SizedBox(height: 32.0),
                     ConstrainedBox(
                       constraints: const BoxConstraints(maxHeight: 480.0),
-                      child: AspectRatio(
-                        aspectRatio: 1,
-                        child: Image.asset("assets/repaint.png"),
-                      ),
+                      child: Image.asset("assets/repaint.png"),
                     ),
-                    const SizedBox(height: 12.0),
+                    const SizedBox(height: 16.0),
                     Text(
                       "ようこそ!",
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    const SizedBox(height: 12.0),
-                    const IntroductionWelcomeText(),
-                    const SizedBox(height: 12.0),
                   ],
                 ),
               ),
