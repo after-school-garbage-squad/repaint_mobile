@@ -5,6 +5,29 @@ import 'package:repaint_mobile/features/common/presentation/widgets/bottom_const
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 
+class IntroductionWelcomeText extends StatelessWidget {
+  const IntroductionWelcomeText({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final baseStyle = Theme.of(context).textTheme.bodyMedium;
+    final boldStyle = baseStyle?.copyWith(color: Colors.red);
+
+    return Text.rich(
+      style: baseStyle,
+      TextSpan(
+        children: [
+          const TextSpan(text: "「Re:paint」を正しくご利用していただくために、"),
+          TextSpan(text: "通知", style: boldStyle),
+          const TextSpan(text: "と"),
+          TextSpan(text: "位置情報", style: boldStyle),
+          const TextSpan(text: "の使用の許可する必要があります。\n\n"),
+        ],
+      ),
+    );
+  }
+}
+
 @RoutePage()
 class IntroductionExplainScreen extends StatelessWidget {
   @override
@@ -32,17 +55,21 @@ class IntroductionExplainScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     const SizedBox(height: 32.0),
-                    ConstrainedBox(
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
                       constraints: const BoxConstraints(maxHeight: 480.0),
                       child: AspectRatio(
                         aspectRatio: 1,
-                        child:
-                            Image.asset('assets/undraw_Mobile_app_re_catg.png'),
+                        child: Image.asset(
+                          'assets/undraw_Mobile_app_re_catg.png',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 32.0),
-                    const Text('参加するためには、配布されたQRコードを読み取る必要があります。'),
-                    const SizedBox(height: 12.0),
+                    const SizedBox(height: 16.0),
+                    const IntroductionWelcomeText(),
                   ],
                 ),
               ),
@@ -54,7 +81,7 @@ class IntroductionExplainScreen extends StatelessWidget {
               onPressed: () {
                 context.pushRoute(const IntroductionQRCodeReaderRoute());
               },
-              text: "QRコードの読み取りに進む",
+              text: "進む",
             ),
           ),
           const BottomConstrainedPadding(),
