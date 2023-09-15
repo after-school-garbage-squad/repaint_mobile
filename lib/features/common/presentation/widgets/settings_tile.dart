@@ -5,14 +5,16 @@ class SettingsTile extends StatelessWidget {
     super.key,
     required this.child,
     this.width = double.infinity,
-    this.height = 40.0,
-    this.padding = const EdgeInsets.all(8.0),
+    this.height,
+    this.padding = const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+    this.borderRadius,
   });
 
   final Widget child;
   final double? width;
   final double? height;
   final EdgeInsets? padding;
+  final BorderRadius? borderRadius;
 
   factory SettingsTile.toggle({
     required String title,
@@ -69,7 +71,7 @@ class SettingsTile extends StatelessWidget {
       height: height,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: borderRadius ?? BorderRadius.circular(12.0),
       ),
       child: Padding(padding: padding!, child: child),
     );
