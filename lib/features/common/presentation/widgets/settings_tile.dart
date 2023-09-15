@@ -16,24 +16,6 @@ class SettingsTile extends StatelessWidget {
   final EdgeInsets? padding;
   final BorderRadius? borderRadius;
 
-  factory SettingsTile.text({
-    required String title,
-    required String value,
-    TextStyle? titleStyle,
-    TextStyle? valueStyle,
-  }) {
-    return SettingsTile(
-      padding: const EdgeInsets.all(16.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(title, style: titleStyle),
-          Text(value, style: valueStyle),
-        ],
-      ),
-    );
-  }
-
   factory SettingsTile.toggle({
     required String title,
     required bool value,
@@ -61,7 +43,6 @@ class SettingsTile extends StatelessWidget {
     void Function(String)? onChanged,
   }) {
     return SettingsTile(
-      padding: EdgeInsets.zero,
       child: TextField(
         controller: controller,
         keyboardType: keyboardType,
@@ -73,10 +54,9 @@ class SettingsTile extends StatelessWidget {
             padding: EdgeInsets.zero,
             onPressed: () => controller.clear(),
           ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-          contentPadding: const EdgeInsets.all(16.0),
+          suffixIconConstraints: BoxConstraints.tight(const Size.square(24.0)),
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.all(8.0),
         ),
         onChanged: onChanged,
         scrollPhysics: const NeverScrollableScrollPhysics(),
@@ -89,12 +69,11 @@ class SettingsTile extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      padding: padding,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: borderRadius ?? BorderRadius.circular(12.0),
       ),
-      child: child,
+      child: Padding(padding: padding!, child: child),
     );
   }
 }
