@@ -17,6 +17,7 @@ class VisitorSettingsScreen extends ConsumerWidget {
     final settings = ref.watch(visitorSettingsProvider);
     final visitorSettingsController =
         ref.watch(visitorSettingsControllerProvider);
+    final packageInfo = ref.watch(packageInfoProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -80,6 +81,12 @@ class VisitorSettingsScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 16),
             const ListHeading("アプリについて"),
+            const SizedBox(height: 16),
+            SettingsTile.text(
+              title: "バージョン",
+              titleStyle: Theme.of(context).textTheme.bodyLarge,
+              value: packageInfo.value?.version ?? "",
+            ),
             const SizedBox(height: 16),
             WideElevatedButton(
               onPressed: () {
