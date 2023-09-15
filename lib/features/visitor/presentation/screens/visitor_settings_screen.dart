@@ -43,19 +43,19 @@ class VisitorSettingsScreen extends ConsumerWidget {
             SettingsTile.toggle(
               title: "スポットに入った際の通知",
               value: settings.value?.notifications.spot ?? false,
-              onChanged: visitorSettingsController.setSpotNotification,
+              onChanged: visitorSettingsController.onSpotNotificationChanged,
             ),
             const SizedBox(height: 12),
             SettingsTile.toggle(
               title: "イベントからのお知らせ",
               value: settings.value?.notifications.event ?? false,
-              onChanged: visitorSettingsController.setEventNotification,
+              onChanged: visitorSettingsController.onEventNotificationChanged,
             ),
             const SizedBox(height: 12),
             SettingsTile.toggle(
               title: "その他の通知",
               value: settings.value?.notifications.other ?? false,
-              onChanged: visitorSettingsController.setOtherNotification,
+              onChanged: visitorSettingsController.onOtherNotificationChanged,
             ),
             const SizedBox(height: 32),
             const ListHeading("アカウント設定"),

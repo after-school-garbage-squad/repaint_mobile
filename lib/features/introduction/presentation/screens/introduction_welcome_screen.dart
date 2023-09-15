@@ -32,10 +32,9 @@ class IntroductionWelcomeScreen extends ConsumerWidget {
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
                 child: Column(
                   children: [
-                    const SizedBox(height: 32.0),
                     ConstrainedBox(
                       constraints: const BoxConstraints(maxHeight: 480.0),
                       child: Image.asset("assets/repaint.png"),
@@ -45,6 +44,8 @@ class IntroductionWelcomeScreen extends ConsumerWidget {
                       "ようこそ!",
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
+                    const SizedBox(height: 16.0),
+                    const Text("Re:paintの説明文"), // TODO: 説明文を書く
                   ],
                 ),
               ),
@@ -56,7 +57,7 @@ class IntroductionWelcomeScreen extends ConsumerWidget {
               onPressed: () async {
                 await PermissionGuard.permissions.request();
                 if (context.mounted) {
-                  context.pushRoute(const IntroductionExplainRoute());
+                  context.pushRoute(const IntroductionStepperRoute());
                 }
               },
               text: "進む",
