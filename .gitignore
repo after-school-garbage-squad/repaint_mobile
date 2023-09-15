@@ -43,8 +43,7 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-*.env
-*.g.dart
-*.gr.dart
-*.freezed.dart
+/lib/**/*.g.dart
+/lib/**/*.gr.dart
+/lib/**/*.freezed.dart
 oss_licenses.dart
