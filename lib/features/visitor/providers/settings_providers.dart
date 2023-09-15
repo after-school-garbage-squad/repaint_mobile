@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'settings_providers.g.dart';
 
-@Riverpod(keepAlive: true, dependencies: [])
+@Riverpod(keepAlive: true, dependencies: [visitorRepository])
 class VisitorSettings extends _$VisitorSettings {
   @override
   FutureOr<VisitorSettingsEntity> build() async {

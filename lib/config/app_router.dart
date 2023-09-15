@@ -4,9 +4,9 @@ import 'package:logger/logger.dart';
 import 'package:repaint_mobile/config/guards.dart';
 import 'package:repaint_mobile/config/route.dart';
 import 'package:repaint_mobile/features/common/domain/entities/user_entity.dart';
-import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_explain_screen.dart';
 import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_qrcode_reader_screen.dart';
 import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_settings_screen.dart';
+import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_stepper_screen.dart';
 import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_welcome_screen.dart';
 import 'package:repaint_mobile/features/operator/presentation/screens/operator_beacon_list_screen.dart';
 import 'package:repaint_mobile/features/operator/presentation/screens/operator_beacon_settings_screen.dart';
@@ -68,9 +68,8 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
           initial: true,
         ),
         RepaintRoute(
-          path: '/introduction/explain',
-          page: IntroductionExplainRoute.page,
-          guards: [_permissionGuard],
+          path: '/introduction/stepper',
+          page: IntroductionStepperRoute.page,
         ),
         RepaintRoute(
           path: '/introduction/qrcode_reader',
