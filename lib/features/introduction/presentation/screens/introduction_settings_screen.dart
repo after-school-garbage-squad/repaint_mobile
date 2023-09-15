@@ -33,6 +33,19 @@ class IntroductionSettingsScreen extends ConsumerWidget {
             borderColor: Colors.white,
           ),
         ),
+        const SizedBox(height: 16),
+        const ListHeading("アプリについて"),
+        const SizedBox(height: 16),
+        WideElevatedButton(
+          onPressed: () {
+            context.pushRoute(const OssLicensesRoute());
+          },
+          text: "ライセンス",
+          colors: const WideElevatedButtonColors(
+            backgroundColor: Colors.white,
+            borderColor: Colors.white,
+          ),
+        ),
       ],
     );
   }
