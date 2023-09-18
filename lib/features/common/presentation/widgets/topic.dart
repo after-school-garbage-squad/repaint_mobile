@@ -5,12 +5,14 @@ class Topic extends StatelessWidget {
     super.key,
     required this.text,
     this.icon,
+    this.border,
     this.color,
     this.textStyle,
   });
 
   final String text;
   final IconData? icon;
+  final BoxBorder? border;
   final Color? color;
   final TextStyle? textStyle;
 
@@ -19,6 +21,8 @@ class Topic extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
+        border: border ??
+            Border.all(color: Theme.of(context).colorScheme.surfaceTint),
         borderRadius: BorderRadius.circular(8),
         color: color ?? Theme.of(context).colorScheme.surfaceVariant,
       ),

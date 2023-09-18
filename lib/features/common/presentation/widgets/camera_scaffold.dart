@@ -28,7 +28,11 @@ class CameraScaffold extends StatelessWidget {
             child: FlatIconButton(
               onPressed: onBackPressed ?? context.popRoute,
               icon: Icons.chevron_left,
-              colors: const FlatIconButtonColors(backgroundColor: Colors.white),
+              colors: const FlatIconButtonColors(
+                backgroundColor: Colors.white,
+                borderColor: Colors.black,
+                shadowColor: Colors.black,
+              ),
             ),
           ),
           leadingWidth: 64.0,
@@ -36,7 +40,7 @@ class CameraScaffold extends StatelessWidget {
         ),
         body: Column(
           children: [
-            Expanded(child: preview),
+            preview,
             if (children != null) ...[
               Padding(
                 padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),

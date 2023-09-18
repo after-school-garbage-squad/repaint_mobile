@@ -1,4 +1,4 @@
-import 'package:repaint_mobile/features/common/providers/util_providers.dart';
+import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/introduction/domain/entities/introduction_stepper_entity.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
