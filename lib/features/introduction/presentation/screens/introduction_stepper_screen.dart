@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:repaint_mobile/config/app_router.dart';
+import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/topic.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/introduction/providers/providers.dart';
 
@@ -13,36 +17,75 @@ class IntroductionStepperScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final stepper = ref.watch(introductionStepperProvider);
     final controller = ref.watch(introductionStepperControllerProvider);
+    final logger = ref.watch(loggerProvider);
     final steps = [
       Step(
+        state:
+            stepper.currentStep == 0 ? StepState.editing : StepState.complete,
         title: const Text("通知の許可"),
-        content: const Text("Re:paintを使用するために、通知の許可をします。"),
-        isActive: stepper.currentStep == 0,
+        subtitle: const Text("任意"),
+        content: Column(
+          children: [
+            const Text(
+              "Re:paintから通知を送信するために必要です。\n通知設定は後から変更できます。",
+            ),
+            const SizedBox(height: 12.0),
+            WideElevatedButton(
+              onPressed: controller.onStepNotification,
+              text: "通知を許可する",
+            ),
+          ],
+        ),
+        isActive: stepper.currentStep >= 0,
+      ),
+      // TODO: 位置情報の許可周りのUIと挙動を改善する
+      Step(
+        state: stepper.currentStep == 1
+            ? StepState.editing
+            : stepper.currentStep > 1
+                ? StepState.complete
+                : StepState.disabled,
+        title: const Text("スポットへの接続設定"),
+        subtitle: const Text("必須"),
+        content: Column(
+          children: [
+            Text(
+              "スポットに接続するために、Bluetoothと位置情報の権限が必要です。\n"
+              "${Platform.isAndroid ? "また、電池の最適化をオフにしてください。" : ""}",
+            ),
+            const SizedBox(height: 12.0),
+            WideElevatedButton(
+              onPressed: controller.onStepBeacon,
+              text: "スポットへの接続を許可する",
+            ),
+          ],
+        ),
+        isActive: stepper.currentStep >= 1,
       ),
       Step(
-        title: const Text("位置情報の許可"),
-        content: const Text("Re:paintを使用するために、位置情報の許可をします。"),
-        isActive: stepper.currentStep == 1,
-      ),
-      Step(
-        title: const Text("Bluetoothの許可"),
-        content: const Text("Re:paintを使用するために、Bluetoothの許可をします。"),
-        isActive: stepper.currentStep == 2,
-      ),
-      Step(
-        title: const Text("カメラの許可"),
-        content: const Text("Re:paintを使用するために、カメラの許可をします。"),
-        isActive: stepper.currentStep == 3,
-      ),
-      Step(
-        title: const Text("電源管理の設定"),
-        content: const Text("Re:paintをバックグラウンドで動作させるために、電源管理の設定を変更します。"),
-        isActive: stepper.currentStep == 4,
-      ),
-      Step(
-        title: const Text("QRコードの読み取り"),
-        content: const Text("QRコードを読み取ります。"),
-        isActive: stepper.currentStep == 5,
+        state: stepper.currentStep == 2
+            ? StepState.editing
+            : stepper.currentStep > 2
+                ? StepState.complete
+                : StepState.disabled,
+        title: const Text("イベントへの参加設定"),
+        subtitle: const Text("必須"),
+        content: Column(
+          children: [
+            const Text("イベント参加用QRコードを読み取るためにカメラの権限が必要です。"),
+            const SizedBox(height: 12.0),
+            WideElevatedButton(
+              onPressed: () {
+                controller.onStepEvent(() {
+                  logger.d("イベントへの参加を許可しました");
+                  context.pushRoute(const IntroductionQRCodeReaderRoute());
+                });
+              },
+              text: "イベントへの参加を許可する",
+            ),
+          ],
+        ),
+        isActive: stepper.currentStep >= 2,
       ),
     ];
 
@@ -67,43 +110,26 @@ class IntroductionStepperScreen extends ConsumerWidget {
       ),
       body: Column(
         children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
-                child: Column(
-                  children: [
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(Icons.info),
-                        Text("進むを押して、初期設定を行ってください。"),
-                      ],
-                    ),
-                    const SizedBox(height: 16.0),
-                    Stepper(
-                      steps: steps,
-                      currentStep: stepper.currentStep,
-                      controlsBuilder: (context, controlsDetails) {
-                        return const SizedBox(width: double.infinity);
-                      },
-                    ),
-                  ],
-                ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Topic(
+              icon: Icons.info,
+              text: "アプリに必要な初期設定を行ってください。",
+              border: Border.all(
+                color: Theme.of(context).colorScheme.tertiary,
               ),
+              color: Theme.of(context).colorScheme.tertiaryContainer,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: WideElevatedButton(
-              onPressed: () {
-                if (!controller.isLastStep) {
-                  controller.onStepContinue();
-                } else {
-                  context.pushRoute(const IntroductionQRCodeReaderRoute());
-                }
+          Expanded(
+            child: Stepper(
+              steps: steps,
+              currentStep: stepper.currentStep,
+              controlsBuilder: (context, controlsDetails) {
+                return const SizedBox(width: double.infinity);
               },
-              text: "進む",
+              connectorThickness: 3.0,
+              margin: const EdgeInsets.fromLTRB(52.0, 16.0, 24.0, 16.0),
             ),
           ),
           const BottomConstrainedPadding(),

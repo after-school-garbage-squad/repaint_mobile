@@ -130,6 +130,6 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
         RepaintRoute(
           path: '/licenses',
           page: OssLicensesRoute.page,
-        )
+        ),
       ];
 }

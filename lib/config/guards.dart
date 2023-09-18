@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -8,9 +10,25 @@ class PermissionGuard extends AutoRouteGuard {
 
   final Ref _ref;
   static final permissions = [
+    ...notificationPermissions,
+    ...beaconPermissions,
+    ...eventPermissions,
+  ];
+
+  static final notificationPermissions = [
     Permission.notification,
+  ];
+
+  static final beaconPermissions = [
     Permission.location,
+    Permission.locationWhenInUse,
+    Permission.locationAlways,
     Permission.bluetooth,
+    if (Platform.isAndroid) Permission.bluetoothScan,
+    if (Platform.isAndroid) Permission.ignoreBatteryOptimizations,
+  ];
+
+  static final eventPermissions = [
     Permission.camera,
   ];
 
