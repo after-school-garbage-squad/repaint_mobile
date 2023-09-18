@@ -32,6 +32,8 @@ class RepaintApp extends ConsumerWidget {
                 primaryContainer: const Color(0xffc0deff),
                 secondary: const Color(0xff9376e0),
                 secondaryContainer: const Color(0xffada2ff),
+                tertiary: const Color(0xffe0b3ff),
+                tertiaryContainer: const Color(0xfff2daff),
                 error: const Color(0xffff003d),
                 surface: const Color(0xffd6d6d6),
                 background: const Color(0xfff8f8f8),

@@ -28,6 +28,10 @@ environment:
 dependencies:
   # auth0_flutter: ^1.2.1
   auto_route: ^7.8.0
+  beacon_plugin:
+    git:
+      url: https://github.com/after-school-garbage-squad/beacon_plugin.git
+      ref: HEAD
   camera: ^0.10.5+3
   dio: ^5.3.2
   flutter:
