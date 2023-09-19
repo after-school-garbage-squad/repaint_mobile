@@ -40,7 +40,6 @@ class OperatorBeaconSettingsScreen extends StatelessWidget {
                 text: "登録解除",
                 colors: const WideElevatedButtonColors(
                   backgroundColor: Colors.white,
-                  borderColor: Colors.white,
                   textColor: Colors.red,
                 ),
               ),

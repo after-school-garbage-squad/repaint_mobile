@@ -48,7 +48,6 @@ class OperatorHomeScreen extends StatelessWidget {
                   text: "イベントを変更",
                   colors: WideElevatedButtonColors(
                     backgroundColor: Colors.transparent,
-                    borderColor: Colors.transparent,
                     shadowColor: Colors.transparent,
                     textColor: Theme.of(context).colorScheme.primary,
                   ),

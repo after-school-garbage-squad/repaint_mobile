@@ -13,7 +13,7 @@ bool scanningState(ScanningStateRef ref) {
 Future<BeaconManager> beaconManager(BeaconManagerRef ref) async {
   final scanningState = ref.read(scanningStateProvider);
   final beaconManager = BeaconPlugin.beaconManager;
-  beaconManager.setBeaconServiceUUIDs(["FE6F"]);
+  await beaconManager.setBeaconServiceUUIDs(["FE6F"]);
   if (scanningState) await beaconManager.startScan();
   return beaconManager;
 }
