@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 
 class WideElevatedButtonColors {
   const WideElevatedButtonColors({
-    this.borderColor,
     this.backgroundColor,
     this.shadowColor,
     this.textColor = Colors.black,
     this.iconColor = Colors.black,
   });
 
-  final Color? borderColor;
   final Color? backgroundColor;
   final Color? shadowColor;
   final Color? textColor;
@@ -23,7 +21,8 @@ class WideElevatedButton extends StatelessWidget {
     required this.text,
     this.icon,
     this.colors,
-    this.elevation = 2.0,
+    this.elevation = 1.0,
+    this.elevationOnPressed = 3.0,
   });
 
   final VoidCallback onPressed;
@@ -31,14 +30,12 @@ class WideElevatedButton extends StatelessWidget {
   final IconData? icon;
   final WideElevatedButtonColors? colors;
   final double elevation;
+  final double elevationOnPressed;
 
   @override
   Widget build(BuildContext context) {
-    final borderColor =
-        colors?.borderColor ?? Theme.of(context).colorScheme.primary;
-    final backgroundColor = colors?.backgroundColor ??
+    final color = colors?.backgroundColor ??
         Theme.of(context).colorScheme.primaryContainer;
-    final shadowColor = colors?.shadowColor ?? Theme.of(context).shadowColor;
 
     return ConstrainedBox(
       constraints:
@@ -46,14 +43,23 @@ class WideElevatedButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor,
+          foregroundColor: Colors.grey.shade400,
+          backgroundColor: color,
+          surfaceTintColor: Colors.white,
+          splashFactory: InkRipple.splashFactory,
           shape: RoundedRectangleBorder(
-            side: BorderSide(color: borderColor),
             borderRadius: BorderRadius.circular(8.0),
           ),
-          surfaceTintColor: Colors.white,
-          elevation: elevation,
-          shadowColor: shadowColor,
+        ).merge(
+          ButtonStyle(
+            elevation: MaterialStateProperty.resolveWith<double>(
+                (Set<MaterialState> states) {
+              if (states.contains(MaterialState.pressed)) {
+                return elevationOnPressed;
+              }
+              return elevation;
+            }),
+          ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

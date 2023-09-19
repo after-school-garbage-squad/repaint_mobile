@@ -34,6 +34,15 @@ class IntroductionStepperScreen extends ConsumerWidget {
               onPressed: controller.onStepNotification,
               text: "通知を許可する",
             ),
+            const SizedBox(height: 12.0),
+            WideElevatedButton(
+              onPressed: controller.onStepNotification,
+              text: "通知を許可しない",
+              colors: WideElevatedButtonColors(
+                backgroundColor: Colors.white,
+                textColor: Theme.of(context).colorScheme.onBackground,
+              ),
+            ),
           ],
         ),
         isActive: stepper.currentStep >= 0,
@@ -81,7 +90,7 @@ class IntroductionStepperScreen extends ConsumerWidget {
                   context.pushRoute(const IntroductionQRCodeReaderRoute());
                 });
               },
-              text: "イベントへの参加を許可する",
+              text: "QRコードを読み取る",
             ),
           ],
         ),
@@ -115,9 +124,6 @@ class IntroductionStepperScreen extends ConsumerWidget {
             child: Topic(
               icon: Icons.info,
               text: "アプリに必要な初期設定を行ってください。",
-              border: Border.all(
-                color: Theme.of(context).colorScheme.tertiary,
-              ),
               color: Theme.of(context).colorScheme.tertiaryContainer,
             ),
           ),

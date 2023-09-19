@@ -72,7 +72,6 @@ class VisitorHomeScreen extends StatelessWidget {
                 icon: Icons.group,
                 colors: WideElevatedButtonColors(
                   backgroundColor: Theme.of(context).colorScheme.surface,
-                  borderColor: Theme.of(context).colorScheme.surface,
                 ),
               ),
               const SizedBox(height: 32.0),
