@@ -86,7 +86,7 @@ class IntroductionStepperScreen extends ConsumerWidget {
             WideElevatedButton(
               onPressed: () {
                 controller.onStepEvent(() {
-                  logger.d("イベントへの参加を許可しました");
+                  logger.d("onStepEvent");
                   context.pushRoute(const IntroductionQRCodeReaderRoute());
                 });
               },
