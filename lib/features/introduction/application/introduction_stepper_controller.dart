@@ -19,18 +19,24 @@ class IntroductionStepperController {
     List<Permission> permissions, {
     void Function()? onGranted,
   }) async {
-    final status = await permissions.request();
-    if (status.values.every((e) => e.isGranted)) {
+    final List<PermissionStatus> statuses = [];
+
+    await Future.forEach(
+      permissions.map((permission) => permission.request()),
+      (element) async => statuses.add(await element),
+    );
+
+    if (statuses.every((e) => e.isGranted)) {
       onGranted != null ? onGranted() : _stepper.next();
     }
-    return status;
+    return Map.fromIterables(permissions, statuses);
   }
 
   Future<Map<Permission, PermissionStatus>> onStepNotification() {
     return _onStepContinue(PermissionGuard.notificationPermissions);
   }
 
-  Future<Map<Permission, PermissionStatus>> onStepBeacon() {
+  Future<Map<Permission, PermissionStatus>> onStepBeacon() async {
     return _onStepContinue(PermissionGuard.beaconPermissions);
   }
 

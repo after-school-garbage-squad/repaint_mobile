@@ -75,7 +75,6 @@ class VisitorSettingsScreen extends ConsumerWidget {
               text: "ログアウト",
               colors: const WideElevatedButtonColors(
                 backgroundColor: Colors.white,
-                borderColor: Colors.white,
                 textColor: Colors.red,
               ),
             ),
@@ -93,10 +92,8 @@ class VisitorSettingsScreen extends ConsumerWidget {
                 context.pushRoute(const OssLicensesRoute());
               },
               text: "ライセンス",
-              colors: const WideElevatedButtonColors(
-                backgroundColor: Colors.white,
-                borderColor: Colors.white,
-              ),
+              colors:
+                  const WideElevatedButtonColors(backgroundColor: Colors.white),
             ),
           ],
         ),
