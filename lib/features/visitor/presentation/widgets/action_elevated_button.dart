@@ -21,34 +21,44 @@ class ActionElevatedButton extends StatelessWidget {
     required this.text,
     required this.icon,
     this.colors,
+    this.elevation = 3.0,
+    this.elevationOnPressed = 4.0,
   }) : super();
 
   final VoidCallback onPressed;
   final String text;
   final IconData icon;
   final ActionElevatedButtonColors? colors;
+  final double elevation;
+  final double elevationOnPressed;
 
   @override
   Widget build(BuildContext context) {
-    final borderColor =
-        colors?.borderColor ?? Theme.of(context).colorScheme.primary;
     final backgroundColor = colors?.backgroundColor ??
         Theme.of(context).colorScheme.primaryContainer;
-    final borderSide = BorderSide(color: borderColor);
 
     return ConstrainedBox(
       constraints: const BoxConstraints(minHeight: 48.0),
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
+          foregroundColor: Colors.grey.shade400,
           backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            side: borderSide,
             borderRadius: BorderRadius.circular(8.0),
           ),
           surfaceTintColor: Colors.white,
-          elevation: 4.0,
           padding: EdgeInsets.zero,
+        ).merge(
+          ButtonStyle(
+            elevation: MaterialStateProperty.resolveWith<double>(
+                (Set<MaterialState> states) {
+              if (states.contains(MaterialState.pressed)) {
+                return elevationOnPressed;
+              }
+              return elevation;
+            }),
+          ),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -64,7 +74,6 @@ class ActionElevatedButton extends StatelessWidget {
                 constraints: const BoxConstraints(minHeight: 40.0),
                 decoration: BoxDecoration(
                   color: backgroundColor,
-                  border: Border(top: borderSide),
                 ),
                 child: Text(
                   text,
