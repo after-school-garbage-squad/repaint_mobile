@@ -7,6 +7,7 @@ import 'package:repaint_mobile/features/common/domain/entities/user_entity.dart'
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_heading.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/settings_tile.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/version_tile.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/visitor/providers/providers.dart';
 
@@ -81,11 +82,7 @@ class VisitorSettingsScreen extends ConsumerWidget {
             const SizedBox(height: 16),
             const ListHeading("アプリについて"),
             const SizedBox(height: 16),
-            SettingsTile.text(
-              title: "バージョン",
-              titleStyle: Theme.of(context).textTheme.bodyLarge,
-              value: packageInfo.value?.version ?? "",
-            ),
+            VersionTile(packageInfo: packageInfo.value),
             const SizedBox(height: 16),
             WideElevatedButton(
               onPressed: () {
