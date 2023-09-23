@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'controller_providers.g.dart';
 
-@Riverpod(dependencies: [])
+@Riverpod(dependencies: [VisitorSettings])
 VisitorSettingsController visitorSettingsController(
   VisitorSettingsControllerRef ref,
 ) {

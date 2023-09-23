@@ -3,20 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:repaint_mobile/config/app_router.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/app_dialog.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/repaint_scaffold.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 
 @RoutePage()
 class OperatorCameraPreviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text("確認画面"),
-        centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.background,
-      ),
-      body: Padding(
+    return RepaintScaffold(
+      title: "確認画面",
+      child: Padding(
         padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
         child: Column(
           children: [
@@ -64,7 +60,6 @@ class OperatorCameraPreviewScreen extends StatelessWidget {
           ],
         ),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
     );
   }
 }

@@ -34,9 +34,6 @@ class WideElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = colors?.backgroundColor ??
-        Theme.of(context).colorScheme.primaryContainer;
-
     return ConstrainedBox(
       constraints:
           const BoxConstraints(minWidth: double.infinity, minHeight: 48.0),
@@ -44,9 +41,10 @@ class WideElevatedButton extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.grey.shade400,
-          backgroundColor: color,
+          backgroundColor: colors?.backgroundColor ??
+              Theme.of(context).colorScheme.primaryContainer,
           surfaceTintColor: Colors.white,
-          splashFactory: InkRipple.splashFactory,
+          shadowColor: colors?.shadowColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),
           ),

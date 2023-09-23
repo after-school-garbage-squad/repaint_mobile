@@ -6,6 +6,7 @@ import 'package:repaint_mobile/config/app_router.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/app_dialog.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/repaint_scaffold.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/visitor/presentation/widgets/action_elevated_button.dart';
 import 'package:repaint_mobile/features/visitor/presentation/widgets/dot_indicator.dart';
@@ -15,22 +16,15 @@ import 'package:repaint_mobile/features/visitor/presentation/widgets/progress_ba
 class VisitorHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        actions: [
-          FlatIconButton(
-            onPressed: () {
-              context.pushRoute(const VisitorSettingsRoute());
-            },
-            icon: Icons.settings,
-          ),
-          // https://github.com/flutter/flutter/issues/118965
-          const SizedBox(width: 16.0),
-        ],
-        backgroundColor: Theme.of(context).colorScheme.background,
+    return RepaintScaffold(
+      isBackButtonVisible: false,
+      action: FlatIconButton(
+        onPressed: () {
+          context.pushRoute(const VisitorSettingsRoute());
+        },
+        icon: Icons.settings,
       ),
-      body: SingleChildScrollView(
+      child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
           child: Column(
@@ -121,7 +115,6 @@ class VisitorHomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
     );
   }
 }

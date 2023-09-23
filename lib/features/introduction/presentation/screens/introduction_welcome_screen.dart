@@ -1,31 +1,26 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import 'package:repaint_mobile/config/app_router.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/repaint_scaffold.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
+import 'package:repaint_mobile/features/introduction/providers/controller_providers.dart';
 
 @RoutePage()
 class IntroductionWelcomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        actions: [
-          FlatIconButton(
-            onPressed: () {
-              context.pushRoute(const IntroductionSettingsRoute());
-            },
-            icon: Icons.settings,
-          ),
-          // https://github.com/flutter/flutter/issues/118965
-          const SizedBox(width: 16.0),
-        ],
-        backgroundColor: Theme.of(context).colorScheme.background,
+    final controller = ref.watch(introductionWelcomeControllerProvider);
+
+    return RepaintScaffold(
+      isBackButtonVisible: false,
+      action: FlatIconButton(
+        onPressed: () => controller.onSettingsPressed(context),
+        icon: Icons.settings,
       ),
-      body: Column(
+      padding: EdgeInsets.zero,
+      child: Column(
         children: [
           Expanded(
             child: SingleChildScrollView(
@@ -55,16 +50,13 @@ class IntroductionWelcomeScreen extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: WideElevatedButton(
-              onPressed: () {
-                context.pushRoute(const IntroductionStepperRoute());
-              },
+              onPressed: () => controller.onContinuePressed(context),
               text: "進む",
             ),
           ),
           const BottomConstrainedPadding(),
         ],
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
     );
   }
 }
