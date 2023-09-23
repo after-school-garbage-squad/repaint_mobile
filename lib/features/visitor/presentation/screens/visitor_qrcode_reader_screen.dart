@@ -8,13 +8,10 @@ class VisitorQRCodeReaderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CameraScaffold(
-      // TODO: カメラを実装する
-      preview: Expanded(
-        child: MobileScanner(
-          onDetect: (capture) {
-            // TODO: QRコードの内容を取得した際の処理を実装する
-          },
-        ),
+      preview: MobileScanner(
+        onDetect: (capture) {
+          // TODO: QRコードの内容を取得した際の処理を実装する
+        },
       ),
       children: const [
         Center(child: Text('スポットのQRコードを読み込んでください')),

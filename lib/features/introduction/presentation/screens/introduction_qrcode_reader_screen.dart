@@ -2,33 +2,20 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:repaint_mobile/config/app_router.dart';
-import 'package:repaint_mobile/config/providers.dart';
-import 'package:repaint_mobile/features/common/domain/entities/user_entity.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/camera_scaffold.dart';
+import 'package:repaint_mobile/features/introduction/providers/providers.dart';
 
 @RoutePage()
 class IntroductionQRCodeReaderScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final logger = ref.watch(loggerProvider);
+    final controller =
+        ref.watch(introductionQRCodeReaderControllerProvider.future);
 
     return CameraScaffold(
-      preview: Expanded(
-        child: MobileScanner(
-          onDetect: (capture) async {
-            logger.d('QRコードを読み取りました: ${capture.barcodes.first.rawValue}');
-
-            // TODO: QRコードの内容を取得した際の処理を実装する
-            if (context.mounted) {
-              context.router.pushAndPopUntil(
-                const VisitorHomeRoute(),
-                predicate: (_) => false,
-              );
-              await ref.read(userProvider.notifier).setType(UserType.visitor);
-            }
-          },
-        ),
+      preview: MobileScanner(
+        onDetect: (capture) async =>
+            (await controller).onQRCodeScanned(context, capture),
       ),
       children: [
         Text(

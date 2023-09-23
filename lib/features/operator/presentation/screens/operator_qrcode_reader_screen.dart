@@ -11,33 +11,31 @@ class OperatorQRCodeReaderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CameraScaffold(
-      preview: Expanded(
-        child: Stack(
-          children: [
-            MobileScanner(
-              onDetect: (capture) {
-                // TODO: QRコードの内容を取得した際の処理を実装する
-                showDialog(
-                  context: context,
-                  builder: (_) => const _QRCodeReaderConfirmDialog(),
-                );
-              },
-            ),
-            Positioned(
-              right: 14,
-              bottom: 8,
-              child: Container(
-                width: 100,
-                height: 48,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Center(child: Text("1枚目")),
+      preview: Stack(
+        children: [
+          MobileScanner(
+            onDetect: (capture) {
+              // TODO: QRコードの内容を取得した際の処理を実装する
+              showDialog(
+                context: context,
+                builder: (_) => const _QRCodeReaderConfirmDialog(),
+              );
+            },
+          ),
+          Positioned(
+            right: 14,
+            bottom: 8,
+            child: Container(
+              width: 100,
+              height: 48,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
               ),
+              child: const Center(child: Text("1枚目")),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
       children: [
         Center(
