@@ -1,22 +1,23 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:repaint_mobile/config/app_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/repaint_scaffold.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/operator/presentation/widgets/operator_elevated_tile.dart';
+import 'package:repaint_mobile/features/operator/providers/providers.dart';
 
 @RoutePage()
-class OperatorHomeScreen extends StatelessWidget {
+class OperatorHomeScreen extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.watch(operatorHomeControllerProvider);
+
     return RepaintScaffold(
       title: "管理者画面",
       isBackButtonVisible: false,
       action: FlatIconButton(
-        onPressed: () {
-          context.pushRoute(const OperatorSettingsRoute());
-        },
+        onPressed: () => controller.onSettingsPressed(context),
         icon: Icons.settings,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
@@ -35,8 +36,7 @@ class OperatorHomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               WideElevatedButton(
-                // TODO: イベントを変更する機能を実装する
-                onPressed: () {},
+                onPressed: () => controller.onChangeEventPressed(context),
                 text: "イベントを変更",
                 colors: WideElevatedButtonColors(
                   backgroundColor: Colors.transparent,
@@ -49,25 +49,19 @@ class OperatorHomeScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           OperatorElevatedTile.action(
-            onTap: () {
-              context.pushRoute(const OperatorQRCodeReaderRoute());
-            },
+            onTap: () => controller.onQRCodeReaderPressed(context),
             title: "QRコードを読み取る",
             icon: Icons.qr_code_scanner,
           ),
           const SizedBox(height: 16),
           OperatorElevatedTile.action(
-            onTap: () {
-              context.pushRoute(const OperatorCameraRoute());
-            },
+            onTap: () => controller.onCameraPressed(context),
             title: "写真を撮影する",
             icon: Icons.camera_alt,
           ),
           const SizedBox(height: 16),
           OperatorElevatedTile.action(
-            onTap: () {
-              context.pushRoute(const OperatorBeaconListRoute());
-            },
+            onTap: () => controller.onBeaconListPressed(context),
             title: "ビーコンを設定する",
             // TODO: 仮で設定した下記のアイコンを変更するかを検討する
             icon: Icons.settings_input_antenna,
