@@ -15,7 +15,6 @@ class VisitorHomeController {
   }
 
   void onShowQRCodePressed(BuildContext context) {
-    // TODO: QRコードの取得処理を追加する
     showDialog(
       context: context,
       builder: (context) => const QRCodeViewDialog(),
