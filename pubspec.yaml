@@ -27,7 +27,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   # auth0_flutter: ^1.2.1
-  auto_route: ^7.8.0
+  auto_route: ^7.8.3
   beacon_plugin:
     git:
       url: https://github.com/after-school-garbage-squad/beacon_plugin.git

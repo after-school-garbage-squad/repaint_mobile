@@ -111,10 +111,8 @@ class IntroductionStepperScreen extends ConsumerWidget {
             child: Stepper(
               steps: steps,
               currentStep: stepper.currentStep,
-              controlsBuilder: (context, controlsDetails) {
-                return const SizedBox(width: double.infinity);
-              },
-              connectorThickness: 3.0,
+              controlsBuilder: (context, controlsDetails) =>
+                const SizedBox(width: double.infinity),
               margin: const EdgeInsets.fromLTRB(52.0, 16.0, 24.0, 16.0),
             ),
           ),
