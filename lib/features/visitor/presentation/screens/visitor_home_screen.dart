@@ -26,85 +26,82 @@ class VisitorHomeScreen extends ConsumerWidget {
         icon: Icons.settings,
       ),
       child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
-          child: Column(
-            children: [
-              ConstrainedBox(
-                // TODO: 実際の画像のサイズに合わせる
-                constraints: const BoxConstraints(maxHeight: 480.0),
-                child: const AspectRatio(
-                  aspectRatio: 1,
-                  // TODO: 画像を設定する
-                  child: Placeholder(fallbackWidth: double.infinity),
-                ),
+        child: Column(
+          children: [
+            ConstrainedBox(
+              // TODO: 実際の画像のサイズに合わせる
+              constraints: const BoxConstraints(maxHeight: 480.0),
+              child: const AspectRatio(
+                aspectRatio: 1,
+                // TODO: 画像を設定する
+                child: Placeholder(fallbackWidth: double.infinity),
               ),
-              const SizedBox(height: 12.0),
-              // TODO: ドットインジケーターの値を実際の値に合わせる
-              SizedBox(
-                height: 32.0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    DotIndicator(onPressed: () {}, enabled: true),
-                    const SizedBox(width: 32.0),
-                    DotIndicator(onPressed: () {}),
-                    const SizedBox(width: 32.0),
-                    DotIndicator(onPressed: () {}),
-                    const SizedBox(width: 32.0),
-                    DotIndicator(onPressed: () {}),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 12.0),
-              // TODO: プログレスバーの値を実際の値に合わせる
-              ProgressBar(progress: Random().nextDouble()),
-              const SizedBox(height: 32.0),
-              WideElevatedButton(
-                onPressed: () => controller.onDownloadPressed(context),
-                text: "ダウンロード",
-                icon: Icons.group,
-                colors: WideElevatedButtonColors(
-                  backgroundColor: Theme.of(context).colorScheme.surface,
-                ),
-              ),
-              const SizedBox(height: 32.0),
-              Row(
+            ),
+            const SizedBox(height: 12.0),
+            // TODO: ドットインジケーターの値を実際の値に合わせる
+            SizedBox(
+              height: 32.0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: ActionElevatedButton(
-                      onPressed: () => controller.onShowQRCodePressed(context),
-                      text: "QRコードの表示",
-                      icon: Icons.qr_code,
-                      colors: ActionElevatedButtonColors(
-                        borderColor: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 40.0),
-                  Expanded(
-                    child: ActionElevatedButton(
-                      onPressed: () => controller.onReadQRCodePressed(context),
-                      text: "QRコードの読取",
-                      icon: Icons.qr_code_scanner,
-                      colors: ActionElevatedButtonColors(
-                        borderColor: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ),
+                  DotIndicator(onPressed: () {}, enabled: true),
+                  const SizedBox(width: 32.0),
+                  DotIndicator(onPressed: () {}),
+                  const SizedBox(width: 32.0),
+                  DotIndicator(onPressed: () {}),
+                  const SizedBox(width: 32.0),
+                  DotIndicator(onPressed: () {}),
                 ],
               ),
-              const SizedBox(height: 16.0),
-              WideElevatedButton(
-                onPressed: () => controller.onEventPressed(context),
-                text: "イベントHPを見る",
-                colors: const WideElevatedButtonColors(
-                  backgroundColor: Colors.white,
-                ),
+            ),
+            const SizedBox(height: 12.0),
+            // TODO: プログレスバーの値を実際の値に合わせる
+            ProgressBar(progress: Random().nextDouble()),
+            const SizedBox(height: 32.0),
+            WideElevatedButton(
+              onPressed: () => controller.onDownloadPressed(context),
+              text: "ダウンロード",
+              icon: Icons.group,
+              colors: WideElevatedButtonColors(
+                backgroundColor: Theme.of(context).colorScheme.surface,
               ),
-              const BottomConstrainedPadding(),
-            ],
-          ),
+            ),
+            const SizedBox(height: 32.0),
+            Row(
+              children: [
+                Expanded(
+                  child: ActionElevatedButton(
+                    onPressed: () => controller.onShowQRCodePressed(context),
+                    text: "QRコードの表示",
+                    icon: Icons.qr_code,
+                    colors: ActionElevatedButtonColors(
+                      borderColor: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 40.0),
+                Expanded(
+                  child: ActionElevatedButton(
+                    onPressed: () => controller.onReadQRCodePressed(context),
+                    text: "QRコードの読取",
+                    icon: Icons.qr_code_scanner,
+                    colors: ActionElevatedButtonColors(
+                      borderColor: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16.0),
+            WideElevatedButton(
+              onPressed: () => controller.onEventPressed(context),
+              text: "イベントHPを見る",
+              colors: const WideElevatedButtonColors(
+                backgroundColor: Colors.white,
+              ),
+            ),
+            const BottomConstrainedPadding(),
+          ],
         ),
       ),
     );
