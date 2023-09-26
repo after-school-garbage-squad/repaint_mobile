@@ -9,16 +9,17 @@ export '../features/common/providers/providers.dart';
 part 'providers.g.dart';
 
 @Riverpod(keepAlive: true, dependencies: [User])
-Future<Raw<AppRouter>> appRouter(AppRouterRef ref) async => AppRouter(
-      await ref.read(userProvider.future),
-      PermissionGuard(ref),
-    );
+Future<Raw<AppRouter>> appRouter(AppRouterRef ref) async {
+  return AppRouter(
+    await ref.read(userProvider.future),
+    PermissionGuard(ref),
+    ref.read(loggerProvider),
+  );
+}
 
 Future<void> initializeProviders(ProviderContainer container) async {
-  // await container.read(firebaseProvider.future);
   await container.read(sharedPreferencesProvider.future);
   await container.read(localDataSourceProvider.future);
   await container.read(userProvider.future);
   await container.read(beaconStateProvider.future);
-  await container.read(beaconStateProvider.notifier).startScan();
 }
