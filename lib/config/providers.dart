@@ -22,4 +22,5 @@ Future<void> initializeProviders(ProviderContainer container) async {
   await container.read(localDataSourceProvider.future);
   await container.read(userProvider.future);
   await container.read(beaconStateProvider.future);
+  await container.read(beaconStateProvider.notifier).startScan();
 }
