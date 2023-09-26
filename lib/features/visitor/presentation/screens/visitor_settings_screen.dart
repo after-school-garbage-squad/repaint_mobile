@@ -15,8 +15,7 @@ class VisitorSettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(visitorSettingsProvider);
-    final visitorSettingsController =
-        ref.watch(visitorSettingsControllerProvider);
+    final controller = ref.watch(visitorSettingsControllerProvider);
     final packageInfo = ref.watch(packageInfoProvider);
 
     return Scaffold(
@@ -44,19 +43,19 @@ class VisitorSettingsScreen extends ConsumerWidget {
             SettingsTile.toggle(
               title: "スポットに入った際の通知",
               value: settings.value?.notifications.spot ?? false,
-              onChanged: visitorSettingsController.onSpotNotificationChanged,
+              onChanged: controller.onSpotNotificationChanged,
             ),
             const SizedBox(height: 12),
             SettingsTile.toggle(
               title: "イベントからのお知らせ",
               value: settings.value?.notifications.event ?? false,
-              onChanged: visitorSettingsController.onEventNotificationChanged,
+              onChanged: controller.onEventNotificationChanged,
             ),
             const SizedBox(height: 12),
             SettingsTile.toggle(
               title: "その他の通知",
               value: settings.value?.notifications.other ?? false,
-              onChanged: visitorSettingsController.onOtherNotificationChanged,
+              onChanged: controller.onOtherNotificationChanged,
             ),
             const SizedBox(height: 32),
             const ListHeading("アカウント設定"),

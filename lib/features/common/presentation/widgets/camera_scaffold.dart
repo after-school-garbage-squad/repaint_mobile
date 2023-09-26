@@ -40,7 +40,7 @@ class CameraScaffold extends StatelessWidget {
         ),
         body: Column(
           children: [
-            preview,
+            Expanded(child: preview),
             if (children != null) ...[
               Padding(
                 padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),

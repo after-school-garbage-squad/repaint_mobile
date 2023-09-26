@@ -14,7 +14,7 @@ class OperatorCameraScreen extends ConsumerWidget {
     return CameraScaffold(
       // TODO: カメラを実装する
       onBackPressed: () => controller.onPictureTaken(context),
-      preview: const Expanded(child: Placeholder()),
+      preview: const Placeholder(),
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 64.0),
