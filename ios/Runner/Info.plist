@@ -26,8 +26,29 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>常にビーコンに接続するために必要です</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>ビーコンに接続するために必要です</string>
+	<key>NSCameraUsageDescription</key>
+	<string>QRコードの読み取りに必要です</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>常にビーコンに接続するために必要です</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Re:paintを開いていない時にビーコンに接続するために必要です</string>
+	<key>NSLocationUsageDescription</key>
+	<string>ビーコンに接続するために必要です</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Re:paintを開いている時にビーコンに接続するために必要です</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>bluetooth-central</string>
+		<string>fetch</string>
+		<string>location</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -45,19 +66,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-    <key>NSCameraUsageDescription</key>
-    <string>QRコードの読み取りに必要です</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>Re:paintを開いている時にビーコンに接続するために必要です</string>
-    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>常にビーコンに接続するために必要です</string>
-    <key>NSLocationUsageDescription</key>
-    <string>ビーコンに接続するために必要です</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>Re:paintを開いていない時にビーコンに接続するために必要です</string>
-    <key>NSBluetoothAlwaysUsageDescription</key>
-    <string>常にビーコンに接続するために必要です</string>
-    <key>NSBluetoothPeripheralUsageDescription</key>
-    <string>ビーコンに接続するために必要です</string>
 </dict>
 </plist>
