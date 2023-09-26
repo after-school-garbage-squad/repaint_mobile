@@ -2,7 +2,7 @@ import 'package:beacon_plugin/beacon_manager.dart';
 import 'package:beacon_plugin/beacon_plugin.dart';
 import 'package:beacon_plugin/flutter_beacon_api.dart';
 import 'package:beacon_plugin/pigeon.dart';
-import 'package:repaint_mobile/config/providers.dart';
+import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'beacon_providers.g.dart';
@@ -10,16 +10,17 @@ part 'beacon_providers.g.dart';
 @Riverpod(keepAlive: true)
 class BeaconState extends _$BeaconState {
   late BeaconManager _beaconManager;
+  static final _logger = Logger("BeaconStateProvider");
 
   @override
   Future<bool> build() async {
     _beaconManager = BeaconPlugin.beaconManager;
-    await _beaconManager.setBeaconServiceUUIDs(["FE6F"]);
     FlutterBeaconApi.setup(
       FlutterBeaconApiImpl((data) {
-        ref.read(loggerProvider).d("beacon data: $data");
+        _logger.info("beacon data: $data");
       }),
     );
+    await _beaconManager.setBeaconServiceUUIDs(["FE6F"]);
     return false;
   }
 
@@ -27,10 +28,10 @@ class BeaconState extends _$BeaconState {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       if (state.value! == true) {
-        ref.read(loggerProvider).d("beacon scan already started");
+        _logger.warning("beacon scan already started");
       } else {
         await _beaconManager.startScan();
-        ref.read(loggerProvider).d("beacon scan started");
+        _logger.info("beacon scan started");
       }
       return true;
     });
@@ -40,10 +41,10 @@ class BeaconState extends _$BeaconState {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       if (state.value! == false) {
-        ref.read(loggerProvider).d("beacon scan already stopped");
+        _logger.warning("beacon scan already stopped");
       } else {
         await _beaconManager.stopScan();
-        ref.read(loggerProvider).d("beacon scan stopped");
+        _logger.info("beacon scan stopped");
       }
       return false;
     });
@@ -53,7 +54,7 @@ class BeaconState extends _$BeaconState {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       await _beaconManager.setBeaconServiceUUIDs(uuids);
-      ref.read(loggerProvider).d("beacon service uuids set");
+      _logger.info("beacon service uuids set");
       return state.value!;
     });
   }

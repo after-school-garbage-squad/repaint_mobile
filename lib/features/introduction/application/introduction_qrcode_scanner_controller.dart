@@ -1,6 +1,6 @@
 import "package:auto_route/auto_route.dart";
 import "package:flutter/cupertino.dart";
-import "package:logger/logger.dart";
+import "package:logging/logging.dart";
 import "package:mobile_scanner/mobile_scanner.dart";
 import "package:repaint_api_client/repaint_api_client.dart";
 import "package:repaint_mobile/config/app_router.dart";
@@ -12,12 +12,13 @@ class IntroductionQRCodeReaderController {
   const IntroductionQRCodeReaderController(
     this._repository,
     this._user,
-    this._logger,
+    this._registrationId,
   );
 
   final VisitorRepository _repository;
   final User _user;
-  final Logger _logger;
+  final String _registrationId;
+  static final _logger = Logger("IntroductionQRCodeReaderController");
 
   Future<void> onQRCodeScanned(
     BuildContext context,
@@ -28,12 +29,11 @@ class IntroductionQRCodeReaderController {
     final eventID = uri?.queryParameters["event_id"];
 
     if (eventID != null) {
-      _logger.d("eventID: $eventID");
+      _logger.info("eventID: $eventID, _registrationId: $_registrationId");
 
-      // TODO: Firebaseの設定をする
       _repository.joinEvent(
         eventID,
-        JoinEventRequest(registrationId: "registrationId"),
+        JoinEventRequest(registrationId: _registrationId),
       );
 
       if (context.mounted) {

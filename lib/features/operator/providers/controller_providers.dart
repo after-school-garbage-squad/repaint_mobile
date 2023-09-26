@@ -52,7 +52,7 @@ OperatorQRCodeReaderController operatorQRCodeReaderController(
   return const OperatorQRCodeReaderController();
 }
 
-@Riverpod()
+@Riverpod(dependencies: [User])
 OperatorSettingsController operatorSettingsController(
   OperatorSettingsControllerRef ref,
 ) {

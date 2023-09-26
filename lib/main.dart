@@ -4,6 +4,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import 'package:repaint_mobile/bootstrap.dart';
 import 'package:repaint_mobile/config/providers.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:sentry_logging/sentry_logging.dart';
 
 void main() async {
   await dotenv.load();
@@ -12,11 +13,15 @@ void main() async {
       options.dsn = dotenv.env["SENTRY_DSN"];
       options.environment = dotenv.env["SENTRY_ENVIRONMENT"];
       options.tracesSampleRate = 1.0;
+      options.addIntegration(LoggingIntegration());
     },
     appRunner: () async => runApp(
       UncontrolledProviderScope(
         container: await bootstrap(),
-        child: const RepaintApp(),
+        child: DefaultAssetBundle(
+          bundle: SentryAssetBundle(),
+          child: const RepaintApp(),
+        ),
       ),
     ),
   );
@@ -50,7 +55,11 @@ class RepaintApp extends ConsumerWidget {
               ),
               useMaterial3: true,
             ),
-            routerConfig: snapshot.data?.config(),
+            routerConfig: snapshot.data?.config(
+              navigatorObservers: () => [
+                SentryNavigatorObserver(),
+              ],
+            ),
           );
         } else {
           return const Center(child: CircularProgressIndicator());

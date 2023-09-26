@@ -1,4 +1,4 @@
-import 'package:repaint_mobile/config/providers.dart';
+import 'package:logging/logging.dart';
 import 'package:repaint_mobile/features/visitor/domain/entities/visitor_settings_entity.dart';
 import 'package:repaint_mobile/features/visitor/providers/repository_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -7,10 +7,12 @@ part 'settings_providers.g.dart';
 
 @Riverpod(keepAlive: true, dependencies: [visitorRepository])
 class VisitorSettings extends _$VisitorSettings {
+  static final _logger = Logger("VisitorSettings");
+
   @override
   FutureOr<VisitorSettingsEntity> build() async {
     final visitorSettings = await _get();
-    ref.read(loggerProvider).d('VisitorSettings initialized: $visitorSettings');
+    _logger.info('initialized: $visitorSettings');
     return visitorSettings;
   }
 

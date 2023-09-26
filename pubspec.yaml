@@ -34,6 +34,8 @@ dependencies:
       ref: HEAD
   camera: ^0.10.5+3
   dio: ^5.3.2
+  firebase_app_installations: ^0.2.3+6
+  firebase_core: ^2.16.0
   flutter:
     sdk: flutter
   flutter_dotenv: ^5.1.0
@@ -41,7 +43,7 @@ dependencies:
   fpdart: ^1.1.0
   freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1
-  logger: ^2.0.1
+  logging: ^1.2.0
   mobile_scanner: ^3.4.1
   package_info_plus: ^4.1.0
   path: ^1.8.3
@@ -53,7 +55,9 @@ dependencies:
       url: https://github.com/after-school-garbage-squad/repaint_api_client.git
       ref: HEAD
   riverpod_annotation: ^2.1.2
+  sentry_dio: ^7.10.1
   sentry_flutter: ^7.10.1
+  sentry_logging: ^7.10.1
   shared_preferences: ^2.2.0
   url_launcher: ^6.1.14
 
