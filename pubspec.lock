@@ -62,7 +62,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: fda0ce60617756717012294f304c6b59e357edac
+      resolved-ref: "5772cdefbccc6c8529856d9a8b6d4bf2e95f1903"
       url: "https://github.com/after-school-garbage-squad/beacon_plugin.git"
     source: git
     version: "0.0.1"
