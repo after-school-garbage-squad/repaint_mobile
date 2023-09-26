@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import 'package:repaint_mobile/bootstrap.dart';
 import 'package:repaint_mobile/config/providers.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 void main() async {
-  runApp(
-    UncontrolledProviderScope(
-      container: await bootstrap(),
-      child: const RepaintApp(),
+  await dotenv.load();
+  await SentryFlutter.init(
+    (options) {
+      options.dsn = dotenv.env["SENTRY_DSN"];
+      options.environment = dotenv.env["SENTRY_ENVIRONMENT"];
+      options.tracesSampleRate = 1.0;
+    },
+    appRunner: () async => runApp(
+      UncontrolledProviderScope(
+        container: await bootstrap(),
+        child: const RepaintApp(),
+      ),
     ),
   );
 }
