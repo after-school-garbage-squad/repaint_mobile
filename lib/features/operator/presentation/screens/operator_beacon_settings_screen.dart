@@ -54,7 +54,7 @@ class OperatorBeaconSettingsScreen extends ConsumerWidget {
             ),
           ],
         ),
-        const BottomConstrainedPadding(),
+        const BottomPadding(),
       ],
     );
   }

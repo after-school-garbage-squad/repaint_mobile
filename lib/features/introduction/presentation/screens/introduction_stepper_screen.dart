@@ -116,7 +116,7 @@ class IntroductionStepperScreen extends ConsumerWidget {
               margin: const EdgeInsets.fromLTRB(52.0, 16.0, 24.0, 16.0),
             ),
           ),
-          const BottomConstrainedPadding(),
+          const BottomPadding(),
         ],
       ),
     );

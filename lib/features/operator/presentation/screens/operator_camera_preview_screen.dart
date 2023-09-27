@@ -50,7 +50,7 @@ class OperatorCameraPreviewScreen extends ConsumerWidget {
                 ),
               ],
             ),
-            const BottomConstrainedPadding(),
+            const BottomPadding(),
           ],
         ),
       ),

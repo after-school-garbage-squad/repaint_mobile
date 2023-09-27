@@ -56,7 +56,7 @@ class IntroductionHomeScreen extends ConsumerWidget {
               text: "進む",
             ),
           ),
-          const BottomConstrainedPadding(),
+          const BottomPadding(),
         ],
       ),
       backgroundColor: Theme.of(context).colorScheme.background,

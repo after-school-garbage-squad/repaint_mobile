@@ -100,7 +100,7 @@ class VisitorHomeScreen extends ConsumerWidget {
                 backgroundColor: Colors.white,
               ),
             ),
-            const BottomConstrainedPadding(),
+            const BottomPadding(),
           ],
         ),
       ),

@@ -48,7 +48,7 @@ class CameraScaffold extends StatelessWidget {
                   children: children!,
                 ),
               ),
-              const BottomConstrainedPadding(),
+              const BottomPadding(),
             ],
           ],
         ),
