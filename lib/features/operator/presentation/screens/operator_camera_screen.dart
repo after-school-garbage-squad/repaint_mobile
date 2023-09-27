@@ -16,19 +16,16 @@ class OperatorCameraScreen extends ConsumerWidget {
       onBackPressed: () => controller.onPictureTaken(context),
       preview: const Placeholder(),
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 64.0),
-          child: Center(
-            child: FlatIconButton(
-              onPressed: () {},
-              icon: Icons.camera_alt,
-              padding: const EdgeInsets.all(18.0),
-              colors: const FlatIconButtonColors(
-                backgroundColor: Colors.white,
-                shadowColor: Colors.black,
-              ),
-              elevation: 4.0,
+        Center(
+          child: FlatIconButton(
+            onPressed: () {},
+            icon: Icons.camera_alt,
+            padding: const EdgeInsets.all(18.0),
+            colors: const FlatIconButtonColors(
+              backgroundColor: Colors.white,
+              shadowColor: Colors.black,
             ),
+            elevation: 4.0,
           ),
         ),
       ],
