@@ -62,14 +62,12 @@ class QRCodeReaderConfirmDialog extends StatelessWidget {
         const Spacer(),
         // TODO:各ボタンの挙動を実装する
         WideElevatedButton(
-          onPressed: () {
-            context.back();
-          },
+          onPressed: onContinueScanning,
           text: "続けて読み取る",
         ),
         const SizedBox(height: 32.0),
         WideElevatedButton(
-          onPressed: () {},
+          onPressed: onMoveToCamera,
           text: "写真撮影に進む",
         ),
         const Spacer(),

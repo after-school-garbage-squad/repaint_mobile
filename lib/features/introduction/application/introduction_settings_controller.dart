@@ -21,12 +21,6 @@ class IntroductionSettingsController {
           .login();
       _logger.info("credential: ${credential.user.name}");
       await _user.setType(UserType.operator);
-      if (context.mounted) {
-        context.router.pushAndPopUntil(
-          const OperatorHomeRoute(),
-          predicate: (_) => false,
-        );
-      }
     } catch (e) {
       _logger.severe(e);
     }

@@ -7,10 +7,10 @@ import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevate
 import 'package:repaint_mobile/features/introduction/providers/providers.dart';
 
 @RoutePage()
-class IntroductionWelcomeScreen extends ConsumerWidget {
+class IntroductionHomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.watch(introductionWelcomeControllerProvider);
+    final controller = ref.watch(introductionHomeControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -40,8 +40,8 @@ IntroductionStepperController introductionStepperController(
 }
 
 @Riverpod()
-IntroductionWelcomeController introductionWelcomeController(
-  IntroductionWelcomeControllerRef ref,
+IntroductionHomeController introductionHomeController(
+  IntroductionHomeControllerRef ref,
 ) {
-  return const IntroductionWelcomeController();
+  return const IntroductionHomeController();
 }

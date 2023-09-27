@@ -10,7 +10,7 @@ part 'providers.g.dart';
 
 @Riverpod(keepAlive: true, dependencies: [User])
 Future<Raw<AppRouter>> appRouter(AppRouterRef ref) async => AppRouter(
-      await ref.read(userProvider.future),
+      await ref.watch(userProvider.future),
       PermissionGuard(ref),
     );
 

@@ -32,20 +32,26 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
   final UserEntity? _user;
   final PermissionGuard _permissionGuard;
   static final Logger _logger = Logger("AppRouter");
-  bool _initialized = false;
+  bool _isInitialized = false;
 
   @override
   Future<void> onNavigation(
     NavigationResolver resolver,
     StackRouter router,
   ) async {
-    if (_initialized) {
+    final currentUserType = _user?.type.name.split('.').last;
+    final nextUserPath = resolver.route.path.split('/').elementAtOrNull(1);
+    final nextUserType =
+        nextUserPath == 'introduction' ? 'unknown' : nextUserPath;
+    _logger.info('user type: $currentUserType -> $nextUserType');
+
+    if (_isInitialized || currentUserType == nextUserType) {
       _logger.info(
         'from ${router.currentPath} to ${resolver.route.path} as ${_user?.type}',
       );
       resolver.next();
     } else {
-      _initialized = true;
+      _isInitialized = true;
       if (_user?.type == UserType.visitor) {
         _logger.info('redirect to visitor');
         await resolver.redirect(const VisitorHomeRoute());
@@ -54,7 +60,7 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
         await resolver.redirect(const OperatorHomeRoute());
       } else {
         _logger.info('default page');
-        await resolver.redirect(const IntroductionWelcomeRoute());
+        await resolver.redirect(const IntroductionHomeRoute());
       }
     }
   }
@@ -62,8 +68,8 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
   @override
   List<RepaintRoute> get routes => [
         RepaintRoute(
-          path: '/introduction/welcome',
-          page: IntroductionWelcomeRoute.page,
+          path: '/introduction/home',
+          page: IntroductionHomeRoute.page,
           initial: true,
         ),
         RepaintRoute(
