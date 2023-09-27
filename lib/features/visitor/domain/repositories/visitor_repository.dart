@@ -9,7 +9,6 @@ abstract class VisitorRepositoryInterface {
   Future<VisitorSettingsEntity> getSettings();
 
   Future<Either<Failure, Success<RegisterVisitor>>> joinEvent(
-    String eventID,
     JoinEventRequest joinEventRequest,
   );
 }

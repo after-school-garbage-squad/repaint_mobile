@@ -36,13 +36,12 @@ class VisitorRepository extends VisitorRepositoryInterface {
 
   @override
   Future<Either<Failure, Success<RegisterVisitor>>> joinEvent(
-    String eventID,
     JoinEventRequest joinEventRequest,
   ) async {
     try {
       final response = await _apiClient
           .getVisitorApi()
-          .joinEvent(eventID: eventID, joinEventRequest: joinEventRequest);
+          .joinEvent(joinEventRequest: joinEventRequest);
 
       return Either.right(Success(response.data!.visitor));
     } on DioException catch (e) {

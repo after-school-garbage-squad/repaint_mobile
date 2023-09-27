@@ -27,18 +27,20 @@ class IntroductionQRCodeReaderController {
       _onScanned = true;
       final urlString = capture.barcodes.first.url?.url ?? "";
       final uri = Uri.tryParse(urlString);
-      final eventID = uri?.queryParameters["event_id"];
+      final eventId = uri?.queryParameters["event_id"];
 
-      if (eventID != null) {
-        _logger.info("eventID: $eventID, _registrationId: $_registrationId");
+      if (eventId != null) {
+        _logger.info("eventId: $eventId, _registrationId: $_registrationId");
 
         if (_registrationId == null) {
           _logger.warning("registrationId is null");
         }
 
         final result = await _repository.joinEvent(
-          eventID,
-          JoinEventRequest(registrationId: _registrationId ?? ""),
+          JoinEventRequest(
+            eventId: eventId,
+            registrationId: _registrationId ?? "",
+          ),
         );
 
         await result.fold(
