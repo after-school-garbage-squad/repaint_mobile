@@ -15,17 +15,20 @@ class IntroductionSettingsController {
   static final _logger = Logger("IntroductionSettingsController");
 
   Future<void> onLoginPressed(BuildContext context) async {
-    final credential = await _auth0
-        .webAuthentication(scheme: dotenv.env["AUTH0_SCHEME"])
-        .login();
-    _logger.info("credential: ${credential.user.name}");
-    // TODO: Auth0の管理者ログイン画面に遷移する
-    await _user.setType(UserType.operator);
-    if (context.mounted) {
-      context.router.pushAndPopUntil(
-        const OperatorHomeRoute(),
-        predicate: (_) => false,
-      );
+    try {
+      final credential = await _auth0
+          .webAuthentication(scheme: dotenv.env["AUTH0_SCHEME"])
+          .login();
+      _logger.info("credential: ${credential.user.name}");
+      await _user.setType(UserType.operator);
+      if (context.mounted) {
+        context.router.pushAndPopUntil(
+          const OperatorHomeRoute(),
+          predicate: (_) => false,
+        );
+      }
+    } catch (e) {
+      _logger.severe(e);
     }
   }
 
