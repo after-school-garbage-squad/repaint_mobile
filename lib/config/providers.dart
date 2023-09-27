@@ -16,6 +16,8 @@ Future<Raw<AppRouter>> appRouter(AppRouterRef ref) async => AppRouter(
 
 Future<void> initializeProviders(ProviderContainer container) async {
   await container.read(firebaseProvider.future);
+  await container.read(firebaseClientIdProvider.future);
+  await container.read(fcmRegistrationTokenProvider.future);
   container.read(auth0Provider);
   await container.read(sharedPreferencesProvider.future);
   await container.read(localDataSourceProvider.future);
