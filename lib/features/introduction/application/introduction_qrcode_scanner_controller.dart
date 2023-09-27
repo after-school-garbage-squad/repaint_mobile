@@ -31,18 +31,23 @@ class IntroductionQRCodeReaderController {
     if (eventID != null) {
       _logger.info("eventID: $eventID, _registrationId: $_registrationId");
 
-      _repository.joinEvent(
+      final result = await _repository.joinEvent(
         eventID,
         JoinEventRequest(registrationId: _registrationId),
       );
 
-      if (context.mounted) {
-        context.router.pushAndPopUntil(
-          const VisitorHomeRoute(),
-          predicate: (_) => false,
-        );
-        await _user.setType(UserType.visitor);
-      }
+      await result.fold(
+        (l) {
+          _logger.warning(l);
+        },
+        (r) async {
+          context.router.pushAndPopUntil(
+            const VisitorHomeRoute(),
+            predicate: (_) => false,
+          );
+          await _user.setType(UserType.visitor);
+        },
+      );
     }
   }
 }

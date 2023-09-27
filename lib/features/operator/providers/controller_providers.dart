@@ -1,4 +1,4 @@
-import 'package:repaint_mobile/features/common/providers/user_providers.dart';
+import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/operator/application/operator_beacon_list_controller.dart';
 import 'package:repaint_mobile/features/operator/application/operator_beacon_settings_controller.dart';
 import 'package:repaint_mobile/features/operator/application/operator_camera_controller.dart';
@@ -56,5 +56,8 @@ OperatorQRCodeReaderController operatorQRCodeReaderController(
 OperatorSettingsController operatorSettingsController(
   OperatorSettingsControllerRef ref,
 ) {
-  return OperatorSettingsController(ref.watch(userProvider.notifier));
+  return OperatorSettingsController(
+    ref.watch(auth0Provider),
+    ref.watch(userProvider.notifier),
+  );
 }

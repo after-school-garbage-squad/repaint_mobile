@@ -1,4 +1,3 @@
-import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/visitor/application/visitor_home_controller.dart';
 import 'package:repaint_mobile/features/visitor/application/visitor_qrcode_reader_controller.dart';
 import 'package:repaint_mobile/features/visitor/application/visitor_settings_controller.dart';
@@ -19,7 +18,6 @@ VisitorSettingsController visitorSettingsController(
   VisitorSettingsControllerRef ref,
 ) {
   return VisitorSettingsController(
-    ref.watch(auth0Provider),
     ref.watch(visitorSettingsProvider.notifier),
   );
 }
