@@ -44,7 +44,6 @@ class IntroductionStepperScreen extends ConsumerWidget {
         ),
         isActive: stepper.currentStep >= 0,
       ),
-      // TODO: 位置情報の許可周りのUIと挙動を改善する
       Step(
         state: stepper.currentStep == 1
             ? StepState.editing
@@ -112,7 +111,7 @@ class IntroductionStepperScreen extends ConsumerWidget {
               steps: steps,
               currentStep: stepper.currentStep,
               controlsBuilder: (context, controlsDetails) =>
-                const SizedBox(width: double.infinity),
+                  const SizedBox(width: double.infinity),
               margin: const EdgeInsets.fromLTRB(52.0, 16.0, 24.0, 16.0),
             ),
           ),
