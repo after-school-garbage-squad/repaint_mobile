@@ -25,7 +25,6 @@ class OperatorCameraScreen extends ConsumerWidget {
               padding: const EdgeInsets.all(18.0),
               colors: const FlatIconButtonColors(
                 backgroundColor: Colors.white,
-                borderColor: Colors.black,
                 shadowColor: Colors.black,
               ),
               elevation: 4.0,

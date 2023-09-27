@@ -30,7 +30,6 @@ class CameraScaffold extends StatelessWidget {
               icon: Icons.chevron_left,
               colors: const FlatIconButtonColors(
                 backgroundColor: Colors.white,
-                borderColor: Colors.black,
                 shadowColor: Colors.black,
               ),
             ),
