@@ -8,4 +8,4 @@ touch .env
   echo "AUTH0_SCHEME=$AUTH0_SCHEME"
   echo "SENTRY_DSN=$SENTRY_DSN"
   echo "SENTRY_ENVIRONMENT=$SENTRY_ENVIRONMENT"
-) >> .env
+) > .env
