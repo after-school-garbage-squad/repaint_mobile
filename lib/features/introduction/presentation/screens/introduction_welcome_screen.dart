@@ -31,14 +31,13 @@ class IntroductionHomeScreen extends ConsumerWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxHeight: 480.0),
-                      child: Image.asset("assets/repaint.png"),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 48.0,
+                      vertical: 32.0,
                     ),
+                    child: Image.asset("assets/repaint.png"),
                   ),
-                  const SizedBox(height: 16.0),
                   Text(
                     "Re:paintへようこそ!",
                     style: Theme.of(context).textTheme.titleLarge,
@@ -50,7 +49,7 @@ class IntroductionHomeScreen extends ConsumerWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
             child: WideElevatedButton(
               onPressed: () => controller.onContinuePressed(context),
               text: "進む",
