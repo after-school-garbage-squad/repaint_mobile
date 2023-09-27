@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "687466083847",
+    "project_id": "repaint-asgs-2",
+    "storage_bucket": "repaint-asgs-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:687466083847:android:414978d6f03debf248dca2",
+        "android_client_info": {
+          "package_name": "dev.asgs.repaint.repaintmobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiUJgoTwgnagVG3kWRIJwqm_FvujwHQP4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
