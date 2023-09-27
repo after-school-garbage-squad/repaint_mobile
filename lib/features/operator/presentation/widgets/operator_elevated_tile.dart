@@ -63,7 +63,7 @@ class OperatorElevatedTile extends StatelessWidget {
     return Material(
       borderRadius: BorderRadius.circular(16.0),
       color: Colors.white,
-      elevation: 4.0,
+      elevation: 1.0,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(16.0),

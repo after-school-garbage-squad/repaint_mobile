@@ -25,7 +25,7 @@ class OperatorCameraScreen extends ConsumerWidget {
               backgroundColor: Colors.white,
               shadowColor: Colors.black,
             ),
-            elevation: 4.0,
+            elevation: 1.0,
           ),
         ),
       ],
