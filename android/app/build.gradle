@@ -38,7 +38,7 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    namespace "dev.asgs.repaint.repaint_mobile"
+    namespace "dev.asgs.repaint.repaintmobile"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
