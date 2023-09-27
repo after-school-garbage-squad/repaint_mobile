@@ -34,12 +34,11 @@ class IntroductionQRCodeReaderController {
 
         if (_registrationId == null) {
           _logger.warning("registrationId is null");
-          return;
         }
 
         final result = await _repository.joinEvent(
           eventID,
-          JoinEventRequest(registrationId: _registrationId!),
+          JoinEventRequest(registrationId: _registrationId ?? ""),
         );
 
         await result.fold(
