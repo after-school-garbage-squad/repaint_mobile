@@ -49,10 +49,10 @@ class OperatorHomeScreen extends ConsumerWidget {
                   text: "イベントを変更",
                   colors: WideElevatedButtonColors(
                     backgroundColor: Colors.transparent,
-                    shadowColor: Colors.transparent,
                     textColor: Theme.of(context).colorScheme.primary,
                   ),
                   elevation: 0.0,
+                  elevationOnPressed: 0.0,
                 ),
               ],
             ),
@@ -72,7 +72,6 @@ class OperatorHomeScreen extends ConsumerWidget {
             OperatorElevatedTile.action(
               onTap: () => controller.onBeaconListPressed(context),
               title: "ビーコンを設定する",
-              // TODO: 仮で設定した下記のアイコンを変更するかを検討する
               icon: Icons.settings_input_antenna,
             ),
           ],

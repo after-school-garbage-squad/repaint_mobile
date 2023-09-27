@@ -32,10 +32,14 @@ class OperatorElevatedTile extends StatelessWidget {
   }) {
     return OperatorElevatedTile(
       height: 96,
+      padding: const EdgeInsets.all(16.0),
       onTap: onTap,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Icon(icon, size: 60),
+        Icon(icon, size: 48),
+        const SizedBox(width: 16.0),
         Text(title),
+        const Spacer(),
       ],
     );
   }
@@ -57,12 +61,12 @@ class OperatorElevatedTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      borderRadius: BorderRadius.circular(8.0),
+      borderRadius: BorderRadius.circular(16.0),
       color: Colors.white,
       elevation: 4.0,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(16.0),
         child: Container(
           width: width,
           height: height,
@@ -75,7 +79,7 @@ class OperatorElevatedTile extends StatelessWidget {
               ...?children,
               if (automaticallyImplyTail)
                 Icon(
-                  Icons.arrow_forward_ios,
+                  Icons.arrow_forward,
                   color: Theme.of(context).colorScheme.primary,
                 ),
             ],
@@ -106,6 +110,7 @@ class _OperatorElevatedBeaconTile extends OperatorElevatedTile {
         .copyWith(color: const Color(0xff9e9e9e));
 
     return OperatorElevatedTile(
+      padding: const EdgeInsets.all(16.0),
       onTap: onTap,
       children: [
         Expanded(
@@ -131,6 +136,7 @@ class _OperatorElevatedBeaconTile extends OperatorElevatedTile {
             ],
           ),
         ),
+        const SizedBox(width: 8.0),
       ],
     );
   }

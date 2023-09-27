@@ -19,7 +19,7 @@ class Topic extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(16),
         color: color ?? Theme.of(context).colorScheme.surfaceVariant,
       ),
       child: Row(

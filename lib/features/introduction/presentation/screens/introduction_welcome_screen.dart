@@ -43,7 +43,7 @@ class IntroductionHomeScreen extends ConsumerWidget {
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 16.0),
-                  const Text("Re:paintの説明文"), // TODO: 説明文を書く
+                  const Text("Re:paintの説明文（WIP）"), // TODO: 説明文を書く
                 ],
               ),
             ),

@@ -45,7 +45,7 @@ class ActionElevatedButton extends StatelessWidget {
           foregroundColor: Colors.grey.shade400,
           backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(16.0),
           ),
           surfaceTintColor: Colors.white,
           padding: EdgeInsets.zero,

@@ -27,7 +27,7 @@ class OperatorQRCodeReaderScreen extends ConsumerWidget {
               height: 48,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(16.0),
               ),
               child: const Center(child: Text("1枚目")),
             ),
