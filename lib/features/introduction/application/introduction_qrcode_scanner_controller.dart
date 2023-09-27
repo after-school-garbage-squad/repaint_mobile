@@ -15,7 +15,7 @@ class IntroductionQRCodeReaderController {
 
   final VisitorRepository _repository;
   final User _user;
-  final String _registrationId;
+  final String? _registrationId;
   bool _onScanned = false;
   static final _logger = Logger("IntroductionQRCodeReaderController");
 
@@ -32,9 +32,14 @@ class IntroductionQRCodeReaderController {
       if (eventID != null) {
         _logger.info("eventID: $eventID, _registrationId: $_registrationId");
 
+        if (_registrationId == null) {
+          _logger.warning("registrationId is null");
+          return;
+        }
+
         final result = await _repository.joinEvent(
           eventID,
-          JoinEventRequest(registrationId: _registrationId),
+          JoinEventRequest(registrationId: _registrationId!),
         );
 
         await result.fold(
