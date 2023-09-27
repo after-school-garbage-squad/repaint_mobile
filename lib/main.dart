@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -10,7 +11,7 @@ void main() async {
   await dotenv.load();
   await SentryFlutter.init(
     (options) {
-      options.dsn = dotenv.env["SENTRY_DSN"];
+      options.dsn = kDebugMode ? '' : dotenv.env["SENTRY_DSN"];
       options.environment = dotenv.env["SENTRY_ENVIRONMENT"];
       options.tracesSampleRate = 1.0;
       options.addIntegration(LoggingIntegration());
