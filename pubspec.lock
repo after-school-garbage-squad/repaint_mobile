@@ -86,7 +86,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: dcbff09e7713c485794538029bc2dfe28f0d301a
+      resolved-ref: f5b3c296b1959195fa56224c05ced5f1024b8e7d
       url: "https://github.com/after-school-garbage-squad/beacon_plugin.git"
     source: git
     version: "0.0.1"
@@ -733,18 +733,18 @@ packages:
     dependency: "direct main"
     description:
       name: permission_handler
-      sha256: bc56bfe9d3f44c3c612d8d393bd9b174eb796d706759f9b495ac254e4294baa5
+      sha256: ad65ba9af42a3d067203641de3fd9f547ded1410bad3b84400c2b4899faede70
       url: "https://pub.dev"
     source: hosted
-    version: "10.4.5"
+    version: "11.0.0"
   permission_handler_android:
     dependency: transitive
     description:
       name: permission_handler_android
-      sha256: "59c6322171c29df93a22d150ad95f3aa19ed86542eaec409ab2691b8f35f9a47"
+      sha256: ace7d15a3d1a4a0b91c041d01e5405df221edb9de9116525efc773c74e6fc790
       url: "https://pub.dev"
     source: hosted
-    version: "10.3.6"
+    version: "11.0.5"
   permission_handler_apple:
     dependency: transitive
     description:
@@ -761,14 +761,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.11.5"
-  permission_handler_web:
-    dependency: "direct main"
-    description:
-      name: permission_handler_web
-      sha256: "78255957b505ae852b51d8894655f826ee48ad4b805c9552d8035a93b3ea9247"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.2"
   permission_handler_windows:
     dependency: transitive
     description:
