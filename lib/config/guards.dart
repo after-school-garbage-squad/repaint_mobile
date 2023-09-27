@@ -37,11 +37,13 @@ class PermissionGuard extends AutoRouteGuard {
     NavigationResolver resolver,
     StackRouter router,
   ) async {
-    bool permission = await _ref.read(permissionProvider.future);
-    if (permission == false) {
-      await permissions.request();
-      permission = await _ref.refresh(permissionProvider.future);
+    bool isAllPermissionsGranted = await _ref.read(permissionProvider.future);
+    if (isAllPermissionsGranted == false) {
+      for (final permission in permissions) {
+        await permission.request();
+      }
+      isAllPermissionsGranted = await _ref.refresh(permissionProvider.future);
     }
-    resolver.next(permission);
+    resolver.next(isAllPermissionsGranted);
   }
 }

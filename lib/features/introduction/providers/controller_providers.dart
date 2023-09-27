@@ -25,6 +25,7 @@ Future<IntroductionSettingsController> introductionSettingsController(
   IntroductionSettingsControllerRef ref,
 ) async {
   return IntroductionSettingsController(
+    ref.watch(auth0Provider),
     ref.watch(userProvider.notifier),
   );
 }

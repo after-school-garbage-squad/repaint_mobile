@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_heading.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_scaffold.dart';
-import 'package:repaint_mobile/features/common/presentation/widgets/settings_tile.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/version_tile.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/operator/providers/providers.dart';
 
@@ -30,11 +30,7 @@ class OperatorSettingsScreen extends ConsumerWidget {
         const SizedBox(height: 16),
         const ListHeading("アプリについて"),
         const SizedBox(height: 16),
-        SettingsTile.text(
-          title: "バージョン",
-          titleStyle: Theme.of(context).textTheme.bodyLarge,
-          value: packageInfo.value?.version ?? "",
-        ),
+        VersionTile(packageInfo: packageInfo.value),
         const SizedBox(height: 16),
         WideElevatedButton(
           onPressed: () => controller.onLicensePressed(context),

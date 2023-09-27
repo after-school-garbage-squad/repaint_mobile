@@ -1,5 +1,4 @@
 import 'package:repaint_mobile/config/providers.dart';
-import 'package:repaint_mobile/features/common/providers/api_providers.dart';
 import 'package:repaint_mobile/features/visitor/infrastructure/repositories/visitor_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

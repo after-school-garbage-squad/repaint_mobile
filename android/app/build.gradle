@@ -54,6 +54,10 @@ android {
 
     defaultConfig {
         applicationId "dev.asgs.repaint.repaintmobile"
+        manifestPlaceholders += [
+                auth0Domain: localProperties.getProperty("AUTH0_DOMAIN"),
+                auth0Scheme: localProperties.getProperty("AUTH0_SCHEME"),
+        ]
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 29
