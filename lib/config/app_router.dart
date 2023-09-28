@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:logger/logger.dart';
+import 'package:logging/logging.dart';
 import 'package:repaint_mobile/config/guards.dart';
 import 'package:repaint_mobile/config/route.dart';
 import 'package:repaint_mobile/features/common/domain/entities/user_entity.dart';
@@ -27,36 +27,40 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
   AppRouter(
     this._user,
     this._permissionGuard,
-    this._logger,
   ) : super();
 
   final UserEntity? _user;
   final PermissionGuard _permissionGuard;
-  final Logger _logger;
-  bool _initialized = false;
+  static final Logger _logger = Logger("AppRouter");
+  bool _isInitialized = false;
 
   @override
   Future<void> onNavigation(
     NavigationResolver resolver,
     StackRouter router,
   ) async {
-    if (_initialized) {
-      _logger.i(
-        'from ${router.currentPath} to ${resolver.route.path}\n'
-        'as ${_user?.type}',
+    final currentUserType = _user?.type.name.split('.').last;
+    final nextUserPath = resolver.route.path.split('/').elementAtOrNull(1);
+    final nextUserType =
+        nextUserPath == 'introduction' ? 'unknown' : nextUserPath;
+    _logger.info('user type: $currentUserType -> $nextUserType');
+
+    if (_isInitialized || currentUserType == nextUserType) {
+      _logger.info(
+        'from ${router.currentPath} to ${resolver.route.path} as ${_user?.type}',
       );
       resolver.next();
     } else {
-      _initialized = true;
+      _isInitialized = true;
       if (_user?.type == UserType.visitor) {
-        _logger.i('redirect to visitor');
+        _logger.info('redirect to visitor');
         await resolver.redirect(const VisitorHomeRoute());
       } else if (_user?.type == UserType.operator) {
-        _logger.i('redirect to operator');
+        _logger.info('redirect to operator');
         await resolver.redirect(const OperatorHomeRoute());
       } else {
-        _logger.i('default page');
-        await resolver.redirect(const IntroductionWelcomeRoute());
+        _logger.info('default page');
+        await resolver.redirect(const IntroductionHomeRoute());
       }
     }
   }
@@ -64,8 +68,8 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
   @override
   List<RepaintRoute> get routes => [
         RepaintRoute(
-          path: '/introduction/welcome',
-          page: IntroductionWelcomeRoute.page,
+          path: '/introduction/home',
+          page: IntroductionHomeRoute.page,
           initial: true,
         ),
         RepaintRoute(

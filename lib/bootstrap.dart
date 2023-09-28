@@ -1,13 +1,29 @@
-import 'package:beacon_plugin/flutter_beacon_api.dart';
-import "package:beacon_plugin/pigeon.dart";
 import "package:flutter/cupertino.dart";
+import "package:flutter/foundation.dart";
 import "package:flutter/services.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import 'package:logging/logging.dart';
 import 'package:repaint_mobile/config/providers.dart' as providers;
 
 Future<ProviderContainer> bootstrap() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((record) {
+    if (kDebugMode) {
+      print(
+        [
+          "[${record.loggerName}]",
+          record.time,
+          "${record.level.name}:",
+          record.message,
+        ].join(" "),
+      );
+    }
+  });
 
+  final logger = Logger("Bootstrap");
+  logger.info("Bootstrap started");
+
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -15,11 +31,7 @@ Future<ProviderContainer> bootstrap() async {
 
   final container = ProviderContainer();
   await providers.initializeProviders(container);
-  final logger = container.read(providers.loggerProvider);
-  FlutterBeaconApi.setup(
-    FlutterBeaconApiImpl((data) {
-      logger.d(data);
-    }),
-  );
+
+  logger.info("Bootstrap finished");
   return container;
 }

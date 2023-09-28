@@ -3,10 +3,8 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:repaint_mobile/config/app_router.dart';
-import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
-import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/repaint_scaffold.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/topic.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/introduction/providers/providers.dart';
@@ -17,7 +15,6 @@ class IntroductionStepperScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final stepper = ref.watch(introductionStepperProvider);
     final controller = ref.watch(introductionStepperControllerProvider);
-    final logger = ref.watch(loggerProvider);
     final steps = [
       Step(
         state:
@@ -84,12 +81,7 @@ class IntroductionStepperScreen extends ConsumerWidget {
             const Text("イベント参加用QRコードを読み取るためにカメラの権限が必要です。"),
             const SizedBox(height: 12.0),
             WideElevatedButton(
-              onPressed: () {
-                controller.onStepEvent(() {
-                  logger.d("onStepEvent");
-                  context.pushRoute(const IntroductionQRCodeReaderRoute());
-                });
-              },
+              onPressed: () => controller.onStepEvent(context),
               text: "QRコードを読み取る",
             ),
           ],
@@ -102,22 +94,10 @@ class IntroductionStepperScreen extends ConsumerWidget {
       controller.onPostFrameCallback(steps.length);
     });
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("初期設定"),
-        leading: Row(
-          children: [
-            const SizedBox(width: 16.0),
-            FlatIconButton(
-              onPressed: context.popRoute,
-              icon: Icons.chevron_left,
-            ),
-          ],
-        ),
-        leadingWidth: 64.0,
-        backgroundColor: Theme.of(context).colorScheme.background,
-      ),
-      body: Column(
+    return RepaintScaffold(
+      title: "初期設定",
+      padding: EdgeInsets.zero,
+      child: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
@@ -131,17 +111,14 @@ class IntroductionStepperScreen extends ConsumerWidget {
             child: Stepper(
               steps: steps,
               currentStep: stepper.currentStep,
-              controlsBuilder: (context, controlsDetails) {
-                return const SizedBox(width: double.infinity);
-              },
-              connectorThickness: 3.0,
+              controlsBuilder: (context, controlsDetails) =>
+                const SizedBox(width: double.infinity),
               margin: const EdgeInsets.fromLTRB(52.0, 16.0, 24.0, 16.0),
             ),
           ),
-          const BottomConstrainedPadding(),
+          const BottomPadding(),
         ],
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
     );
   }
 }

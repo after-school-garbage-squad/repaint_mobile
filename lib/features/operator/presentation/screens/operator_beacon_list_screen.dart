@@ -1,15 +1,18 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:repaint_mobile/config/app_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:repaint_mobile/features/common/domain/entities/beacon_entity.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_heading.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_scaffold.dart';
 import 'package:repaint_mobile/features/operator/presentation/widgets/operator_elevated_tile.dart';
+import 'package:repaint_mobile/features/operator/providers/providers.dart';
 
 @RoutePage()
-class OperatorBeaconListScreen extends StatelessWidget {
+class OperatorBeaconListScreen extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.watch(operatorBeaconListControllerProvider);
+
     const List<BeaconEntity> beacons = [
       BeaconEntity(
         id: "aaa",
@@ -39,12 +42,7 @@ class OperatorBeaconListScreen extends StatelessWidget {
               (beacon) => [
                 const SizedBox(height: 16),
                 OperatorElevatedTile.beacon(
-                  onTap: () {
-                    // TODO: タップした際の処理を実装する
-                    context.pushRoute(
-                      OperatorBeaconSettingsRoute(beaconId: beacon.id),
-                    );
-                  },
+                  onTap: () => controller.onBeaconSelected(context, beacon),
                   name: beacon.name,
                   proximity: beacon.proximity,
                   hwid: beacon.hwid,

@@ -1,13 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_heading.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_scaffold.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/settings_tile.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
+import 'package:repaint_mobile/features/operator/providers/providers.dart';
 
 @RoutePage()
-class OperatorBeaconSettingsScreen extends StatelessWidget {
+class OperatorBeaconSettingsScreen extends ConsumerWidget {
   const OperatorBeaconSettingsScreen({
     super.key,
     @PathParam('beaconId') required this.beaconId,
@@ -16,7 +18,9 @@ class OperatorBeaconSettingsScreen extends StatelessWidget {
   final String beaconId;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.watch(operatorBeaconSettingsControllerProvider);
+
     return ListScaffold(
       title: "ビーコン設定",
       scrollableChildren: [
@@ -33,10 +37,7 @@ class OperatorBeaconSettingsScreen extends StatelessWidget {
           children: [
             Expanded(
               child: WideElevatedButton(
-                onPressed: () {
-                  // TODO: ビーコンの登録解除処理を実装する
-                  context.popRoute();
-                },
+                onPressed: () => controller.onUnregisterPressed(context),
                 text: "登録解除",
                 colors: const WideElevatedButtonColors(
                   backgroundColor: Colors.white,
@@ -47,16 +48,13 @@ class OperatorBeaconSettingsScreen extends StatelessWidget {
             const SizedBox(width: 32.0),
             Expanded(
               child: WideElevatedButton(
-                onPressed: () {
-                  // TODO: ビーコンの登録処理を実装する
-                  context.popRoute();
-                },
+                onPressed: () => controller.onRegisterPressed(context),
                 text: "登録する",
               ),
             ),
           ],
         ),
-        const BottomConstrainedPadding(),
+        const BottomPadding(),
       ],
     );
   }

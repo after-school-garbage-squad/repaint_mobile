@@ -6,6 +6,23 @@ if (localPropertiesFile.exists()) {
     }
 }
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('keystore.properties')
+if (keystorePropertiesFile.exists()) {
+    keystorePropertiesFile.withReader('UTF-8') { reader ->
+        keystoreProperties.load(reader)
+    }
+}
+
+def envProperties = new Properties()
+def envPropertiesFile = rootProject.file('env.properties')
+if (envPropertiesFile.exists()) {
+    envPropertiesFile.withReader('UTF-8') { reader ->
+        envProperties.load(reader)
+    }
+}
+
+
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
     throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
@@ -48,6 +65,10 @@ android {
 
     defaultConfig {
         applicationId "dev.asgs.repaint.repaintmobile"
+        manifestPlaceholders += [
+                auth0Domain: envProperties.getProperty("AUTH0_DOMAIN"),
+                auth0Scheme: envProperties.getProperty("AUTH0_SCHEME"),
+        ]
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 29
@@ -57,6 +78,19 @@ android {
     }
 
     signingConfigs {
+        release {
+            if (System.getenv()["CI"]) { // CI=true is exported by Codemagic
+                storeFile file(System.getenv()["CM_KEYSTORE_PATH"])
+                storePassword System.getenv()["CM_KEYSTORE_PASSWORD"]
+                keyAlias System.getenv()["CM_KEY_ALIAS"]
+                keyPassword System.getenv()["CM_KEY_PASSWORD"]
+            } else {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+                storePassword keystoreProperties['storePassword']
+            }
+        }
         debug {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
@@ -67,7 +101,11 @@ android {
 
     buildTypes {
         release {
-            // Signing with the debug keys for now, so `flutter run --release` works.
+            debuggable false
+            signingConfig signingConfigs.release
+        }
+        debug {
+            debuggable true
             signingConfig signingConfigs.debug
         }
     }

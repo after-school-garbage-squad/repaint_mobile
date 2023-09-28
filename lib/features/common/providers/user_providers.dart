@@ -1,3 +1,4 @@
+import 'package:logging/logging.dart';
 import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/domain/entities/user_entity.dart';
 import 'package:repaint_mobile/features/common/infrastructures/datasources/local/local_data_source.dart';
@@ -8,10 +9,12 @@ part 'user_providers.g.dart';
 @Riverpod(keepAlive: true, dependencies: [localDataSource])
 class User extends _$User {
   static const _localDataSourceKey = 'user';
+  static final _logger = Logger("UserProvider");
+
   @override
   FutureOr<UserEntity> build() async {
     final user = await _get();
-    ref.read(loggerProvider).d('User initialized: $user');
+    _logger.info('initialized: $user');
     return user;
   }
 

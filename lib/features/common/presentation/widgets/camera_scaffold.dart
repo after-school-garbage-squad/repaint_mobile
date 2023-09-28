@@ -30,7 +30,6 @@ class CameraScaffold extends StatelessWidget {
               icon: Icons.chevron_left,
               colors: const FlatIconButtonColors(
                 backgroundColor: Colors.white,
-                borderColor: Colors.black,
                 shadowColor: Colors.black,
               ),
             ),
@@ -40,7 +39,7 @@ class CameraScaffold extends StatelessWidget {
         ),
         body: Column(
           children: [
-            preview,
+            Expanded(child: preview),
             if (children != null) ...[
               Padding(
                 padding: const EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 0.0),
@@ -49,7 +48,7 @@ class CameraScaffold extends StatelessWidget {
                   children: children!,
                 ),
               ),
-              const BottomConstrainedPadding(),
+              const BottomPadding(),
             ],
           ],
         ),

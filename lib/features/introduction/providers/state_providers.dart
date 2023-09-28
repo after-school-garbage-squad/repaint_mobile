@@ -1,4 +1,4 @@
-import 'package:repaint_mobile/config/providers.dart';
+import 'package:logging/logging.dart';
 import 'package:repaint_mobile/features/introduction/domain/entities/introduction_stepper_entity.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -6,9 +6,11 @@ part 'state_providers.g.dart';
 
 @Riverpod()
 class IntroductionStepper extends _$IntroductionStepper {
+  static final _logger = Logger("IntroductionStepper");
+
   @override
   IntroductionStepperEntity build() {
-    ref.read(loggerProvider).d('IntroductionStepper initialized');
+    _logger.info('initialized');
     return const IntroductionStepperEntity();
   }
 
