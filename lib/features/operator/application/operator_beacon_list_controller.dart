@@ -7,7 +7,6 @@ class OperatorBeaconListController {
   const OperatorBeaconListController();
 
   void onBeaconSelected(BuildContext context, BeaconEntity beacon) {
-    // TODO: タップした際の処理を実装する
     context.pushRoute(OperatorBeaconSettingsRoute(beaconId: beacon.id));
   }
 }

@@ -20,7 +20,6 @@ class OperatorCameraPreviewScreen extends ConsumerWidget {
         child: Column(
           children: [
             ConstrainedBox(
-              // TODO: 実際の画像のサイズに合わせる
               constraints: const BoxConstraints(maxHeight: 480.0),
               child: const AspectRatio(
                 aspectRatio: 1,
