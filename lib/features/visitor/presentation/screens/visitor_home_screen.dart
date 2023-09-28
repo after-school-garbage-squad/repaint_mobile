@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,8 +7,6 @@ import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_bu
 import 'package:repaint_mobile/features/common/presentation/widgets/repaint_scaffold.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/visitor/presentation/widgets/action_elevated_button.dart';
-import 'package:repaint_mobile/features/visitor/presentation/widgets/dot_indicator.dart';
-import 'package:repaint_mobile/features/visitor/presentation/widgets/progress_bar.dart';
 import 'package:repaint_mobile/features/visitor/providers/providers.dart';
 
 @RoutePage()
@@ -28,45 +24,34 @@ class VisitorHomeScreen extends ConsumerWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            ConstrainedBox(
-              // TODO: 実際の画像のサイズに合わせる
-              constraints: const BoxConstraints(maxHeight: 480.0),
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 48.0,
+                vertical: 32.0,
+              ),
+              // TODO: 画像を設定する
               child: const AspectRatio(
-                aspectRatio: 1,
-                // TODO: 画像を設定する
+                aspectRatio: 1.0,
                 child: Placeholder(fallbackWidth: double.infinity),
               ),
             ),
-            const SizedBox(height: 12.0),
-            // TODO: ドットインジケーターの値を実際の値に合わせる
-            SizedBox(
-              height: 32.0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  DotIndicator(onPressed: () {}, enabled: true),
-                  const SizedBox(width: 32.0),
-                  DotIndicator(onPressed: () {}),
-                  const SizedBox(width: 32.0),
-                  DotIndicator(onPressed: () {}),
-                  const SizedBox(width: 32.0),
-                  DotIndicator(onPressed: () {}),
-                ],
-              ),
-            ),
-            const SizedBox(height: 12.0),
-            // TODO: プログレスバーの値を実際の値に合わせる
-            ProgressBar(progress: Random().nextDouble()),
-            const SizedBox(height: 32.0),
-            WideElevatedButton(
-              onPressed: () => controller.onDownloadPressed(context),
-              text: "ダウンロード",
-              icon: Icons.group,
-              colors: WideElevatedButtonColors(
-                backgroundColor: Theme.of(context).colorScheme.surface,
-              ),
-            ),
-            const SizedBox(height: 32.0),
+            // SizedBox(
+            //   height: 32.0,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       DotIndicator(onPressed: () {}, enabled: true),
+            //       const SizedBox(width: 32.0),
+            //       DotIndicator(onPressed: () {}),
+            //       const SizedBox(width: 32.0),
+            //       DotIndicator(onPressed: () {}),
+            //       const SizedBox(width: 32.0),
+            //       DotIndicator(onPressed: () {}),
+            //     ],
+            //   ),
+            // ),
+            // const SizedBox(height: 12.0),
+            // ProgressBar(progress: Random().nextDouble()),
             Row(
               children: [
                 Expanded(
@@ -79,7 +64,7 @@ class VisitorHomeScreen extends ConsumerWidget {
                     ),
                   ),
                 ),
-                const SizedBox(width: 40.0),
+                const SizedBox(width: 24.0),
                 Expanded(
                   child: ActionElevatedButton(
                     onPressed: () => controller.onReadQRCodePressed(context),
@@ -92,7 +77,17 @@ class VisitorHomeScreen extends ConsumerWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: 24.0),
+            WideElevatedButton(
+              onPressed: () => controller.onDownloadPressed(context),
+              text: "ダウンロード",
+              icon: Icons.group,
+              colors: WideElevatedButtonColors(
+                backgroundColor:
+                    Theme.of(context).colorScheme.tertiaryContainer,
+              ),
+            ),
+            const SizedBox(height: 24.0),
             WideElevatedButton(
               onPressed: () => controller.onEventPressed(context),
               text: "イベントHPを見る",

@@ -28,12 +28,12 @@ class IntroductionStepperScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 12.0),
             WideElevatedButton(
-              onPressed: controller.onStepNotification,
+              onPressed: controller.onStepNotificationPermit,
               text: "通知を許可する",
             ),
             const SizedBox(height: 12.0),
             WideElevatedButton(
-              onPressed: controller.onStepNotification,
+              onPressed: controller.onStepNotificationDeny,
               text: "通知を許可しない",
               colors: WideElevatedButtonColors(
                 backgroundColor: Colors.white,
@@ -56,6 +56,7 @@ class IntroductionStepperScreen extends ConsumerWidget {
           children: [
             Text(
               "スポットに接続するために、Bluetoothと位置情報の権限が必要です。\n"
+              "位置情報は常にアクセスできるようにしてください\n"
               "${Platform.isAndroid ? "また、電池の最適化をオフにしてください。" : ""}",
             ),
             const SizedBox(height: 12.0),

@@ -8,7 +8,7 @@ class RepaintScaffold extends StatelessWidget {
     required this.child,
     this.isBackButtonVisible = true,
     this.action,
-    this.padding = const EdgeInsets.all(16),
+    this.padding = const EdgeInsets.symmetric(horizontal: 16),
   });
 
   final String? title;

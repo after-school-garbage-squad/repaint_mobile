@@ -13,12 +13,12 @@ class OperatorCameraScreen extends ConsumerWidget {
 
     return CameraScaffold(
       // TODO: カメラを実装する
-      onBackPressed: () => controller.onPictureTaken(context),
+      onBackPressed: () => controller.onBackPressed(context),
       preview: const Placeholder(),
       children: [
         Center(
           child: FlatIconButton(
-            onPressed: () {},
+            onPressed: () => controller.onPictureTaken(context),
             icon: Icons.camera_alt,
             padding: const EdgeInsets.all(18.0),
             colors: const FlatIconButtonColors(
