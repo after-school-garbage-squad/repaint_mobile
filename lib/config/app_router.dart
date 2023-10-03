@@ -29,7 +29,7 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
     this._permissionGuard,
   ) : super();
 
-  final UserEntity? _user;
+  final CommonUserEntity? _user;
   final PermissionGuard _permissionGuard;
   static final Logger _logger = Logger("AppRouter");
   bool _isInitialized = false;

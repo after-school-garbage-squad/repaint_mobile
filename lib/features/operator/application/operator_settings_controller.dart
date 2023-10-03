@@ -10,7 +10,7 @@ class OperatorSettingsController {
   const OperatorSettingsController(this._auth0, this._user);
 
   final Auth0 _auth0;
-  final User _user;
+  final OperatorUser _user;
   static final _logger = Logger("OperatorSettingsController");
 
   Future<void> onLogoutPressed(BuildContext context) async {

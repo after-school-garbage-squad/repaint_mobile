@@ -9,24 +9,28 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'controller_providers.g.dart';
 
-@Riverpod(dependencies: [visitorRepository, User, firebaseClientId])
+@Riverpod(
+  dependencies: [visitorRepository],
+)
 Future<IntroductionQRCodeReaderController> introductionQRCodeReaderController(
   IntroductionQRCodeReaderControllerRef ref,
 ) async {
   return IntroductionQRCodeReaderController(
     await ref.watch(visitorRepositoryProvider.future),
-    ref.watch(userProvider.notifier),
+    // ignore: avoid_manual_providers_as_generated_provider_dependency
+    ref.watch(visitorUserProvider.notifier),
     await ref.watch(firebaseClientIdProvider.future),
   );
 }
 
-@Riverpod(dependencies: [User])
+@Riverpod(dependencies: [])
 Future<IntroductionSettingsController> introductionSettingsController(
   IntroductionSettingsControllerRef ref,
 ) async {
   return IntroductionSettingsController(
     ref.watch(auth0Provider),
-    ref.watch(userProvider.notifier),
+    // ignore: avoid_manual_providers_as_generated_provider_dependency
+    ref.watch(operatorUserProvider.notifier),
   );
 }
 

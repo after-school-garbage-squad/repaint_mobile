@@ -7,20 +7,25 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'controller_providers.g.dart';
 
-@Riverpod()
-VisitorHomeController visitorHomeController(
+@Riverpod(dependencies: [])
+Future<VisitorHomeController> visitorHomeController(
   VisitorHomeControllerRef ref,
-) {
-  return const VisitorHomeController();
+) async {
+  return VisitorHomeController(
+    ref.watch(apiClientProvider),
+    // ignore: avoid_manual_providers_as_generated_provider_dependency
+    await ref.watch(visitorUserProvider.notifier),
+  );
 }
 
-@Riverpod(dependencies: [VisitorSettings, User])
+@Riverpod(dependencies: [VisitorSettings])
 VisitorSettingsController visitorSettingsController(
   VisitorSettingsControllerRef ref,
 ) {
   return VisitorSettingsController(
     ref.watch(visitorSettingsProvider.notifier),
-    ref.watch(userProvider.notifier),
+    // ignore: avoid_manual_providers_as_generated_provider_dependency
+    ref.watch(visitorUserProvider.notifier),
   );
 }
 

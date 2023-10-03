@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,20 +7,21 @@ import 'package:repaint_mobile/features/common/presentation/widgets/app_dialog.d
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/repaint_scaffold.dart';
-import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/visitor/presentation/widgets/action_elevated_button.dart';
+import 'package:repaint_mobile/features/visitor/presentation/widgets/dot_indicator.dart';
+import 'package:repaint_mobile/features/visitor/presentation/widgets/progress_bar.dart';
 import 'package:repaint_mobile/features/visitor/providers/providers.dart';
 
 @RoutePage()
 class VisitorHomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.watch(visitorHomeControllerProvider);
+    final controller = ref.watch(visitorHomeControllerProvider.future);
 
     return RepaintScaffold(
       isBackButtonVisible: false,
       action: FlatIconButton(
-        onPressed: () => controller.onSettingsPressed(context),
+        onPressed: () async => (await controller).onSettingsPressed(context),
         icon: Icons.settings,
       ),
       child: SingleChildScrollView(
@@ -35,28 +38,30 @@ class VisitorHomeScreen extends ConsumerWidget {
                 child: Placeholder(fallbackWidth: double.infinity),
               ),
             ),
-            // SizedBox(
-            //   height: 32.0,
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.center,
-            //     children: [
-            //       DotIndicator(onPressed: () {}, enabled: true),
-            //       const SizedBox(width: 32.0),
-            //       DotIndicator(onPressed: () {}),
-            //       const SizedBox(width: 32.0),
-            //       DotIndicator(onPressed: () {}),
-            //       const SizedBox(width: 32.0),
-            //       DotIndicator(onPressed: () {}),
-            //     ],
-            //   ),
-            // ),
-            // const SizedBox(height: 12.0),
-            // ProgressBar(progress: Random().nextDouble()),
+            SizedBox(
+              height: 32.0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  DotIndicator(onPressed: () {}, enabled: true),
+                  const SizedBox(width: 32.0),
+                  DotIndicator(onPressed: () {}),
+                  const SizedBox(width: 32.0),
+                  DotIndicator(onPressed: () {}),
+                  const SizedBox(width: 32.0),
+                  DotIndicator(onPressed: () {}),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12.0),
+            ProgressBar(progress: Random().nextDouble()),
+            const SizedBox(height: 12.0),
             Row(
               children: [
                 Expanded(
                   child: ActionElevatedButton(
-                    onPressed: () => controller.onShowQRCodePressed(context),
+                    onPressed: () async =>
+                        (await controller).onShowQRCodePressed(context),
                     text: "QRコードの表示",
                     icon: Icons.qr_code,
                     colors: ActionElevatedButtonColors(
@@ -67,7 +72,8 @@ class VisitorHomeScreen extends ConsumerWidget {
                 const SizedBox(width: 24.0),
                 Expanded(
                   child: ActionElevatedButton(
-                    onPressed: () => controller.onReadQRCodePressed(context),
+                    onPressed: () async =>
+                        (await controller).onReadQRCodePressed(context),
                     text: "QRコードの読取",
                     icon: Icons.qr_code_scanner,
                     colors: ActionElevatedButtonColors(
@@ -76,24 +82,6 @@ class VisitorHomeScreen extends ConsumerWidget {
                   ),
                 ),
               ],
-            ),
-            const SizedBox(height: 24.0),
-            WideElevatedButton(
-              onPressed: () => controller.onDownloadPressed(context),
-              text: "ダウンロード",
-              icon: Icons.group,
-              colors: WideElevatedButtonColors(
-                backgroundColor:
-                    Theme.of(context).colorScheme.tertiaryContainer,
-              ),
-            ),
-            const SizedBox(height: 24.0),
-            WideElevatedButton(
-              onPressed: () => controller.onEventPressed(context),
-              text: "イベントHPを見る",
-              colors: const WideElevatedButtonColors(
-                backgroundColor: Colors.white,
-              ),
             ),
             const BottomPadding(),
           ],

@@ -17,6 +17,7 @@ class BeaconState extends _$BeaconState {
     _beaconManager = BeaconPlugin.beaconManager;
     FlutterBeaconApi.setup(
       FlutterBeaconApiImpl((data) {
+        // TODO: ビーコンのデータの処理を実装する
         _logger.info("beacon data: $data");
       }),
     );

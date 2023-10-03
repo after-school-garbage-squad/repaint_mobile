@@ -36,14 +36,35 @@ class IntroductionHomeScreen extends ConsumerWidget {
                       horizontal: 48.0,
                       vertical: 32.0,
                     ),
-                    child: Image.asset("assets/repaint.png"),
+                    child: AspectRatio(
+                      aspectRatio: 1.0,
+                      child: Image.asset(
+                        "assets/repaint.png",
+                        frameBuilder:
+                            (context, child, frame, wasSynchronouslyLoaded) {
+                          if (wasSynchronouslyLoaded) {
+                            return child;
+                          }
+                          return AnimatedOpacity(
+                            opacity: frame == null ? 0 : 1,
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeOut,
+                            child: child,
+                          );
+                        },
+                      ),
+                    ),
                   ),
                   Text(
                     "Re:paintへようこそ!",
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 16.0),
-                  const Text("Re:paintの説明文（WIP）"), // TODO: 説明文を書く
+                  const Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child:
+                        Text("このアプリは、イベント会場を回って撮った写真に色を付けていき、写真を完成させるアプリです。"),
+                  ),
                 ],
               ),
             ),

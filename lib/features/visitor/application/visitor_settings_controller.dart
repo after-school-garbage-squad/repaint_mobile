@@ -8,7 +8,7 @@ class VisitorSettingsController {
   VisitorSettingsController(this._settings, this._user);
 
   final VisitorSettings _settings;
-  final User _user;
+  final VisitorUser _user;
 
   Future<void> onSpotNotificationChanged(bool value) async {
     await _settings.setNotifications(

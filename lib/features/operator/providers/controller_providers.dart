@@ -24,11 +24,15 @@ OperatorBeaconSettingsController operatorBeaconSettingsController(
   return const OperatorBeaconSettingsController();
 }
 
-@Riverpod()
-OperatorCameraPreviewController operatorCameraPreviewController(
+@Riverpod(dependencies: [])
+Future<OperatorCameraPreviewController> operatorCameraPreviewController(
   OperatorCameraPreviewControllerRef ref,
-) {
-  return const OperatorCameraPreviewController();
+) async {
+  return OperatorCameraPreviewController(
+    ref.watch(apiClientProvider),
+    // ignore: avoid_manual_providers_as_generated_provider_dependency
+    await ref.watch(operatorUserProvider.future),
+  );
 }
 
 @Riverpod()
@@ -52,12 +56,13 @@ OperatorQRCodeReaderController operatorQRCodeReaderController(
   return const OperatorQRCodeReaderController();
 }
 
-@Riverpod(dependencies: [User])
+@Riverpod(dependencies: [])
 OperatorSettingsController operatorSettingsController(
   OperatorSettingsControllerRef ref,
 ) {
   return OperatorSettingsController(
     ref.watch(auth0Provider),
-    ref.watch(userProvider.notifier),
+    // ignore: avoid_manual_providers_as_generated_provider_dependency
+    ref.watch(operatorUserProvider.notifier),
   );
 }
