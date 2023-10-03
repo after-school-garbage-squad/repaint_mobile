@@ -10,7 +10,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'controller_providers.g.dart';
 
 @Riverpod(
-  dependencies: [visitorRepository],
+  dependencies: [visitorRepository, VisitorUser, firebaseClientId],
 )
 Future<IntroductionQRCodeReaderController> introductionQRCodeReaderController(
   IntroductionQRCodeReaderControllerRef ref,
@@ -23,7 +23,7 @@ Future<IntroductionQRCodeReaderController> introductionQRCodeReaderController(
   );
 }
 
-@Riverpod(dependencies: [])
+@Riverpod(dependencies: [OperatorUser])
 Future<IntroductionSettingsController> introductionSettingsController(
   IntroductionSettingsControllerRef ref,
 ) async {

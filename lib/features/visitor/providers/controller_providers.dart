@@ -7,7 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'controller_providers.g.dart';
 
-@Riverpod(dependencies: [])
+@Riverpod(dependencies: [VisitorUser])
 Future<VisitorHomeController> visitorHomeController(
   VisitorHomeControllerRef ref,
 ) async {
@@ -18,7 +18,7 @@ Future<VisitorHomeController> visitorHomeController(
   );
 }
 
-@Riverpod(dependencies: [VisitorSettings])
+@Riverpod(dependencies: [VisitorSettings, VisitorUser])
 VisitorSettingsController visitorSettingsController(
   VisitorSettingsControllerRef ref,
 ) {

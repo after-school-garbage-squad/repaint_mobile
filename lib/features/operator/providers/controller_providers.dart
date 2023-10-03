@@ -24,7 +24,7 @@ OperatorBeaconSettingsController operatorBeaconSettingsController(
   return const OperatorBeaconSettingsController();
 }
 
-@Riverpod(dependencies: [])
+@Riverpod(dependencies: [OperatorUser])
 Future<OperatorCameraPreviewController> operatorCameraPreviewController(
   OperatorCameraPreviewControllerRef ref,
 ) async {
@@ -56,7 +56,7 @@ OperatorQRCodeReaderController operatorQRCodeReaderController(
   return const OperatorQRCodeReaderController();
 }
 
-@Riverpod(dependencies: [])
+@Riverpod(dependencies: [OperatorUser])
 OperatorSettingsController operatorSettingsController(
   OperatorSettingsControllerRef ref,
 ) {

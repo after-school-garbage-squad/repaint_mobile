@@ -7,7 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'user_providers.g.dart';
 
-@Riverpod(keepAlive: true, dependencies: [])
+@Riverpod(keepAlive: true, dependencies: [localDataSource])
 class CommonUser extends _$CommonUser {
   static const _localDataSourceKey = 'common';
   static final _logger = Logger("CommonUserProvider");
@@ -64,7 +64,7 @@ class CommonUser extends _$CommonUser {
   }
 }
 
-@Riverpod(keepAlive: true, dependencies: [])
+@Riverpod(keepAlive: true, dependencies: [localDataSource, CommonUser])
 class OperatorUser extends _$OperatorUser {
   static const _localDataSourceKey = 'operator';
   static final _logger = Logger("OperatorUserProvider");
@@ -126,7 +126,10 @@ class OperatorUser extends _$OperatorUser {
   }
 }
 
-@Riverpod(keepAlive: true, dependencies: [])
+@Riverpod(
+  keepAlive: true,
+  dependencies: [localDataSource, CommonUser, fcmRegistrationToken],
+)
 class VisitorUser extends _$VisitorUser {
   static const _localDataSourceKey = 'visitor';
   static final _logger = Logger("VisitorUserProvider");

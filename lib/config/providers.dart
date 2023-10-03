@@ -8,7 +8,7 @@ export '../features/common/providers/providers.dart';
 
 part 'providers.g.dart';
 
-@Riverpod(keepAlive: true, dependencies: [])
+@Riverpod(keepAlive: true, dependencies: [CommonUser])
 Future<Raw<AppRouter>> appRouter(AppRouterRef ref) async => AppRouter(
       // ignore: avoid_manual_providers_as_generated_provider_dependency
       await ref.watch(commonUserProvider.future),
