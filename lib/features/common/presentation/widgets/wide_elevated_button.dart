@@ -43,12 +43,13 @@ class WideElevatedButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.grey.shade400,
+          padding: const EdgeInsets.all(12.0),
+          foregroundColor: Colors.grey.shade600,
           backgroundColor: color,
+          shadowColor: colors?.shadowColor,
           surfaceTintColor: Colors.white,
-          splashFactory: InkRipple.splashFactory,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(16.0),
           ),
         ).merge(
           ButtonStyle(

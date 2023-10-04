@@ -3,31 +3,52 @@ import 'package:beacon_plugin/beacon_plugin.dart';
 import 'package:beacon_plugin/flutter_beacon_api.dart';
 import 'package:beacon_plugin/pigeon.dart';
 import 'package:logging/logging.dart';
+import 'package:repaint_api_client/repaint_api_client.dart';
+import 'package:repaint_mobile/config/providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'beacon_providers.g.dart';
 
-@Riverpod(keepAlive: true)
+@Riverpod(keepAlive: true, dependencies: [VisitorUser])
 class BeaconState extends _$BeaconState {
   late BeaconManager _beaconManager;
   static final _logger = Logger("BeaconStateProvider");
 
   @override
   Future<bool> build() async {
+    _logger.info("beacon state initializing...");
     _beaconManager = BeaconPlugin.beaconManager;
+    final apiClient = ref.watch(apiClientProvider);
+    final user = await ref.watch(visitorUserProvider.future);
     FlutterBeaconApi.setup(
-      FlutterBeaconApiImpl((data) {
-        _logger.info("beacon data: $data");
+      FlutterBeaconApiImpl((data) async {
+        if (data.hwid != null) {
+          _logger.info("beacon data: $data");
+          // ignore: avoid_manual_providers_as_generated_provider_dependency
+          ref.read(beaconsProvider.notifier).addBeacon(data);
+
+          if (user.visitorIdentification != null) {
+            await apiClient.getVisitorApi().dropPalette(
+                  visitorID: user.visitorIdentification!.visitorId,
+                  dropPaletteRequest: DropPaletteRequest(
+                    eventId: user.visitorIdentification!.eventId,
+                    hwId: data.hwid,
+                  ),
+                );
+            await Future.delayed(const Duration(seconds: 5));
+          }
+        }
       }),
     );
     await _beaconManager.setBeaconServiceUUIDs(["FE6F"]);
+    _logger.info("beacon state initialized");
     return false;
   }
 
   Future<void> startScan() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      if (state.value! == true) {
+      if (state.value == true) {
         _logger.warning("beacon scan already started");
       } else {
         await _beaconManager.startScan();
@@ -40,7 +61,7 @@ class BeaconState extends _$BeaconState {
   Future<void> stopScan() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      if (state.value! == false) {
+      if (state.value == false) {
         _logger.warning("beacon scan already stopped");
       } else {
         await _beaconManager.stopScan();
@@ -57,5 +78,25 @@ class BeaconState extends _$BeaconState {
       _logger.info("beacon service uuids set");
       return state.value!;
     });
+  }
+}
+
+@Riverpod(keepAlive: true)
+class Beacons extends _$Beacons {
+  final _logger = Logger("BeaconsProvider");
+
+  @override
+  Map<String, BeaconData> build() => <String, BeaconData>{};
+
+  void addBeacon(BeaconData beacon) {
+    final newState = {...state, beacon.hwid!: beacon};
+    state = newState;
+    _logger.info("beacon added: $beacon");
+  }
+
+  void clearBeacons() {
+    final newState = <String, BeaconData>{};
+    state = newState;
+    _logger.info("beacons cleared");
   }
 }

@@ -21,8 +21,8 @@ class ActionElevatedButton extends StatelessWidget {
     required this.text,
     required this.icon,
     this.colors,
-    this.elevation = 3.0,
-    this.elevationOnPressed = 4.0,
+    this.elevation = 1.0,
+    this.elevationOnPressed = 3.0,
   }) : super();
 
   final VoidCallback onPressed;
@@ -45,7 +45,7 @@ class ActionElevatedButton extends StatelessWidget {
           foregroundColor: Colors.grey.shade400,
           backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
+            borderRadius: BorderRadius.circular(16.0),
           ),
           surfaceTintColor: Colors.white,
           padding: EdgeInsets.zero,
@@ -74,6 +74,9 @@ class ActionElevatedButton extends StatelessWidget {
                 constraints: const BoxConstraints(minHeight: 40.0),
                 decoration: BoxDecoration(
                   color: backgroundColor,
+                  borderRadius: const BorderRadius.vertical(
+                    bottom: Radius.circular(16.0),
+                  ),
                 ),
                 child: Text(
                   text,

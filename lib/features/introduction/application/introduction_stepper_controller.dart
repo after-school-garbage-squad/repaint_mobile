@@ -28,12 +28,20 @@ class IntroductionStepperController {
       (element) async => statuses.add(await element),
     );
 
-    if (statuses.every((e) => e.isGranted)) _stepper.next();
+    if (statuses.every((e) => e.isGranted)) {
+      _stepper.next();
+    } else {
+      openAppSettings();
+    }
     return Map.fromIterables(permissions, statuses);
   }
 
-  Future<void> onStepNotification() async {
+  Future<void> onStepNotificationPermit() async {
     _onStepContinue(PermissionGuard.notificationPermissions);
+  }
+
+  Future<void> onStepNotificationDeny() async {
+    _onStepContinue([]);
   }
 
   Future<void> onStepBeacon() async {

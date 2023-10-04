@@ -20,11 +20,10 @@ class AppDialog extends StatelessWidget {
       alignment: Alignment.center,
       insetPadding: const EdgeInsets.all(16.0),
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(8.0)),
+        borderRadius: BorderRadius.all(Radius.circular(16.0)),
       ),
       elevation: 0.0,
       child: Container(
-        // TODO: デザイン通りになるように実装したが調整するべき
         width: 388,
         height: 388,
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:repaint_mobile/features/common/domain/entities/beacon_entity.dart';
 
 class OperatorElevatedTile extends StatelessWidget {
   const OperatorElevatedTile({
@@ -28,14 +27,18 @@ class OperatorElevatedTile extends StatelessWidget {
   factory OperatorElevatedTile.action({
     required VoidCallback onTap,
     required String title,
-    required IconData icon,
+    IconData? icon,
   }) {
     return OperatorElevatedTile(
       height: 96,
+      padding: const EdgeInsets.all(16.0),
       onTap: onTap,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Icon(icon, size: 60),
+        if (icon != null) Icon(icon, size: 48),
+        const SizedBox(width: 16.0),
         Text(title),
+        const Spacer(),
       ],
     );
   }
@@ -43,12 +46,12 @@ class OperatorElevatedTile extends StatelessWidget {
   factory OperatorElevatedTile.beacon({
     required VoidCallback onTap,
     required String name,
-    required BeaconProximity proximity,
+    required double rssi,
     required String hwid,
   }) {
     return _OperatorElevatedBeaconTile(
       name: name,
-      proximity: proximity,
+      rssi: rssi,
       hwid: hwid,
       onTap: onTap,
     );
@@ -57,12 +60,12 @@ class OperatorElevatedTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      borderRadius: BorderRadius.circular(8.0),
+      borderRadius: BorderRadius.circular(16.0),
       color: Colors.white,
-      elevation: 4.0,
+      elevation: 1.0,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(16.0),
         child: Container(
           width: width,
           height: height,
@@ -75,7 +78,7 @@ class OperatorElevatedTile extends StatelessWidget {
               ...?children,
               if (automaticallyImplyTail)
                 Icon(
-                  Icons.arrow_forward_ios,
+                  Icons.arrow_forward,
                   color: Theme.of(context).colorScheme.primary,
                 ),
             ],
@@ -89,13 +92,13 @@ class OperatorElevatedTile extends StatelessWidget {
 class _OperatorElevatedBeaconTile extends OperatorElevatedTile {
   const _OperatorElevatedBeaconTile({
     required this.name,
-    required this.proximity,
+    required this.rssi,
     required this.hwid,
     super.onTap,
   });
 
   final String name;
-  final BeaconProximity proximity;
+  final double rssi;
   final String hwid;
 
   @override
@@ -106,6 +109,7 @@ class _OperatorElevatedBeaconTile extends OperatorElevatedTile {
         .copyWith(color: const Color(0xff9e9e9e));
 
     return OperatorElevatedTile(
+      padding: const EdgeInsets.all(16.0),
       onTap: onTap,
       children: [
         Expanded(
@@ -116,9 +120,9 @@ class _OperatorElevatedBeaconTile extends OperatorElevatedTile {
               const Divider(),
               Row(
                 children: [
-                  const Text("近接性"),
+                  const Text("RSSI"),
                   const Spacer(),
-                  Text(proximity.name, style: valueTextStyle),
+                  Text("${rssi}dBm", style: valueTextStyle),
                 ],
               ),
               Row(
@@ -131,6 +135,7 @@ class _OperatorElevatedBeaconTile extends OperatorElevatedTile {
             ],
           ),
         ),
+        const SizedBox(width: 8.0),
       ],
     );
   }

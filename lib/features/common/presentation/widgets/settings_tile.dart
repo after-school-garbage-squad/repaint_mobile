@@ -74,7 +74,7 @@ class SettingsTile extends StatelessWidget {
             onPressed: () => controller.clear(),
           ),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.0),
+            borderRadius: BorderRadius.circular(16.0),
           ),
           contentPadding: const EdgeInsets.all(16.0),
         ),
@@ -92,7 +92,7 @@ class SettingsTile extends StatelessWidget {
       padding: padding,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: borderRadius ?? BorderRadius.circular(12.0),
+        borderRadius: borderRadius ?? BorderRadius.circular(16.0),
       ),
       child: child,
     );

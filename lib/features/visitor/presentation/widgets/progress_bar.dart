@@ -26,7 +26,7 @@ class ProgressBar extends StatelessWidget {
     return SizedBox(
       height: 20.0,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(16.0),
         child: LinearProgressIndicator(
           value: progress,
           backgroundColor: backgroundColor,

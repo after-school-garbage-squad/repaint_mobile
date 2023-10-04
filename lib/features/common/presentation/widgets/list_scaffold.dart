@@ -21,7 +21,6 @@ class ListScaffold extends StatelessWidget {
       ),
       child: RepaintScaffold(
         title: title,
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
         child: Column(
           children: [
             Expanded(

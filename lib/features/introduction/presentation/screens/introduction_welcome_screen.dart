@@ -31,26 +31,46 @@ class IntroductionHomeScreen extends ConsumerWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(maxHeight: 480.0),
-                      child: Image.asset("assets/repaint.png"),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 48.0,
+                      vertical: 32.0,
+                    ),
+                    child: AspectRatio(
+                      aspectRatio: 1.0,
+                      child: Image.asset(
+                        "assets/repaint.png",
+                        frameBuilder:
+                            (context, child, frame, wasSynchronouslyLoaded) {
+                          if (wasSynchronouslyLoaded) {
+                            return child;
+                          }
+                          return AnimatedOpacity(
+                            opacity: frame == null ? 0 : 1,
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeOut,
+                            child: child,
+                          );
+                        },
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 16.0),
                   Text(
                     "Re:paintへようこそ!",
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 16.0),
-                  const Text("Re:paintの説明文"), // TODO: 説明文を書く
+                  const Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child:
+                        Text("このアプリは、イベント会場を回って撮った写真に色を付けていき、写真を完成させるアプリです。"),
+                  ),
                 ],
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
             child: WideElevatedButton(
               onPressed: () => controller.onContinuePressed(context),
               text: "進む",

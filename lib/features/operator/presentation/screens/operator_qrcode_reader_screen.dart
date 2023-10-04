@@ -27,7 +27,7 @@ class OperatorQRCodeReaderScreen extends ConsumerWidget {
               height: 48,
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(16.0),
               ),
               child: const Center(child: Text("1枚目")),
             ),
@@ -60,7 +60,6 @@ class QRCodeReaderConfirmDialog extends StatelessWidget {
     return AppDialog(
       children: [
         const Spacer(),
-        // TODO:各ボタンの挙動を実装する
         WideElevatedButton(
           onPressed: onContinueScanning,
           text: "続けて読み取る",
