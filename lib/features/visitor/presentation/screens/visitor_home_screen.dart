@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -13,12 +16,14 @@ import 'package:repaint_mobile/features/common/presentation/widgets/topic.dart';
 import 'package:repaint_mobile/features/visitor/presentation/widgets/action_elevated_button.dart';
 import 'package:repaint_mobile/features/visitor/presentation/widgets/dot_indicator.dart';
 import 'package:repaint_mobile/features/visitor/providers/providers.dart';
+import 'package:repaint_mobile/features/visitor/providers/visitor_providers.dart';
 
 @RoutePage()
 class VisitorHomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(visitorUserProvider);
+    final imageUrl = ref.watch(visitorImageProvider);
     final controller = ref.watch(visitorHomeControllerProvider.future);
 
     return RepaintScaffold(
@@ -30,12 +35,14 @@ class VisitorHomeScreen extends ConsumerWidget {
       child: user.maybeWhen(
         data: (data) => Column(
           children: [
-            const Expanded(
+            Expanded(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                child: Placeholder(
-                  fallbackWidth: double.infinity,
-                  fallbackHeight: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: imageUrl.maybeWhen(
+                  data: (data) => CachedNetworkImage(imageUrl: data ?? ""),
+                  orElse: () => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 ),
               ),
             ),
@@ -105,10 +112,12 @@ class QRCodeViewDialog extends StatelessWidget {
     return AppDialog(
       children: [
         QrImageView(
-          data: VisitorQRCodeEntity(
-            eventId: visitorIdentification.eventId,
-            userId: visitorIdentification.visitorId,
-          ).toJson().toString(),
+          data: jsonEncode(
+            VisitorQRCodeEntity(
+              eventId: visitorIdentification.eventId,
+              userId: visitorIdentification.visitorId,
+            ).toJson(),
+          ),
           size: 200,
           gapless: false,
         ),

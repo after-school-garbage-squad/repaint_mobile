@@ -22,7 +22,7 @@ class OperatorHomeController {
   // }
 
   void onCameraPressed(BuildContext context) {
-    context.pushRoute(const OperatorQRCodeReaderRoute());
+    context.pushRoute(const OperatorCameraRoute());
   }
 
   void onBeaconListPressed(BuildContext context) {

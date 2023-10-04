@@ -45,6 +45,7 @@ class VisitorUserEntity with _$VisitorUserEntity {
     @Default(null) VisitorIdentification? visitorIdentification,
     @Default(null) String? registrationId,
     @Default(null) List<int>? palettes,
+    @Default(null) String? imageId,
     @Default(VisitorSettingsEntity()) VisitorSettingsEntity settings,
   }) = _VisitorUserEntity;
 

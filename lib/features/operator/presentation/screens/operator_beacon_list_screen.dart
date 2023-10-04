@@ -2,8 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:repaint_mobile/config/providers.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_heading.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_scaffold.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/operator/presentation/widgets/operator_elevated_tile.dart';
 import 'package:repaint_mobile/features/operator/providers/providers.dart';
 
@@ -43,6 +45,13 @@ class OperatorBeaconListScreen extends ConsumerWidget {
             ],
           ),
         ),
+      ],
+      bottomChildren: [
+        WideElevatedButton(
+          onPressed: () => controller.onResetPressed(),
+          text: "リセット",
+        ),
+        const BottomPadding(),
       ],
     );
   }

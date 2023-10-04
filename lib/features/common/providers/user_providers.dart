@@ -126,7 +126,7 @@ class OperatorUser extends _$OperatorUser {
 
 @Riverpod(
   keepAlive: true,
-  dependencies: [localDataSource, CommonUser, fcmRegistrationToken],
+  dependencies: [localDataSource, fcmRegistrationToken],
 )
 class VisitorUser extends _$VisitorUser {
   static const _localDataSourceKey = 'visitor';
@@ -189,10 +189,17 @@ class VisitorUser extends _$VisitorUser {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final user = await _get();
+      final visitorApi = ref.watch(apiClientProvider).getVisitorApi();
+      final defaultImageId = await visitorApi.getCurrentImage(
+        visitorID: registerVisitor.visitorIdentification.visitorId,
+        getVisitorImagesRequest: GetVisitorImagesRequest(
+            eventId: registerVisitor.visitorIdentification.eventId),
+      );
       final newUser = user.copyWith(
         visitorIdentification: registerVisitor.visitorIdentification,
         registrationId: registerVisitor.registrationId,
         palettes: registerVisitor.palettes,
+        imageId: defaultImageId.data?.imageId,
       );
       await ref.read(commonUserProvider.notifier).set(UserType.visitor);
       await _set(newUser);

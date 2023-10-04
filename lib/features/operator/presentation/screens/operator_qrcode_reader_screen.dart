@@ -9,30 +9,18 @@ import 'package:repaint_mobile/features/operator/providers/providers.dart';
 
 @RoutePage()
 class OperatorQRCodeReaderScreen extends ConsumerWidget {
+  const OperatorQRCodeReaderScreen({@queryParam this.imagePath});
+
+  final String? imagePath;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.watch(operatorQRCodeReaderControllerProvider);
+    final controller = ref.watch(operatorQRCodeReaderControllerProvider.future);
 
     return CameraScaffold(
-      preview: Stack(
-        children: [
-          MobileScanner(
-            onDetect: (capture) => controller.onQRCodeScanned(context, capture),
-          ),
-          Positioned(
-            right: 14,
-            bottom: 8,
-            child: Container(
-              width: 100,
-              height: 48,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16.0),
-              ),
-              child: const Center(child: Text("1枚目")),
-            ),
-          ),
-        ],
+      preview: MobileScanner(
+        onDetect: (capture) async =>
+            (await controller).onQRCodeScanned(context, capture, imagePath),
       ),
       children: [
         Center(
