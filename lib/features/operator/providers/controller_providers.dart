@@ -18,11 +18,14 @@ OperatorBeaconListController operatorBeaconListController(
   return OperatorBeaconListController(ref.watch(beaconsProvider.notifier));
 }
 
-@Riverpod()
-OperatorBeaconSettingsController operatorBeaconSettingsController(
+@Riverpod(dependencies: [OperatorUser])
+Future<OperatorBeaconSettingsController> operatorBeaconSettingsController(
   OperatorBeaconSettingsControllerRef ref,
-) {
-  return const OperatorBeaconSettingsController();
+) async {
+  return OperatorBeaconSettingsController(
+    ref.watch(apiClientProvider),
+    await ref.watch(operatorUserProvider.future),
+  );
 }
 
 @Riverpod(dependencies: [])

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_scaffold.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/topic.dart';
-import 'package:repaint_mobile/features/operator/presentation/widgets/operator_elevated_tile.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/operator/providers/controller_providers.dart';
 import 'package:repaint_mobile/features/operator/providers/event_providers.dart';
 
@@ -27,10 +27,13 @@ class OperatorEventListScreen extends ConsumerWidget {
           data: (data) => data.isNotEmpty
               ? data
                   .map(
-                    (event) => OperatorElevatedTile.action(
-                      title: event.name,
-                      onTap: () async => (await controller)
+                    (event) => WideElevatedButton(
+                      text: event.name,
+                      onPressed: () async => (await controller)
                           .onEventItemPressed(context, token!, event.eventId),
+                      colors: const WideElevatedButtonColors(
+                        backgroundColor: Colors.white,
+                      ),
                     ),
                   )
                   .toList()

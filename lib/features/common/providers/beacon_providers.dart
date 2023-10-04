@@ -29,7 +29,7 @@ class BeaconState extends _$BeaconState {
 
           if (user.visitorIdentification != null) {
             await apiClient.getVisitorApi().dropPalette(
-                  visitorID: user.visitorIdentification!.visitorId,
+                  visitorId: user.visitorIdentification!.visitorId,
                   dropPaletteRequest: DropPaletteRequest(
                     eventId: user.visitorIdentification!.eventId,
                     hwId: data.hwid,

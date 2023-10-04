@@ -11,7 +11,12 @@ class OperatorBeaconListController {
 
   void onBeaconSelected(BuildContext context, BeaconData beacon) {
     if (beacon.hwid == null) return;
-    context.pushRoute(OperatorBeaconSettingsRoute(beaconId: beacon.hwid!));
+    context.pushRoute(
+      OperatorBeaconSettingsRoute(
+        hwId: beacon.hwid,
+        serviceUuid: beacon.serviceUUID,
+      ),
+    );
   }
 
   void onResetPressed() {

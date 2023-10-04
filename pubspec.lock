@@ -781,10 +781,10 @@ packages:
     dependency: "direct main"
     description:
       name: permission_handler
-      sha256: ad65ba9af42a3d067203641de3fd9f547ded1410bad3b84400c2b4899faede70
+      sha256: "284a66179cabdf942f838543e10413246f06424d960c92ba95c84439154fcac8"
       url: "https://pub.dev"
     source: hosted
-    version: "11.0.0"
+    version: "11.0.1"
   permission_handler_android:
     dependency: transitive
     description:
@@ -894,7 +894,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: e434253f412712765e6bc660a3d634d13a13da2f
+      resolved-ref: "8e5f25d8cd55e880b88bb54a689456497613c5a0"
       url: "https://github.com/after-school-garbage-squad/repaint_api_client.git"
     source: git
     version: "1.0.0"

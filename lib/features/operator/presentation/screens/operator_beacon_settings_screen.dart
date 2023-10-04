@@ -12,24 +12,27 @@ import 'package:repaint_mobile/features/operator/providers/providers.dart';
 class OperatorBeaconSettingsScreen extends ConsumerWidget {
   const OperatorBeaconSettingsScreen({
     super.key,
-    @PathParam('beaconId') required this.beaconId,
+    @queryParam this.hwId,
+    @queryParam this.serviceUuid,
   });
 
-  final String beaconId;
+  final String? hwId;
+  final String? serviceUuid;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.watch(operatorBeaconSettingsControllerProvider);
+    final controller =
+        ref.watch(operatorBeaconSettingsControllerProvider.future);
+    final textEditingController = TextEditingController();
 
     return ListScaffold(
       title: "ビーコン設定",
       scrollableChildren: [
         const ListHeading("ビーコンの設定"),
         const SizedBox(height: 16),
-        // TODO: ビーコンの名前変更処理を実装する
         SettingsTile.textField(
           label: "ビーコンの名前",
-          controller: TextEditingController(),
+          controller: textEditingController,
         ),
       ],
       bottomChildren: [
@@ -37,7 +40,8 @@ class OperatorBeaconSettingsScreen extends ConsumerWidget {
           children: [
             Expanded(
               child: WideElevatedButton(
-                onPressed: () => controller.onUnregisterPressed(context),
+                onPressed: () async =>
+                    (await controller).onUnregisterPressed(context, hwId!),
                 text: "登録解除",
                 colors: const WideElevatedButtonColors(
                   backgroundColor: Colors.white,
@@ -48,7 +52,12 @@ class OperatorBeaconSettingsScreen extends ConsumerWidget {
             const SizedBox(width: 32.0),
             Expanded(
               child: WideElevatedButton(
-                onPressed: () => controller.onRegisterPressed(context),
+                onPressed: () async => (await controller).onRegisterPressed(
+                  context,
+                  textEditingController.value.text,
+                  hwId!,
+                  serviceUuid!,
+                ),
                 text: "登録する",
               ),
             ),

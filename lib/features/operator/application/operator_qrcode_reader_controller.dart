@@ -48,7 +48,7 @@ class OperatorQRCodeReaderController {
     );
 
     await _client.getAdminApi().uploadVisitorImage(
-          eventID: _user.eventId!,
+          eventId: _user.eventId!,
           image: multipart,
           headers: getAdminApiHeaders(_user.token!)
             ..addAll({

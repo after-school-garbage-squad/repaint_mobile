@@ -1,4 +1,3 @@
-import 'package:repaint_api_client/repaint_api_client.dart';
 import 'package:repaint_mobile/config/providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -11,11 +10,9 @@ Future<String?> visitorImage(VisitorImageRef ref) async {
 
   if (user.visitorIdentification == null && user.imageId == null) return null;
   final image = await apiClient.getVisitorApi().getCurrentImageURL(
-        visitorID: user.visitorIdentification!.visitorId,
-        setCurrentImageRequest: SetCurrentImageRequest(
-          eventId: user.visitorIdentification!.eventId,
-          imageId: user.imageId!,
-        ),
+        visitorId: user.visitorIdentification!.visitorId,
+        eventId: user.visitorIdentification!.eventId,
+        visitorImageId: user.imageId!,
       );
 
   return image.data?.url;

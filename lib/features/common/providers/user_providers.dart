@@ -51,6 +51,7 @@ class CommonUser extends _$CommonUser {
       final user = await _get();
       final newUser = user.copyWith(type: type);
       await _set(newUser);
+      _logger.info("user type: ${newUser.type}");
       return newUser;
     });
   }
@@ -60,6 +61,7 @@ class CommonUser extends _$CommonUser {
     state = await AsyncValue.guard(() async {
       const value = CommonUserEntity();
       await _set(value);
+      _logger.info("user type: ${value.type}");
       return value;
     });
   }
@@ -126,7 +128,7 @@ class OperatorUser extends _$OperatorUser {
 
 @Riverpod(
   keepAlive: true,
-  dependencies: [localDataSource, fcmRegistrationToken],
+  dependencies: [localDataSource, CommonUser, fcmRegistrationToken],
 )
 class VisitorUser extends _$VisitorUser {
   static const _localDataSourceKey = 'visitor';
@@ -174,8 +176,8 @@ class VisitorUser extends _$VisitorUser {
           state.value?.registrationId == null ||
           registrationId == null) return;
 
-      apiClient.getVisitorApi().initializeVisitor(
-            visitorID: state.value!.visitorIdentification!.visitorId,
+      await apiClient.getVisitorApi().initializeVisitor(
+            visitorId: state.value!.visitorIdentification!.visitorId,
             joinEventRequest: JoinEventRequest(
               eventId: state.value!.visitorIdentification!.eventId,
               registrationId: registrationId,
@@ -189,17 +191,16 @@ class VisitorUser extends _$VisitorUser {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final user = await _get();
-      final visitorApi = ref.watch(apiClientProvider).getVisitorApi();
-      final defaultImageId = await visitorApi.getCurrentImage(
-        visitorID: registerVisitor.visitorIdentification.visitorId,
-        getVisitorImagesRequest: GetVisitorImagesRequest(
-            eventId: registerVisitor.visitorIdentification.eventId),
-      );
+      final response =
+          await ref.read(apiClientProvider).getVisitorApi().getCurrentImage(
+                visitorId: registerVisitor.visitorIdentification.visitorId,
+                eventId: registerVisitor.visitorIdentification.eventId,
+              );
       final newUser = user.copyWith(
         visitorIdentification: registerVisitor.visitorIdentification,
         registrationId: registerVisitor.registrationId,
         palettes: registerVisitor.palettes,
-        imageId: defaultImageId.data?.imageId,
+        imageId: response.data?.imageId,
       );
       await ref.read(commonUserProvider.notifier).set(UserType.visitor);
       await _set(newUser);

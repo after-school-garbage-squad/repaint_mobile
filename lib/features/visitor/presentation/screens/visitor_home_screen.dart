@@ -13,6 +13,7 @@ import 'package:repaint_mobile/features/common/presentation/widgets/bottom_const
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/repaint_scaffold.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/topic.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/visitor/presentation/widgets/action_elevated_button.dart';
 import 'package:repaint_mobile/features/visitor/presentation/widgets/dot_indicator.dart';
 import 'package:repaint_mobile/features/visitor/providers/providers.dart';
@@ -64,6 +65,16 @@ class VisitorHomeScreen extends ConsumerWidget {
             const Topic(
               text: "スポットに近づいたり、QRを読み取ってみましょう",
               icon: Icons.lightbulb,
+            ),
+            const SizedBox(height: 24.0),
+            WideElevatedButton(
+              onPressed: () async =>
+                  (await controller).onDownloadPressed(context),
+              text: "ダウンロード",
+              icon: Icons.group,
+              colors: WideElevatedButtonColors(
+                backgroundColor: Theme.of(context).colorScheme.surface,
+              ),
             ),
             const SizedBox(height: 24.0),
             Row(
