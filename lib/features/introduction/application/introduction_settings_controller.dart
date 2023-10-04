@@ -4,13 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:logging/logging.dart';
 import 'package:repaint_mobile/config/app_router.dart';
-import 'package:repaint_mobile/config/providers.dart';
 
 class IntroductionSettingsController {
-  const IntroductionSettingsController(this._auth0, this._operator);
+  const IntroductionSettingsController(this._auth0);
 
   final Auth0 _auth0;
-  final OperatorUser _operator;
   static final _logger = Logger("IntroductionSettingsController");
 
   Future<void> onLoginPressed(BuildContext context) async {
@@ -21,7 +19,10 @@ class IntroductionSettingsController {
       _logger.info("accessToken: ${credential.accessToken}");
       _logger.info("idToken: ${credential.idToken}");
       _logger.info("refreshToken: ${credential.refreshToken}");
-      await _operator.register(credential.idToken);
+      if (context.mounted) {
+        await context
+            .pushRoute(OperatorEventListRoute(token: credential.idToken));
+      }
     } catch (e) {
       _logger.severe(e);
     }

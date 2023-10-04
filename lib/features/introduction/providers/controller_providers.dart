@@ -23,15 +23,11 @@ Future<IntroductionQRCodeReaderController> introductionQRCodeReaderController(
   );
 }
 
-@Riverpod(dependencies: [OperatorUser])
+@Riverpod(dependencies: [])
 Future<IntroductionSettingsController> introductionSettingsController(
   IntroductionSettingsControllerRef ref,
 ) async {
-  return IntroductionSettingsController(
-    ref.watch(auth0Provider),
-    // ignore: avoid_manual_providers_as_generated_provider_dependency
-    ref.watch(operatorUserProvider.notifier),
-  );
+  return IntroductionSettingsController(ref.watch(auth0Provider));
 }
 
 @Riverpod()

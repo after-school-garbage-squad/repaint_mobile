@@ -3,6 +3,7 @@ import 'package:repaint_api_client/repaint_api_client.dart';
 import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/domain/entities/user_entity.dart';
 import 'package:repaint_mobile/features/common/infrastructures/datasources/local/local_data_source.dart';
+import 'package:repaint_mobile/features/visitor/domain/entities/visitor_settings_entity.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'user_providers.g.dart';
@@ -101,14 +102,11 @@ class OperatorUser extends _$OperatorUser {
     return user;
   }
 
-  Future<void> register(String operatorToken) async {
+  Future<void> register(String token, String eventId) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final user = await _get();
-      final newUser = user.copyWith(
-        operatorToken: operatorToken,
-        operatorEventId: "01HBRF13Q0J3HP66P8747ZVVF0", // TODO: 仮の値
-      );
+      final newUser = user.copyWith(token: token, eventId: eventId);
       await ref.read(commonUserProvider.notifier).set(UserType.operator);
       await _set(newUser);
       return newUser;
@@ -199,6 +197,21 @@ class VisitorUser extends _$VisitorUser {
       await ref.read(commonUserProvider.notifier).set(UserType.visitor);
       await _set(newUser);
       return newUser;
+    });
+  }
+
+  Future<void> setNotifications(
+    VisitorNotifications Function(VisitorNotifications) update,
+  ) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() {
+      return _set(
+        state.value!.copyWith(
+          settings: state.value!.settings.copyWith(
+            notifications: update(state.value!.settings.notifications),
+          ),
+        ),
+      );
     });
   }
 

@@ -3,6 +3,7 @@ import 'package:repaint_mobile/features/operator/application/operator_beacon_lis
 import 'package:repaint_mobile/features/operator/application/operator_beacon_settings_controller.dart';
 import 'package:repaint_mobile/features/operator/application/operator_camera_controller.dart';
 import 'package:repaint_mobile/features/operator/application/operator_camera_preview_controller.dart';
+import 'package:repaint_mobile/features/operator/application/operator_event_list_controller.dart';
 import 'package:repaint_mobile/features/operator/application/operator_home_controller.dart';
 import 'package:repaint_mobile/features/operator/application/operator_qrcode_reader_controller.dart';
 import 'package:repaint_mobile/features/operator/application/operator_settings_controller.dart';
@@ -42,11 +43,20 @@ OperatorCameraController operatorCameraController(
   return const OperatorCameraController();
 }
 
-@Riverpod()
-OperatorHomeController operatorHomeController(
+@Riverpod(dependencies: [OperatorUser])
+Future<OperatorEventListController> operatorEventListController(
+  OperatorEventListControllerRef ref,
+) async {
+  return OperatorEventListController(
+    await ref.watch(operatorUserProvider.notifier),
+  );
+}
+
+@Riverpod(dependencies: [OperatorUser])
+Future<OperatorHomeController> operatorHomeController(
   OperatorHomeControllerRef ref,
-) {
-  return const OperatorHomeController();
+) async {
+  return OperatorHomeController(await ref.watch(operatorUserProvider.future));
 }
 
 @Riverpod()

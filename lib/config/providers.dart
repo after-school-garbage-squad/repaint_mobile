@@ -22,7 +22,4 @@ Future<void> initializeProviders(ProviderContainer container) async {
   await container.read(firebaseClientIdProvider.future);
   await container.read(fcmRegistrationTokenProvider.future);
   container.read(auth0Provider);
-  await container.read(beaconStateProvider.future);
-  await container.read(visitorUserProvider.notifier).initialize();
-  await container.read(beaconStateProvider.notifier).startScan();
 }

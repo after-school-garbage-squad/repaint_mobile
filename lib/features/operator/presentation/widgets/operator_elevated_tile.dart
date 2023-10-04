@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:repaint_mobile/features/common/domain/entities/beacon_entity.dart';
 
 class OperatorElevatedTile extends StatelessWidget {
   const OperatorElevatedTile({
@@ -28,7 +27,7 @@ class OperatorElevatedTile extends StatelessWidget {
   factory OperatorElevatedTile.action({
     required VoidCallback onTap,
     required String title,
-    required IconData icon,
+    IconData? icon,
   }) {
     return OperatorElevatedTile(
       height: 96,
@@ -36,7 +35,7 @@ class OperatorElevatedTile extends StatelessWidget {
       onTap: onTap,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Icon(icon, size: 48),
+        if (icon != null) Icon(icon, size: 48),
         const SizedBox(width: 16.0),
         Text(title),
         const Spacer(),
@@ -47,12 +46,12 @@ class OperatorElevatedTile extends StatelessWidget {
   factory OperatorElevatedTile.beacon({
     required VoidCallback onTap,
     required String name,
-    required BeaconProximity proximity,
+    required double rssi,
     required String hwid,
   }) {
     return _OperatorElevatedBeaconTile(
       name: name,
-      proximity: proximity,
+      rssi: rssi,
       hwid: hwid,
       onTap: onTap,
     );
@@ -93,13 +92,13 @@ class OperatorElevatedTile extends StatelessWidget {
 class _OperatorElevatedBeaconTile extends OperatorElevatedTile {
   const _OperatorElevatedBeaconTile({
     required this.name,
-    required this.proximity,
+    required this.rssi,
     required this.hwid,
     super.onTap,
   });
 
   final String name;
-  final BeaconProximity proximity;
+  final double rssi;
   final String hwid;
 
   @override
@@ -121,9 +120,9 @@ class _OperatorElevatedBeaconTile extends OperatorElevatedTile {
               const Divider(),
               Row(
                 children: [
-                  const Text("近接性"),
+                  const Text("RSSI"),
                   const Spacer(),
-                  Text(proximity.name, style: valueTextStyle),
+                  Text("${rssi}dBm", style: valueTextStyle),
                 ],
               ),
               Row(

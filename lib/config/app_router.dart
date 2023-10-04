@@ -13,6 +13,7 @@ import 'package:repaint_mobile/features/operator/presentation/screens/operator_b
 import 'package:repaint_mobile/features/operator/presentation/screens/operator_beacon_settings_screen.dart';
 import 'package:repaint_mobile/features/operator/presentation/screens/operator_camera_preview_screen.dart';
 import 'package:repaint_mobile/features/operator/presentation/screens/operator_camera_screen.dart';
+import 'package:repaint_mobile/features/operator/presentation/screens/operator_event_list_screen.dart';
 import 'package:repaint_mobile/features/operator/presentation/screens/operator_home_screen.dart';
 import 'package:repaint_mobile/features/operator/presentation/screens/operator_qrcode_reader_screen.dart';
 import 'package:repaint_mobile/features/operator/presentation/screens/operator_settings_screen.dart';
@@ -45,7 +46,9 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
         nextUserPath == 'introduction' ? 'unknown' : nextUserPath;
     _logger.info('user type: $currentUserType -> $nextUserType');
 
-    if (_isInitialized || currentUserType == nextUserType) {
+    if (_isInitialized ||
+        currentUserType == nextUserType ||
+        resolver.route.path == "/operator/events") {
       _logger.info(
         'from ${router.currentPath} to ${resolver.route.path} as ${_user?.type}',
       );
@@ -101,6 +104,10 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
         RepaintRoute(
           path: '/operator/home',
           page: OperatorHomeRoute.page,
+        ),
+        RepaintRoute(
+          path: '/operator/events',
+          page: OperatorEventListRoute.page,
         ),
         RepaintRoute(
           path: '/operator/qrcode_reader',

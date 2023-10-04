@@ -27,9 +27,9 @@ class OperatorCameraPreviewController {
     BuildContext context,
     String? imagePath,
   ) async {
-    if (imagePath == null &&
-        _user.operatorToken == null &&
-        _user.operatorEventId == null) return;
+    if (imagePath == null && _user.token == null && _user.eventId == null) {
+      return;
+    }
     _logger.info(imagePath);
 
     final file = await File(imagePath!).readAsBytes();
@@ -40,9 +40,9 @@ class OperatorCameraPreviewController {
     );
 
     await _client.getAdminApi().uploadVisitorImage(
-          eventID: _user.operatorEventId!,
+          eventID: _user.eventId!,
           image: multipart,
-          headers: getAdminApiHeaders(_user.operatorToken!)
+          headers: getAdminApiHeaders(_user.token!)
             ..addAll({
               Headers.contentTypeHeader: 'multipart/form-data',
               Headers.contentLengthHeader: multipart.length.toString(),

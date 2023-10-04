@@ -13,7 +13,8 @@ import 'package:repaint_mobile/features/visitor/providers/providers.dart';
 class VisitorSettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final settings = ref.watch(visitorSettingsProvider);
+    final settings =
+        ref.watch(visitorUserProvider.select((value) => value.value?.settings));
     final controller = ref.watch(visitorSettingsControllerProvider);
     final packageInfo = ref.watch(packageInfoProvider);
 
@@ -23,19 +24,19 @@ class VisitorSettingsScreen extends ConsumerWidget {
         const SizedBox(height: 12),
         SettingsTile.toggle(
           title: "スポットに入った際の通知",
-          value: settings.value?.notifications.spot ?? false,
+          value: settings?.notifications.spot ?? false,
           onChanged: controller.onSpotNotificationChanged,
         ),
         const SizedBox(height: 12),
         SettingsTile.toggle(
           title: "イベントからのお知らせ",
-          value: settings.value?.notifications.event ?? false,
+          value: settings?.notifications.event ?? false,
           onChanged: controller.onEventNotificationChanged,
         ),
         const SizedBox(height: 12),
         SettingsTile.toggle(
           title: "その他の通知",
-          value: settings.value?.notifications.other ?? false,
+          value: settings?.notifications.other ?? false,
           onChanged: controller.onOtherNotificationChanged,
         ),
         const SizedBox(height: 32),

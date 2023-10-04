@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:repaint_api_client/repaint_api_client.dart';
+import 'package:repaint_mobile/features/visitor/domain/entities/visitor_settings_entity.dart';
 
 part 'user_entity.freezed.dart';
 
@@ -29,8 +30,8 @@ class CommonUserEntity with _$CommonUserEntity {
 class OperatorUserEntity with _$OperatorUserEntity {
   @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory OperatorUserEntity({
-    @Default(null) String? operatorToken,
-    @Default(null) String? operatorEventId,
+    @Default(null) String? token,
+    @Default(null) String? eventId,
   }) = _OperatorUserEntity;
 
   factory OperatorUserEntity.fromJson(Map<String, dynamic> json) =>
@@ -44,6 +45,7 @@ class VisitorUserEntity with _$VisitorUserEntity {
     @Default(null) VisitorIdentification? visitorIdentification,
     @Default(null) String? registrationId,
     @Default(null) List<int>? palettes,
+    @Default(VisitorSettingsEntity()) VisitorSettingsEntity settings,
   }) = _VisitorUserEntity;
 
   factory VisitorUserEntity.fromJson(Map<String, dynamic> json) =>

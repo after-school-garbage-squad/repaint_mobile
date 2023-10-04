@@ -52,12 +52,16 @@ class VisitorHomeController {
     );
   }
 
-  void onShowQRCodePressed(BuildContext context) {
-    // TODO: QRコードの取得処理を追加する
-    showDialog(
-      context: context,
-      builder: (context) => const QRCodeViewDialog(),
-    );
+  Future<void> onShowQRCodePressed(
+    BuildContext context,
+  ) async {
+    final visitorIdentification = (await _user.future).visitorIdentification;
+    if (context.mounted && visitorIdentification != null) {
+      showDialog(
+        context: context,
+        builder: (context) => QRCodeViewDialog(visitorIdentification),
+      );
+    }
   }
 
   void onReadQRCodePressed(BuildContext context) {

@@ -4,13 +4,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/operator/presentation/widgets/operator_elevated_tile.dart';
+import 'package:repaint_mobile/features/operator/providers/event_providers.dart';
 import 'package:repaint_mobile/features/operator/providers/providers.dart';
 
 @RoutePage()
 class OperatorHomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.watch(operatorHomeControllerProvider);
+    final event = ref.watch(operatorEventProvider);
+    final controller = ref.watch(operatorHomeControllerProvider.future);
 
     return Scaffold(
       appBar: AppBar(
@@ -19,7 +21,8 @@ class OperatorHomeScreen extends ConsumerWidget {
         centerTitle: true,
         actions: [
           FlatIconButton(
-            onPressed: () => controller.onSettingsPressed(context),
+            onPressed: () async =>
+                (await controller).onSettingsPressed(context),
             icon: Icons.settings,
           ),
           // https://github.com/flutter/flutter/issues/118965
@@ -37,15 +40,18 @@ class OperatorHomeScreen extends ConsumerWidget {
               direction: Axis.vertical,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // TODO: 選択中のイベントを表示する
-                Text(
-                  "選択中のイベント",
-                  style: Theme.of(context).textTheme.bodyLarge,
+                event.maybeWhen(
+                  data: (data) => Text(
+                    "選択中のイベント: ${data?.name}",
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  orElse: () =>
+                      const Center(child: CircularProgressIndicator()),
                 ),
                 const SizedBox(height: 16),
                 WideElevatedButton(
-                  // TODO: イベントを変更する機能を実装する
-                  onPressed: () => controller.onChangeEventPressed(context),
+                  onPressed: () async =>
+                      (await controller).onChangeEventPressed(context),
                   text: "イベントを変更",
                   colors: WideElevatedButtonColors(
                     backgroundColor: Colors.transparent,
@@ -57,20 +63,22 @@ class OperatorHomeScreen extends ConsumerWidget {
               ],
             ),
             const SizedBox(height: 16),
-            OperatorElevatedTile.action(
-              onTap: () => controller.onQRCodeReaderPressed(context),
-              title: "QRコードを読み取る",
-              icon: Icons.qr_code_scanner,
-            ),
+            // OperatorElevatedTile.action(
+            //   onTap: () async =>
+            //       (await controller).onQRCodeReaderPressed(context),
+            //   title: "QRコードを読み取る",
+            //   icon: Icons.qr_code_scanner,
+            // ),
             const SizedBox(height: 16),
             OperatorElevatedTile.action(
-              onTap: () => controller.onCameraPressed(context),
+              onTap: () async => (await controller).onCameraPressed(context),
               title: "写真を撮影する",
               icon: Icons.camera_alt,
             ),
             const SizedBox(height: 16),
             OperatorElevatedTile.action(
-              onTap: () => controller.onBeaconListPressed(context),
+              onTap: () async =>
+                  (await controller).onBeaconListPressed(context),
               title: "ビーコンを設定する",
               icon: Icons.settings_input_antenna,
             ),
