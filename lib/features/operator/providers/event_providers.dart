@@ -17,7 +17,7 @@ Future<List<Event>> operatorEventList(
   return events.data ?? [];
 }
 
-@Riverpod()
+@Riverpod(dependencies: [OperatorUser])
 Future<Event?> operatorEvent(OperatorEventRef ref) async {
   final apiClient = ref.watch(apiClientProvider);
   final user = await ref.watch(operatorUserProvider.future);

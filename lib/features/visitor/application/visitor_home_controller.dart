@@ -19,23 +19,20 @@ class VisitorHomeController {
     context.pushRoute(const VisitorSettingsRoute());
   }
 
-  Future<void> onDownloadPressed(BuildContext context) async {
+  Future<void> onDownloadImagePressed(BuildContext context) async {
     final visitor = (await _user.future).visitorIdentification;
     if (visitor == null) return;
 
     final imageId = await _client.getVisitorApi().getCurrentImage(
-          visitorID: visitor.visitorId,
-          getVisitorImagesRequest:
-              GetVisitorImagesRequest(eventId: visitor.eventId),
+          visitorId: visitor.visitorId,
+          eventId: visitor.eventId,
         );
     if (imageId.data?.imageId == null) return;
 
     final imageUrl = await _client.getVisitorApi().getCurrentImageURL(
-          visitorID: visitor.visitorId,
-          setCurrentImageRequest: SetCurrentImageRequest(
-            eventId: visitor.eventId,
-            imageId: imageId.data!.imageId,
-          ),
+          visitorId: visitor.visitorId,
+          eventId: visitor.eventId,
+          visitorImageId: imageId.data!.imageId,
         );
     if (imageUrl.data?.url == null) return;
 
@@ -50,6 +47,10 @@ class VisitorHomeController {
       quality: 60,
       name: "repaint_${visitor.eventId}_${visitor.visitorId}",
     );
+  }
+
+  void onChangeImagePressed(BuildContext context) {
+    context.pushRoute(const VisitorImagesRoute());
   }
 
   Future<void> onShowQRCodePressed(

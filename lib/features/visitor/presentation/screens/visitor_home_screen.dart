@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -10,8 +13,8 @@ import 'package:repaint_mobile/features/common/presentation/widgets/bottom_const
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/repaint_scaffold.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/topic.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/visitor/presentation/widgets/action_elevated_button.dart';
-import 'package:repaint_mobile/features/visitor/presentation/widgets/dot_indicator.dart';
 import 'package:repaint_mobile/features/visitor/providers/providers.dart';
 
 @RoutePage()
@@ -19,6 +22,7 @@ class VisitorHomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(visitorUserProvider);
+    final imageUrl = ref.watch(visitorImageProvider);
     final controller = ref.watch(visitorHomeControllerProvider.future);
 
     return RepaintScaffold(
@@ -30,35 +34,42 @@ class VisitorHomeScreen extends ConsumerWidget {
       child: user.maybeWhen(
         data: (data) => Column(
           children: [
-            const Expanded(
+            Expanded(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                child: Placeholder(
-                  fallbackWidth: double.infinity,
-                  fallbackHeight: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: imageUrl.maybeWhen(
+                  data: (data) => CachedNetworkImage(imageUrl: data ?? ""),
+                  orElse: () => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 ),
               ),
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 24.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  DotIndicator(onPressed: () {}, enabled: true),
-                  const SizedBox(width: 32.0),
-                  DotIndicator(onPressed: () {}),
-                  const SizedBox(width: 32.0),
-                  DotIndicator(onPressed: () {}),
-                  const SizedBox(width: 32.0),
-                  DotIndicator(onPressed: () {}),
-                ],
-              ),
-            ),
             const Topic(
-              text: "スポットに近づいたり、QRを読み取ってみましょう",
+              text: "スポットに近づいたり、QRを読み取ったりしてみましょう",
               icon: Icons.lightbulb,
             ),
-            const SizedBox(height: 24.0),
+            const SizedBox(height: 16.0),
+            WideElevatedButton(
+              onPressed: () async =>
+                  (await controller).onDownloadImagePressed(context),
+              text: "画像のダウンロード",
+              icon: Icons.group,
+              colors: WideElevatedButtonColors(
+                backgroundColor: Theme.of(context).colorScheme.surface,
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            WideElevatedButton(
+              onPressed: () async =>
+                  (await controller).onChangeImagePressed(context),
+              text: "画像の変更",
+              icon: Icons.group,
+              colors: WideElevatedButtonColors(
+                backgroundColor: Theme.of(context).colorScheme.surface,
+              ),
+            ),
+            const SizedBox(height: 16.0),
             Row(
               children: [
                 Expanded(
@@ -105,10 +116,12 @@ class QRCodeViewDialog extends StatelessWidget {
     return AppDialog(
       children: [
         QrImageView(
-          data: VisitorQRCodeEntity(
-            eventId: visitorIdentification.eventId,
-            userId: visitorIdentification.visitorId,
-          ).toJson().toString(),
+          data: jsonEncode(
+            VisitorQRCodeEntity(
+              eventId: visitorIdentification.eventId,
+              userId: visitorIdentification.visitorId,
+            ).toJson(),
+          ),
           size: 200,
           gapless: false,
         ),

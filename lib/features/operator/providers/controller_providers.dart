@@ -15,25 +15,24 @@ part 'controller_providers.g.dart';
 OperatorBeaconListController operatorBeaconListController(
   OperatorBeaconListControllerRef ref,
 ) {
-  return const OperatorBeaconListController();
-}
-
-@Riverpod()
-OperatorBeaconSettingsController operatorBeaconSettingsController(
-  OperatorBeaconSettingsControllerRef ref,
-) {
-  return const OperatorBeaconSettingsController();
+  return OperatorBeaconListController(ref.watch(beaconsProvider.notifier));
 }
 
 @Riverpod(dependencies: [OperatorUser])
-Future<OperatorCameraPreviewController> operatorCameraPreviewController(
-  OperatorCameraPreviewControllerRef ref,
+Future<OperatorBeaconSettingsController> operatorBeaconSettingsController(
+  OperatorBeaconSettingsControllerRef ref,
 ) async {
-  return OperatorCameraPreviewController(
+  return OperatorBeaconSettingsController(
     ref.watch(apiClientProvider),
-    // ignore: avoid_manual_providers_as_generated_provider_dependency
     await ref.watch(operatorUserProvider.future),
   );
+}
+
+@Riverpod(dependencies: [])
+OperatorCameraPreviewController operatorCameraPreviewController(
+  OperatorCameraPreviewControllerRef ref,
+) {
+  return const OperatorCameraPreviewController();
 }
 
 @Riverpod()
@@ -59,11 +58,14 @@ Future<OperatorHomeController> operatorHomeController(
   return OperatorHomeController(await ref.watch(operatorUserProvider.future));
 }
 
-@Riverpod()
-OperatorQRCodeReaderController operatorQRCodeReaderController(
+@Riverpod(dependencies: [OperatorUser])
+Future<OperatorQRCodeReaderController> operatorQRCodeReaderController(
   OperatorQRCodeReaderControllerRef ref,
-) {
-  return const OperatorQRCodeReaderController();
+) async {
+  return OperatorQRCodeReaderController(
+    ref.watch(apiClientProvider),
+    await ref.watch(operatorUserProvider.future),
+  );
 }
 
 @Riverpod(dependencies: [OperatorUser])

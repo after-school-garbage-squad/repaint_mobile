@@ -5,8 +5,6 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import 'package:logging/logging.dart';
 import 'package:repaint_mobile/config/providers.dart' as providers;
 
-import 'package:repaint_mobile/config/providers.dart';
-
 Future<ProviderContainer> bootstrap() async {
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((record) {
@@ -33,8 +31,6 @@ Future<ProviderContainer> bootstrap() async {
 
   final container = ProviderContainer();
   await providers.initializeProviders(container);
-  await container.read(visitorUserProvider.notifier).initialize();
-  await container.read(beaconStateProvider.notifier).startScan();
 
   logger.info("Bootstrap finished");
   return container;

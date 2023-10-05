@@ -9,30 +9,18 @@ import 'package:repaint_mobile/features/operator/providers/providers.dart';
 
 @RoutePage()
 class OperatorQRCodeReaderScreen extends ConsumerWidget {
+  const OperatorQRCodeReaderScreen({@queryParam this.imagePath});
+
+  final String? imagePath;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.watch(operatorQRCodeReaderControllerProvider);
+    final controller = ref.watch(operatorQRCodeReaderControllerProvider.future);
 
     return CameraScaffold(
-      preview: Stack(
-        children: [
-          MobileScanner(
-            onDetect: (capture) => controller.onQRCodeScanned(context, capture),
-          ),
-          Positioned(
-            right: 14,
-            bottom: 8,
-            child: Container(
-              width: 100,
-              height: 48,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16.0),
-              ),
-              child: const Center(child: Text("1枚目")),
-            ),
-          ),
-        ],
+      preview: MobileScanner(
+        onDetect: (capture) async =>
+            (await controller).onQRCodeScanned(context, capture, imagePath),
       ),
       children: [
         Center(
@@ -46,28 +34,37 @@ class OperatorQRCodeReaderScreen extends ConsumerWidget {
   }
 }
 
-class QRCodeReaderConfirmDialog extends StatelessWidget {
-  const QRCodeReaderConfirmDialog({
+class QRCodeReaderScannedDialog extends StatelessWidget {
+  const QRCodeReaderScannedDialog({
     required this.onContinueScanning,
-    required this.onMoveToCamera,
+    required this.onMoveToHome,
   });
 
   final VoidCallback onContinueScanning;
-  final VoidCallback onMoveToCamera;
+  final VoidCallback onMoveToHome;
 
   @override
   Widget build(BuildContext context) {
     return AppDialog(
+      automaticallyImplyLeading: false,
       children: [
         const Spacer(),
+        const Icon(
+          Icons.check_circle,
+          size: 64.0,
+          color: Colors.green,
+        ),
+        const SizedBox(height: 24.0),
+        const Text("参加者の方に写真を追加しました"),
+        const SizedBox(height: 24.0),
         WideElevatedButton(
           onPressed: onContinueScanning,
-          text: "続けて読み取る",
+          text: "撮影した写真に、別の参加者を追加する",
         ),
-        const SizedBox(height: 32.0),
+        const SizedBox(height: 24.0),
         WideElevatedButton(
-          onPressed: onMoveToCamera,
-          text: "写真撮影に進む",
+          onPressed: onMoveToHome,
+          text: "ホームに戻る",
         ),
         const Spacer(),
       ],

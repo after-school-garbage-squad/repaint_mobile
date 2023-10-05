@@ -8,10 +8,22 @@ part 'qrcode_entity.g.dart';
 class VisitorQRCodeEntity with _$VisitorQRCodeEntity {
   @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory VisitorQRCodeEntity({
-    eventId,
-    userId,
+    @Default("") String eventId,
+    @Default("") String userId,
   }) = _VisitorQRCodeEntity;
 
   factory VisitorQRCodeEntity.fromJson(Map<String, dynamic> json) =>
       _$VisitorQRCodeEntityFromJson(json);
+}
+
+@freezed
+class SpotQRCodeEntity with _$SpotQRCodeEntity {
+  @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
+  const factory SpotQRCodeEntity({
+    @Default("") String eventId,
+    @Default("") String spotId,
+  }) = _SpotQRCodeEntity;
+
+  factory SpotQRCodeEntity.fromJson(Map<String, dynamic> json) =>
+      _$SpotQRCodeEntityFromJson(json);
 }
