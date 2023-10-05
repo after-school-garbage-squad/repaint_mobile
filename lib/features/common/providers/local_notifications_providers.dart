@@ -11,7 +11,7 @@ Future<FlutterLocalNotificationsPlugin> localNotifications(
     ..initialize(
       const InitializationSettings(
         android: AndroidInitializationSettings("@mipmap/ic_launcher"), // TODO
-        iOS: DarwinInitializationSettings(notificationCategories: []),
+        iOS: DarwinInitializationSettings(),
       ),
     );
 }
