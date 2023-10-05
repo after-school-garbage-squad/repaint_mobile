@@ -49,7 +49,8 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
 
     if (_isInitialized ||
         currentUserType == nextUserType ||
-        resolver.route.path == "/operator/events") {
+        resolver.route.path == "/operator/events" ||
+        resolver.route.path == "/licenses") {
       _logger.info(
         'from ${router.currentPath} to ${resolver.route.path} as ${_user?.type}',
       );

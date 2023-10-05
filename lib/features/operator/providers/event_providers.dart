@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'event_providers.g.dart';
 
-@Riverpod()
+@Riverpod(dependencies: [apiClient])
 Future<List<Event>> operatorEventList(
   OperatorEventListRef ref,
   String token,
@@ -17,7 +17,7 @@ Future<List<Event>> operatorEventList(
   return events.data ?? [];
 }
 
-@Riverpod(dependencies: [OperatorUser])
+@Riverpod(dependencies: [OperatorUser, apiClient])
 Future<Event?> operatorEvent(OperatorEventRef ref) async {
   final apiClient = ref.watch(apiClientProvider);
   final user = await ref.watch(operatorUserProvider.future);

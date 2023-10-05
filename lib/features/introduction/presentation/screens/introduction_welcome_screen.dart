@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
@@ -11,6 +13,19 @@ class IntroductionHomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(introductionHomeControllerProvider);
+
+    ref.listen(
+      networkErrorProvider,
+      (previous, next) {
+        if (next != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(kDebugMode ? next.toString() : "通信エラー"),
+            ),
+          );
+        }
+      },
+    );
 
     return Scaffold(
       appBar: AppBar(

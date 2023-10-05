@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:repaint_mobile/config/providers.dart';
@@ -15,24 +16,38 @@ class OperatorCameraScreen extends ConsumerWidget {
     final controller = ref.watch(operatorCameraControllerProvider);
     final height = MediaQuery.of(context).size.height;
 
+    ref.listen(
+      networkErrorProvider,
+      (previous, next) {
+        if (next != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(kDebugMode ? next.toString() : "通信エラー"),
+            ),
+          );
+        }
+      },
+    );
+
     return CameraScaffold(
       onBackPressed: () => controller.onBackPressed(context),
       preview: cameraControllerValue.maybeWhen(
         data: (cameraController) {
           return ClipRect(
-              child: OverflowBox(
-            child: FittedBox(
-              fit: BoxFit.fitHeight,
-              child: SizedBox(
-                width: height / cameraController.value.aspectRatio,
-                height: height,
-                child: AspectRatio(
-                  aspectRatio: cameraController.value.aspectRatio,
-                  child: CameraPreview(cameraController),
+            child: OverflowBox(
+              child: FittedBox(
+                fit: BoxFit.fitHeight,
+                child: SizedBox(
+                  width: height / cameraController.value.aspectRatio,
+                  height: height,
+                  child: AspectRatio(
+                    aspectRatio: cameraController.value.aspectRatio,
+                    child: CameraPreview(cameraController),
+                  ),
                 ),
               ),
             ),
-          ),);
+          );
         },
         orElse: () => const Center(child: CircularProgressIndicator()),
       ),

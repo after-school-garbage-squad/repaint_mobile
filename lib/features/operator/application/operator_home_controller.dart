@@ -21,11 +21,15 @@ class OperatorHomeController {
   //   context.pushRoute(const OperatorQRCodeReaderRoute());
   // }
 
+  void onBeaconListPressed(BuildContext context) {
+    context.pushRoute(const OperatorBeaconListRoute());
+  }
+
   void onCameraPressed(BuildContext context) {
     context.pushRoute(const OperatorCameraRoute());
   }
 
-  void onBeaconListPressed(BuildContext context) {
-    context.pushRoute(const OperatorBeaconListRoute());
+  void onQRCodePressed(BuildContext context) {
+    context.pushRoute(const OperatorCameraRoute());
   }
 }

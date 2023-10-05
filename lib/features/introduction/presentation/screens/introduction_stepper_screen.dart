@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/repaint_scaffold.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/topic.dart';
@@ -89,6 +91,19 @@ class IntroductionStepperScreen extends ConsumerWidget {
         isActive: stepper.currentStep >= 2,
       ),
     ];
+
+    ref.listen(
+      networkErrorProvider,
+      (previous, next) {
+        if (next != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(kDebugMode ? next.toString() : "通信エラー"),
+            ),
+          );
+        }
+      },
+    );
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.onPostFrameCallback(steps.length);

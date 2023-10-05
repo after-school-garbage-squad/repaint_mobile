@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:repaint_mobile/config/providers.dart';
@@ -14,7 +15,20 @@ class OperatorBeaconListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(operatorBeaconListControllerProvider);
-    final scannedBeacons = ref.watch(beaconsProvider);
+    final scannedBeacons = ref.watch(scannedBeaconsProvider);
+
+    ref.listen(
+      networkErrorProvider,
+      (previous, next) {
+        if (next != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(kDebugMode ? next.toString() : "通信エラー"),
+            ),
+          );
+        }
+      },
+    );
 
     return ListScaffold(
       title: "ビーコン一覧",
@@ -41,7 +55,7 @@ class OperatorBeaconListScreen extends ConsumerWidget {
             children: [
               CircularProgressIndicator(),
               SizedBox(width: 16.0),
-              Text("ビーコンを検知中..."),
+              Text("スポットを検知中..."),
             ],
           ),
         ),

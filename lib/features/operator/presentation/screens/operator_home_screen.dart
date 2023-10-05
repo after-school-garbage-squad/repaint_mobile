@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/operator/presentation/widgets/operator_elevated_tile.dart';
@@ -13,6 +15,19 @@ class OperatorHomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final event = ref.watch(operatorEventProvider);
     final controller = ref.watch(operatorHomeControllerProvider.future);
+
+    ref.listen(
+      networkErrorProvider,
+      (previous, next) {
+        if (next != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(kDebugMode ? next.toString() : "通信エラー"),
+            ),
+          );
+        }
+      },
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -72,15 +87,21 @@ class OperatorHomeScreen extends ConsumerWidget {
             const SizedBox(height: 16),
             OperatorElevatedTile.action(
               onTap: () async => (await controller).onCameraPressed(context),
-              title: "写真を撮影する",
+              title: "参加者の写真を撮影する",
               icon: Icons.camera_alt,
             ),
             const SizedBox(height: 16),
             OperatorElevatedTile.action(
               onTap: () async =>
                   (await controller).onBeaconListPressed(context),
-              title: "ビーコンを設定する",
+              title: "スポットを設定する",
               icon: Icons.settings_input_antenna,
+            ),
+            const SizedBox(height: 16),
+            OperatorElevatedTile.action(
+              onTap: () async => (await controller).onQRCodePressed(context),
+              title: "スポットのQRコードを確認する",
+              icon: Icons.qr_code,
             ),
           ],
         ),

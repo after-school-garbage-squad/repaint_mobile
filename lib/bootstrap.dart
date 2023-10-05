@@ -31,6 +31,7 @@ Future<ProviderContainer> bootstrap() async {
 
   final container = ProviderContainer();
   await providers.initializeProviders(container);
+  await container.read(providers.beaconStateProvider.future);
 
   logger.info("Bootstrap finished");
   return container;

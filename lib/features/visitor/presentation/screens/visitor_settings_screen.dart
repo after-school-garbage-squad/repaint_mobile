@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:repaint_mobile/config/providers.dart';
@@ -17,6 +18,19 @@ class VisitorSettingsScreen extends ConsumerWidget {
     //     ref.watch(visitorUserProvider.select((value) => value.value?.settings));
     final controller = ref.watch(visitorSettingsControllerProvider);
     final packageInfo = ref.watch(packageInfoProvider);
+
+    ref.listen(
+      networkErrorProvider,
+      (previous, next) {
+        if (next != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(kDebugMode ? next.toString() : "通信エラー"),
+            ),
+          );
+        }
+      },
+    );
 
     return ListScaffold(
       scrollableChildren: [

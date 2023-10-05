@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/camera_scaffold.dart';
 import 'package:repaint_mobile/features/visitor/providers/providers.dart';
 
@@ -10,6 +12,19 @@ class VisitorQRCodeReaderScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(visitorQRCodeReaderControllerProvider.future);
+
+    ref.listen(
+      networkErrorProvider,
+      (previous, next) {
+        if (next != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(kDebugMode ? next.toString() : "通信エラー"),
+            ),
+          );
+        }
+      },
+    );
 
     return CameraScaffold(
       preview: MobileScanner(

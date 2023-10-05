@@ -7,7 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'controller_providers.g.dart';
 
-@Riverpod(dependencies: [VisitorUser])
+@Riverpod(dependencies: [VisitorUser, apiClient])
 Future<VisitorHomeController> visitorHomeController(
   VisitorHomeControllerRef ref,
 ) async {
@@ -18,7 +18,7 @@ Future<VisitorHomeController> visitorHomeController(
   );
 }
 
-@Riverpod(dependencies: [VisitorUser])
+@Riverpod(dependencies: [VisitorUser, apiClient])
 VisitorSettingsController visitorSettingsController(
   VisitorSettingsControllerRef ref,
 ) {
@@ -29,7 +29,7 @@ VisitorSettingsController visitorSettingsController(
   );
 }
 
-@Riverpod(dependencies: [VisitorUser])
+@Riverpod(dependencies: [VisitorUser, apiClient])
 Future<VisitorQRCodeReaderController> visitorQRCodeReaderController(
   VisitorQRCodeReaderControllerRef ref,
 ) async {
@@ -40,7 +40,7 @@ Future<VisitorQRCodeReaderController> visitorQRCodeReaderController(
   );
 }
 
-@Riverpod(dependencies: [VisitorUser])
+@Riverpod(dependencies: [VisitorUser, apiClient])
 Future<VisitorImagesController> visitorImagesController(
   VisitorImagesControllerRef ref,
 ) async {

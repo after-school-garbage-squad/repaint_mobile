@@ -14,10 +14,12 @@ class VisitorQRCodeReaderController {
   void onQRCodeScanned(BarcodeCapture capture) {
     final rawValue = capture.barcodes[0].rawValue;
     if (_user.visitorIdentification == null && rawValue == null) return;
-    final spot = SpotQRCodeEntity.fromJson(
-      jsonDecode(rawValue!) as Map<String, dynamic>,
-    );
 
+    final json = jsonDecode(rawValue!) as Map<String, dynamic>;
+    if (json.containsKey("eventId") == false ||
+        json.containsKey("spotId") == false) return;
+
+    final spot = SpotQRCodeEntity.fromJson(json);
     _client.getVisitorApi().pickPalette(
           visitorId: _user.visitorIdentification!.visitorId,
           pickPaletteRequest: PickPaletteRequest(

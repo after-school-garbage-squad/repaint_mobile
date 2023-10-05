@@ -7,7 +7,7 @@ import 'package:repaint_mobile/features/common/providers/beacon_providers.dart';
 class OperatorBeaconListController {
   const OperatorBeaconListController(this._beacons);
 
-  final Beacons _beacons;
+  final ScannedBeacons _beacons;
 
   void onBeaconSelected(BuildContext context, BeaconData beacon) {
     if (beacon.hwid == null) return;

@@ -38,7 +38,7 @@ class VisitorHomeController {
 
     final image = await _client.dio.request(
       imageUrl.data!.url,
-      options: Options(responseType: ResponseType.bytes),
+      options: Options(responseType: ResponseType.plain),
     );
     if (image.data == null) return;
 

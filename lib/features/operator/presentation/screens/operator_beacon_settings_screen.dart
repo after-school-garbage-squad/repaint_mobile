@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_heading.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_scaffold.dart';
@@ -25,13 +27,26 @@ class OperatorBeaconSettingsScreen extends ConsumerWidget {
         ref.watch(operatorBeaconSettingsControllerProvider.future);
     final textEditingController = TextEditingController();
 
+    ref.listen(
+      networkErrorProvider,
+      (previous, next) {
+        if (next != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(kDebugMode ? next.toString() : "通信エラー"),
+            ),
+          );
+        }
+      },
+    );
+
     return ListScaffold(
-      title: "ビーコン設定",
+      title: "スポット設定",
       scrollableChildren: [
-        const ListHeading("ビーコンの設定"),
+        const ListHeading("スポットの設定"),
         const SizedBox(height: 16),
         SettingsTile.textField(
-          label: "ビーコンの名前",
+          label: "スポットの名前",
           controller: textEditingController,
         ),
       ],
