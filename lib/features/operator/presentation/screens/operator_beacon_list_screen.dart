@@ -6,6 +6,7 @@ import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_heading.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_scaffold.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/operator/presentation/widgets/operator_elevated_tile.dart';
 import 'package:repaint_mobile/features/operator/providers/providers.dart';
@@ -16,28 +17,21 @@ class OperatorBeaconListScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(operatorBeaconListControllerProvider);
     final scannedBeacons = ref.watch(scannedBeaconsProvider);
+    // final registeredBeacons = ref.watch(registeredBeaconsProvider);
 
     ref.listen(
       networkErrorProvider,
-      (previous, next) {
-        if (next != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(kDebugMode ? next.toString() : "通信エラー"),
-            ),
-          );
-        }
-      },
+      (previous, next) => showNetworkErrorSnackBar(context, next),
     );
 
     return ListScaffold(
       title: "スポット一覧",
       scrollableChildren: [
         const ListHeading("検知したスポット"),
-        const SizedBox(height: 16.0),
         ...scannedBeacons.values
             .map(
               (beacon) => [
+                const SizedBox(height: 16.0),
                 OperatorElevatedTile.beacon(
                   onTap: () => controller.onBeaconSelected(context, beacon),
                   name: "スポット名",

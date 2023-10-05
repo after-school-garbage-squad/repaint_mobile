@@ -74,3 +74,11 @@ class ScannedBeacons extends _$ScannedBeacons {
     _logger.info("beacons cleared");
   }
 }
+
+// @Riverpod()
+// Future<List<Spot>> registeredSpots(RegisteredSpotsRef ref) async {
+//   final client = ref.watch(apiClientProvider);
+//   final user = await ref.watch(visitorUserProvider.future);
+//   final result = await client.getVisitorApi().checkUpdate(visitorId: visitorId, eventId: eventId)
+//   return result;
+// }

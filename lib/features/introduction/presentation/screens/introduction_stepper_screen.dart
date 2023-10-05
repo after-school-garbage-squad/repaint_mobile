@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/repaint_scaffold.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/topic.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/introduction/providers/providers.dart';
@@ -94,15 +95,7 @@ class IntroductionStepperScreen extends ConsumerWidget {
 
     ref.listen(
       networkErrorProvider,
-      (previous, next) {
-        if (next != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(kDebugMode ? next.toString() : "通信エラー"),
-            ),
-          );
-        }
-      },
+      (previous, next) => showNetworkErrorSnackBar(context, next),
     );
 
     WidgetsBinding.instance.addPostFrameCallback((_) {

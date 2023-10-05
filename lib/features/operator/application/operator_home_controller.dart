@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:repaint_mobile/config/app_router.dart';
+import 'package:repaint_mobile/features/common/domain/entities/qrcode_entity.dart';
 import 'package:repaint_mobile/features/common/domain/entities/user_entity.dart';
 
 class OperatorHomeController {
@@ -17,10 +18,6 @@ class OperatorHomeController {
     context.pushRoute(OperatorEventListRoute(token: _user.token));
   }
 
-  // void onQRCodeReaderPressed(BuildContext context) {
-  //   context.pushRoute(const OperatorQRCodeReaderRoute());
-  // }
-
   void onBeaconListPressed(BuildContext context) {
     context.pushRoute(const OperatorBeaconListRoute());
   }
@@ -30,6 +27,10 @@ class OperatorHomeController {
   }
 
   void onQRCodePressed(BuildContext context) {
-    context.pushRoute(const OperatorCameraRoute());
+    context.pushRoute(
+      OperatorQRCodeReaderRoute(
+        typeIndex: QRCodeType.spot.index,
+      ),
+    );
   }
 }

@@ -7,6 +7,7 @@ import 'package:repaint_mobile/features/common/presentation/widgets/bottom_const
 import 'package:repaint_mobile/features/common/presentation/widgets/list_heading.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_scaffold.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/settings_tile.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/operator/providers/providers.dart';
 
@@ -26,38 +27,31 @@ class OperatorBeaconSettingsScreen extends ConsumerWidget {
 
     ref.listen(
       networkErrorProvider,
-      (previous, next) {
-        if (next != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(kDebugMode ? next.toString() : "通信エラー"),
-            ),
-          );
-        }
-      },
+      (previous, next) => showNetworkErrorSnackBar(context, next),
     );
 
     return ListScaffold(
       title: "スポットの設定",
       scrollableChildren: [
         const ListHeading("情報"),
-        const SizedBox(height: 16),
+        const SizedBox(height: 16.0),
         SettingsTile.text(
           title: "SSID",
           value: "${beacon?.rssi}",
         ),
+        const SizedBox(height: 16.0),
         SettingsTile.text(
           title: "HWID",
           value: "${beacon?.hwid}",
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 16.0),
         SettingsTile.text(
           title: "Service UUID",
           value: "${beacon?.serviceUUID}",
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 16.0),
         const ListHeading("設定"),
-        const SizedBox(height: 16),
+        const SizedBox(height: 16.0),
         Material(
           borderRadius: BorderRadius.circular(16.0),
           color: Colors.white,

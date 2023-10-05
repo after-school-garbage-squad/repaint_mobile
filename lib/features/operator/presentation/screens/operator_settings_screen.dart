@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_heading.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_scaffold.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/version_tile.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/operator/providers/providers.dart';
@@ -18,15 +19,7 @@ class OperatorSettingsScreen extends ConsumerWidget {
 
     ref.listen(
       networkErrorProvider,
-      (previous, next) {
-        if (next != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(kDebugMode ? next.toString() : "通信エラー"),
-            ),
-          );
-        }
-      },
+      (previous, next) => showNetworkErrorSnackBar(context, next),
     );
 
     return ListScaffold(

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:repaint_mobile/config/app_router.dart';
+import 'package:repaint_mobile/features/common/domain/entities/qrcode_entity.dart';
 
 class OperatorCameraPreviewController {
   const OperatorCameraPreviewController();
@@ -13,6 +14,11 @@ class OperatorCameraPreviewController {
     BuildContext context,
     String? imagePath,
   ) {
-    context.pushRoute(OperatorQRCodeReaderRoute(imagePath: imagePath));
+    context.pushRoute(
+      OperatorQRCodeReaderRoute(
+        typeIndex: QRCodeType.visitor.index,
+        imagePath: imagePath,
+      ),
+    );
   }
 }

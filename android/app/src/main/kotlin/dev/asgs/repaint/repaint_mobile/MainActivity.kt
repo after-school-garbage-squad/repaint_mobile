@@ -9,13 +9,13 @@ class MainActivity : FlutterActivity() {
         super.configureFlutterEngine(flutterEngine)
 
         BeaconManager.setupForegroundScanJob(
-            foregroundBetweenScanPeriod = 3900,
-            foregroundScanPeriod = 1100,
+            foregroundBetweenScanPeriod = 5800,
+            foregroundScanPeriod = 2200,
         )
         BeaconManager.setupBackgroundScanJob(
             isScheduledScanJobEnabled = true,
-            backgroundBetweenScanPeriod = 3900,
-            backgroundScanPeriod = 1100
+            backgroundBetweenScanPeriod = 5800,
+            backgroundScanPeriod = 2200
         )
     }
 }

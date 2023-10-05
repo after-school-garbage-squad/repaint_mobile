@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
@@ -25,28 +24,61 @@ class OperatorQRCodeReaderController {
 
   Future<void> onQRCodeScanned(
     BuildContext context,
+    QRCodeType type,
     BarcodeCapture capture,
     String? imagePath,
   ) async {
-    if (_isScanned) return;
-
-    final rawValue = capture.barcodes[0].rawValue;
-    _logger.info(rawValue);
-    if (imagePath == null &&
-        _user.token == null &&
-        _user.eventId == null &&
-        rawValue == null) {
-      return;
+    if (type == QRCodeType.spot) {
+      await onSpotQRCodeScanned(context, capture);
+    } else if (type == QRCodeType.visitor) {
+      await onVisitorQRCodeScanned(context, capture, imagePath);
+    } else {
+      _logger.warning("Unknown QRCodeType: $type");
     }
-    _logger.info(imagePath);
+  }
 
-    final json = jsonDecode(rawValue!) as Map<String, dynamic>;
-    _logger.info(json);
-
-    final result = VisitorQRCodeEntity.fromJson(json);
-    _logger.info(result.userId);
-
+  Future<void> onSpotQRCodeScanned(
+    BuildContext context,
+    BarcodeCapture capture,
+  ) async {
+    final data = parseQRCode<SpotQRCodeEntity>(capture.barcodes[0].rawValue);
+    if (_isScanned || data == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("QRコードが不正です"),
+        ),
+      );
+      await Future.delayed(const Duration(seconds: 3));
+    }
     _isScanned = true;
+    _logger.info("eventId: ${_user.eventId}, spotId: ${data!.spotId}");
+
+    if (context.mounted) {
+      await showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => WillPopScope(
+          onWillPop: () async => !_isScanned,
+          child: SpotQRCodeReaderScannedDialog(
+            spot: data,
+            onContinueScanning: () => onContinueScanning(context),
+            onMoveToHome: () => onMoveToHome(context),
+          ),
+        ),
+      );
+    }
+  }
+
+  Future<void> onVisitorQRCodeScanned(
+    BuildContext context,
+    BarcodeCapture capture,
+    String? imagePath,
+  ) async {
+    final result =
+        parseQRCode<VisitorQRCodeEntity>(capture.barcodes[0].rawValue);
+    if (_isScanned || result == null) return;
+    _isScanned = true;
+    _logger.info("eventId: ${_user.eventId}, visitorId: ${result.userId}");
 
     final file = await File(imagePath!).readAsBytes();
     final multipart = MultipartFile.fromBytes(
@@ -71,7 +103,7 @@ class OperatorQRCodeReaderController {
         barrierDismissible: false,
         builder: (context) => WillPopScope(
           onWillPop: () async => !_isScanned,
-          child: QRCodeReaderScannedDialog(
+          child: VisitorQRCodeReaderScannedDialog(
             onContinueScanning: () => onContinueScanning(context),
             onMoveToHome: () => onMoveToHome(context),
           ),
