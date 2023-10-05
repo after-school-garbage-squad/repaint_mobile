@@ -6,7 +6,7 @@ import 'package:sentry_dio/sentry_dio.dart';
 
 part 'api_providers.g.dart';
 
-@Riverpod(keepAlive: true, dependencies: [])
+@Riverpod(keepAlive: true, dependencies: [NetworkError])
 RepaintApiClient apiClient(ApiClientRef ref) {
   final client = RepaintApiClient(
     basePathOverride: dotenv.env['API_BASE_URL'],
