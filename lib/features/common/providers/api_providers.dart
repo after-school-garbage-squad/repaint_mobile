@@ -15,7 +15,7 @@ RepaintApiClient apiClient(ApiClientRef ref) {
       InterceptorsWrapper(
         onError: (error, handler) {
           // ignore: avoid_manual_providers_as_generated_provider_dependency
-          ref.read(networkErrorProvider.notifier).set(error);
+          ref.read(networkErrorProvider.notifier).state = error;
           return handler.next(error);
         },
       ),
@@ -34,7 +34,8 @@ class NetworkError extends _$NetworkError {
     return null;
   }
 
-  void set(DioException? error) {
-    state = error;
+  @override
+  set state(DioException? error) {
+    super.state = error;
   }
 }
