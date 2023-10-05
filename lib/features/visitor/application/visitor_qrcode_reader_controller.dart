@@ -22,7 +22,7 @@ class VisitorQRCodeReaderController {
           visitorId: _user.visitorIdentification!.visitorId,
           pickPaletteRequest: PickPaletteRequest(
             eventId: _user.visitorIdentification!.eventId,
-            spotId: spot.eventId,
+            spotId: spot.spotId,
           ),
         );
   }

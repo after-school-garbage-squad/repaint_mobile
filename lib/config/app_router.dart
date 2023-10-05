@@ -18,6 +18,7 @@ import 'package:repaint_mobile/features/operator/presentation/screens/operator_h
 import 'package:repaint_mobile/features/operator/presentation/screens/operator_qrcode_reader_screen.dart';
 import 'package:repaint_mobile/features/operator/presentation/screens/operator_settings_screen.dart';
 import 'package:repaint_mobile/features/visitor/presentation/screens/visitor_home_screen.dart';
+import 'package:repaint_mobile/features/visitor/presentation/screens/visitor_images_screen.dart';
 import 'package:repaint_mobile/features/visitor/presentation/screens/visitor_qrcode_reader_screen.dart';
 import 'package:repaint_mobile/features/visitor/presentation/screens/visitor_settings_screen.dart';
 
@@ -96,6 +97,10 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
           path: '/visitor/qrcode_reader',
           page: VisitorQRCodeReaderRoute.page,
           guards: [_permissionGuard],
+        ),
+        RepaintRoute(
+          path: '/visitor/images',
+          page: VisitorImagesRoute.page,
         ),
         RepaintRoute(
           path: '/visitor/settings',

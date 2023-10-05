@@ -28,7 +28,7 @@ class OperatorCameraController {
     _logger.info('picture taken: $path');
 
     if (context.mounted) {
-      context.pushRoute(
+      context.replaceRoute(
         OperatorCameraPreviewRoute(imagePath: path),
       );
     }

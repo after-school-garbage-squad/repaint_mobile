@@ -17,3 +17,32 @@ Future<String?> visitorImage(VisitorImageRef ref) async {
 
   return image.data?.url;
 }
+
+@Riverpod(dependencies: [VisitorUser])
+Future<Map<String, String>?> visitorImages(VisitorImagesRef ref) async {
+  final apiClient = ref.watch(apiClientProvider);
+  final user = await ref.watch(visitorUserProvider.future);
+
+  if (user.visitorIdentification == null) return null;
+  final imageIds = await apiClient.getVisitorApi().getVisitorImages(
+        visitorId: user.visitorIdentification!.visitorId,
+        eventId: user.visitorIdentification!.eventId,
+      );
+
+  if (imageIds.data?.images == null) return null;
+  final images = <String, String>{};
+  await Future.wait(
+    imageIds.data!.images.map((imageId) async {
+      final image = await apiClient.getVisitorApi().getCurrentImageURL(
+            visitorId: user.visitorIdentification!.visitorId,
+            eventId: user.visitorIdentification!.eventId,
+            visitorImageId: imageId,
+          );
+      if (image.data?.url != null) {
+        images[imageId] = image.data!.url;
+      }
+    }),
+  );
+
+  return images;
+}

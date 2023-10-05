@@ -15,9 +15,7 @@ import 'package:repaint_mobile/features/common/presentation/widgets/repaint_scaf
 import 'package:repaint_mobile/features/common/presentation/widgets/topic.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/visitor/presentation/widgets/action_elevated_button.dart';
-import 'package:repaint_mobile/features/visitor/presentation/widgets/dot_indicator.dart';
 import 'package:repaint_mobile/features/visitor/providers/providers.dart';
-import 'package:repaint_mobile/features/visitor/providers/visitor_providers.dart';
 
 @RoutePage()
 class VisitorHomeScreen extends ConsumerWidget {
@@ -47,36 +45,31 @@ class VisitorHomeScreen extends ConsumerWidget {
                 ),
               ),
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 24.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  DotIndicator(onPressed: () {}, enabled: true),
-                  const SizedBox(width: 32.0),
-                  DotIndicator(onPressed: () {}),
-                  const SizedBox(width: 32.0),
-                  DotIndicator(onPressed: () {}),
-                  const SizedBox(width: 32.0),
-                  DotIndicator(onPressed: () {}),
-                ],
-              ),
-            ),
             const Topic(
-              text: "スポットに近づいたり、QRを読み取ってみましょう",
+              text: "スポットに近づいたり、QRを読み取ったりしてみましょう",
               icon: Icons.lightbulb,
             ),
-            const SizedBox(height: 24.0),
+            const SizedBox(height: 16.0),
             WideElevatedButton(
               onPressed: () async =>
-                  (await controller).onDownloadPressed(context),
-              text: "ダウンロード",
+                  (await controller).onDownloadImagePressed(context),
+              text: "画像のダウンロード",
               icon: Icons.group,
               colors: WideElevatedButtonColors(
                 backgroundColor: Theme.of(context).colorScheme.surface,
               ),
             ),
-            const SizedBox(height: 24.0),
+            const SizedBox(height: 16.0),
+            WideElevatedButton(
+              onPressed: () async =>
+                  (await controller).onChangeImagePressed(context),
+              text: "画像の変更",
+              icon: Icons.group,
+              colors: WideElevatedButtonColors(
+                backgroundColor: Theme.of(context).colorScheme.surface,
+              ),
+            ),
+            const SizedBox(height: 16.0),
             Row(
               children: [
                 Expanded(

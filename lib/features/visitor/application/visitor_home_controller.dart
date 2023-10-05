@@ -19,7 +19,7 @@ class VisitorHomeController {
     context.pushRoute(const VisitorSettingsRoute());
   }
 
-  Future<void> onDownloadPressed(BuildContext context) async {
+  Future<void> onDownloadImagePressed(BuildContext context) async {
     final visitor = (await _user.future).visitorIdentification;
     if (visitor == null) return;
 
@@ -47,6 +47,10 @@ class VisitorHomeController {
       quality: 60,
       name: "repaint_${visitor.eventId}_${visitor.visitorId}",
     );
+  }
+
+  void onChangeImagePressed(BuildContext context) {
+    context.pushRoute(const VisitorImagesRoute());
   }
 
   Future<void> onShowQRCodePressed(

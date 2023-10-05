@@ -9,11 +9,12 @@ import 'package:repaint_mobile/features/visitor/providers/providers.dart';
 class VisitorQRCodeReaderScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.watch(visitorQRCodeReaderControllerProvider);
+    final controller = ref.watch(visitorQRCodeReaderControllerProvider.future);
 
     return CameraScaffold(
       preview: MobileScanner(
-        onDetect: (capture) => controller.onQRCodeScanned(capture),
+        onDetect: (capture) async =>
+            (await controller).onQRCodeScanned(capture),
       ),
       children: const [
         Center(child: Text('スポットのQRコードを読み込んでください')),
