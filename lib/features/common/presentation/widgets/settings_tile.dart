@@ -75,6 +75,7 @@ class SettingsTile extends StatelessWidget {
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16.0),
+            borderSide: BorderSide.none,
           ),
           contentPadding: const EdgeInsets.all(16.0),
         ),

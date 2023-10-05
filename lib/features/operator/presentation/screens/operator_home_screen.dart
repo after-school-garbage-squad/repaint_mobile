@@ -60,8 +60,14 @@ class OperatorHomeScreen extends ConsumerWidget {
                     "選択中のイベント: ${data?.name}",
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
-                  orElse: () =>
-                      const Center(child: CircularProgressIndicator()),
+                  orElse: () => const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(),
+                      SizedBox(width: 16),
+                      Text("イベントを取得中..."),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 16),
                 WideElevatedButton(

@@ -31,16 +31,16 @@ class OperatorBeaconListScreen extends ConsumerWidget {
     );
 
     return ListScaffold(
-      title: "ビーコン一覧",
+      title: "スポット一覧",
       scrollableChildren: [
-        const ListHeading("検知したビーコン"),
+        const ListHeading("検知したスポット"),
         const SizedBox(height: 16.0),
         ...scannedBeacons.values
             .map(
               (beacon) => [
                 OperatorElevatedTile.beacon(
                   onTap: () => controller.onBeaconSelected(context, beacon),
-                  name: "ビーコン名",
+                  name: "スポット名",
                   rssi: beacon.rssi!,
                   hwid: beacon.hwid!,
                 ),

@@ -12,19 +12,16 @@ import 'package:repaint_mobile/features/operator/providers/providers.dart';
 
 @RoutePage()
 class OperatorBeaconSettingsScreen extends ConsumerWidget {
-  const OperatorBeaconSettingsScreen({
-    super.key,
-    @queryParam this.hwId,
-    @queryParam this.serviceUuid,
-  });
+  const OperatorBeaconSettingsScreen({super.key, @queryParam this.hwId});
 
   final String? hwId;
-  final String? serviceUuid;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller =
         ref.watch(operatorBeaconSettingsControllerProvider.future);
+    final beacon =
+        ref.watch(scannedBeaconsProvider.select((value) => value[hwId]));
     final textEditingController = TextEditingController();
 
     ref.listen(
@@ -41,13 +38,34 @@ class OperatorBeaconSettingsScreen extends ConsumerWidget {
     );
 
     return ListScaffold(
-      title: "スポット設定",
+      title: "スポットの設定",
       scrollableChildren: [
-        const ListHeading("スポットの設定"),
+        const ListHeading("情報"),
         const SizedBox(height: 16),
-        SettingsTile.textField(
-          label: "スポットの名前",
-          controller: textEditingController,
+        SettingsTile.text(
+          title: "SSID",
+          value: "${beacon?.rssi}",
+        ),
+        SettingsTile.text(
+          title: "HWID",
+          value: "${beacon?.hwid}",
+        ),
+        const SizedBox(height: 16),
+        SettingsTile.text(
+          title: "Service UUID",
+          value: "${beacon?.serviceUUID}",
+        ),
+        const SizedBox(height: 16),
+        const ListHeading("設定"),
+        const SizedBox(height: 16),
+        Material(
+          borderRadius: BorderRadius.circular(16.0),
+          color: Colors.white,
+          elevation: 1.0,
+          child: SettingsTile.textField(
+            label: "スポットの名前",
+            controller: textEditingController,
+          ),
         ),
       ],
       bottomChildren: [
@@ -70,8 +88,8 @@ class OperatorBeaconSettingsScreen extends ConsumerWidget {
                 onPressed: () async => (await controller).onRegisterPressed(
                   context,
                   textEditingController.value.text,
-                  hwId!,
-                  serviceUuid!,
+                  beacon!.hwid!,
+                  beacon.serviceUUID!,
                 ),
                 text: "登録する",
               ),

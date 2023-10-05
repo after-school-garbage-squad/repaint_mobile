@@ -56,7 +56,14 @@ class OperatorEventListScreen extends ConsumerWidget {
                   const Center(child: Text("管理できるイベントがありません")),
                 ],
           orElse: () => [
-            const Center(child: Stack(children: [CircularProgressIndicator()])),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(width: 16),
+                Text("イベントを取得中..."),
+              ],
+            ),
           ],
         ),
       ],
