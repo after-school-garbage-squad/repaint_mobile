@@ -223,6 +223,45 @@ class VisitorUser extends _$VisitorUser {
     });
   }
 
+  Future<void> setImageId(
+    String Function(String) update,
+  ) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() {
+      return _set(
+        state.value!.copyWith(
+          imageId: update(state.value!.imageId!),
+        ),
+      );
+    });
+  }
+
+  Future<void> setImageUrl(
+    String Function(String) update,
+  ) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() {
+      return _set(
+        state.value!.copyWith(
+          imageUrl: update(state.value!.imageUrl!),
+        ),
+      );
+    });
+  }
+
+  Future<void> setPalettes(
+    List<int> Function(List<int>) update,
+  ) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() {
+      return _set(
+        state.value!.copyWith(
+          palettes: update(state.value!.palettes!),
+        ),
+      );
+    });
+  }
+
   Future<void> clear() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {

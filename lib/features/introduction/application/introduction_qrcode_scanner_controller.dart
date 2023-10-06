@@ -22,8 +22,9 @@ class IntroductionQRCodeReaderController {
     BuildContext context,
     BarcodeCapture capture,
   ) async {
+    if (_isScanned) return;
     final data = parseQRCode<EventQRCodeEntity>(capture.barcodes[0].rawValue);
-    if (_isScanned || data == null) {
+    if (data == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("QRコードが不正です"),

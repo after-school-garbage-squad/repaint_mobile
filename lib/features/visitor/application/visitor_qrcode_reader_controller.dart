@@ -5,12 +5,14 @@ import 'package:repaint_mobile/features/common/domain/entities/qrcode_entity.dar
 import 'package:repaint_mobile/features/common/domain/entities/user_entity.dart';
 
 class VisitorQRCodeReaderController {
-  const VisitorQRCodeReaderController(this._client, this._user);
+  VisitorQRCodeReaderController(this._client, this._user);
 
   final RepaintApiClient _client;
   final VisitorUserEntity _user;
+  bool _isScanned = false;
 
   void onQRCodeScanned(BuildContext context, BarcodeCapture capture) {
+    if (_isScanned) return;
     final result = parseQRCode<SpotQRCodeEntity>(capture.barcodes[0].rawValue);
     if (_user.visitorIdentification == null && result == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -19,6 +21,7 @@ class VisitorQRCodeReaderController {
         ),
       );
     }
+    _isScanned = true;
 
     _client.getVisitorApi().pickPalette(
           visitorId: _user.visitorIdentification!.visitorId,

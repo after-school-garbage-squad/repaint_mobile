@@ -34,12 +34,15 @@ class OperatorEventListScreen extends ConsumerWidget {
           data: (data) => data.isNotEmpty
               ? data
                   .map(
-                    (event) => WideElevatedButton(
-                      text: event.name,
-                      onPressed: () async => (await controller)
-                          .onEventItemPressed(context, token!, event.eventId),
-                      colors: const WideElevatedButtonColors(
-                        backgroundColor: Colors.white,
+                    (event) => Padding(
+                      padding: const EdgeInsets.only(bottom: 16.0),
+                      child: WideElevatedButton(
+                        text: event.name,
+                        onPressed: () async => (await controller)
+                            .onEventItemPressed(context, token!, event.eventId),
+                        colors: const WideElevatedButtonColors(
+                          backgroundColor: Colors.white,
+                        ),
                       ),
                     ),
                   )

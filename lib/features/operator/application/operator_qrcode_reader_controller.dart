@@ -41,8 +41,9 @@ class OperatorQRCodeReaderController {
     BuildContext context,
     BarcodeCapture capture,
   ) async {
+    if (_isScanned) return;
     final data = parseQRCode<SpotQRCodeEntity>(capture.barcodes[0].rawValue);
-    if (_isScanned || data == null) {
+    if (data == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("QRコードが不正です"),
@@ -50,7 +51,6 @@ class OperatorQRCodeReaderController {
       );
       await Future.delayed(const Duration(seconds: 3));
     }
-    _isScanned = true;
     _logger.info("eventId: ${_user.eventId}, spotId: ${data!.spotId}");
 
     if (context.mounted) {

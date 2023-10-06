@@ -35,13 +35,17 @@ class VisitorHomeScreen extends ConsumerWidget {
         data: (data) => Column(
           children: [
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: imageUrl.maybeWhen(
-                  data: (data) => CachedNetworkImage(imageUrl: data ?? ""),
-                  orElse: () => const Center(
-                    child: CircularProgressIndicator(),
+              child: imageUrl.maybeWhen(
+                data: (data) => ClipRRect(
+                  borderRadius: BorderRadius.circular(16.0),
+                  child: CachedNetworkImage(
+                    width: double.infinity,
+                    imageUrl: data ?? "",
+                    fit: BoxFit.contain,
                   ),
+                ),
+                orElse: () => const Center(
+                  child: CircularProgressIndicator(),
                 ),
               ),
             ),
@@ -53,7 +57,7 @@ class VisitorHomeScreen extends ConsumerWidget {
             WideElevatedButton(
               onPressed: () async =>
                   (await controller).onDownloadImagePressed(context),
-              text: "画像のダウンロード",
+              text: "画像の保存",
               icon: Icons.group,
               colors: WideElevatedButtonColors(
                 backgroundColor: Theme.of(context).colorScheme.surface,

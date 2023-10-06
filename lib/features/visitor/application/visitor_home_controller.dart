@@ -38,7 +38,7 @@ class VisitorHomeController {
 
     final image = await _client.dio.request(
       imageUrl.data!.url,
-      options: Options(responseType: ResponseType.plain),
+      options: Options(responseType: ResponseType.bytes),
     );
     if (image.data == null) return;
 
@@ -47,6 +47,14 @@ class VisitorHomeController {
       quality: 60,
       name: "repaint_${visitor.eventId}_${visitor.visitorId}",
     );
+
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("画像を保存しました"),
+        ),
+      );
+    }
   }
 
   void onChangeImagePressed(BuildContext context) {

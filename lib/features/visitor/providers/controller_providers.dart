@@ -47,6 +47,6 @@ Future<VisitorImagesController> visitorImagesController(
   return VisitorImagesController(
     ref.watch(apiClientProvider),
     // ignore: avoid_manual_providers_as_generated_provider_dependency
-    await ref.watch(visitorUserProvider.future),
+    await ref.watch(visitorUserProvider.notifier),
   );
 }

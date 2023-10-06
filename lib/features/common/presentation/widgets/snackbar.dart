@@ -42,7 +42,7 @@ void showNetworkErrorSnackBar(BuildContext context, DioException? error) {
 void showQRCodeErrorSnackBar(BuildContext context) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      content: const Text("QRコードが不正です"),
+      content: const Text(""),
       action: SnackBarAction(
         label: "OK",
         onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
