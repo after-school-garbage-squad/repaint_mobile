@@ -1,3 +1,4 @@
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import 'package:repaint_mobile/config/app_router.dart';
 import 'package:repaint_mobile/config/guards.dart';
@@ -21,4 +22,12 @@ Future<void> initializeProviders(ProviderContainer container) async {
   await container.read(firebaseProvider.future);
   await container.read(firebaseClientIdProvider.future);
   await container.read(fcmRegistrationTokenProvider.future);
+  final localNotifications =
+      await container.read(localNotificationsProvider.future);
+  await localNotifications.initialize(
+    const InitializationSettings(
+      android: AndroidInitializationSettings("@mipmap/ic_launcher"),
+      iOS: DarwinInitializationSettings(),
+    ),
+  );
 }

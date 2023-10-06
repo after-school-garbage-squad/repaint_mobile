@@ -82,7 +82,7 @@ class OperatorBeaconSettingsScreen extends ConsumerWidget {
                   context,
                   textEditingController.value.text,
                   beacon!.hwid!,
-                  beacon.serviceUUID!,
+                  "FE6F", // beacon.serviceUUID!,
                 ),
                 text: "登録する",
               ),

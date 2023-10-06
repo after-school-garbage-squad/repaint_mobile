@@ -21,6 +21,7 @@ void showNetworkErrorSnackBar(BuildContext context, DioException? error) {
             );
           },
         ),
+        duration: const Duration(seconds: 5),
       ),
     );
     return;
@@ -32,7 +33,21 @@ void showNetworkErrorSnackBar(BuildContext context, DioException? error) {
           label: "OK",
           onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
         ),
+        duration: const Duration(seconds: 5),
       ),
     );
   }
+}
+
+void showQRCodeErrorSnackBar(BuildContext context) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: const Text("QRコードが不正です"),
+      action: SnackBarAction(
+        label: "OK",
+        onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+      ),
+      duration: const Duration(seconds: 5),
+    ),
+  );
 }
