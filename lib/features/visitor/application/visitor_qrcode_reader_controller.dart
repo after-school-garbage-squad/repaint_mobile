@@ -11,8 +11,11 @@ class VisitorQRCodeReaderController {
   final VisitorUserEntity _user;
   bool _isScanned = false;
 
-  void onQRCodeScanned(BuildContext context, BarcodeCapture capture) {
+  Future<void> onQRCodeScanned(
+      BuildContext context, BarcodeCapture capture) async {
     if (_isScanned) return;
+    _isScanned = true;
+
     final result = parseQRCode<SpotQRCodeEntity>(capture.barcodes[0].rawValue);
     if (_user.visitorIdentification == null && result == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -21,14 +24,18 @@ class VisitorQRCodeReaderController {
         ),
       );
     }
-    _isScanned = true;
 
-    _client.getVisitorApi().pickPalette(
-          visitorId: _user.visitorIdentification!.visitorId,
-          pickPaletteRequest: PickPaletteRequest(
-            eventId: _user.visitorIdentification!.eventId,
-            spotId: result!.spotId,
-          ),
-        );
+    try {
+      _client.getVisitorApi().pickPalette(
+            visitorId: _user.visitorIdentification!.visitorId,
+            pickPaletteRequest: PickPaletteRequest(
+              eventId: _user.visitorIdentification!.eventId,
+              spotId: result!.spotId,
+            ),
+          );
+    } catch (e) {
+      _isScanned = false;
+      return;
+    }
   }
 }

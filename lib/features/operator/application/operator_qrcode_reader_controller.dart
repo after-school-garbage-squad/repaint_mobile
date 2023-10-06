@@ -28,12 +28,12 @@ class OperatorQRCodeReaderController {
     BarcodeCapture capture,
     String? imagePath,
   ) async {
+    if (_isScanned) return;
+    _isScanned = true;
     if (type == QRCodeType.spot) {
       await onSpotQRCodeScanned(context, capture);
     } else if (type == QRCodeType.visitor) {
       await onVisitorQRCodeScanned(context, capture, imagePath);
-    } else {
-      _logger.warning("Unknown QRCodeType: $type");
     }
   }
 
@@ -41,7 +41,6 @@ class OperatorQRCodeReaderController {
     BuildContext context,
     BarcodeCapture capture,
   ) async {
-    if (_isScanned) return;
     final data = parseQRCode<SpotQRCodeEntity>(capture.barcodes[0].rawValue);
     if (data == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -74,28 +73,38 @@ class OperatorQRCodeReaderController {
     BarcodeCapture capture,
     String? imagePath,
   ) async {
-    final result =
-        parseQRCode<VisitorQRCodeEntity>(capture.barcodes[0].rawValue);
-    if (_isScanned || result == null) return;
-    _isScanned = true;
-    _logger.info("eventId: ${_user.eventId}, visitorId: ${result.userId}");
+    final data = parseQRCode<VisitorQRCodeEntity>(capture.barcodes[0].rawValue);
+    if (data == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("QRコードが不正です"),
+        ),
+      );
+      await Future.delayed(const Duration(seconds: 3));
+    }
+    _logger.info("eventId: ${_user.eventId}, visitorId: ${data?.userId}");
 
     final file = await File(imagePath!).readAsBytes();
     final multipart = MultipartFile.fromBytes(
       file,
-      filename: "${result.userId}.png",
+      filename: "${data?.userId}.png",
       contentType: MediaType("image", "png"),
     );
 
-    await _client.getAdminApi().uploadVisitorImage(
-          eventId: _user.eventId!,
-          image: multipart,
-          headers: getAdminApiHeaders(_user.token!)
-            ..addAll({
-              Headers.contentTypeHeader: 'multipart/form-data',
-              Headers.contentLengthHeader: multipart.length.toString(),
-            }),
-        );
+    try {
+      await _client.getAdminApi().uploadVisitorImage(
+            eventId: _user.eventId!,
+            image: multipart,
+            headers: getAdminApiHeaders(_user.token!)
+              ..addAll({
+                Headers.contentTypeHeader: 'multipart/form-data',
+                Headers.contentLengthHeader: multipart.length.toString(),
+              }),
+          );
+    } catch (e) {
+      _isScanned = false;
+      return;
+    }
 
     if (context.mounted) {
       await showDialog(

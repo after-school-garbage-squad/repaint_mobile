@@ -49,29 +49,34 @@ class VisitorHomeScreen extends ConsumerWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 16.0),
             const Topic(
               text: "スポットに近づいたり、QRを読み取ったりしてみましょう",
               icon: Icons.lightbulb,
             ),
             const SizedBox(height: 16.0),
-            WideElevatedButton(
-              onPressed: () async =>
-                  (await controller).onDownloadImagePressed(context),
-              text: "画像の保存",
-              icon: Icons.group,
-              colors: WideElevatedButtonColors(
-                backgroundColor: Theme.of(context).colorScheme.surface,
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            WideElevatedButton(
-              onPressed: () async =>
-                  (await controller).onChangeImagePressed(context),
-              text: "画像の変更",
-              icon: Icons.group,
-              colors: WideElevatedButtonColors(
-                backgroundColor: Theme.of(context).colorScheme.surface,
-              ),
+            Row(
+              children: [
+                WideElevatedButton(
+                  onPressed: () async =>
+                      (await controller).onDownloadImagePressed(context),
+                  text: "画像の保存",
+                  icon: Icons.download,
+                  colors: WideElevatedButtonColors(
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                WideElevatedButton(
+                  onPressed: () async =>
+                      (await controller).onChangeImagePressed(context),
+                  text: "画像の変更",
+                  icon: Icons.group,
+                  colors: WideElevatedButtonColors(
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 16.0),
             Row(

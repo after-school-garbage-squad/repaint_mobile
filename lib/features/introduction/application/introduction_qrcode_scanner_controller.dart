@@ -23,6 +23,7 @@ class IntroductionQRCodeReaderController {
     BarcodeCapture capture,
   ) async {
     if (_isScanned) return;
+    _isScanned = true;
     final data = parseQRCode<EventQRCodeEntity>(capture.barcodes[0].rawValue);
     if (data == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -32,7 +33,6 @@ class IntroductionQRCodeReaderController {
       );
       await Future.delayed(const Duration(seconds: 3));
     }
-    _isScanned = true;
     _logger
         .info("eventId: ${data?.eventId}, _registrationId: $_registrationId");
 

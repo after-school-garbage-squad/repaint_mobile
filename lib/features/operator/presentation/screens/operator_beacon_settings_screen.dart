@@ -35,7 +35,7 @@ class OperatorBeaconSettingsScreen extends ConsumerWidget {
         const ListHeading("情報"),
         const SizedBox(height: 16.0),
         SettingsTile.text(
-          title: "SSID",
+          title: "RSSI",
           value: "${beacon?.rssi}",
         ),
         const SizedBox(height: 16.0),
