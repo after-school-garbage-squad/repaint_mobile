@@ -33,11 +33,11 @@ class VisitorSettingsController {
   }
 
   Future<void> onDeleteAccountPressed(BuildContext context) async {
-    if (_userdata.visitorIdentification == null) return;
+    if (_userdata.visitor == null) return;
     await _client.getVisitorApi().deleteVisitor(
-          visitorId: _userdata.visitorIdentification!.visitorId,
+          visitorId: _userdata.visitor!.visitorIdentification.visitorId,
           deleteVisitorRequest: DeleteVisitorRequest(
-            eventId: _userdata.visitorIdentification!.eventId,
+            eventId: _userdata.visitor!.visitorIdentification.eventId,
           ),
         );
     await _user.clear();

@@ -31,7 +31,7 @@ class BeaconState extends _$BeaconState {
           // ignore: avoid_manual_providers_as_generated_provider_dependency
           ref.read(scannedBeaconsProvider.notifier).addBeacon(data);
 
-          if (user.visitorIdentification != null) {
+          if (user.visitor != null) {
             // TODO: 通知の実装確認
             await notifications.show(
               0,
@@ -40,9 +40,9 @@ class BeaconState extends _$BeaconState {
               const NotificationDetails(),
             );
             await apiClient.getVisitorApi().dropPalette(
-                  visitorId: user.visitorIdentification!.visitorId,
+                  visitorId: user.visitor!.visitorIdentification.visitorId,
                   dropPaletteRequest: DropPaletteRequest(
-                    eventId: user.visitorIdentification!.eventId,
+                    eventId: user.visitor!.visitorIdentification.eventId,
                     hwId: data.hwid,
                   ),
                 );

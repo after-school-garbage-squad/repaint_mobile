@@ -42,9 +42,8 @@ class OperatorUserEntity with _$OperatorUserEntity {
 class VisitorUserEntity with _$VisitorUserEntity {
   @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory VisitorUserEntity({
-    @Default(null) VisitorIdentification? visitorIdentification,
-    @Default(null) String? registrationId,
-    @Default(null) List<int>? palettes,
+    @Default(null) RegisterVisitor? visitor,
+    @Default(null) Event? event,
     @Default(null) String? imageId,
     @Default(null) String? imageUrl,
     @Default(VisitorSettingsEntity()) VisitorSettingsEntity settings,
@@ -52,4 +51,31 @@ class VisitorUserEntity with _$VisitorUserEntity {
 
   factory VisitorUserEntity.fromJson(Map<String, dynamic> json) =>
       _$VisitorUserEntityFromJson(json);
+}
+
+extension RegisterVisitorX on RegisterVisitor {
+  RegisterVisitor copyWith({
+    VisitorIdentification? visitorIdentification,
+    String? registrationId,
+    List<int>? palettes,
+  }) {
+    return RegisterVisitor(
+      visitorIdentification:
+          visitorIdentification ?? this.visitorIdentification,
+      registrationId: registrationId ?? this.registrationId,
+      palettes: palettes ?? this.palettes,
+    );
+  }
+}
+
+extension VisitorIdentificationX on VisitorIdentification {
+  VisitorIdentification copyWith({
+    String? visitorId,
+    String? eventId,
+  }) {
+    return VisitorIdentification(
+      visitorId: visitorId ?? this.visitorId,
+      eventId: eventId ?? this.eventId,
+    );
+  }
 }

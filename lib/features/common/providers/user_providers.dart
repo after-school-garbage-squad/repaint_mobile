@@ -172,14 +172,12 @@ class VisitorUser extends _$VisitorUser {
       final registrationId =
           await ref.watch(fcmRegistrationTokenProvider.future);
 
-      if (state.value?.visitorIdentification == null ||
-          state.value?.registrationId == null ||
-          registrationId == null) return;
+      if (state.value?.visitor == null || registrationId == null) return;
 
       await apiClient.getVisitorApi().initializeVisitor(
-            visitorId: state.value!.visitorIdentification!.visitorId,
+            visitorId: state.value!.visitor!.visitorIdentification.visitorId,
             joinEventRequest: JoinEventRequest(
-              eventId: state.value!.visitorIdentification!.eventId,
+              eventId: state.value!.visitor!.visitorIdentification.eventId,
               registrationId: registrationId,
             ),
           );
@@ -187,19 +185,18 @@ class VisitorUser extends _$VisitorUser {
     }
   }
 
-  Future<void> register(RegisterVisitor registerVisitor) async {
+  Future<void> register(JoinEvent200Response joinEvent) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final user = await _get();
       final response =
           await ref.read(apiClientProvider).getVisitorApi().getCurrentImage(
-                visitorId: registerVisitor.visitorIdentification.visitorId,
-                eventId: registerVisitor.visitorIdentification.eventId,
+                visitorId: joinEvent.visitor.visitorIdentification.visitorId,
+                eventId: joinEvent.visitor.visitorIdentification.eventId,
               );
       final newUser = user.copyWith(
-        visitorIdentification: registerVisitor.visitorIdentification,
-        registrationId: registerVisitor.registrationId,
-        palettes: registerVisitor.palettes,
+        visitor: joinEvent.visitor,
+        event: joinEvent.event,
         imageId: response.data?.imageId,
       );
       await ref.read(commonUserProvider.notifier).set(UserType.visitor);
@@ -223,7 +220,7 @@ class VisitorUser extends _$VisitorUser {
     });
   }
 
-  Future<void> setImageId(
+  Future<void> updateImageId(
     String Function(String) update,
   ) async {
     state = const AsyncValue.loading();
@@ -236,27 +233,27 @@ class VisitorUser extends _$VisitorUser {
     });
   }
 
-  Future<void> setImageUrl(
-    String Function(String) update,
+  Future<void> updateVisitor(
+    RegisterVisitor Function(RegisterVisitor) update,
   ) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() {
       return _set(
         state.value!.copyWith(
-          imageUrl: update(state.value!.imageUrl!),
+          visitor: update(state.value!.visitor!),
         ),
       );
     });
   }
 
-  Future<void> setPalettes(
-    List<int> Function(List<int>) update,
+  Future<void> updateEvent(
+    Event Function(Event) update,
   ) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() {
       return _set(
         state.value!.copyWith(
-          palettes: update(state.value!.palettes!),
+          event: update(state.value!.event!),
         ),
       );
     });

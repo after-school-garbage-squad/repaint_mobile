@@ -20,18 +20,17 @@ class VisitorHomeController {
   }
 
   Future<void> onDownloadImagePressed(BuildContext context) async {
-    final visitor = _userdata.visitorIdentification;
-    if (visitor == null) return;
+    if (_userdata.visitor == null) return;
 
     final imageId = await _client.getVisitorApi().getCurrentImage(
-          visitorId: visitor.visitorId,
-          eventId: visitor.eventId,
+          visitorId: _userdata.visitor!.visitorIdentification.visitorId,
+          eventId: _userdata.visitor!.visitorIdentification.eventId,
         );
     if (imageId.data?.imageId == null) return;
 
     final imageUrl = await _client.getVisitorApi().getCurrentImageURL(
-          visitorId: visitor.visitorId,
-          eventId: visitor.eventId,
+          visitorId: _userdata.visitor!.visitorIdentification.visitorId,
+          eventId: _userdata.visitor!.visitorIdentification.eventId,
           visitorImageId: imageId.data!.imageId,
         );
     if (imageUrl.data?.url == null) return;
@@ -45,7 +44,8 @@ class VisitorHomeController {
     await ImageGallerySaver.saveImage(
       Uint8List.fromList(image.data as List<int>),
       quality: 60,
-      name: "repaint_${visitor.eventId}_${visitor.visitorId}",
+      name:
+          "repaint_${_userdata.visitor!.visitorIdentification.eventId}_${_userdata.visitor!.visitorIdentification.visitorId}",
     );
 
     if (context.mounted) {
@@ -64,11 +64,11 @@ class VisitorHomeController {
   Future<void> onShowQRCodePressed(
     BuildContext context,
   ) async {
-    final visitorIdentification = _userdata.visitorIdentification;
-    if (context.mounted && visitorIdentification != null) {
+    if (context.mounted && _userdata.visitor != null) {
       showDialog(
         context: context,
-        builder: (context) => QRCodeViewDialog(visitorIdentification),
+        builder: (context) =>
+            QRCodeViewDialog(_userdata.visitor!.visitorIdentification),
       );
     }
   }

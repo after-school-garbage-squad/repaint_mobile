@@ -48,7 +48,7 @@ class IntroductionQRCodeReaderController {
           ),
         );
 
-    if (result.data?.visitor == null) return;
-    return _user.register(result.data!.visitor);
+    if (result.data == null) return;
+    return _user.register(result.data!);
   }
 }

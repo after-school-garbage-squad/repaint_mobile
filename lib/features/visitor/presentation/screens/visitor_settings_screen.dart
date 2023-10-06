@@ -25,16 +25,23 @@ class VisitorSettingsScreen extends ConsumerWidget {
 
     return ListScaffold(
       scrollableChildren: [
+        const ListHeading("イベント"),
+        const SizedBox(height: 16.0),
+        SettingsTile.text(
+          title: "イベント名",
+          value: "${user.value?.event?.name}",
+        ),
+        const SizedBox(height: 16.0),
         const ListHeading("アカウント"),
         const SizedBox(height: 16.0),
         SettingsTile.text(
           title: "イベントID",
-          value: "${user.value?.visitorIdentification?.eventId}",
+          value: "${user.value?.visitor?.visitorIdentification.eventId}",
         ),
         const SizedBox(height: 16.0),
         SettingsTile.text(
           title: "ユーザーID",
-          value: "${user.value?.visitorIdentification?.visitorId}",
+          value: "${user.value?.visitor?.visitorIdentification.visitorId}",
         ),
         const SizedBox(height: 16.0),
         WideElevatedButton(

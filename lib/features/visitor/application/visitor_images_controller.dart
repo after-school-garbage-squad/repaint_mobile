@@ -12,17 +12,16 @@ class VisitorImagesController {
   final VisitorUserEntity _userdata;
 
   Future<void> onImagePressed(BuildContext context, String imageId) async {
-    final visitorIdentification = _userdata.visitorIdentification;
-    if (visitorIdentification == null) return;
+    if (_userdata.visitor == null) return;
 
     await _client.getVisitorApi().setCurrentImage(
-          visitorId: visitorIdentification.visitorId,
+          visitorId: _userdata.visitor!.visitorIdentification.visitorId,
           setCurrentImageRequest: SetCurrentImageRequest(
-            eventId: visitorIdentification.eventId,
+            eventId: _userdata.visitor!.visitorIdentification.eventId,
             imageId: imageId,
           ),
         );
-    await _user.setImageId((p0) => imageId);
+    await _user.updateImageId((p0) => imageId);
 
     if (context.mounted) {
       context.popRoute();

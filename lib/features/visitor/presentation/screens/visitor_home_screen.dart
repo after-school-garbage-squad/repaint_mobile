@@ -36,13 +36,10 @@ class VisitorHomeScreen extends ConsumerWidget {
           children: [
             Expanded(
               child: imageUrl.maybeWhen(
-                data: (data) => ClipRRect(
-                  borderRadius: BorderRadius.circular(16.0),
-                  child: CachedNetworkImage(
-                    width: double.infinity,
-                    imageUrl: data ?? "",
-                    fit: BoxFit.contain,
-                  ),
+                data: (data) => CachedNetworkImage(
+                  width: double.infinity,
+                  imageUrl: data ?? "",
+                  fit: BoxFit.contain,
                 ),
                 orElse: () => const Center(
                   child: CircularProgressIndicator(),
@@ -55,28 +52,24 @@ class VisitorHomeScreen extends ConsumerWidget {
               icon: Icons.lightbulb,
             ),
             const SizedBox(height: 16.0),
-            Row(
-              children: [
-                WideElevatedButton(
-                  onPressed: () async =>
-                      (await controller).onDownloadImagePressed(context),
-                  text: "画像の保存",
-                  icon: Icons.download,
-                  colors: WideElevatedButtonColors(
-                    backgroundColor: Theme.of(context).colorScheme.surface,
-                  ),
-                ),
-                const SizedBox(height: 16.0),
-                WideElevatedButton(
-                  onPressed: () async =>
-                      (await controller).onChangeImagePressed(context),
-                  text: "画像の変更",
-                  icon: Icons.group,
-                  colors: WideElevatedButtonColors(
-                    backgroundColor: Theme.of(context).colorScheme.surface,
-                  ),
-                ),
-              ],
+            WideElevatedButton(
+              onPressed: () async =>
+                  (await controller).onDownloadImagePressed(context),
+              text: "画像の保存",
+              icon: Icons.download,
+              colors: WideElevatedButtonColors(
+                backgroundColor: Theme.of(context).colorScheme.surface,
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            WideElevatedButton(
+              onPressed: () async =>
+                  (await controller).onChangeImagePressed(context),
+              text: "画像の変更",
+              icon: Icons.change_circle,
+              colors: WideElevatedButtonColors(
+                backgroundColor: Theme.of(context).colorScheme.surface,
+              ),
             ),
             const SizedBox(height: 16.0),
             Row(
@@ -85,7 +78,7 @@ class VisitorHomeScreen extends ConsumerWidget {
                   child: ActionElevatedButton(
                     onPressed: () async =>
                         (await controller).onShowQRCodePressed(context),
-                    text: "QRコードの表示",
+                    text: "参加者QRコードの表示",
                     icon: Icons.qr_code,
                     colors: ActionElevatedButtonColors(
                       borderColor: Theme.of(context).colorScheme.primary,
@@ -97,7 +90,7 @@ class VisitorHomeScreen extends ConsumerWidget {
                   child: ActionElevatedButton(
                     onPressed: () async =>
                         (await controller).onReadQRCodePressed(context),
-                    text: "QRコードの読取",
+                    text: "スポットQRコードの\n読み取り",
                     icon: Icons.qr_code_scanner,
                     colors: ActionElevatedButtonColors(
                       borderColor: Theme.of(context).colorScheme.primary,

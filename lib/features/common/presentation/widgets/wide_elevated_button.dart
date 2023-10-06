@@ -65,6 +65,10 @@ class WideElevatedButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            if (icon != null) ...[
+              Icon(icon, color: colors?.iconColor),
+              const SizedBox(width: 8.0),
+            ],
             Text(
               text,
               style: Theme.of(context)
@@ -72,10 +76,6 @@ class WideElevatedButton extends StatelessWidget {
                   .bodyMedium
                   ?.copyWith(color: colors?.textColor),
             ),
-            if (icon != null) ...[
-              const SizedBox(width: 8.0),
-              Icon(icon, color: colors?.iconColor),
-            ],
           ],
         ),
       ),
