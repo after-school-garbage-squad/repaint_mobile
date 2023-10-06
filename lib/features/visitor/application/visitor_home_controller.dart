@@ -6,21 +6,21 @@ import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:repaint_api_client/repaint_api_client.dart';
 import 'package:repaint_mobile/config/app_router.dart';
-import 'package:repaint_mobile/config/providers.dart';
+import 'package:repaint_mobile/features/common/domain/entities/user_entity.dart';
 import 'package:repaint_mobile/features/visitor/presentation/screens/visitor_home_screen.dart';
 
 class VisitorHomeController {
-  const VisitorHomeController(this._client, this._user);
+  const VisitorHomeController(this._client, this._userdata);
 
   final RepaintApiClient _client;
-  final VisitorUser _user;
+  final VisitorUserEntity _userdata;
 
   void onSettingsPressed(BuildContext context) {
     context.pushRoute(const VisitorSettingsRoute());
   }
 
   Future<void> onDownloadImagePressed(BuildContext context) async {
-    final visitor = (await _user.future).visitorIdentification;
+    final visitor = _userdata.visitorIdentification;
     if (visitor == null) return;
 
     final imageId = await _client.getVisitorApi().getCurrentImage(
@@ -64,7 +64,7 @@ class VisitorHomeController {
   Future<void> onShowQRCodePressed(
     BuildContext context,
   ) async {
-    final visitorIdentification = (await _user.future).visitorIdentification;
+    final visitorIdentification = _userdata.visitorIdentification;
     if (context.mounted && visitorIdentification != null) {
       showDialog(
         context: context,

@@ -13,19 +13,19 @@ Future<VisitorHomeController> visitorHomeController(
 ) async {
   return VisitorHomeController(
     ref.watch(apiClientProvider),
-    // ignore: avoid_manual_providers_as_generated_provider_dependency
-    await ref.watch(visitorUserProvider.notifier),
+    await ref.watch(visitorUserProvider.future),
   );
 }
 
 @Riverpod(dependencies: [VisitorUser, apiClient])
-VisitorSettingsController visitorSettingsController(
+Future<VisitorSettingsController> visitorSettingsController(
   VisitorSettingsControllerRef ref,
-) {
+) async {
   return VisitorSettingsController(
     ref.watch(apiClientProvider),
     // ignore: avoid_manual_providers_as_generated_provider_dependency
-    ref.watch(visitorUserProvider.notifier),
+    await ref.watch(visitorUserProvider.notifier),
+    await ref.watch(visitorUserProvider.future),
   );
 }
 
@@ -46,7 +46,7 @@ Future<VisitorImagesController> visitorImagesController(
 ) async {
   return VisitorImagesController(
     ref.watch(apiClientProvider),
-    // ignore: avoid_manual_providers_as_generated_provider_dependency
     await ref.watch(visitorUserProvider.notifier),
+    await ref.watch(visitorUserProvider.future),
   );
 }

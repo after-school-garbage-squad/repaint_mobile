@@ -4,13 +4,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:repaint_api_client/repaint_api_client.dart';
 import 'package:repaint_mobile/config/app_router.dart';
+import 'package:repaint_mobile/features/common/domain/entities/user_entity.dart';
 import 'package:repaint_mobile/features/common/providers/providers.dart';
 
 class VisitorSettingsController {
-  VisitorSettingsController(this._client, this._user);
+  VisitorSettingsController(this._client, this._user, this._userdata);
 
   final RepaintApiClient _client;
   final VisitorUser _user;
+  final VisitorUserEntity _userdata;
 
   Future<void> onSpotNotificationChanged(bool value) async {
     await _user.setNotifications(
@@ -31,12 +33,11 @@ class VisitorSettingsController {
   }
 
   Future<void> onDeleteAccountPressed(BuildContext context) async {
-    final user = await _user.future;
-    if (user.visitorIdentification == null) return;
+    if (_userdata.visitorIdentification == null) return;
     await _client.getVisitorApi().deleteVisitor(
-          visitorId: user.visitorIdentification!.visitorId,
+          visitorId: _userdata.visitorIdentification!.visitorId,
           deleteVisitorRequest: DeleteVisitorRequest(
-            eventId: user.visitorIdentification!.eventId,
+            eventId: _userdata.visitorIdentification!.eventId,
           ),
         );
     await _user.clear();

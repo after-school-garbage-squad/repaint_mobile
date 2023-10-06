@@ -14,7 +14,7 @@ import 'package:repaint_mobile/features/visitor/providers/providers.dart';
 class VisitorSettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.watch(visitorSettingsControllerProvider);
+    final controller = ref.watch(visitorSettingsControllerProvider.future);
     final packageInfo = ref.watch(packageInfoProvider);
     final user = ref.watch(visitorUserProvider);
 
@@ -38,7 +38,8 @@ class VisitorSettingsScreen extends ConsumerWidget {
         ),
         const SizedBox(height: 16.0),
         WideElevatedButton(
-          onPressed: () => controller.onDeleteAccountPressed(context),
+          onPressed: () async =>
+              (await controller).onDeleteAccountPressed(context),
           text: "アカウントの削除",
           colors: const WideElevatedButtonColors(
             backgroundColor: Colors.white,
@@ -51,7 +52,7 @@ class VisitorSettingsScreen extends ConsumerWidget {
         VersionTile(packageInfo: packageInfo.value),
         const SizedBox(height: 16.0),
         WideElevatedButton(
-          onPressed: () => controller.onLicensePressed(context),
+          onPressed: () async => (await controller).onLicensePressed(context),
           text: "ライセンス",
           colors: const WideElevatedButtonColors(backgroundColor: Colors.white),
         ),

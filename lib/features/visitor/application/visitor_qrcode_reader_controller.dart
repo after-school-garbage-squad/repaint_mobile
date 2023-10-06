@@ -12,7 +12,9 @@ class VisitorQRCodeReaderController {
   bool _isScanned = false;
 
   Future<void> onQRCodeScanned(
-      BuildContext context, BarcodeCapture capture) async {
+    BuildContext context,
+    BarcodeCapture capture,
+  ) async {
     if (_isScanned) return;
     _isScanned = true;
 
