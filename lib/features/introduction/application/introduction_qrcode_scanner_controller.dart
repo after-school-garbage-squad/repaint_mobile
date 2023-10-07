@@ -32,6 +32,7 @@ class IntroductionQRCodeReaderController {
         ),
       );
       await Future.delayed(const Duration(seconds: 3));
+      return;
     }
     _logger
         .info("eventId: ${data?.eventId}, _registrationId: $_registrationId");
