@@ -9,3 +9,17 @@ Future<FlutterLocalNotificationsPlugin> localNotifications(
 ) async {
   return FlutterLocalNotificationsPlugin();
 }
+
+@Riverpod(keepAlive: true, dependencies: [])
+class NotificationId extends _$NotificationId {
+  @override
+  int build() {
+    return 0;
+  }
+
+  int increment() {
+    final oldState = state;
+    state = state + 1;
+    return oldState;
+  }
+}

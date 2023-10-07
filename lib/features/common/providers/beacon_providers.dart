@@ -10,7 +10,14 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'beacon_providers.g.dart';
 
-@Riverpod(keepAlive: true, dependencies: [VisitorUser, apiClient])
+@Riverpod(
+  keepAlive: true,
+  dependencies: [
+    VisitorUser,
+    apiClient,
+    NotificationId,
+  ],
+)
 class BeaconState extends _$BeaconState {
   late BeaconManager _beaconManager;
   static final _logger = Logger("BeaconStateProvider");
@@ -34,7 +41,8 @@ class BeaconState extends _$BeaconState {
           if (user.visitor != null) {
             // TODO: 通知の実装確認
             await notifications.show(
-              0,
+              // ignore: avoid_manual_providers_as_generated_provider_dependency
+              ref.read(notificationIdProvider.notifier).increment(),
               "テスト",
               "${data.hwid}が検出されました",
               const NotificationDetails(),
@@ -50,7 +58,6 @@ class BeaconState extends _$BeaconState {
         }
       }),
     );
-    await _beaconManager.setBeaconServiceUUIDs(["FE6F"]);
     _logger.info("beacon state initialized");
 
     if (state.value == true) {

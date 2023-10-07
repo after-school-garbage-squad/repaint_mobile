@@ -38,10 +38,33 @@ class VisitorHomeScreen extends ConsumerWidget {
             Expanded(
               child: imageUrl.maybeWhen(
                 data: (data) => CachedNetworkImage(
-                  width: double.infinity,
-                  imageUrl: data ?? "",
-                  fit: BoxFit.contain,
                   cacheManager: DioCacheManager.instance,
+                  imageUrl: data ?? "",
+                  width: double.infinity,
+                  fit: BoxFit.contain,
+                  errorWidget: (context, url, error) => Container(
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(16.0),
+                      ),
+                    ),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.error),
+                        SizedBox(width: 16.0),
+                        Text("エラーが発生しました"),
+                      ],
+                    ),
+                  ),
+                  placeholder: (context, url) => const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
                 ),
                 orElse: () => const Center(
                   child: CircularProgressIndicator(),
