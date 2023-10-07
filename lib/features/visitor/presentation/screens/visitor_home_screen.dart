@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager_dio/flutter_cache_manager_dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:repaint_api_client/repaint_api_client.dart';
@@ -40,6 +41,7 @@ class VisitorHomeScreen extends ConsumerWidget {
                   width: double.infinity,
                   imageUrl: data ?? "",
                   fit: BoxFit.contain,
+                  cacheManager: DioCacheManager.instance,
                 ),
                 orElse: () => const Center(
                   child: CircularProgressIndicator(),
