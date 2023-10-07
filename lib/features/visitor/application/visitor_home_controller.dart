@@ -22,16 +22,24 @@ class VisitorHomeController {
   Future<void> onDownloadImagePressed(BuildContext context) async {
     if (_userdata.visitor == null) return;
 
-    final imageId = await _client.getVisitorApi().getCurrentImage(
+    final isDownloadable = await _client.getVisitorApi().checkDownload(
           visitorId: _userdata.visitor!.visitorIdentification.visitorId,
           eventId: _userdata.visitor!.visitorIdentification.eventId,
         );
-    if (imageId.data?.imageId == null) return;
+    if (isDownloadable.data?.isDownloadable == false && context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("イベント中に色を全て取得するか、イベント終了後に保存できます。"),
+          duration: Duration(seconds: 5),
+        ),
+      );
+      return;
+    }
 
     final imageUrl = await _client.getVisitorApi().getCurrentImageURL(
           visitorId: _userdata.visitor!.visitorIdentification.visitorId,
           eventId: _userdata.visitor!.visitorIdentification.eventId,
-          visitorImageId: imageId.data!.imageId,
+          visitorImageId: _userdata.imageId!,
         );
     if (imageUrl.data?.url == null) return;
 

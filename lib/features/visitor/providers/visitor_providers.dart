@@ -6,40 +6,45 @@ part 'visitor_providers.g.dart';
 @Riverpod(dependencies: [VisitorUser, apiClient])
 Future<String?> visitorImage(VisitorImageRef ref) async {
   final apiClient = ref.watch(apiClientProvider);
-  final user = await ref.watch(visitorUserProvider.future);
-  if (user.visitor == null && user.imageId == null) return null;
+  final visitor =
+      await ref.watch(visitorUserProvider.selectAsync((data) => data.visitor));
+  final imageId =
+      await ref.watch(visitorUserProvider.selectAsync((data) => data.imageId));
+  if (visitor == null && imageId == null) return null;
 
   final update = await apiClient.getVisitorApi().checkUpdate(
-        visitorId: user.visitor!.visitorIdentification.visitorId,
-        eventId: user.visitor!.visitorIdentification.eventId,
+        visitorId: visitor!.visitorIdentification.visitorId,
+        eventId: visitor.visitorIdentification.eventId,
       );
-  if (update.data?.isUpdated == true || user.imageId == null) {
+
+  if (update.data?.isUpdated == true || imageId == null) {
     final updatedImageId = await apiClient.getVisitorApi().getCurrentImage(
-          visitorId: user.visitor!.visitorIdentification.visitorId,
-          eventId: user.visitor!.visitorIdentification.eventId,
+          visitorId: visitor.visitorIdentification.visitorId,
+          eventId: visitor.visitorIdentification.eventId,
         );
 
-    final updatedImageUrl = await apiClient.getVisitorApi().getCurrentImageURL(
-          visitorId: user.visitor!.visitorIdentification.visitorId,
-          eventId: user.visitor!.visitorIdentification.eventId,
-          visitorImageId: updatedImageId.data!.imageId,
-        );
-    if (updatedImageUrl.data?.url != null) {
+    if (updatedImageId.data != null) {
       await ref
           .read(visitorUserProvider.notifier)
           .updateImageId((p0) => updatedImageId.data!.imageId);
-      return updatedImageUrl.data!.url;
+      final imageUrl = await apiClient.getVisitorApi().getCurrentImageURL(
+            visitorId: visitor.visitorIdentification.visitorId,
+            eventId: visitor.visitorIdentification.eventId,
+            visitorImageId: updatedImageId.data!.imageId,
+          );
+      return imageUrl.data?.url;
     }
   } else {
     final imageUrl = await apiClient.getVisitorApi().getCurrentImageURL(
-          visitorId: user.visitor!.visitorIdentification.visitorId,
-          eventId: user.visitor!.visitorIdentification.eventId,
-          visitorImageId: user.imageId!,
+          visitorId: visitor.visitorIdentification.visitorId,
+          eventId: visitor.visitorIdentification.eventId,
+          visitorImageId: imageId,
         );
     if (imageUrl.data?.url != null) {
       return imageUrl.data!.url;
     }
   }
+
   return null;
 }
 
@@ -56,6 +61,7 @@ Future<Map<String, String>?> visitorImages(VisitorImagesRef ref) async {
 
   if (imageIds.data?.images == null) return null;
   final images = <String, String>{};
+
   await Future.wait(
     imageIds.data!.images.map((imageId) async {
       final image = await apiClient.getVisitorApi().getCurrentImageURL(
