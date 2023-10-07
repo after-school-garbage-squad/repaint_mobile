@@ -51,7 +51,7 @@ class OperatorQRCodeReaderController {
       await Future.delayed(const Duration(seconds: 3));
       return;
     }
-    _logger.info("eventId: ${_user.eventId}, spotId: ${data!.spotId}");
+    _logger.info("eventId: ${_user.eventId}, spotId: ${data.spotId}");
 
     if (context.mounted) {
       await showDialog(
@@ -84,12 +84,12 @@ class OperatorQRCodeReaderController {
       await Future.delayed(const Duration(seconds: 3));
       return;
     }
-    _logger.info("eventId: ${_user.eventId}, visitorId: ${data?.userId}");
+    _logger.info("eventId: ${_user.eventId}, visitorId: ${data.userId}");
 
     final file = await File(imagePath!).readAsBytes();
     final multipart = MultipartFile.fromBytes(
       file,
-      filename: "${data?.userId}.png",
+      filename: "${data.userId}.png",
       contentType: MediaType("image", "png"),
     );
 

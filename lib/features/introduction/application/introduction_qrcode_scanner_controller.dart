@@ -34,8 +34,7 @@ class IntroductionQRCodeReaderController {
       await Future.delayed(const Duration(seconds: 3));
       return;
     }
-    _logger
-        .info("eventId: ${data?.eventId}, _registrationId: $_registrationId");
+    _logger.info("eventId: ${data.eventId}, _registrationId: $_registrationId");
 
     if (_registrationId == null) {
       _logger.warning("registrationId is null");
@@ -44,7 +43,7 @@ class IntroductionQRCodeReaderController {
 
     final result = await _client.getVisitorApi().joinEvent(
           joinEventRequest: JoinEventRequest(
-            eventId: data!.eventId,
+            eventId: data.eventId,
             registrationId: _registrationId!,
           ),
         );
