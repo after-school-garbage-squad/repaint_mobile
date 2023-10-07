@@ -24,7 +24,7 @@ class IntroductionSettingsController {
             .pushRoute(OperatorEventListRoute(token: credential.idToken));
       }
     } catch (e) {
-      _logger.severe(e);
+      _logger.warning(e.toString());
     }
   }
 
