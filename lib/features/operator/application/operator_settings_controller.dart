@@ -19,7 +19,7 @@ class OperatorSettingsController {
           .webAuthentication(scheme: dotenv.env["AUTH0_SCHEME"])
           .logout();
     } catch (e) {
-      _logger.severe(e);
+      _logger.warning(e.toString());
     } finally {
       await _user.clear();
       _logger.info("logged out");
