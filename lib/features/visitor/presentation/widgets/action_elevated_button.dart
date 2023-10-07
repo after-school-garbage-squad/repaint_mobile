@@ -67,24 +67,21 @@ class ActionElevatedButton extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Icon(icon, color: colors?.iconColor, size: 80.0),
             ),
-            ConstrainedBox(
-              constraints: const BoxConstraints(minHeight: 40.0),
-              child: Container(
-                alignment: Alignment.center,
-                constraints: const BoxConstraints(minHeight: 40.0),
-                decoration: BoxDecoration(
-                  color: backgroundColor,
-                  borderRadius: const BorderRadius.vertical(
-                    bottom: Radius.circular(16.0),
-                  ),
-                ),
-                child: Text(
-                  text,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: colors?.textColor,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                ),
+            Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                color: backgroundColor,
+                borderRadius:
+                    const BorderRadius.vertical(bottom: Radius.circular(16.0)),
+              ),
+              child: Text(
+                text,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: colors?.textColor,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                textAlign: TextAlign.center,
               ),
             ),
           ],

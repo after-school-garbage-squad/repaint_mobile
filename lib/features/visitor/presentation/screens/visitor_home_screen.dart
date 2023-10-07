@@ -80,7 +80,7 @@ class VisitorHomeScreen extends ConsumerWidget {
                   child: ActionElevatedButton(
                     onPressed: () async =>
                         (await controller).onShowQRCodePressed(context),
-                    text: "参加者QRコードの表示",
+                    text: "参加者QRコードを\n表示する",
                     icon: Icons.qr_code,
                     colors: ActionElevatedButtonColors(
                       borderColor: Theme.of(context).colorScheme.primary,
@@ -92,7 +92,7 @@ class VisitorHomeScreen extends ConsumerWidget {
                   child: ActionElevatedButton(
                     onPressed: () async =>
                         (await controller).onReadQRCodePressed(context),
-                    text: "スポットQRコードの\n読み取り",
+                    text: "スポットQRコードを\n読み取る",
                     icon: Icons.qr_code_scanner,
                     colors: ActionElevatedButtonColors(
                       borderColor: Theme.of(context).colorScheme.primary,
