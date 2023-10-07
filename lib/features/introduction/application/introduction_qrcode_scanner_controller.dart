@@ -32,6 +32,7 @@ class IntroductionQRCodeReaderController {
         ),
       );
       await Future.delayed(const Duration(seconds: 3));
+      _isScanned = false;
       return;
     }
     _logger.info("eventId: ${data.eventId}, _registrationId: $_registrationId");
@@ -41,14 +42,18 @@ class IntroductionQRCodeReaderController {
       return;
     }
 
-    final result = await _client.getVisitorApi().joinEvent(
-          joinEventRequest: JoinEventRequest(
-            eventId: data.eventId,
-            registrationId: _registrationId!,
-          ),
-        );
-
-    if (result.data == null) return;
-    return _user.register(result.data!);
+    try {
+      final result = await _client.getVisitorApi().joinEvent(
+            joinEventRequest: JoinEventRequest(
+              eventId: data.eventId,
+              registrationId: _registrationId!,
+            ),
+          );
+      if (result.data == null) return;
+      return _user.register(result.data!);
+    } catch (e) {
+      _isScanned = false;
+      return;
+    }
   }
 }

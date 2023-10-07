@@ -25,6 +25,7 @@ class VisitorQRCodeReaderController {
           content: Text("QRコードが不正です"),
         ),
       );
+      _isScanned = false;
       return;
     }
 

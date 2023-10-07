@@ -49,6 +49,7 @@ class OperatorQRCodeReaderController {
         ),
       );
       await Future.delayed(const Duration(seconds: 3));
+      _isScanned = false;
       return;
     }
     _logger.info("eventId: ${_user.eventId}, spotId: ${data.spotId}");
@@ -82,6 +83,7 @@ class OperatorQRCodeReaderController {
         ),
       );
       await Future.delayed(const Duration(seconds: 3));
+      _isScanned = false;
       return;
     }
     _logger.info("eventId: ${_user.eventId}, visitorId: ${data.userId}");

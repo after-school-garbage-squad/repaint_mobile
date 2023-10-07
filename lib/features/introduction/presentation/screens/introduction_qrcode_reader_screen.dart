@@ -23,6 +23,25 @@ class IntroductionQRCodeReaderScreen extends ConsumerWidget {
       preview: MobileScanner(
         onDetect: (capture) async =>
             (await controller).onQRCodeScanned(context, capture),
+        errorBuilder: (context, error, widget) => Container(
+          width: double.infinity,
+          decoration: const BoxDecoration(color: Colors.black),
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.error, color: Colors.white),
+              SizedBox(width: 16.0),
+              Text("エラーが発生しました", style: TextStyle(color: Colors.white)),
+            ],
+          ),
+        ),
+        placeholderBuilder: (context, widget) => Container(
+          width: double.infinity,
+          decoration: const BoxDecoration(color: Colors.black),
+          child: const Center(
+            child: CircularProgressIndicator(color: Colors.white),
+          ),
+        ),
       ),
       children: [
         Text(
