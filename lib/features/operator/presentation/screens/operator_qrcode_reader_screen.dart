@@ -30,19 +30,22 @@ class OperatorQRCodeReaderScreen extends ConsumerWidget {
       (previous, next) => showNetworkErrorSnackBar(context, next),
     );
 
+    final type = QRCodeType.values[typeIndex!];
+    final typeString = type == QRCodeType.visitor
+        ? "参加者"
+        : type == QRCodeType.spot
+            ? "スポット"
+            : "イベント";
+
     return CameraScaffold(
       preview: MobileScanner(
-        onDetect: (capture) async => (await controller).onQRCodeScanned(
-          context,
-          QRCodeType.values[typeIndex!],
-          capture,
-          imagePath,
-        ),
+        onDetect: (capture) async => (await controller)
+            .onQRCodeScanned(context, type, capture, imagePath),
       ),
       children: [
         Center(
           child: Text(
-            "${typeIndex == QRCodeType.spot.index ? 'スポット' : '参加者'}のQRコードを読み取ってください",
+            "$typeStringのQRコードを読み取ってください",
             style: Theme.of(context).textTheme.bodyLarge,
           ),
         ),

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:logging/logging.dart';
 
 part 'qrcode_entity.freezed.dart';
 
@@ -49,20 +50,22 @@ class EventQRCodeEntity with _$EventQRCodeEntity {
 }
 
 T? parseQRCode<T>(String? text) {
+  final logger = Logger("parseQRCode");
   if (text == null) return null;
   final uri = Uri.tryParse(text);
   if (T == EventQRCodeEntity && uri != null) {
-    if (uri.queryParameters.containsKey("event_id") != true) return null;
+    logger.info("qrcode: $text");
     return EventQRCodeEntity.fromJson(uri.queryParameters) as T;
   } else if (uri == null) {
     final data = jsonDecode(text) as Map<String, dynamic>;
+    logger.info("qrcode: $data");
     if (T == VisitorQRCodeEntity &&
-        data.containsKey("eventId") &&
-        data.containsKey("userId")) {
+        data.containsKey("event_id") &&
+        data.containsKey("user_id")) {
       return VisitorQRCodeEntity.fromJson(data) as T;
     } else if (T == SpotQRCodeEntity &&
-        data.containsKey("eventId") &&
-        data.containsKey("spotId")) {
+        data.containsKey("event_id") &&
+        data.containsKey("spot_id")) {
       return SpotQRCodeEntity.fromJson(data) as T;
     }
   }
