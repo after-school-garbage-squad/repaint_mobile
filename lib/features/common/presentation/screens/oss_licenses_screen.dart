@@ -1,8 +1,10 @@
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:repaint_mobile/config/app_router.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/repaint_scaffold.dart';
+import 'package:repaint_mobile/features/operator/presentation/widgets/operator_elevated_tile.dart';
 import 'package:repaint_mobile/oss_licenses.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 @RoutePage()
 class OssLicensesScreen extends StatelessWidget {
@@ -37,11 +39,9 @@ class OssLicensesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('ライセンス'),
-      ),
-      body: FutureBuilder<List<Package>>(
+    return RepaintScaffold(
+      title: "ライセンス",
+      child: FutureBuilder<List<Package>>(
         future: _licenses,
         initialData: const [],
         builder: (context, snapshot) {
@@ -50,87 +50,23 @@ class OssLicensesScreen extends StatelessWidget {
             itemCount: snapshot.data?.length ?? 0,
             itemBuilder: (context, index) {
               final package = snapshot.data![index];
-              return ListTile(
-                title: Text('${package.name} ${package.version}'),
-                subtitle: package.description.isNotEmpty
-                    ? Text(package.description)
-                    : null,
-                trailing: const Icon(Icons.chevron_right),
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        MiscOssLicenseSingle(package: package),
+              return OperatorElevatedTile.license(
+                title: "${package.name} ${package.version}",
+                license: package.description,
+                onTap: () => context.pushRoute(
+                  OssLicensesDetailRoute(
+                    license: package.license,
+                    name: package.name,
+                    version: package.version,
+                    description: package.description,
+                    homepage: package.homepage,
                   ),
                 ),
               );
             },
-            separatorBuilder: (context, index) => const Divider(),
+            separatorBuilder: (context, index) => const SizedBox(height: 8.0),
           );
         },
-      ),
-    );
-  }
-}
-
-class MiscOssLicenseSingle extends StatelessWidget {
-  final Package package;
-
-  const MiscOssLicenseSingle({required this.package});
-
-  String _bodyText() {
-    return package.license!.split('\n').map((line) {
-      if (line.startsWith('//')) line = line.substring(2);
-      return line.trim();
-    }).join('\n');
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('${package.name} ${package.version}')),
-      body: ColoredBox(
-        color: Theme.of(context).canvasColor,
-        child: ListView(
-          children: <Widget>[
-            if (package.description.isNotEmpty)
-              Padding(
-                padding:
-                    const EdgeInsets.only(top: 12.0, left: 12.0, right: 12.0),
-                child: Text(
-                  package.description,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(fontWeight: FontWeight.bold),
-                ),
-              ),
-            if (package.homepage != null)
-              Padding(
-                padding:
-                    const EdgeInsets.only(top: 12.0, left: 12.0, right: 12.0),
-                child: InkWell(
-                  child: Text(
-                    package.homepage!,
-                    style: const TextStyle(
-                      color: Colors.blue,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                  onTap: () => launchUrlString(package.homepage!),
-                ),
-              ),
-            if (package.description.isNotEmpty || package.homepage != null)
-              const Divider(),
-            Padding(
-              padding:
-                  const EdgeInsets.only(top: 12.0, left: 12.0, right: 12.0),
-              child: Text(
-                _bodyText(),
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

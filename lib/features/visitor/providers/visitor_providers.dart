@@ -10,10 +10,12 @@ Future<String?> visitorImage(VisitorImageRef ref) async {
       await ref.watch(visitorUserProvider.selectAsync((data) => data.visitor));
   final imageId =
       await ref.watch(visitorUserProvider.selectAsync((data) => data.imageId));
-  if (visitor == null && imageId == null) return null;
+  final imageUrl =
+      await ref.watch(visitorUserProvider.selectAsync((data) => data.imageUrl));
+  if (visitor == null) return null;
 
   final update = await apiClient.getVisitorApi().checkUpdate(
-        visitorId: visitor!.visitorIdentification.visitorId,
+        visitorId: visitor.visitorIdentification.visitorId,
         eventId: visitor.visitorIdentification.eventId,
       );
 

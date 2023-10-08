@@ -30,6 +30,7 @@ class OperatorQRCodeReaderController {
   ) async {
     if (_isScanned) return;
     _isScanned = true;
+
     if (type == QRCodeType.spot) {
       await onSpotQRCodeScanned(context, capture);
     } else if (type == QRCodeType.visitor) {
@@ -43,6 +44,7 @@ class OperatorQRCodeReaderController {
   ) async {
     final data = parseQRCode<SpotQRCodeEntity>(capture.barcodes[0].rawValue);
     if (data == null) {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("QRコードが不正です"),
@@ -77,6 +79,7 @@ class OperatorQRCodeReaderController {
   ) async {
     final data = parseQRCode<VisitorQRCodeEntity>(capture.barcodes[0].rawValue);
     if (data == null) {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("QRコードが不正です"),
@@ -106,6 +109,7 @@ class OperatorQRCodeReaderController {
               }),
           );
     } catch (e) {
+      await Future.delayed(const Duration(seconds: 3));
       _isScanned = false;
       return;
     }

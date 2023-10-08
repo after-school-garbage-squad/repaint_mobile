@@ -20,6 +20,7 @@ class VisitorQRCodeReaderController {
 
     final result = parseQRCode<SpotQRCodeEntity>(capture.barcodes[0].rawValue);
     if (_user.visitor == null && result == null) {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("QRコードが不正です"),
@@ -30,7 +31,7 @@ class VisitorQRCodeReaderController {
     }
 
     try {
-      _client.getVisitorApi().pickPalette(
+      await _client.getVisitorApi().pickPalette(
             visitorId: _user.visitor!.visitorIdentification.visitorId,
             pickPaletteRequest: PickPaletteRequest(
               eventId: _user.visitor!.visitorIdentification.eventId,
@@ -38,6 +39,7 @@ class VisitorQRCodeReaderController {
             ),
           );
     } catch (e) {
+      await Future.delayed(const Duration(seconds: 3));
       _isScanned = false;
       return;
     }

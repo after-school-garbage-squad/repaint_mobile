@@ -57,6 +57,18 @@ class OperatorElevatedTile extends StatelessWidget {
     );
   }
 
+  factory OperatorElevatedTile.license({
+    required VoidCallback onTap,
+    required String title,
+    required String license,
+  }) {
+    return _OperatorElevatedLicenseTile(
+      title: title,
+      license: license,
+      onTap: onTap,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -136,6 +148,45 @@ class _OperatorElevatedBeaconTile extends OperatorElevatedTile {
           ),
         ),
         const SizedBox(width: 8.0),
+      ],
+    );
+  }
+}
+
+class _OperatorElevatedLicenseTile extends OperatorElevatedTile {
+  const _OperatorElevatedLicenseTile({
+    required this.title,
+    required this.license,
+    this.onTap,
+  });
+
+  final String title;
+  final String license;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return OperatorElevatedTile(
+      padding: const EdgeInsets.all(16.0),
+      onTap: onTap,
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: Theme.of(context).textTheme.bodyLarge),
+              ...(license.isNotEmpty
+                  ? [
+                      const Divider(),
+                      Text(
+                        license,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ]
+                  : []),
+            ],
+          ),
+        ),
       ],
     );
   }

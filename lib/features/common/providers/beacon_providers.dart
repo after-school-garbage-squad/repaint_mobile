@@ -2,7 +2,8 @@ import 'package:beacon_plugin/beacon_manager.dart';
 import 'package:beacon_plugin/beacon_plugin.dart';
 import 'package:beacon_plugin/flutter_beacon_api.dart';
 import 'package:beacon_plugin/pigeon.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:logging/logging.dart';
 import 'package:repaint_api_client/repaint_api_client.dart';
 import 'package:repaint_mobile/config/providers.dart';
@@ -15,7 +16,7 @@ part 'beacon_providers.g.dart';
   dependencies: [
     VisitorUser,
     apiClient,
-    NotificationId,
+    // NotificationId,
   ],
 )
 class BeaconState extends _$BeaconState {
@@ -28,7 +29,7 @@ class BeaconState extends _$BeaconState {
     _beaconManager = BeaconPlugin.beaconManager;
     final apiClient = ref.watch(apiClientProvider);
     final user = await ref.watch(visitorUserProvider.future);
-    final notifications = await ref.watch(localNotificationsProvider.future);
+    // final notifications = await ref.watch(localNotificationsProvider.future);
 
     FlutterBeaconApi.setup(
       FlutterBeaconApiImpl((data) async {
@@ -40,13 +41,13 @@ class BeaconState extends _$BeaconState {
 
           if (user.visitor != null) {
             // TODO: 通知の実装確認
-            await notifications.show(
-              // ignore: avoid_manual_providers_as_generated_provider_dependency
-              ref.read(notificationIdProvider.notifier).increment(),
-              "テスト",
-              "${data.hwid}が検出されました",
-              const NotificationDetails(),
-            );
+            // await notifications.show(
+            //   // ignore: avoid_manual_providers_as_generated_provider_dependency
+            //   ref.read(notificationIdProvider.notifier).increment(),
+            //   "テスト",
+            //   "${data.hwid}が検出されました",
+            //   const NotificationDetails(),
+            // );
             await apiClient.getVisitorApi().dropPalette(
                   visitorId: user.visitor!.visitorIdentification.visitorId,
                   dropPaletteRequest: DropPaletteRequest(

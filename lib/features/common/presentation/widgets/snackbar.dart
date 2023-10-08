@@ -8,6 +8,7 @@ void showNetworkErrorSnackBar(BuildContext context, DioException? error) {
   if (error == null) return;
 
   if (error.response?.statusCode == 401) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: const Text("再度ログインしてください"),
@@ -21,11 +22,12 @@ void showNetworkErrorSnackBar(BuildContext context, DioException? error) {
             );
           },
         ),
-        duration: const Duration(seconds: 5),
+        duration: const Duration(seconds: 3),
       ),
     );
     return;
   } else {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(kDebugMode ? error.toString() : "通信エラー"),
@@ -33,13 +35,14 @@ void showNetworkErrorSnackBar(BuildContext context, DioException? error) {
           label: "OK",
           onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
         ),
-        duration: const Duration(seconds: 5),
+        duration: const Duration(seconds: 3),
       ),
     );
   }
 }
 
 void showQRCodeErrorSnackBar(BuildContext context) {
+  ScaffoldMessenger.of(context).hideCurrentSnackBar();
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: const Text(""),
@@ -47,7 +50,7 @@ void showQRCodeErrorSnackBar(BuildContext context) {
         label: "OK",
         onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
       ),
-      duration: const Duration(seconds: 5),
+      duration: const Duration(seconds: 3),
     ),
   );
 }

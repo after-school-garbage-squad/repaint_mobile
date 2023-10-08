@@ -6,6 +6,7 @@ class RepaintScaffold extends StatelessWidget {
   const RepaintScaffold({
     this.title,
     required this.child,
+    this.centerTitle = true,
     this.isBackButtonVisible = true,
     this.action,
     this.padding = const EdgeInsets.symmetric(horizontal: 16),
@@ -13,6 +14,7 @@ class RepaintScaffold extends StatelessWidget {
 
   final String? title;
   final Widget child;
+  final bool centerTitle;
   final bool isBackButtonVisible;
   final Widget? action;
   final EdgeInsets padding;
@@ -21,7 +23,7 @@ class RepaintScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
+        centerTitle: centerTitle,
         title: title != null ? Text(title!) : null,
         automaticallyImplyLeading: false,
         leading: isBackButtonVisible

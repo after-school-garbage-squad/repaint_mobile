@@ -35,13 +35,6 @@ class IntroductionQRCodeReaderScreen extends ConsumerWidget {
             ],
           ),
         ),
-        placeholderBuilder: (context, widget) => Container(
-          width: double.infinity,
-          decoration: const BoxDecoration(color: Colors.black),
-          child: const Center(
-            child: CircularProgressIndicator(color: Colors.white),
-          ),
-        ),
       ),
       children: [
         Text(

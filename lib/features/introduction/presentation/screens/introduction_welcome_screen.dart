@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import 'package:repaint_mobile/config/providers.dart';
@@ -7,6 +8,7 @@ import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_bu
 import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/introduction/providers/providers.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 @RoutePage()
 class IntroductionHomeScreen extends ConsumerWidget {
@@ -68,9 +70,8 @@ class IntroductionHomeScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: 16.0),
                   const Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child:
-                        Text("このアプリは、イベント会場を回って撮った写真に色を付けていき、写真を完成させるアプリです。"),
+                    padding: const EdgeInsets.all(16.0),
+                    child: WelcomeText(),
                   ),
                 ],
               ),
@@ -87,6 +88,54 @@ class IntroductionHomeScreen extends ConsumerWidget {
         ],
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
+    );
+  }
+}
+
+class WelcomeText extends StatelessWidget {
+  const WelcomeText() : super();
+
+  @override
+  Widget build(BuildContext context) {
+    final baseStyle = Theme.of(context).textTheme.bodyMedium;
+    final linkStyle =
+        baseStyle?.copyWith(color: Theme.of(context).colorScheme.primary);
+
+    return RichText(
+      text: TextSpan(
+        children: <TextSpan>[
+          TextSpan(
+            style: baseStyle,
+            text: 'Re:paintでイベントに新たな彩りを。\n\n'
+                'このアプリは、イベント会場を回って撮った写真に色を付けていき、写真を完成させるアプリです。\n\n'
+                '本アプリの利用には、',
+          ),
+          TextSpan(
+            style: linkStyle,
+            text: '利用規約',
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => launchUrlString(
+                    "https://repaint.asgs.dev/terms",
+                  ),
+          ),
+          TextSpan(
+            style: baseStyle,
+            text: '・',
+          ),
+          TextSpan(
+            style: linkStyle,
+            text: 'プライバシーポリシー',
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => launchUrlString(
+                    "https://repaint.asgs.dev/privacy",
+                  ),
+          ),
+          TextSpan(
+            style: baseStyle,
+            text: 'に同意する必要があります。',
+          ),
+        ],
+      ),
     );
   }
 }

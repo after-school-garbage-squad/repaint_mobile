@@ -8,6 +8,7 @@ import 'package:repaint_api_client/repaint_api_client.dart';
 import 'package:repaint_mobile/config/app_router.dart';
 import 'package:repaint_mobile/features/common/domain/entities/user_entity.dart';
 import 'package:repaint_mobile/features/visitor/presentation/screens/visitor_home_screen.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class VisitorHomeController {
   const VisitorHomeController(this._client, this._userdata);
@@ -27,10 +28,11 @@ class VisitorHomeController {
           eventId: _userdata.visitor!.visitorIdentification.eventId,
         );
     if (isDownloadable.data?.isDownloadable == false && context.mounted) {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("イベント中に色を全て取得するか、イベント終了後に保存できます。"),
-          duration: Duration(seconds: 5),
+          duration: Duration(seconds: 3),
         ),
       );
       return;
@@ -57,6 +59,7 @@ class VisitorHomeController {
     );
 
     if (context.mounted) {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("画像を保存しました"),
@@ -83,5 +86,11 @@ class VisitorHomeController {
 
   void onReadQRCodePressed(BuildContext context) {
     context.pushRoute(const VisitorQRCodeReaderRoute());
+  }
+
+  void onOpenEventPressed() {
+    if (_userdata.event != null) {
+      launchUrlString(_userdata.event!.hpUrl);
+    }
   }
 }
