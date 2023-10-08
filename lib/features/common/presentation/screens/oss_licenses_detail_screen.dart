@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/repaint_scaffold.dart';
-import 'package:repaint_mobile/oss_licenses.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 @RoutePage()

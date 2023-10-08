@@ -4,8 +4,8 @@ import 'package:logging/logging.dart';
 import 'package:repaint_mobile/config/guards.dart';
 import 'package:repaint_mobile/config/route.dart';
 import 'package:repaint_mobile/features/common/domain/entities/user_entity.dart';
-import 'package:repaint_mobile/features/common/presentation/screens/oss_licenses_screen.dart';
 import 'package:repaint_mobile/features/common/presentation/screens/oss_licenses_detail_screen.dart';
+import 'package:repaint_mobile/features/common/presentation/screens/oss_licenses_screen.dart';
 import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_qrcode_reader_screen.dart';
 import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_settings_screen.dart';
 import 'package:repaint_mobile/features/introduction/presentation/screens/introduction_stepper_screen.dart';
@@ -152,6 +152,6 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
         RepaintRoute(
           path: '/licenses/detail',
           page: OssLicensesDetailRoute.page,
-        )
+        ),
       ];
 }

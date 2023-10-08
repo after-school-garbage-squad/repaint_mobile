@@ -70,7 +70,7 @@ class IntroductionHomeScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: 16.0),
                   const Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: EdgeInsets.all(16.0),
                     child: WelcomeText(),
                   ),
                 ],

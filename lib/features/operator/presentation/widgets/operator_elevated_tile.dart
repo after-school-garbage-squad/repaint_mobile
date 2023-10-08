@@ -157,12 +157,11 @@ class _OperatorElevatedLicenseTile extends OperatorElevatedTile {
   const _OperatorElevatedLicenseTile({
     required this.title,
     required this.license,
-    this.onTap,
+    super.onTap,
   });
 
   final String title;
   final String license;
-  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
