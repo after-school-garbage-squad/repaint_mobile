@@ -6,5 +6,6 @@ export './datasource_providers.dart';
 export './firebase_providers.dart';
 export './local_notifications_providers.dart';
 export './permission_providers.dart';
+export './service_providers.dart';
 export './user_providers.dart';
 export './util_providers.dart';

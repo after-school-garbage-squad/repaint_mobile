@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/material_banner.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/repaint_scaffold.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/topic.dart';
@@ -92,14 +93,32 @@ class IntroductionStepperScreen extends ConsumerWidget {
       ),
     ];
 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.onPostFrameCallback(steps.length);
+    });
+
     ref.listen(
       networkErrorProvider,
       (previous, next) => showNetworkErrorSnackBar(context, next),
     );
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      controller.onPostFrameCallback(steps.length);
-    });
+    ref.listen(
+      bluetoothServiceProvider,
+      (previous, next) => showBluetoothErrorMaterialBanner(
+        context,
+        previous?.value,
+        next.value,
+      ),
+    );
+
+    ref.listen(
+      locationServiceProvider,
+      (previous, next) => showLocationErrorMaterialBanner(
+        context,
+        previous?.value,
+        next.value,
+      ),
+    );
 
     return RepaintScaffold(
       title: "初期設定",

@@ -12,7 +12,9 @@ import 'package:repaint_mobile/features/common/domain/entities/qrcode_entity.dar
 import 'package:repaint_mobile/features/common/presentation/widgets/app_dialog.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/material_banner.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/repaint_scaffold.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/topic.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/visitor/presentation/widgets/action_elevated_button.dart';
@@ -25,6 +27,29 @@ class VisitorHomeScreen extends ConsumerWidget {
     final user = ref.watch(visitorUserProvider);
     final visitorImage = ref.watch(visitorImageProvider);
     final controller = ref.watch(visitorHomeControllerProvider.future);
+
+    ref.listen(
+      networkErrorProvider,
+      (previous, next) => showNetworkErrorSnackBar(context, next),
+    );
+
+    ref.listen(
+      bluetoothServiceProvider,
+      (previous, next) => showBluetoothErrorMaterialBanner(
+        context,
+        previous?.value,
+        next.value,
+      ),
+    );
+
+    ref.listen(
+      locationServiceProvider,
+      (previous, next) => showLocationErrorMaterialBanner(
+        context,
+        previous?.value,
+        next.value,
+      ),
+    );
 
     return RepaintScaffold(
       title: "${user.value?.event?.name}",

@@ -91,7 +91,7 @@ class ScannedBeaconData {
   final DateTime datetime;
 }
 
-@Riverpod(keepAlive: true)
+@Riverpod(keepAlive: true, dependencies: [apiClient, OperatorUser])
 Future<Map<String, Spot>?> registeredSpots(RegisteredSpotsRef ref) async {
   final apiClient = ref.watch(apiClientProvider);
   final eventId =

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_heading.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_scaffold.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/material_banner.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/version_tile.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
@@ -19,6 +20,24 @@ class IntroductionSettingsScreen extends ConsumerWidget {
     ref.listen(
       networkErrorProvider,
       (previous, next) => showNetworkErrorSnackBar(context, next),
+    );
+
+    ref.listen(
+      bluetoothServiceProvider,
+      (previous, next) => showBluetoothErrorMaterialBanner(
+        context,
+        previous?.value,
+        next.value,
+      ),
+    );
+
+    ref.listen(
+      locationServiceProvider,
+      (previous, next) => showLocationErrorMaterialBanner(
+        context,
+        previous?.value,
+        next.value,
+      ),
     );
 
     return ListScaffold(

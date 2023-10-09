@@ -5,6 +5,7 @@ import 'package:flutter_cache_manager_dio/flutter_cache_manager_dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_scaffold.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/material_banner.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/topic.dart';
 import 'package:repaint_mobile/features/visitor/providers/controller_providers.dart';
@@ -20,6 +21,24 @@ class VisitorImagesScreen extends ConsumerWidget {
     ref.listen(
       networkErrorProvider,
       (previous, next) => showNetworkErrorSnackBar(context, next),
+    );
+
+    ref.listen(
+      bluetoothServiceProvider,
+      (previous, next) => showBluetoothErrorMaterialBanner(
+        context,
+        previous?.value,
+        next.value,
+      ),
+    );
+
+    ref.listen(
+      locationServiceProvider,
+      (previous, next) => showLocationErrorMaterialBanner(
+        context,
+        previous?.value,
+        next.value,
+      ),
     );
 
     return ListScaffold(

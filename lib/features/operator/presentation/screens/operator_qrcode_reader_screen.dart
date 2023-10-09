@@ -6,6 +6,7 @@ import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/domain/entities/qrcode_entity.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/app_dialog.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/camera_scaffold.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/material_banner.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/settings_tile.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
@@ -25,17 +26,35 @@ class OperatorQRCodeReaderScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(operatorQRCodeReaderControllerProvider.future);
 
-    ref.listen(
-      networkErrorProvider,
-      (previous, next) => showNetworkErrorSnackBar(context, next),
-    );
-
     final type = QRCodeType.values[typeIndex!];
     final typeString = type == QRCodeType.visitor
         ? "参加者"
         : type == QRCodeType.spot
             ? "スポット"
             : "イベント";
+
+    ref.listen(
+      networkErrorProvider,
+      (previous, next) => showNetworkErrorSnackBar(context, next),
+    );
+
+    ref.listen(
+      bluetoothServiceProvider,
+      (previous, next) => showBluetoothErrorMaterialBanner(
+        context,
+        previous?.value,
+        next.value,
+      ),
+    );
+
+    ref.listen(
+      locationServiceProvider,
+      (previous, next) => showLocationErrorMaterialBanner(
+        context,
+        previous?.value,
+        next.value,
+      ),
+    );
 
     return CameraScaffold(
       preview: MobileScanner(
