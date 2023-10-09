@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:repaint_api_client/repaint_api_client.dart';
-import 'package:repaint_mobile/config/app_router.dart';
 import 'package:repaint_mobile/features/common/domain/entities/user_entity.dart';
 import 'package:repaint_mobile/utils.dart';
 
