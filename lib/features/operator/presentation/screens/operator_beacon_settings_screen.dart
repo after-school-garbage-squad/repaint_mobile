@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/list_heading.dart';
@@ -21,7 +22,7 @@ class OperatorBeaconSettingsScreen extends ConsumerWidget {
     final controller =
         ref.watch(operatorBeaconSettingsControllerProvider.future);
     final beacon =
-        ref.watch(scannedBeaconsProvider.select((value) => value[hwId]));
+        ref.read(scannedBeaconsProvider.select((value) => value[hwId]));
     final textEditingController = TextEditingController();
 
     ref.listen(
@@ -36,7 +37,7 @@ class OperatorBeaconSettingsScreen extends ConsumerWidget {
         const SizedBox(height: 16.0),
         SettingsTile.text(
           title: "RSSI",
-          value: "${beacon?.rssi}",
+          value: "${beacon?.rssi}dBm",
         ),
         const SizedBox(height: 16.0),
         SettingsTile.text(
@@ -45,8 +46,9 @@ class OperatorBeaconSettingsScreen extends ConsumerWidget {
         ),
         const SizedBox(height: 16.0),
         SettingsTile.text(
-          title: "Service UUID",
-          value: "${beacon?.serviceUUID}",
+          title: "検知日時",
+          value: DateFormat('yyyy/MM/dd HH:mm:ss')
+              .format(beacon!.datetime.toLocal()),
         ),
         const SizedBox(height: 16.0),
         const ListHeading("設定"),
@@ -81,7 +83,7 @@ class OperatorBeaconSettingsScreen extends ConsumerWidget {
                 onPressed: () async => (await controller).onRegisterPressed(
                   context,
                   textEditingController.value.text,
-                  beacon!.hwid!,
+                  beacon.hwid!,
                   "FE6F", // beacon.serviceUUID!,
                 ),
                 text: "登録する",

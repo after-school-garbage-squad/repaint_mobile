@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class OperatorElevatedTile extends StatelessWidget {
   const OperatorElevatedTile({
@@ -48,11 +49,13 @@ class OperatorElevatedTile extends StatelessWidget {
     required String name,
     required double rssi,
     required String hwid,
+    required DateTime datetime,
   }) {
     return _OperatorElevatedBeaconTile(
       name: name,
       rssi: rssi,
       hwid: hwid,
+      datetime: datetime,
       onTap: onTap,
     );
   }
@@ -106,12 +109,14 @@ class _OperatorElevatedBeaconTile extends OperatorElevatedTile {
     required this.name,
     required this.rssi,
     required this.hwid,
+    required this.datetime,
     super.onTap,
   });
 
   final String name;
   final double rssi;
   final String hwid;
+  final DateTime datetime;
 
   @override
   Widget build(BuildContext context) {
@@ -142,6 +147,17 @@ class _OperatorElevatedBeaconTile extends OperatorElevatedTile {
                   const Text("HWID"),
                   const Spacer(),
                   Text(hwid, style: valueTextStyle),
+                ],
+              ),
+              Row(
+                children: [
+                  const Text("検知日時"),
+                  const Spacer(),
+                  Text(
+                    DateFormat('yyyy/MM/dd HH:mm:ss')
+                        .format(datetime.toLocal()),
+                    style: valueTextStyle,
+                  ),
                 ],
               ),
             ],

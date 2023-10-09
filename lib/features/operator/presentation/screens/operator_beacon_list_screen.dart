@@ -36,6 +36,7 @@ class OperatorBeaconListScreen extends ConsumerWidget {
                   name: "スポット名",
                   rssi: beacon.rssi!,
                   hwid: beacon.hwid!,
+                  datetime: beacon.datetime,
                 ),
               ],
             )

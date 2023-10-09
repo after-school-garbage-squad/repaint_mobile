@@ -41,7 +41,7 @@ class OperatorBeaconSettingsController {
           headers: getAdminApiHeaders(_user.token!),
         );
     if (context.mounted) {
-      await context.replaceRoute(const OperatorHomeRoute());
+      await context.router.pop();
     }
   }
 }
