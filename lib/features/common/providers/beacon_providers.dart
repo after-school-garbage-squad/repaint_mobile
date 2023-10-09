@@ -14,7 +14,8 @@ class BeaconState extends _$BeaconState {
 
   @override
   Future<bool> build() async {
-    final user = await ref.watch(visitorUserProvider.future);
+    final visitor = (await ref.watch(visitorUserProvider.future)).visitor;
+    final isVisitor = visitor != null;
 
     FlutterBeaconApi.setup(
       FlutterBeaconApiImpl((data) async {
@@ -27,15 +28,15 @@ class BeaconState extends _$BeaconState {
                 DateTime.now(),
               ),
             );
-        final visitor = user.visitor;
-        if (visitor != null) {
+        if (isVisitor) {
+          _logger.info("drop palette");
           await ref.read(apiClientProvider).getVisitorApi().dropPalette(
                 visitorId: visitor.visitorIdentification.visitorId,
                 dropPaletteRequest: DropPaletteRequest(
                   eventId: visitor.visitorIdentification.eventId,
                 ),
               );
-          await Future.delayed(const Duration(seconds: 5));
+          await Future.delayed(const Duration(seconds: 20));
         }
       }),
     );

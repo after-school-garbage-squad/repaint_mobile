@@ -31,6 +31,12 @@ class VisitorQRCodeReaderController {
     }
 
     try {
+      await _client.getVisitorApi().dropPalette(
+            visitorId: _user.visitor!.visitorIdentification.visitorId,
+            dropPaletteRequest: DropPaletteRequest(
+              eventId: _user.visitor!.visitorIdentification.eventId,
+            ),
+          );
       await _client.getVisitorApi().pickPalette(
             visitorId: _user.visitor!.visitorIdentification.visitorId,
             pickPaletteRequest: PickPaletteRequest(
