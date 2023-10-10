@@ -21,17 +21,18 @@ Future<ProviderContainer> bootstrap() async {
   });
 
   final logger = Logger("Bootstrap");
-  logger.info("Bootstrap started");
+  logger.info("started");
 
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([
+  await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
 
   final container = ProviderContainer();
   await providers.initializeProviders(container);
+  await container.read(providers.beaconStateProvider.future);
 
-  logger.info("Bootstrap finished");
+  logger.info("finished");
   return container;
 }
