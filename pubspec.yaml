@@ -69,6 +69,7 @@ dependencies:
   sentry_flutter: ^7.10.1
   sentry_logging: ^7.10.1
   shared_preferences: ^2.2.0
+  uni_links: ^0.5.1
   url_launcher: ^6.1.14
 
 dev_dependencies:

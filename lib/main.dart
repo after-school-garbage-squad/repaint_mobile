@@ -8,8 +8,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import 'package:repaint_mobile/bootstrap.dart';
 import 'package:repaint_mobile/config/providers.dart';
+import 'package:repaint_mobile/features/common/providers/uri_providers.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
+import 'package:uni_links/uni_links.dart';
 
 // @pragma('vm:entry-point')
 // void notificationTapBackground(NotificationResponse notificationResponse) {
@@ -55,6 +57,14 @@ class RepaintApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appRouter = ref.watch(appRouterProvider.future);
+
+    ref.listen(uriLinkProvider, (previous, next) async {
+      if (next.value != null) await joinEvent(next.value, ref);
+    });
+
+    uriLinkStream.listen((data) async {
+      if (data != null) await joinEvent(data, ref);
+    });
 
     return FutureBuilder(
       future: appRouter,
