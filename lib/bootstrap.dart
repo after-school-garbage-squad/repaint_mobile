@@ -40,7 +40,7 @@ Future<ProviderContainer> bootstrap() async {
   final beaconManager = BeaconPlugin.beaconManager;
   FlutterBeaconApi.setup(
     FlutterBeaconApiImpl((data) async {
-      logger.info("beacon data: $data");
+      // logger.info("beacon data: $data");
       container.read(providers.scannedBeaconsProvider.notifier).addBeacon(
             providers.ScannedBeaconData(
               data.serviceUUID,
@@ -50,16 +50,19 @@ Future<ProviderContainer> bootstrap() async {
             ),
           );
       final visitor =
-          (await container.read(providers.visitorUserProvider.future)).visitor;
-      if (visitor != null && data.hwid != null) {
-        logger.info("drop palette");
+          await container.read(providers.visitorUserProvider.future);
+      final visitorIdentification = visitor.visitor?.visitorIdentification;
+      final hwIds = visitor.event?.spots.map((e) => e.hwId).toList();
+      if (visitorIdentification != null &&
+          data.hwid != null &&
+          hwIds?.contains(data.hwid) == true) {
         await container
             .read(providers.apiClientProvider)
             .getVisitorApi()
             .dropPalette(
-              visitorId: visitor.visitorIdentification.visitorId,
+              visitorId: visitorIdentification.visitorId,
               dropPaletteRequest: DropPaletteRequest(
-                eventId: visitor.visitorIdentification.eventId,
+                eventId: visitorIdentification.eventId,
                 hwId: data.hwid!,
               ),
             );

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:repaint_api_client/repaint_api_client.dart';
 import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/domain/entities/user_entity.dart';
+import 'package:repaint_mobile/features/visitor/providers/visitor_providers.dart';
 
 class VisitorImagesController {
   const VisitorImagesController(this._client, this._user, this._userdata);
@@ -21,7 +22,8 @@ class VisitorImagesController {
             imageId: imageId,
           ),
         );
-    await _user.updateImageId((p0) => imageId);
+
+    isImageRenewable = true;
 
     if (context.mounted) {
       context.popRoute();

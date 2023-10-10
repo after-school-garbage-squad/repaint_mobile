@@ -1,50 +1,62 @@
-import 'dart:async';
+// import 'dart:async';
 
+import 'package:logging/logging.dart';
 import 'package:repaint_api_client/repaint_api_client.dart';
 import 'package:repaint_mobile/config/providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'visitor_providers.g.dart';
 
-@Riverpod()
+bool isImageRenewable = true;
+
+@Riverpod(dependencies: [apiClient, VisitorUser])
 Stream<String?> visitorSelectedImage(VisitorSelectedImageRef ref) async* {
+  final logger = Logger("VisitorSelectedImageProvider");
   final visitorApi = ref.watch(apiClientProvider).getVisitorApi();
+  final visitorIdentification = await ref.watch(
+    visitorUserProvider
+        .selectAsync((data) => data.visitor?.visitorIdentification),
+  );
 
   while (true) {
-    final visitor = await ref.read(visitorUserProvider.future);
+    if (visitorIdentification != null) {
+      final isUpdated = isImageRenewable ||
+          (await visitorApi.checkUpdate(
+                visitorId: visitorIdentification.visitorId,
+                eventId: visitorIdentification.eventId,
+              ))
+                  .data
+                  ?.isUpdated ==
+              true;
 
-    final isUpdated = (await visitorApi.checkUpdate(
-          visitorId: visitor.visitor!.visitorIdentification.visitorId,
-          eventId: visitor.visitor!.visitorIdentification.eventId,
+      logger.info("isUpdated: $isUpdated");
+
+      if (isUpdated) {
+        final imageId = (await visitorApi.getCurrentImage(
+          visitorId: visitorIdentification.visitorId,
+          eventId: visitorIdentification.eventId,
         ))
             .data
-            ?.isUpdated ==
-        true;
+            ?.imageId;
 
-    if (isUpdated) {
-      final imageId = (await visitorApi.getCurrentImage(
-        visitorId: visitor.visitor!.visitorIdentification.visitorId,
-        eventId: visitor.visitor!.visitorIdentification.eventId,
-      ))
-          .data
-          ?.imageId;
-      if (imageId != null) {
-        await ref
-            .read(visitorUserProvider.notifier)
-            .updateImageId((p0) => imageId);
+        final imageUrl = imageId != null
+            ? await visitorApi
+                .getCurrentImageURL(
+                  visitorId: visitorIdentification.visitorId,
+                  eventId: visitorIdentification.eventId,
+                  visitorImageId: imageId,
+                )
+                .then((value) => value.data?.url)
+            : null;
+
+        logger.info("imageUrl: $imageUrl");
+
+        if (isImageRenewable) {
+          isImageRenewable = false;
+        }
+
+        yield imageUrl;
       }
-
-      final imageUrl = imageId != null
-          ? await visitorApi
-              .getCurrentImageURL(
-                visitorId: visitor.visitor!.visitorIdentification.visitorId,
-                eventId: visitor.visitor!.visitorIdentification.eventId,
-                visitorImageId: imageId,
-              )
-              .then((value) => value.data?.url)
-          : null;
-
-      yield imageUrl;
     }
 
     await Future.delayed(const Duration(seconds: 5));

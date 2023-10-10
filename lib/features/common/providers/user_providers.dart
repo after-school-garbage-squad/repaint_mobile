@@ -220,14 +220,14 @@ class VisitorUser extends _$VisitorUser {
     });
   }
 
-  Future<void> updateImageId(
-    String Function(String) update,
+  Future<void> updateImageUrl(
+    String? Function(String?) update,
   ) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() {
       return _set(
         state.value!.copyWith(
-          imageId: update(state.value!.imageId!),
+          imageUrl: update(state.value!.imageUrl),
         ),
       );
     });
