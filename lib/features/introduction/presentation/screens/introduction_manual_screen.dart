@@ -23,8 +23,7 @@ class IntroductionManualScreen extends ConsumerWidget {
           onNavigationRequest: (request) => NavigationDecision.prevent,
         ),
       )
-      // TODO: 変更する可能性あり
-      ..loadRequest(Uri.parse('https://repaint.asgs.dev/manual'));
+      ..loadRequest(Uri.parse('https://repaint.asgs.dev/webview'));
 
     ref.listen(
       networkErrorProvider,
