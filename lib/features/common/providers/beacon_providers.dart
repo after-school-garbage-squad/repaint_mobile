@@ -1,4 +1,4 @@
-import 'package:beacon_plugin/beacon_plugin.dart';
+import 'package:beacon_plugin/beacon_manager.dart';
 import 'package:beacon_plugin/flutter_beacon_api.dart';
 import 'package:beacon_plugin/pigeon.dart';
 import 'package:logging/logging.dart';
