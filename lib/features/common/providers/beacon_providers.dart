@@ -1,4 +1,5 @@
 import 'package:beacon_plugin/beacon_manager.dart';
+import 'package:beacon_plugin/beacon_plugin.dart';
 import 'package:beacon_plugin/flutter_beacon_api.dart';
 import 'package:beacon_plugin/pigeon.dart';
 import 'package:logging/logging.dart';
@@ -15,6 +16,8 @@ class BeaconState extends _$BeaconState {
 
   @override
   Future<bool> build() async {
+    _logger.info("beacon state initializing...");
+    _beaconManager = BeaconPlugin.beaconManager;
     FlutterBeaconApi.setup(
       FlutterBeaconApiImpl((data) async {
         _logger.info("beacon data: $data");
