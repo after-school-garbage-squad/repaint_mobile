@@ -1,60 +1,9 @@
-import 'package:beacon_plugin/beacon_manager.dart';
-import 'package:beacon_plugin/beacon_plugin.dart';
-import 'package:beacon_plugin/flutter_beacon_api.dart';
-import 'package:beacon_plugin/pigeon.dart';
 import 'package:logging/logging.dart';
 import 'package:repaint_api_client/repaint_api_client.dart';
 import 'package:repaint_mobile/config/providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'beacon_providers.g.dart';
-
-@Riverpod(keepAlive: true, dependencies: [VisitorUser, apiClient])
-class BeaconState extends _$BeaconState {
-  late BeaconManager _beaconManager;
-  static final _logger = Logger("BeaconStateProvider");
-
-  @override
-  Future<bool> build() async {
-    _logger.info("beacon state initializing...");
-    _beaconManager = BeaconPlugin.beaconManager;
-    FlutterBeaconApi.setup(
-      FlutterBeaconApiImpl((data) async {
-        _logger.info("beacon data: $data");
-        ref.read(scannedBeaconsProvider.notifier).addBeacon(
-              ScannedBeaconData(
-                data.serviceUUID,
-                data.hwid,
-                data.rssi,
-                DateTime.now(),
-              ),
-            );
-        final visitor = (await ref.read(visitorUserProvider.future)).visitor;
-        if (visitor != null) {
-          _logger.info("drop palette");
-          await ref.read(apiClientProvider).getVisitorApi().dropPalette(
-                visitorId: visitor.visitorIdentification.visitorId,
-                dropPaletteRequest: DropPaletteRequest(
-                  eventId: visitor.visitorIdentification.eventId,
-                ),
-              );
-          await Future.delayed(const Duration(seconds: 20));
-        }
-      }),
-    );
-    await _beaconManager.setBeaconServiceUUIDs(["FE6F"]);
-    _logger.info("beacon state initialized");
-
-    if (state.value == true) {
-      _logger.warning("beacon scan already started");
-      return false;
-    } else {
-      await _beaconManager.startScan();
-      _logger.info("beacon scan started");
-      return true;
-    }
-  }
-}
 
 @Riverpod(keepAlive: true)
 class ScannedBeacons extends _$ScannedBeacons {

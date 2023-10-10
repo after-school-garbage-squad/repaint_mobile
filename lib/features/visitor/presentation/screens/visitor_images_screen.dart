@@ -47,7 +47,7 @@ class VisitorImagesScreen extends ConsumerWidget {
         const Topic(text: "画像をタップすると変更できます", icon: Icons.lightbulb),
         const SizedBox(height: 16.0),
         ...visitorImages.maybeWhen(
-          data: (data) => data!.entries.map(
+          data: (data) => data.map(
             (image) => Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: Material(
@@ -56,7 +56,7 @@ class VisitorImagesScreen extends ConsumerWidget {
                 elevation: 1.0,
                 child: InkWell(
                   onTap: () async =>
-                      (await controller).onImagePressed(context, image.key),
+                      (await controller).onImagePressed(context, image.imageId),
                   borderRadius: BorderRadius.circular(16.0),
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
@@ -67,7 +67,7 @@ class VisitorImagesScreen extends ConsumerWidget {
                           borderRadius: BorderRadius.circular(16.0),
                           child: CachedNetworkImage(
                             cacheManager: DioCacheManager.instance,
-                            imageUrl: image.value,
+                            imageUrl: image.url,
                             placeholder: (context, url) => const Center(
                               child: Padding(
                                 padding: EdgeInsets.all(16.0),

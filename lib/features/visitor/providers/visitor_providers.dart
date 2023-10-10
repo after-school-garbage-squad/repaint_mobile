@@ -1,79 +1,70 @@
+import 'dart:async';
+
+import 'package:repaint_api_client/repaint_api_client.dart';
 import 'package:repaint_mobile/config/providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'visitor_providers.g.dart';
 
-@Riverpod(dependencies: [VisitorUser, apiClient])
-Future<String?> visitorImage(VisitorImageRef ref) async {
-  final apiClient = ref.watch(apiClientProvider);
-  final visitor =
-      await ref.watch(visitorUserProvider.selectAsync((data) => data.visitor));
-  final imageId =
-      await ref.watch(visitorUserProvider.selectAsync((data) => data.imageId));
-  if (visitor == null) return null;
+@Riverpod()
+Stream<String?> visitorSelectedImage(VisitorSelectedImageRef ref) async* {
+  final visitorApi = ref.watch(apiClientProvider).getVisitorApi();
 
-  final update = await apiClient.getVisitorApi().checkUpdate(
-        visitorId: visitor.visitorIdentification.visitorId,
-        eventId: visitor.visitorIdentification.eventId,
-      );
+  while (true) {
+    final visitor = await ref.read(visitorUserProvider.future);
 
-  if (update.data?.isUpdated == true || imageId == null) {
-    final updatedImageId = await apiClient.getVisitorApi().getCurrentImage(
-          visitorId: visitor.visitorIdentification.visitorId,
-          eventId: visitor.visitorIdentification.eventId,
-        );
+    final isUpdated = (await visitorApi.checkUpdate(
+          visitorId: visitor.visitor!.visitorIdentification.visitorId,
+          eventId: visitor.visitor!.visitorIdentification.eventId,
+        ))
+            .data
+            ?.isUpdated ==
+        true;
 
-    if (updatedImageId.data != null) {
-      await ref
-          .read(visitorUserProvider.notifier)
-          .updateImageId((p0) => updatedImageId.data!.imageId);
-      final imageUrl = await apiClient.getVisitorApi().getCurrentImageURL(
-            visitorId: visitor.visitorIdentification.visitorId,
-            eventId: visitor.visitorIdentification.eventId,
-            visitorImageId: updatedImageId.data!.imageId,
-          );
-      return imageUrl.data?.url;
+    if (isUpdated) {
+      final imageId = (await visitorApi.getCurrentImage(
+        visitorId: visitor.visitor!.visitorIdentification.visitorId,
+        eventId: visitor.visitor!.visitorIdentification.eventId,
+      ))
+          .data
+          ?.imageId;
+      if (imageId != null) {
+        await ref
+            .read(visitorUserProvider.notifier)
+            .updateImageId((p0) => imageId);
+      }
+
+      final imageUrl = imageId != null
+          ? await visitorApi
+              .getCurrentImageURL(
+                visitorId: visitor.visitor!.visitorIdentification.visitorId,
+                eventId: visitor.visitor!.visitorIdentification.eventId,
+                visitorImageId: imageId,
+              )
+              .then((value) => value.data?.url)
+          : null;
+
+      yield imageUrl;
     }
-  } else {
-    final imageUrl = await apiClient.getVisitorApi().getCurrentImageURL(
-          visitorId: visitor.visitorIdentification.visitorId,
-          eventId: visitor.visitorIdentification.eventId,
-          visitorImageId: imageId,
-        );
-    if (imageUrl.data?.url != null) {
-      return imageUrl.data!.url;
-    }
+
+    await Future.delayed(const Duration(seconds: 5));
   }
-
-  return null;
 }
 
 @Riverpod(dependencies: [VisitorUser, apiClient])
-Future<Map<String, String>?> visitorImages(VisitorImagesRef ref) async {
+Future<List<GetVisitorImages200ResponseImagesInner>> visitorImages(
+  VisitorImagesRef ref,
+) async {
   final apiClient = ref.watch(apiClientProvider);
   final user = await ref.watch(visitorUserProvider.future);
 
-  if (user.visitor == null) return null;
-  final imageIds = await apiClient.getVisitorApi().getVisitorImages(
-        visitorId: user.visitor!.visitorIdentification.visitorId,
-        eventId: user.visitor!.visitorIdentification.eventId,
-      );
-
-  if (imageIds.data?.images == null) return null;
-  final images = <String, String>{};
-
-  await Future.wait(
-    imageIds.data!.images.map((imageId) async {
-      final image = await apiClient.getVisitorApi().getCurrentImageURL(
+  if (user.visitor == null) return [];
+  final images = (await apiClient.getVisitorApi().getVisitorImages(
             visitorId: user.visitor!.visitorIdentification.visitorId,
             eventId: user.visitor!.visitorIdentification.eventId,
-            visitorImageId: imageId,
-          );
-      if (image.data?.url != null) {
-        images[imageId] = image.data!.url;
-      }
-    }),
-  );
+          ))
+      .data
+      ?.images;
 
-  return images;
+  return images ?? [];
 }
