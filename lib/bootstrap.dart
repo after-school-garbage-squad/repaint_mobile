@@ -4,10 +4,14 @@ import "package:beacon_plugin/pigeon.dart";
 import "package:flutter/cupertino.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter/services.dart";
+import "package:flutter_local_notifications/flutter_local_notifications.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import 'package:logging/logging.dart';
 import "package:repaint_api_client/repaint_api_client.dart";
 import 'package:repaint_mobile/config/providers.dart' as providers;
+
+int _notificationId = 0;
+bool _isScanned = false;
 
 Future<ProviderContainer> bootstrap() async {
   Logger.root.level = Level.ALL;
@@ -35,6 +39,9 @@ Future<ProviderContainer> bootstrap() async {
 
   final container = ProviderContainer();
   await providers.initializeProviders(container);
+  final localNotifications = await container.read(
+    providers.localNotificationsProvider.future,
+  );
 
   logger.info("beacon state initializing...");
   final beaconManager = BeaconPlugin.beaconManager;
@@ -55,18 +62,34 @@ Future<ProviderContainer> bootstrap() async {
       final hwIds = visitor.event?.spots.map((e) => e.hwId).toList();
       if (visitorIdentification != null &&
           data.hwid != null &&
-          hwIds?.contains(data.hwid) == true) {
-        await container
-            .read(providers.apiClientProvider)
-            .getVisitorApi()
-            .dropPalette(
-              visitorId: visitorIdentification.visitorId,
-              dropPaletteRequest: DropPaletteRequest(
-                eventId: visitorIdentification.eventId,
-                hwId: data.hwid!,
-              ),
-            );
-        await Future.delayed(const Duration(seconds: 20));
+          hwIds?.contains(data.hwid) == true &&
+          !_isScanned) {
+        _isScanned = true;
+        await localNotifications.show(
+          _notificationId++,
+          "テスト",
+          "ピック可能なスポット: ${data.hwid}が検出されました",
+          const NotificationDetails(
+            android: AndroidNotificationDetails(
+              "スポット通知",
+              "スポット通知",
+              channelDescription: "スポット通知",
+            ),
+          ),
+        );
+        // await container
+        //     .read(providers.apiClientProvider)
+        //     .getVisitorApi()
+        //     .dropPalette(
+        //       visitorId: visitorIdentification.visitorId,
+        //       dropPaletteRequest: DropPaletteRequest(
+        //         eventId: visitorIdentification.eventId,
+        //         hwId: data.hwid!,
+        //       ),
+        //     );
+        await Future.delayed(const Duration(seconds: 10), () {
+          _isScanned = false;
+        });
       }
     }),
   );
