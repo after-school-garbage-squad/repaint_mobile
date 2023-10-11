@@ -19,6 +19,7 @@ import 'package:repaint_mobile/features/common/presentation/widgets/topic.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/visitor/presentation/widgets/action_elevated_button.dart';
 import 'package:repaint_mobile/features/visitor/providers/providers.dart';
+import 'package:screen_brightness/screen_brightness.dart';
 
 @RoutePage()
 class VisitorHomeScreen extends ConsumerWidget {
@@ -207,6 +208,10 @@ class QRCodeViewDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppDialog(
+      onDismissed: () {
+        ScreenBrightness().resetScreenBrightness();
+        context.popRoute();
+      },
       children: [
         QrImageView(
           data: jsonEncode(

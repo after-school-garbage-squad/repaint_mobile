@@ -6,11 +6,13 @@ class AppDialog extends StatelessWidget {
   const AppDialog({
     super.key,
     required this.children,
+    this.onDismissed,
     this.automaticallyImplyLeading = true,
     this.leading,
   });
 
   final List<Widget> children;
+  final VoidCallback? onDismissed;
   final bool automaticallyImplyLeading;
   final Widget? leading;
 
@@ -34,7 +36,13 @@ class AppDialog extends StatelessWidget {
               children: [
                 if (automaticallyImplyLeading)
                   FlatIconButton(
-                    onPressed: context.popRoute,
+                    onPressed: () {
+                      if (onDismissed != null) {
+                        onDismissed!();
+                      } else {
+                        context.popRoute();
+                      }
+                    },
                     icon: Icons.chevron_left,
                   ),
                 if (leading != null) leading!,
