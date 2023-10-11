@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:repaint_api_client/repaint_api_client.dart';
 import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/domain/entities/qrcode_entity.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/app_dialog.dart';
@@ -59,7 +60,7 @@ class OperatorQRCodeReaderScreen extends ConsumerWidget {
     return CameraScaffold(
       preview: MobileScanner(
         onDetect: (capture) async => (await controller)
-            .onQRCodeScanned(context, type, capture, imagePath),
+            .onQRCodeScanned(context, ref, type, capture, imagePath),
       ),
       children: [
         Center(
@@ -77,12 +78,10 @@ class SpotQRCodeReaderScannedDialog extends StatelessWidget {
   const SpotQRCodeReaderScannedDialog({
     required this.spot,
     required this.onContinueScanning,
-    required this.onMoveToHome,
   });
 
-  final SpotQRCodeEntity spot;
+  final Spot? spot;
   final VoidCallback onContinueScanning;
-  final VoidCallback onMoveToHome;
 
   @override
   Widget build(BuildContext context) {
@@ -90,25 +89,28 @@ class SpotQRCodeReaderScannedDialog extends StatelessWidget {
       automaticallyImplyLeading: false,
       children: [
         const Spacer(),
-        const Icon(
-          Icons.check_circle,
-          size: 64.0,
-          color: Colors.green,
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.check_circle, color: Colors.green),
+            SizedBox(width: 16.0),
+            Text("スポットをスキャンしました"),
+          ],
         ),
-        const SizedBox(height: 24.0),
+        const SizedBox(height: 16.0),
         SettingsTile.text(
-          title: "スポットの名前",
-          value: "スポット名",
+          title: "名前",
+          value: spot?.name ?? "未登録",
         ),
-        const SizedBox(height: 24.0),
+        const SizedBox(height: 16.0),
+        SettingsTile.text(
+          title: "HWID",
+          value: spot?.beacon.hwId ?? "未登録",
+        ),
+        const SizedBox(height: 16.0),
         WideElevatedButton(
           onPressed: onContinueScanning,
-          text: "別のスポットを確認する",
-        ),
-        const SizedBox(height: 24.0),
-        WideElevatedButton(
-          onPressed: onMoveToHome,
-          text: "ホームに戻る",
+          text: "閉じる",
         ),
         const Spacer(),
       ],
@@ -131,19 +133,20 @@ class VisitorQRCodeReaderScannedDialog extends StatelessWidget {
       automaticallyImplyLeading: false,
       children: [
         const Spacer(),
-        const Icon(
-          Icons.check_circle,
-          size: 64.0,
-          color: Colors.green,
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.check_circle, color: Colors.green),
+            SizedBox(width: 16.0),
+            Text("参加者の方に写真を追加しました"),
+          ],
         ),
-        const SizedBox(height: 24.0),
-        const Text("参加者の方に写真を追加しました"),
-        const SizedBox(height: 24.0),
+        const SizedBox(height: 16.0),
         WideElevatedButton(
           onPressed: onContinueScanning,
           text: "撮影した写真に、別の参加者を追加する",
         ),
-        const SizedBox(height: 24.0),
+        const SizedBox(height: 16.0),
         WideElevatedButton(
           onPressed: onMoveToHome,
           text: "ホームに戻る",

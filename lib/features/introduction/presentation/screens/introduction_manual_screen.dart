@@ -20,7 +20,13 @@ class IntroductionManualScreen extends ConsumerWidget {
       ..enableZoom(false)
       ..setNavigationDelegate(
         NavigationDelegate(
-          onNavigationRequest: (request) => NavigationDecision.prevent,
+          onNavigationRequest: (request) {
+            if (request.url == "https://repaint.asgs.dev/webview") {
+              return NavigationDecision.navigate;
+            } else {
+              return NavigationDecision.prevent;
+            }
+          },
         ),
       )
       ..loadRequest(Uri.parse('https://repaint.asgs.dev/webview'));

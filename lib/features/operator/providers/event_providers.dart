@@ -30,8 +30,10 @@ Future<Event?> operatorEvent(OperatorEventRef ref) async {
   return event;
 }
 
-@Riverpod(dependencies: [apiClient, OperatorUser])
-Future<Map<String, Spot>> operatorSpots(OperatorSpotsRef ref) async {
+@Riverpod()
+Future<Map<String, Spot>> operatorSpotsByHwId(
+  OperatorSpotsByHwIdRef ref,
+) async {
   final apiClient = ref.watch(apiClientProvider);
   final user = await ref.watch(operatorUserProvider.future);
   if (user.token == null) return {};

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:logging/logging.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -24,6 +25,7 @@ class OperatorQRCodeReaderController {
 
   Future<void> onQRCodeScanned(
     BuildContext context,
+    WidgetRef ref,
     QRCodeType type,
     BarcodeCapture capture,
     String? imagePath,
@@ -32,7 +34,7 @@ class OperatorQRCodeReaderController {
     _isScanned = true;
 
     if (type == QRCodeType.spot) {
-      await onSpotQRCodeScanned(context, capture);
+      await onSpotQRCodeScanned(context, ref, capture);
     } else if (type == QRCodeType.visitor) {
       await onVisitorQRCodeScanned(context, capture, imagePath);
     }
@@ -40,6 +42,7 @@ class OperatorQRCodeReaderController {
 
   Future<void> onSpotQRCodeScanned(
     BuildContext context,
+    WidgetRef ref,
     BarcodeCapture capture,
   ) async {
     final data = parseQRCode<SpotQRCodeEntity>(capture.barcodes[0].rawValue);
@@ -56,6 +59,16 @@ class OperatorQRCodeReaderController {
     }
     _logger.info("eventId: ${_user.eventId}, spotId: ${data.spotId}");
 
+    if (_user.token == null) return;
+
+    final spot = ((await _client.getAdminApi().getSpots(
+                      eventId: _user.eventId!,
+                      headers: getAdminApiHeaders(_user.token!),
+                    ))
+                .data ??
+            [])
+        .firstWhere((element) => element.spotId == data.spotId);
+
     if (context.mounted) {
       await showDialog(
         context: context,
@@ -63,9 +76,8 @@ class OperatorQRCodeReaderController {
         builder: (context) => WillPopScope(
           onWillPop: () async => !_isScanned,
           child: SpotQRCodeReaderScannedDialog(
-            spot: data,
+            spot: spot,
             onContinueScanning: () => onContinueScanning(context),
-            onMoveToHome: () => onMoveToHome(context),
           ),
         ),
       );

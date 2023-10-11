@@ -18,7 +18,7 @@ class OperatorBeaconListScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(operatorBeaconListControllerProvider);
     final scannedBeacons = ref.watch(scannedBeaconsProvider);
-    final spots = ref.watch(operatorSpotsProvider);
+    final spots = ref.watch(operatorSpotsByHwIdProvider);
 
     ref.listen(
       networkErrorProvider,
@@ -53,9 +53,9 @@ class OperatorBeaconListScreen extends ConsumerWidget {
                 const SizedBox(height: 16.0),
                 OperatorElevatedTile.beacon(
                   onTap: () => controller.onBeaconSelected(context, beacon),
-                  // name: "未設定",
+                  // name: "未登録",
                   name: spots.maybeWhen(
-                    data: (data) => data[beacon.hwid]?.name ?? "未設定",
+                    data: (data) => data[beacon.hwid]?.name ?? "未登録",
                     orElse: () => "読み込み中...",
                   ),
                   rssi: beacon.rssi ?? 0.0,

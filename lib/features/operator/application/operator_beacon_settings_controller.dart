@@ -22,7 +22,7 @@ class OperatorBeaconSettingsController {
           deleteSpotRequest: DeleteSpotRequest(spotId: hwId),
           headers: getAdminApiHeaders(_user.token!),
         );
-    ref.invalidate(operatorSpotsProvider);
+    ref.invalidate(operatorSpotsByHwIdProvider);
     if (context.mounted) {
       await context.popRoute();
     }
@@ -44,7 +44,7 @@ class OperatorBeaconSettingsController {
           ),
           headers: getAdminApiHeaders(_user.token!),
         );
-    ref.invalidate(operatorSpotsProvider);
+    ref.invalidate(operatorSpotsByHwIdProvider);
     if (context.mounted) {
       await context.popRoute();
     }

@@ -25,8 +25,9 @@ class OperatorBeaconSettingsScreen extends ConsumerWidget {
         ref.watch(operatorBeaconSettingsControllerProvider.future);
     final beacon =
         ref.read(scannedBeaconsProvider.select((value) => value[hwId]));
-    final spot =
-        ref.watch(operatorSpotsProvider.select((value) => value.value?[hwId]));
+    final spot = ref.watch(
+      operatorSpotsByHwIdProvider.select((value) => value.value?[hwId]),
+    );
     final textEditingController = TextEditingController(text: spot?.name);
 
     ref.listen(
