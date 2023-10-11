@@ -30,7 +30,7 @@ Future<Event?> operatorEvent(OperatorEventRef ref) async {
   return event;
 }
 
-@Riverpod(dependencies: [])
+@Riverpod(dependencies: [apiClient, OperatorUser])
 Future<Map<String, Spot>> operatorSpotsByHwId(
   OperatorSpotsByHwIdRef ref,
 ) async {
