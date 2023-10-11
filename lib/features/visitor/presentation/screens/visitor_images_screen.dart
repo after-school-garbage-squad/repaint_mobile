@@ -68,6 +68,13 @@ class VisitorImagesScreen extends ConsumerWidget {
                           child: CachedNetworkImage(
                             cacheManager: DioCacheManager.instance,
                             imageUrl: image.url,
+                            imageBuilder: (context, imageProvider) {
+                              return Image(
+                                width: double.infinity,
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                              );
+                            },
                             placeholder: (context, url) => const Center(
                               child: Padding(
                                 padding: EdgeInsets.all(16.0),
