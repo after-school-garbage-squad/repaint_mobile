@@ -16,7 +16,6 @@ class OperatorCameraScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final cameraControllerValue = ref.watch(cameraControllerProvider);
     final controller = ref.watch(operatorCameraControllerProvider);
-    final height = MediaQuery.of(context).size.height;
 
     ref.listen(
       networkErrorProvider,
