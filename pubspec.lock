@@ -982,7 +982,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "2796b72571cee3acb4087c9e222b860e3827bef0"
+      resolved-ref: c67af100a82df84dd7dae927b11b0a4654ecb634
       url: "https://github.com/after-school-garbage-squad/repaint_api_client.git"
     source: git
     version: "1.0.0"
