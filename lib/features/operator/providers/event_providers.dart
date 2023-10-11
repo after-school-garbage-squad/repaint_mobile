@@ -30,15 +30,21 @@ Future<Event?> operatorEvent(OperatorEventRef ref) async {
   return event;
 }
 
-@Riverpod()
-Future<Map<String, SpotModel>> operatorSpots(OperatorSpotsRef ref) => ref.watch(
-      operatorEventProvider.selectAsync(
-        (value) {
-          final map = <String, SpotModel>{};
-          for (final spot in value?.spots ?? <SpotModel>[]) {
-            map[spot.hwId] = spot;
-          }
-          return map;
-        },
-      ),
-    );
+@Riverpod(dependencies: [apiClient, OperatorUser])
+Future<Map<String, Spot>> operatorSpots(OperatorSpotsRef ref) async {
+  final apiClient = ref.watch(apiClientProvider);
+  final user = await ref.watch(operatorUserProvider.future);
+  if (user.token == null) return {};
+
+  final data = (await apiClient.getAdminApi().getSpots(
+                eventId: user.eventId!,
+                headers: getAdminApiHeaders(user.token!),
+              ))
+          .data ??
+      [];
+  final map = <String, Spot>{};
+  for (final spot in data) {
+    map[spot.beacon.hwId] = spot;
+  }
+  return map;
+}

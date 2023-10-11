@@ -89,7 +89,7 @@ class OperatorBeaconSettingsScreen extends ConsumerWidget {
         if (spot != null)
           WideElevatedButton(
             onPressed: () async =>
-                (await controller).onUnregisterPressed(context, hwId!),
+                (await controller).onUnregisterPressed(context, ref, hwId!),
             text: "登録解除",
             colors: const WideElevatedButtonColors(
               backgroundColor: Colors.white,
@@ -100,6 +100,7 @@ class OperatorBeaconSettingsScreen extends ConsumerWidget {
           WideElevatedButton(
             onPressed: () async => (await controller).onRegisterPressed(
               context,
+              ref,
               textEditingController.value.text,
               beacon.hwid!,
               "FE6F", // beacon.serviceUUID!,

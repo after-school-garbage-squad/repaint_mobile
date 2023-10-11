@@ -17,8 +17,7 @@ class OperatorBeaconListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(operatorBeaconListControllerProvider);
-    final Map<String, ScannedBeaconData> scannedBeacons =
-        ref.watch(scannedBeaconsProvider);
+    final scannedBeacons = ref.watch(scannedBeaconsProvider);
     final spots = ref.watch(operatorSpotsProvider);
 
     ref.listen(
