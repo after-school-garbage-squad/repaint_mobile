@@ -7,7 +7,6 @@ import "package:flutter/services.dart";
 import "package:flutter_local_notifications/flutter_local_notifications.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import 'package:logging/logging.dart';
-import "package:repaint_api_client/repaint_api_client.dart";
 import 'package:repaint_mobile/config/providers.dart' as providers;
 
 int _notificationId = 0;
@@ -60,33 +59,47 @@ Future<ProviderContainer> bootstrap() async {
           await container.read(providers.visitorUserProvider.future);
       final visitorIdentification = visitor.visitor?.visitorIdentification;
       final hwIds = visitor.event?.spots.map((e) => e.hwId).toList();
-      if (visitorIdentification != null &&
-          data.hwid != null &&
-          hwIds?.contains(data.hwid) == true &&
-          !_isScanned) {
+      if (visitorIdentification != null && data.hwid != null && !_isScanned) {
         _isScanned = true;
-        await localNotifications.show(
-          _notificationId++,
-          "テスト",
-          "ピック可能なスポット: ${data.hwid}が検出されました",
-          const NotificationDetails(
-            android: AndroidNotificationDetails(
-              "スポット通知",
-              "スポット通知",
-              channelDescription: "スポット通知",
+
+        if (hwIds?.contains(data.hwid) == true) {
+          await localNotifications.show(
+            _notificationId++,
+            "テスト",
+            "登録済みのスポット: ${data.hwid}が検出されました",
+            const NotificationDetails(
+              android: AndroidNotificationDetails(
+                "スポット通知",
+                "スポット通知",
+                channelDescription: "スポット通知",
+              ),
             ),
-          ),
-        );
-        // await container
-        //     .read(providers.apiClientProvider)
-        //     .getVisitorApi()
-        //     .dropPalette(
-        //       visitorId: visitorIdentification.visitorId,
-        //       dropPaletteRequest: DropPaletteRequest(
-        //         eventId: visitorIdentification.eventId,
-        //         hwId: data.hwid!,
-        //       ),
-        //     );
+          );
+          // await container
+          //     .read(providers.apiClientProvider)
+          //     .getVisitorApi()
+          //     .dropPalette(
+          //       visitorId: visitorIdentification.visitorId,
+          //       dropPaletteRequest: DropPaletteRequest(
+          //         eventId: visitorIdentification.eventId,
+          //         hwId: data.hwid!,
+          //       ),
+          //     );
+        } else {
+          await localNotifications.show(
+            _notificationId++,
+            "テスト",
+            "未登録のスポット: ${data.hwid}が検出されました",
+            const NotificationDetails(
+              android: AndroidNotificationDetails(
+                "スポット通知",
+                "スポット通知",
+                channelDescription: "スポット通知",
+              ),
+            ),
+          );
+        }
+
         await Future.delayed(const Duration(seconds: 10), () {
           _isScanned = false;
         });

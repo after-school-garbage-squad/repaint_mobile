@@ -94,7 +94,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: f44af2f0bf86f8ac92dcb56b7116be5aa6f84d05
+      resolved-ref: "3b1e665bcc9f63cfb8189d5d1c439d2d075615cd"
       url: "https://github.com/after-school-garbage-squad/beacon_plugin.git"
     source: git
     version: "0.0.1"
@@ -950,7 +950,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: fa27c63a8e599047f45c47e17459f40828bb9d8f
+      resolved-ref: "2796b72571cee3acb4087c9e222b860e3827bef0"
       url: "https://github.com/after-school-garbage-squad/repaint_api_client.git"
     source: git
     version: "1.0.0"
@@ -1038,10 +1038,10 @@ packages:
     dependency: "direct main"
     description:
       name: shared_preferences
-      sha256: b7f41bad7e521d205998772545de63ff4e6c97714775902c199353f8bf1511ac
+      sha256: "81429e4481e1ccfb51ede496e916348668fd0921627779233bd24cc3ff6abd02"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.1"
+    version: "2.2.2"
   shared_preferences_android:
     dependency: transitive
     description:

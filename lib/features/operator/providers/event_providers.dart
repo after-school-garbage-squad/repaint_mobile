@@ -29,3 +29,16 @@ Future<Event?> operatorEvent(OperatorEventRef ref) async {
       events.data?.firstWhere((element) => element.eventId == user.eventId);
   return event;
 }
+
+@Riverpod()
+Future<Map<String, SpotModel>> operatorSpots(OperatorSpotsRef ref) => ref.watch(
+      operatorEventProvider.selectAsync(
+        (value) {
+          final map = <String, SpotModel>{};
+          for (final spot in value?.spots ?? <SpotModel>[]) {
+            map[spot.hwId] = spot;
+          }
+          return map;
+        },
+      ),
+    );

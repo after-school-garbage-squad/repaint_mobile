@@ -46,7 +46,6 @@ Future<VisitorImagesController> visitorImagesController(
 ) async {
   return VisitorImagesController(
     ref.watch(apiClientProvider),
-    await ref.watch(visitorUserProvider.notifier),
     await ref.watch(visitorUserProvider.future),
   );
 }

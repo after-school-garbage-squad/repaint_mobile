@@ -9,6 +9,7 @@ import 'package:repaint_mobile/features/common/presentation/widgets/material_ban
 import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/operator/presentation/widgets/operator_elevated_tile.dart';
+import 'package:repaint_mobile/features/operator/providers/event_providers.dart';
 import 'package:repaint_mobile/features/operator/providers/providers.dart';
 
 @RoutePage()
@@ -16,8 +17,9 @@ class OperatorBeaconListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(operatorBeaconListControllerProvider);
-    final scannedBeacons = ref.watch(scannedBeaconsProvider);
-    // final registeredBeacons = ref.watch(registeredBeaconsProvider);
+    final Map<String, ScannedBeaconData> scannedBeacons =
+        ref.watch(scannedBeaconsProvider);
+    final spots = ref.watch(operatorSpotsProvider);
 
     ref.listen(
       networkErrorProvider,
@@ -52,9 +54,13 @@ class OperatorBeaconListScreen extends ConsumerWidget {
                 const SizedBox(height: 16.0),
                 OperatorElevatedTile.beacon(
                   onTap: () => controller.onBeaconSelected(context, beacon),
-                  name: "スポット名",
-                  rssi: beacon.rssi!,
-                  hwid: beacon.hwid!,
+                  // name: "未設定",
+                  name: spots.maybeWhen(
+                    data: (data) => data[beacon.hwid]?.name ?? "未設定",
+                    orElse: () => "読み込み中...",
+                  ),
+                  rssi: beacon.rssi ?? 0.0,
+                  hwid: beacon.hwid ?? "",
                   datetime: beacon.datetime,
                 ),
               ],
@@ -74,6 +80,11 @@ class OperatorBeaconListScreen extends ConsumerWidget {
         ),
       ],
       bottomChildren: [
+        WideElevatedButton(
+          onPressed: () => ref.refresh(scannedBeaconsProvider.notifier),
+          text: "再読み込み",
+        ),
+        const SizedBox(height: 16.0),
         WideElevatedButton(
           onPressed: () => controller.onResetPressed(),
           text: "リセット",

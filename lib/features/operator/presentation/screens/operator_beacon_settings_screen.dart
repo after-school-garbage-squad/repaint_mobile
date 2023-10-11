@@ -10,6 +10,7 @@ import 'package:repaint_mobile/features/common/presentation/widgets/material_ban
 import 'package:repaint_mobile/features/common/presentation/widgets/settings_tile.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
+import 'package:repaint_mobile/features/operator/providers/event_providers.dart';
 import 'package:repaint_mobile/features/operator/providers/providers.dart';
 
 @RoutePage()
@@ -24,7 +25,9 @@ class OperatorBeaconSettingsScreen extends ConsumerWidget {
         ref.watch(operatorBeaconSettingsControllerProvider.future);
     final beacon =
         ref.read(scannedBeaconsProvider.select((value) => value[hwId]));
-    final textEditingController = TextEditingController();
+    final spot =
+        ref.watch(operatorSpotsProvider.select((value) => value.value?[hwId]));
+    final textEditingController = TextEditingController(text: spot?.name);
 
     ref.listen(
       networkErrorProvider,
@@ -83,33 +86,26 @@ class OperatorBeaconSettingsScreen extends ConsumerWidget {
         ),
       ],
       bottomChildren: [
-        Row(
-          children: [
-            Expanded(
-              child: WideElevatedButton(
-                onPressed: () async =>
-                    (await controller).onUnregisterPressed(context, hwId!),
-                text: "登録解除",
-                colors: const WideElevatedButtonColors(
-                  backgroundColor: Colors.white,
-                  textColor: Colors.red,
-                ),
-              ),
+        if (spot != null)
+          WideElevatedButton(
+            onPressed: () async =>
+                (await controller).onUnregisterPressed(context, hwId!),
+            text: "登録解除",
+            colors: const WideElevatedButtonColors(
+              backgroundColor: Colors.white,
+              textColor: Colors.red,
             ),
-            const SizedBox(width: 32.0),
-            Expanded(
-              child: WideElevatedButton(
-                onPressed: () async => (await controller).onRegisterPressed(
-                  context,
-                  textEditingController.value.text,
-                  beacon.hwid!,
-                  "FE6F", // beacon.serviceUUID!,
-                ),
-                text: "登録する",
-              ),
+          )
+        else
+          WideElevatedButton(
+            onPressed: () async => (await controller).onRegisterPressed(
+              context,
+              textEditingController.value.text,
+              beacon.hwid!,
+              "FE6F", // beacon.serviceUUID!,
             ),
-          ],
-        ),
+            text: "登録する",
+          ),
         const BottomPadding(),
       ],
     );

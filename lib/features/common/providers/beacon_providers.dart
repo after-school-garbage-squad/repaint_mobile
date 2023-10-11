@@ -1,6 +1,7 @@
 import 'package:logging/logging.dart';
 import 'package:repaint_api_client/repaint_api_client.dart';
 import 'package:repaint_mobile/config/providers.dart';
+import 'package:repaint_mobile/utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'beacon_providers.g.dart';
@@ -40,12 +41,17 @@ class ScannedBeaconData {
 }
 
 @Riverpod(keepAlive: true, dependencies: [apiClient, OperatorUser])
-Future<Map<String, Spot>?> registeredSpots(RegisteredSpotsRef ref) async {
+Future<Map<String, Spot>> registeredSpots(RegisteredSpotsRef ref) async {
   final apiClient = ref.watch(apiClientProvider);
+  final operator = await ref.watch(operatorUserProvider.future);
   final eventId =
       await ref.watch(operatorUserProvider.selectAsync((data) => data.eventId));
-  if (eventId == null) return null;
-  final data = (await apiClient.getAdminApi().getSpots(eventId: eventId)).data;
-  if (data == null) return null;
-  return Map.fromIterable(data.map((e) => MapEntry(e.hwId, e)));
+  if (eventId == null && operator.token == null) return {};
+  final data = (await apiClient.getAdminApi().getSpots(
+            eventId: eventId!,
+            headers: getAdminApiHeaders(operator.token!),
+          ))
+      .data;
+  if (data == null) return {};
+  return Map.fromIterable(data.map((e) => MapEntry(e.beacon.hwId, e)));
 }

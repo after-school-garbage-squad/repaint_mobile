@@ -40,7 +40,7 @@ class OperatorBeaconSettingsController {
           headers: getAdminApiHeaders(_user.token!),
         );
     if (context.mounted) {
-      await context.router.pop();
+      await context.popRoute();
     }
   }
 }
