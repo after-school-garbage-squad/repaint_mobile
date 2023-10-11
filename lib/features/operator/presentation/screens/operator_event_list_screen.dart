@@ -7,7 +7,6 @@ import 'package:repaint_mobile/features/common/presentation/widgets/material_ban
 import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/topic.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
-import 'package:repaint_mobile/features/operator/providers/controller_providers.dart';
 import 'package:repaint_mobile/features/operator/providers/event_providers.dart';
 
 @RoutePage()

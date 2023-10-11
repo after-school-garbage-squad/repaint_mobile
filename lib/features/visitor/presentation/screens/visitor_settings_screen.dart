@@ -9,7 +9,6 @@ import 'package:repaint_mobile/features/common/presentation/widgets/settings_til
 import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/version_tile.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
-import 'package:repaint_mobile/features/visitor/providers/providers.dart';
 
 @RoutePage()
 class VisitorSettingsScreen extends ConsumerWidget {

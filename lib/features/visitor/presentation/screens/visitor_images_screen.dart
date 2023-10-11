@@ -8,8 +8,6 @@ import 'package:repaint_mobile/features/common/presentation/widgets/list_scaffol
 import 'package:repaint_mobile/features/common/presentation/widgets/material_banner.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/topic.dart';
-import 'package:repaint_mobile/features/visitor/providers/controller_providers.dart';
-import 'package:repaint_mobile/features/visitor/providers/visitor_providers.dart';
 
 @RoutePage()
 class VisitorImagesScreen extends ConsumerWidget {

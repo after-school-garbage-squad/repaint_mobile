@@ -7,7 +7,6 @@ import "package:flutter/services.dart";
 import "package:flutter_local_notifications/flutter_local_notifications.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import 'package:logging/logging.dart';
-import "package:repaint_api_client/repaint_api_client.dart";
 import 'package:repaint_mobile/config/providers.dart' as providers;
 
 int _notificationId = 0;
@@ -76,16 +75,20 @@ Future<ProviderContainer> bootstrap() async {
               ),
             ),
           );
-          await container
-              .read(providers.apiClientProvider)
-              .getVisitorApi()
-              .scannedSpot(
-                visitorId: visitorIdentification.visitorId,
-                scannedSpotRequest: ScannedSpotRequest(
-                  eventId: visitorIdentification.eventId,
-                  hwId: data.hwid!,
-                ),
-              );
+          // final response = await container
+          //     .read(providers.apiClientProvider)
+          //     .getVisitorApi()
+          //     .scannedSpot(
+          //       visitorId: visitorIdentification.visitorId,
+          //       scannedSpotRequest: ScannedSpotRequest(
+          //         eventId: visitorIdentification.eventId,
+          //         hwId: data.hwid!,
+          //       ),
+          //     );
+          // if (response.data?.isUpdated == true) {
+          container.read(providers.visitorConfettiProvider.notifier).state =
+              data;
+          // }
         } else {
           await localNotifications.show(
             _notificationId++,

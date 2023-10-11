@@ -37,6 +37,7 @@ dependencies:
       ref: HEAD
   cached_network_image: ^3.3.0
   camera: ^0.10.5+5
+  confetti: ^0.7.0
   dio: ^5.3.2
   firebase_app_installations: ^0.2.3+6
   firebase_core: ^2.16.0

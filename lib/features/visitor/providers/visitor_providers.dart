@@ -1,5 +1,6 @@
 // import 'dart:async';
 
+import 'package:beacon_plugin/pigeon.dart';
 import 'package:logging/logging.dart';
 import 'package:repaint_api_client/repaint_api_client.dart';
 import 'package:repaint_mobile/config/providers.dart';
@@ -79,4 +80,17 @@ Future<List<GetVisitorImages200ResponseImagesInner>> visitorImages(
       ?.images;
 
   return images ?? [];
+}
+
+@Riverpod(keepAlive: true)
+class VisitorConfetti extends _$VisitorConfetti {
+  @override
+  BeaconData? build() {
+    return null;
+  }
+
+  @override
+  set state(BeaconData? value) {
+    state = value;
+  }
 }

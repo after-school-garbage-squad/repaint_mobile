@@ -5,6 +5,9 @@ import 'package:repaint_mobile/features/common/providers/providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 export '../features/common/providers/providers.dart';
+export '../features/introduction/providers/providers.dart';
+export '../features/operator/providers/providers.dart';
+export '../features/visitor/providers/providers.dart';
 
 part 'providers.g.dart';
 

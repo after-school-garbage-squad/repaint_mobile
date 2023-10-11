@@ -298,6 +298,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.17.2"
+  confetti:
+    dependency: "direct main"
+    description:
+      name: confetti
+      sha256: "979aafde2428c53947892c95eb244466c109c129b7eee9011f0a66caaca52267"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.0"
   convert:
     dependency: transitive
     description:
@@ -765,10 +773,10 @@ packages:
     dependency: "direct main"
     description:
       name: native_device_orientation
-      sha256: "7d2fa1a1420b7b4ac3317760ffd063b86704679fb4f1796644581da4a6356ccc"
+      sha256: c0b52f6bb2310dc5d5efc71e48644ad029f77d8ce007f91f635e9a00ddfbd5d5
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.4"
+    version: "1.2.0"
   octo_image:
     dependency: transitive
     description:
@@ -982,7 +990,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: c67af100a82df84dd7dae927b11b0a4654ecb634
+      resolved-ref: "41275b25400345c93e6eca8dfc041962e1487a7c"
       url: "https://github.com/after-school-garbage-squad/repaint_api_client.git"
     source: git
     version: "1.0.0"

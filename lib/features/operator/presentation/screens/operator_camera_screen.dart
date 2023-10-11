@@ -8,7 +8,6 @@ import 'package:repaint_mobile/features/common/presentation/widgets/camera_scaff
 import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_button.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/material_banner.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dart';
-import 'package:repaint_mobile/features/operator/providers/providers.dart';
 
 @RoutePage()
 class OperatorCameraScreen extends ConsumerWidget {

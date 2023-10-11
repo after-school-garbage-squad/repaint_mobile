@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager_dio/flutter_cache_manager_dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,7 +20,6 @@ import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dar
 import 'package:repaint_mobile/features/common/presentation/widgets/topic.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/visitor/presentation/widgets/action_elevated_button.dart';
-import 'package:repaint_mobile/features/visitor/providers/providers.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 
 @RoutePage()
@@ -28,6 +29,8 @@ class VisitorHomeScreen extends ConsumerWidget {
     final user = ref.watch(visitorUserProvider);
     final imageUrl = ref.watch(visitorSelectedImageProvider);
     final controller = ref.watch(visitorHomeControllerProvider.future);
+    final confettiController =
+        ConfettiController(duration: const Duration(seconds: 10));
 
     ref.listen(
       networkErrorProvider,
@@ -52,6 +55,12 @@ class VisitorHomeScreen extends ConsumerWidget {
       ),
     );
 
+    ref.listen(visitorConfettiProvider, (previous, next) {
+      if (next != null && previous != next) {
+        confettiController.play();
+      }
+    });
+
     return RepaintScaffold(
       title: "${user.value?.event?.name}",
       centerTitle: false,
@@ -60,141 +69,159 @@ class VisitorHomeScreen extends ConsumerWidget {
         onPressed: () async => (await controller).onSettingsPressed(context),
         icon: Icons.settings,
       ),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(16.0),
-              ),
-              child: imageUrl.maybeWhen(
-                data: (data) => CachedNetworkImage(
-                  useOldImageOnUrlChange: true,
-                  cacheManager: DioCacheManager.instance,
-                  imageUrl: data!,
-                  width: double.infinity,
-                  fit: BoxFit.contain,
-                  errorWidget: (context, url, error) => Container(
-                    padding: const EdgeInsets.all(16.0),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(16.0),
-                      ),
-                    ),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.error),
-                        SizedBox(width: 16.0),
-                        Text("エラーが発生しました"),
-                      ],
-                    ),
-                  ),
-                  placeholder: (context, url) => Container(
-                    padding: const EdgeInsets.all(16.0),
-                    width: double.infinity,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(16.0),
-                      ),
-                    ),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircularProgressIndicator(),
-                        SizedBox(width: 16.0),
-                        Text("読み込み中..."),
-                      ],
-                    ),
-                  ),
-                ),
-                orElse: () => Container(
-                  padding: const EdgeInsets.all(16.0),
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(16.0),
-                    ),
-                  ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircularProgressIndicator(),
-                      SizedBox(width: 16.0),
-                      Text("読み込み中..."),
-                    ],
-                  ),
-                ),
-              ),
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: ConfettiWidget(
+              confettiController: confettiController,
+              blastDirectionality: BlastDirectionality.explosive,
+              blastDirection: -pi / 2,
+              emissionFrequency: 0.05,
+              numberOfParticles: 20,
+              maxBlastForce: 100,
+              minBlastForce: 80,
+              gravity: 0.1,
             ),
-            const SizedBox(height: 16.0),
-            const Topic(
-              text: "スポットに近づいたり、QRを読み取ったりしてみましょう",
-              icon: Icons.lightbulb,
-            ),
-            const SizedBox(height: 16.0),
-            WideElevatedButton(
-              onPressed: () async =>
-                  (await controller).onDownloadImagePressed(context),
-              text: "画像の保存",
-              icon: Icons.download,
-              colors: WideElevatedButtonColors(
-                backgroundColor: Theme.of(context).colorScheme.surface,
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            WideElevatedButton(
-              onPressed: () async =>
-                  (await controller).onChangeImagePressed(context),
-              text: "画像の変更",
-              icon: Icons.change_circle,
-              colors: WideElevatedButtonColors(
-                backgroundColor: Theme.of(context).colorScheme.surface,
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            WideElevatedButton(
-              onPressed: () async => (await controller).onOpenEventPressed(),
-              text: "イベントのHPを開く",
-              icon: Icons.language,
-              colors: WideElevatedButtonColors(
-                backgroundColor: Theme.of(context).colorScheme.surface,
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            Row(
+          ),
+          SingleChildScrollView(
+            child: Column(
               children: [
-                Expanded(
-                  child: ActionElevatedButton(
-                    onPressed: () async =>
-                        (await controller).onShowQRCodePressed(context),
-                    text: "参加者QRコードを\n表示する",
-                    icon: Icons.qr_code,
-                    colors: ActionElevatedButtonColors(
-                      borderColor: Theme.of(context).colorScheme.primary,
+                ClipRRect(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(16.0),
+                  ),
+                  child: imageUrl.maybeWhen(
+                    data: (data) => CachedNetworkImage(
+                      useOldImageOnUrlChange: true,
+                      cacheManager: DioCacheManager.instance,
+                      imageUrl: data!,
+                      width: double.infinity,
+                      fit: BoxFit.contain,
+                      errorWidget: (context, url, error) => Container(
+                        padding: const EdgeInsets.all(16.0),
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(16.0),
+                          ),
+                        ),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.error),
+                            SizedBox(width: 16.0),
+                            Text("エラーが発生しました"),
+                          ],
+                        ),
+                      ),
+                      placeholder: (context, url) => Container(
+                        padding: const EdgeInsets.all(16.0),
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(16.0),
+                          ),
+                        ),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircularProgressIndicator(),
+                            SizedBox(width: 16.0),
+                            Text("読み込み中..."),
+                          ],
+                        ),
+                      ),
+                    ),
+                    orElse: () => Container(
+                      padding: const EdgeInsets.all(16.0),
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(16.0),
+                        ),
+                      ),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircularProgressIndicator(),
+                          SizedBox(width: 16.0),
+                          Text("読み込み中..."),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-                const SizedBox(width: 24.0),
-                Expanded(
-                  child: ActionElevatedButton(
-                    onPressed: () async =>
-                        (await controller).onReadQRCodePressed(context),
-                    text: "スポットQRコードを\n読み取る",
-                    icon: Icons.qr_code_scanner,
-                    colors: ActionElevatedButtonColors(
-                      borderColor: Theme.of(context).colorScheme.primary,
-                    ),
+                const SizedBox(height: 16.0),
+                const Topic(
+                  text: "スポットに近づいたり、QRを読み取ったりしてみましょう",
+                  icon: Icons.lightbulb,
+                ),
+                const SizedBox(height: 16.0),
+                WideElevatedButton(
+                  onPressed: () async =>
+                      (await controller).onDownloadImagePressed(context),
+                  text: "画像の保存",
+                  icon: Icons.download,
+                  colors: WideElevatedButtonColors(
+                    backgroundColor: Theme.of(context).colorScheme.surface,
                   ),
                 ),
+                const SizedBox(height: 16.0),
+                WideElevatedButton(
+                  onPressed: () async =>
+                      (await controller).onChangeImagePressed(context),
+                  text: "画像の変更",
+                  icon: Icons.change_circle,
+                  colors: WideElevatedButtonColors(
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                WideElevatedButton(
+                  onPressed: () async =>
+                      (await controller).onOpenEventPressed(),
+                  text: "イベントのHPを開く",
+                  icon: Icons.language,
+                  colors: WideElevatedButtonColors(
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ActionElevatedButton(
+                        onPressed: () async =>
+                            (await controller).onShowQRCodePressed(context),
+                        text: "参加者QRコードを\n表示する",
+                        icon: Icons.qr_code,
+                        colors: ActionElevatedButtonColors(
+                          borderColor: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 24.0),
+                    Expanded(
+                      child: ActionElevatedButton(
+                        onPressed: () async =>
+                            (await controller).onReadQRCodePressed(context),
+                        text: "スポットQRコードを\n読み取る",
+                        icon: Icons.qr_code_scanner,
+                        colors: ActionElevatedButtonColors(
+                          borderColor: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const BottomPadding(),
               ],
             ),
-            const BottomPadding(),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

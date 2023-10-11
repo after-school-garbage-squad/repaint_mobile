@@ -11,7 +11,6 @@ import 'package:repaint_mobile/features/common/presentation/widgets/material_ban
 import 'package:repaint_mobile/features/common/presentation/widgets/settings_tile.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
-import 'package:repaint_mobile/features/operator/providers/providers.dart';
 
 @RoutePage()
 class OperatorQRCodeReaderScreen extends ConsumerWidget {

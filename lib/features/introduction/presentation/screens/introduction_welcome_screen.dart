@@ -8,7 +8,6 @@ import 'package:repaint_mobile/features/common/presentation/widgets/flat_icon_bu
 import 'package:repaint_mobile/features/common/presentation/widgets/material_banner.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
-import 'package:repaint_mobile/features/introduction/providers/providers.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 @RoutePage()

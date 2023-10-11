@@ -8,7 +8,6 @@ import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dar
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/operator/presentation/widgets/operator_elevated_tile.dart';
 import 'package:repaint_mobile/features/operator/providers/event_providers.dart';
-import 'package:repaint_mobile/features/operator/providers/providers.dart';
 
 @RoutePage()
 class OperatorHomeScreen extends ConsumerWidget {

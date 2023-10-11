@@ -6,7 +6,6 @@ import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/camera_scaffold.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/material_banner.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dart';
-import 'package:repaint_mobile/features/visitor/providers/providers.dart';
 
 @RoutePage()
 class VisitorQRCodeReaderScreen extends ConsumerWidget {
