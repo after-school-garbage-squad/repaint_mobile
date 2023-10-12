@@ -75,9 +75,11 @@ Future<ProviderContainer> bootstrap() async {
       final visitor =
           await container.read(providers.visitorUserProvider.future);
       final visitorIdentification = visitor.visitor?.visitorIdentification;
+      final epochDiff = _scannedEpochLast - _scannedEpochFirst;
       if (visitorIdentification != null &&
           data.hwid != null &&
-          _scannedEpochLast - _scannedEpochFirst > 10000) {
+          epochDiff > 10000) {
+        final oldScannedEpochFirst = _scannedEpochFirst;
         _scannedEpochFirst = DateTime.now().millisecondsSinceEpoch;
         logger.info("scannedEpochFirst: $_scannedEpochFirst");
         logger.info("visitor logged in, hwId: ${data.hwid}");
@@ -90,7 +92,10 @@ Future<ProviderContainer> bootstrap() async {
           await localNotifications.show(
             _notificationId++,
             "${matchedSpot.name}の近くにいます",
-            "アプリからQRコードをスキャンして、パレットを入手しましょう!",
+            kDebugMode
+                ? "前回から今回の検知までの時間: ${_scannedEpochFirst - oldScannedEpochFirst}ms\n"
+                    "検知から遅延含む処理完了までの時間: ${epochDiff}ms"
+                : "アプリからQRコードをスキャンして、パレットを入手しましょう!",
             const NotificationDetails(
               android: AndroidNotificationDetails(
                 "スポット通知",

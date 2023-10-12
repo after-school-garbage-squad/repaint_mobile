@@ -1,4 +1,5 @@
-import 'package:firebase_app_installations/firebase_app_installations.dart';
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:logging/logging.dart';
@@ -15,21 +16,29 @@ Future<FirebaseApp> firebase(FirebaseRef ref) {
   );
 }
 
-@Riverpod(keepAlive: true, dependencies: [])
-Future<String?> firebaseClientId(FirebaseClientIdRef ref) async {
-  final id = await FirebaseInstallations.instance.getId();
-  final logger = Logger("FirebaseClientIdProvider");
-  logger.info("Firebase Client ID: $id");
-  return id;
-}
+// @Riverpod(keepAlive: true, dependencies: [])
+// Future<String?> firebaseClientId(FirebaseClientIdRef ref) async {
+//   final id = await FirebaseInstallations.instance.getId();
+//   final logger = Logger("FirebaseClientIdProvider");
+//   logger.info("Firebase Client ID: $id");
+//   return id;
+// }
 
 @Riverpod(keepAlive: true, dependencies: [VisitorUser])
 Future<String?> fcmRegistrationToken(FcmRegistrationTokenRef ref) async {
   final registrationId = await ref.read(
     visitorUserProvider.selectAsync((value) => value.visitor?.registrationId),
   );
-  final token = registrationId ?? await FirebaseMessaging.instance.getToken();
-  final logger = Logger("FcmRegistrationTokenProvider");
-  logger.info("Firebase FCM Registration Token: $token");
-  return token;
+  await FirebaseMessaging.instance.requestPermission();
+  final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
+
+  if (apnsToken != null) {
+    final fcmToken =
+        registrationId ?? await FirebaseMessaging.instance.getToken();
+    final logger = Logger("FcmRegistrationTokenProvider");
+    logger.info("Firebase FCM Registration Token: $fcmToken");
+    return fcmToken;
+  } else {
+    return null;
+  }
 }
