@@ -21,6 +21,11 @@ RepaintApiClient apiClient(ApiClientRef ref) {
             handler.resolve(
               Response(requestOptions: error.requestOptions, statusCode: 404),
             );
+          } else if (error.response?.statusCode == 409 &&
+              error.requestOptions.uri.path.contains("pick")) {
+            handler.resolve(
+              Response(requestOptions: error.requestOptions, statusCode: 409),
+            );
           } else {
             // ignore: avoid_manual_providers_as_generated_provider_dependency
             ref.read(networkErrorProvider.notifier).state = error;

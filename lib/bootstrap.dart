@@ -11,7 +11,8 @@ import "package:repaint_api_client/repaint_api_client.dart";
 import 'package:repaint_mobile/config/providers.dart' as providers;
 
 int _notificationId = 0;
-bool _isScanned = false;
+int _scannedEpochFirst = 0;
+int _scannedEpochLast = DateTime.now().millisecondsSinceEpoch;
 
 Future<ProviderContainer> bootstrap() async {
   Logger.root.level = Level.ALL;
@@ -51,7 +52,7 @@ Future<ProviderContainer> bootstrap() async {
   final beaconManager = BeaconPlugin.beaconManager;
   FlutterBeaconApi.setup(
     FlutterBeaconApiImpl((data) async {
-      // logger.info("beacon data: $data");
+      logger.info("beacon data: $data");
       container.read(providers.scannedBeaconsProvider.notifier).addBeacon(
             providers.ScannedBeaconData(
               data.serviceUUID,
@@ -64,10 +65,15 @@ Future<ProviderContainer> bootstrap() async {
           await container.read(providers.visitorUserProvider.future);
       final visitorIdentification = visitor.visitor?.visitorIdentification;
       final hwIds = visitor.event?.spots.map((e) => e.hwId).toList();
-      if (visitorIdentification != null && data.hwid != null && !_isScanned) {
-        _isScanned = true;
+      if (visitorIdentification != null &&
+          data.hwid != null &&
+          _scannedEpochLast - _scannedEpochFirst > 1000) {
+        _scannedEpochFirst = DateTime.now().millisecondsSinceEpoch;
+        logger.info("scannedEpochFirst: $_scannedEpochFirst");
+        logger.info("visitor logged in, hwId: ${data.hwid}");
 
         if (hwIds?.contains(data.hwid) == true) {
+          logger.info("event hwId list contains hwId: ${data.hwid}");
           await localNotifications.show(
             _notificationId++,
             "テスト",
@@ -80,6 +86,7 @@ Future<ProviderContainer> bootstrap() async {
               ),
             ),
           );
+          logger.info("showed registered spot notification");
           final response = await container
               .read(providers.apiClientProvider)
               .getVisitorApi()
@@ -90,9 +97,10 @@ Future<ProviderContainer> bootstrap() async {
                   hwId: data.hwid!,
                 ),
               );
-          if (response.data?.isUpdated == true) {
+          if (response.data?.isBonus == true) {
             container.read(providers.visitorConfettiProvider.notifier).state =
                 data;
+            logger.info("showed confetti");
           }
         } else {
           await localNotifications.show(
@@ -107,10 +115,12 @@ Future<ProviderContainer> bootstrap() async {
               ),
             ),
           );
+          logger.info("showed unregistered spot notification");
         }
 
         await Future.delayed(const Duration(seconds: 10), () {
-          _isScanned = false;
+          _scannedEpochLast = DateTime.now().millisecondsSinceEpoch;
+          logger.info("scannedEpochLast: $_scannedEpochLast");
         });
       }
     }),

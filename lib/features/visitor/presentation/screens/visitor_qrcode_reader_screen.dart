@@ -52,9 +52,11 @@ class VisitorQRCodeReaderScreen extends ConsumerWidget {
 
 class VisitorQRCodeReaderScannedDialog extends StatelessWidget {
   const VisitorQRCodeReaderScannedDialog({
+    required this.isConflict,
     required this.onMoveToHome,
   });
 
+  final bool isConflict;
   final VoidCallback onMoveToHome;
 
   @override
@@ -63,11 +65,16 @@ class VisitorQRCodeReaderScannedDialog extends StatelessWidget {
       automaticallyImplyLeading: false,
       children: [
         const Spacer(),
-        const Icon(Icons.palette, size: 96.0),
+        Icon(isConflict ? Icons.error : Icons.palette, size: 64.0),
         const SizedBox(height: 32.0),
         Text(
-          "パレットを入手しました!",
-          style: Theme.of(context).textTheme.titleLarge,
+          isConflict
+              ? "パレットを入手できませんでした。\nスポットが近くにないか、スポットQRコードを読み取る頻度が高すぎます。"
+              : "パレットを入手しました!",
+          style: isConflict
+              ? Theme.of(context).textTheme.bodyMedium
+              : Theme.of(context).textTheme.titleLarge,
+          textAlign: TextAlign.center,
         ),
         const SizedBox(height: 32.0),
         WideElevatedButton(

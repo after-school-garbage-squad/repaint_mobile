@@ -34,7 +34,7 @@ class VisitorQRCodeReaderController {
     }
 
     try {
-      await _client.getVisitorApi().pickPalette(
+      final response = await _client.getVisitorApi().pickPalette(
             visitorId: _user.visitor!.visitorIdentification.visitorId,
             pickPaletteRequest: PickPaletteRequest(
               eventId: _user.visitor!.visitorIdentification.eventId,
@@ -46,6 +46,7 @@ class VisitorQRCodeReaderController {
           context: context,
           builder: (_) => WillPopScope(
             child: VisitorQRCodeReaderScannedDialog(
+              isConflict: response.statusCode == 409,
               onMoveToHome: () => context.router.pushAndPopUntil(
                 const VisitorHomeRoute(),
                 predicate: (_) => false,

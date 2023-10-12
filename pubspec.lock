@@ -318,10 +318,10 @@ packages:
     dependency: transitive
     description:
       name: cross_file
-      sha256: fd832b5384d0d6da4f6df60b854d33accaaeb63aa9e10e736a87381f08dee2cb
+      sha256: "445db18de832dba8d851e287aff8ccf169bed30d2e94243cb54c7d2f1ed2142c"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.3+5"
+    version: "0.3.3+6"
   crypto:
     dependency: transitive
     description:
@@ -990,7 +990,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "41275b25400345c93e6eca8dfc041962e1487a7c"
+      resolved-ref: "56716b8801e3f7a0c3f3a96107af0055ace6d1dc"
       url: "https://github.com/after-school-garbage-squad/repaint_api_client.git"
     source: git
     version: "1.0.0"
