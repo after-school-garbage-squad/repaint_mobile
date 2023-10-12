@@ -10,7 +10,6 @@ class PermissionGuard extends AutoRouteGuard {
 
   final Ref _ref;
   static final permissions = [
-    ...notificationPermissions,
     ...beaconPermissions,
     ...eventPermissions,
   ];
@@ -39,8 +38,12 @@ class PermissionGuard extends AutoRouteGuard {
   ) async {
     bool isAllPermissionsGranted = await _ref.read(permissionProvider.future);
     if (isAllPermissionsGranted == false) {
-      for (final permission in permissions) {
-        await permission.request();
+      try {
+        for (final permission in permissions) {
+          await permission.request();
+        }
+      } catch (e) {
+        // ignore
       }
       isAllPermissionsGranted = await _ref.refresh(permissionProvider.future);
     }

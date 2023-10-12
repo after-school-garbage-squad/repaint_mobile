@@ -43,19 +43,18 @@ Future<ProviderContainer> bootstrap() async {
 
   final container = ProviderContainer();
 
-  FirebaseMessaging.instance.onTokenRefresh.listen((token) async {
-    logger.info("fcm token refreshed: $token");
-    await container
-        .read(providers.visitorUserProvider.notifier)
-        .updateVisitor((p0) => p0.copyWith(registrationId: token));
-  });
-
   await providers.initializeProviders(container);
   final localNotifications = await container.read(
     providers.localNotificationsProvider.future,
   );
 
   logger.info("visitor user initializing...");
+  FirebaseMessaging.instance.onTokenRefresh.listen((token) async {
+    logger.info("fcm token refreshed: $token");
+    await container
+        .read(providers.visitorUserProvider.notifier)
+        .updateVisitor((p0) => p0.copyWith(registrationId: token));
+  });
   await container.read(providers.visitorUserProvider.notifier).initialize();
   logger.info("visitor user initialized");
 
