@@ -17,14 +17,15 @@ Future<SharedPreferences> sharedPreferences(SharedPreferencesRef ref) async {
 
 @Riverpod(keepAlive: true, dependencies: [sharedPreferences])
 Future<LocalDataSource> localDataSource(LocalDataSourceRef ref) async {
-  final packageInfo = await ref.watch(packageInfoProvider.future);
+  // TODO: バージョンごとにデータをクリアする処理
+  // final packageInfo = await ref.watch(packageInfoProvider.future);
   final sharedPreferences = await ref.watch(sharedPreferencesProvider.future);
-  final currentVersion = sharedPreferences.getString("version");
-  final latestVersion = "${packageInfo.version} (${packageInfo.buildNumber})";
-  if (currentVersion == null || currentVersion != latestVersion) {
-    sharedPreferences.clear();
-    sharedPreferences.setString("version", latestVersion);
-  }
+  // final currentVersion = sharedPreferences.getString("version");
+  // final latestVersion = "${packageInfo.version} (${packageInfo.buildNumber})";
+  // if (currentVersion == null || currentVersion != latestVersion) {
+  //   sharedPreferences.clear();
+  //   sharedPreferences.setString("version", latestVersion);
+  // }
   final localDataSource = LocalDataSource(sharedPreferences);
   Logger("LocalDataSourceProvider").info('initialized');
   return localDataSource;
