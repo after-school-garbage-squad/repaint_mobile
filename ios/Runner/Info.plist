@@ -58,6 +58,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Re:paintを開いている時にビーコンに接続するために必要です</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
+    <string>画像を保存するために必要です</string>
 	<true/>
 	<key>UIBackgroundModes</key>
 	<array>
