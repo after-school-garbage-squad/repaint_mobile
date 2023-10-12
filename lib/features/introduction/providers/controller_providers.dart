@@ -16,7 +16,7 @@ IntroductionManualController introductionManualController(
 }
 
 @Riverpod(
-  dependencies: [VisitorUser, firebaseClientId, apiClient],
+  dependencies: [VisitorUser, fcmRegistrationToken, apiClient],
 )
 Future<IntroductionQRCodeReaderController> introductionQRCodeReaderController(
   IntroductionQRCodeReaderControllerRef ref,
@@ -25,7 +25,7 @@ Future<IntroductionQRCodeReaderController> introductionQRCodeReaderController(
     ref.watch(apiClientProvider),
     // ignore: avoid_manual_providers_as_generated_provider_dependency
     ref.watch(visitorUserProvider.notifier),
-    await ref.watch(firebaseClientIdProvider.future),
+    await ref.watch(fcmRegistrationTokenProvider.future),
   );
 }
 
