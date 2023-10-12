@@ -78,8 +78,8 @@ Future<ProviderContainer> bootstrap() async {
           logger.info("event hwId list contains hwId: ${data.hwid}");
           await localNotifications.show(
             _notificationId++,
-            "",
-            "",
+            "${matchedSpot.name}の近くにいます",
+            "アプリからQRコードをスキャンして、パレットを入手しましょう!",
             const NotificationDetails(
               android: AndroidNotificationDetails(
                 "スポット通知",
