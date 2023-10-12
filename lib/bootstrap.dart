@@ -64,7 +64,6 @@ Future<ProviderContainer> bootstrap() async {
       final visitor =
           await container.read(providers.visitorUserProvider.future);
       final visitorIdentification = visitor.visitor?.visitorIdentification;
-      final hwIds = visitor.event?.spots.map((e) => e.hwId).toList();
       if (visitorIdentification != null &&
           data.hwid != null &&
           _scannedEpochLast - _scannedEpochFirst > 10000) {
@@ -72,12 +71,15 @@ Future<ProviderContainer> bootstrap() async {
         logger.info("scannedEpochFirst: $_scannedEpochFirst");
         logger.info("visitor logged in, hwId: ${data.hwid}");
 
-        if (hwIds?.contains(data.hwid) == true) {
+        final matchedSpot = visitor.event?.spots.firstWhere(
+          (element) => element.hwId == data.hwid && element.isPick == true,
+        );
+        if (matchedSpot != null) {
           logger.info("event hwId list contains hwId: ${data.hwid}");
           await localNotifications.show(
             _notificationId++,
-            "テスト",
-            "登録済みのスポット: ${data.hwid}が検出されました",
+            "",
+            "",
             const NotificationDetails(
               android: AndroidNotificationDetails(
                 "スポット通知",
@@ -86,7 +88,7 @@ Future<ProviderContainer> bootstrap() async {
               ),
             ),
           );
-          logger.info("showed registered spot notification");
+          logger.info("showed matched spot notification");
           final response = await container
               .read(providers.apiClientProvider)
               .getVisitorApi()
@@ -103,12 +105,12 @@ Future<ProviderContainer> bootstrap() async {
             logger.info("showed confetti");
           }
         }
-
-        await Future.delayed(const Duration(seconds: 10), () {
-          _scannedEpochLast = DateTime.now().millisecondsSinceEpoch;
-          logger.info("scannedEpochLast: $_scannedEpochLast");
-        });
       }
+
+      await Future.delayed(const Duration(seconds: 10), () {
+        _scannedEpochLast = DateTime.now().millisecondsSinceEpoch;
+        logger.info("scannedEpochLast: $_scannedEpochLast");
+      });
     }),
   );
   await beaconManager.setBeaconServiceUUIDs(["FE6F"]);
