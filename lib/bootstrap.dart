@@ -74,14 +74,32 @@ Future<ProviderContainer> bootstrap() async {
       final visitor =
           await container.read(providers.visitorUserProvider.future);
       final visitorIdentification = visitor.visitor?.visitorIdentification;
+      final hwIds = visitor.event?.spots.map((e) => e.hwId).toList();
       final epochDiff = _scannedEpochLast - _scannedEpochFirst;
+      logger.info("epochDiff: $epochDiff");
       if (visitorIdentification != null &&
           data.hwid != null &&
-          epochDiff > 10000) {
+          epochDiff > 10000 &&
+          hwIds?.contains(data.hwid) == true) {
         final oldScannedEpochFirst = _scannedEpochFirst;
         _scannedEpochFirst = DateTime.now().millisecondsSinceEpoch;
         logger.info("scannedEpochFirst: $_scannedEpochFirst");
         logger.info("visitor logged in, hwId: ${data.hwid}");
+
+        try {
+          await container
+              .read(providers.apiClientProvider)
+              .getVisitorApi()
+              .scannedSpot(
+                visitorId: visitorIdentification.visitorId,
+                scannedSpotRequest: ScannedSpotRequest(
+                  eventId: visitorIdentification.eventId,
+                  hwId: data.hwid!,
+                ),
+              );
+        } catch (e) {
+          // ignore
+        }
 
         final matchedSpot = visitor.event?.spots.firstWhereOrNull(
           (element) => element.hwId == data.hwid && element.isPick == true,
@@ -104,16 +122,6 @@ Future<ProviderContainer> bootstrap() async {
             ),
           );
           logger.info("showed matched spot notification");
-          await container
-              .read(providers.apiClientProvider)
-              .getVisitorApi()
-              .scannedSpot(
-                visitorId: visitorIdentification.visitorId,
-                scannedSpotRequest: ScannedSpotRequest(
-                  eventId: visitorIdentification.eventId,
-                  hwId: data.hwid!,
-                ),
-              );
         }
       }
 
