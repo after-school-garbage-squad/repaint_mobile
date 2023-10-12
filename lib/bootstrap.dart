@@ -102,20 +102,6 @@ Future<ProviderContainer> bootstrap() async {
                 data;
             logger.info("showed confetti");
           }
-        } else {
-          await localNotifications.show(
-            _notificationId++,
-            "テスト",
-            "未登録のスポット: ${data.hwid}が検出されました",
-            const NotificationDetails(
-              android: AndroidNotificationDetails(
-                "スポット通知",
-                "スポット通知",
-                channelDescription: "スポット通知",
-              ),
-            ),
-          );
-          logger.info("showed unregistered spot notification");
         }
 
         await Future.delayed(const Duration(seconds: 10), () {
