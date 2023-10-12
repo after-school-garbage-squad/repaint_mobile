@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:logging/logging.dart';
@@ -30,7 +32,7 @@ Future<String?> fcmRegistrationToken(FcmRegistrationTokenRef ref) async {
   await FirebaseMessaging.instance.requestPermission();
   final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
 
-  if (apnsToken != null) {
+  if (apnsToken != null || Platform.isAndroid) {
     final fcmToken =
         registrationId ?? await FirebaseMessaging.instance.getToken();
     final logger = Logger("FcmRegistrationTokenProvider");
