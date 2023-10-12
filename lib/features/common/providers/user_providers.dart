@@ -128,13 +128,7 @@ class OperatorUser extends _$OperatorUser {
 
 @Riverpod(
   keepAlive: true,
-  dependencies: [
-    localDataSource,
-    CommonUser,
-    fcmRegistrationToken,
-    apiClient,
-    VisitorUser,
-  ],
+  dependencies: [localDataSource, CommonUser, fcmRegistrationToken, apiClient],
 )
 class VisitorUser extends _$VisitorUser {
   static const _localDataSourceKey = 'visitor';
