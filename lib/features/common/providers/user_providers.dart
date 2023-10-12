@@ -128,7 +128,13 @@ class OperatorUser extends _$OperatorUser {
 
 @Riverpod(
   keepAlive: true,
-  dependencies: [localDataSource, CommonUser, fcmRegistrationToken, apiClient],
+  dependencies: [
+    localDataSource,
+    CommonUser,
+    fcmRegistrationToken,
+    apiClient,
+    VisitorUser,
+  ],
 )
 class VisitorUser extends _$VisitorUser {
   static const _localDataSourceKey = 'visitor';
@@ -168,20 +174,34 @@ class VisitorUser extends _$VisitorUser {
 
   Future<void> initialize() async {
     if (!_isInitialized) {
-      final apiClient = ref.watch(apiClientProvider);
+      final apiClient = ref.read(apiClientProvider);
       final registrationId =
-          await ref.watch(fcmRegistrationTokenProvider.future);
+          await ref.read(fcmRegistrationTokenProvider.future);
 
       if (state.value?.visitor == null || registrationId == null) return;
 
-      await apiClient.getVisitorApi().initializeVisitor(
+      final response = await apiClient.getVisitorApi().initializeVisitor(
             visitorId: state.value!.visitor!.visitorIdentification.visitorId,
             joinEventRequest: JoinEventRequest(
               eventId: state.value!.visitor!.visitorIdentification.eventId,
               registrationId: registrationId,
             ),
           );
-      _isInitialized = true;
+
+      if (response.data != null) {
+        await ref.read(visitorUserProvider.notifier).update(
+              (p0) => p0.copyWith(
+                visitor: RegisterVisitor(
+                  visitorIdentification:
+                      response.data!.visitor.visitorIdentification,
+                  registrationId: response.data!.visitor.registrationId,
+                  palettes: response.data!.visitor.palettes,
+                ),
+                event: response.data!.event,
+              ),
+            );
+        _isInitialized = true;
+      }
     }
   }
 

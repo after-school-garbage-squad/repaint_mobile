@@ -8,14 +8,7 @@ class MainActivity : FlutterActivity() {
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
 
-        BeaconManager.setupForegroundScanJob(
-            foregroundBetweenScanPeriod = 2800,
-            foregroundScanPeriod = 2200,
-        )
-        BeaconManager.setupBackgroundScanJob(
-            isScheduledScanJobEnabled = true,
-            backgroundBetweenScanPeriod = 2800,
-            backgroundScanPeriod = 2200
-        )
+        BeaconManager.setupForegroundScanJob()
+        BeaconManager.setupBackgroundScanJob(isScheduledScanJobEnabled = true)
     }
 }

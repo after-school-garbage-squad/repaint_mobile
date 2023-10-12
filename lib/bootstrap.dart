@@ -43,6 +43,10 @@ Future<ProviderContainer> bootstrap() async {
     providers.localNotificationsProvider.future,
   );
 
+  logger.info("visitor user initializing...");
+  await container.read(providers.visitorUserProvider.notifier).initialize();
+  logger.info("visitor user initialized");
+
   logger.info("beacon state initializing...");
   final beaconManager = BeaconPlugin.beaconManager;
   FlutterBeaconApi.setup(

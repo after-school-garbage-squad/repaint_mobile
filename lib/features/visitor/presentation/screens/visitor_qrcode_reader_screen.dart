@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:repaint_mobile/config/providers.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/app_dialog.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/camera_scaffold.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/material_banner.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dart';
+import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 
 @RoutePage()
 class VisitorQRCodeReaderScreen extends ConsumerWidget {
@@ -43,6 +45,36 @@ class VisitorQRCodeReaderScreen extends ConsumerWidget {
       ),
       children: const [
         Center(child: Text('スポットのQRコードを読み込んでください')),
+      ],
+    );
+  }
+}
+
+class VisitorQRCodeReaderScannedDialog extends StatelessWidget {
+  const VisitorQRCodeReaderScannedDialog({
+    required this.onMoveToHome,
+  });
+
+  final VoidCallback onMoveToHome;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppDialog(
+      automaticallyImplyLeading: false,
+      children: [
+        const Spacer(),
+        const Icon(Icons.palette, size: 96.0),
+        const SizedBox(height: 32.0),
+        Text(
+          "パレットを入手しました!",
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        const SizedBox(height: 32.0),
+        WideElevatedButton(
+          onPressed: onMoveToHome,
+          text: "ホームに戻る",
+        ),
+        const Spacer(),
       ],
     );
   }

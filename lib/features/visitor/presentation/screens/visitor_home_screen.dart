@@ -54,11 +54,10 @@ class VisitorHomeScreen extends ConsumerWidget {
       ),
     );
 
-    ref.listen(visitorConfettiProvider, (previous, next) {
-      if (next != null && previous != next) {
-        confettiController.play();
-      }
-    });
+    ref.listen(
+      visitorConfettiProvider,
+      (previous, next) => confettiController.play(),
+    );
 
     return RepaintScaffold(
       title: "${user.value?.event?.name}",
@@ -70,19 +69,6 @@ class VisitorHomeScreen extends ConsumerWidget {
       ),
       child: Stack(
         children: [
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: ConfettiWidget(
-              confettiController: confettiController,
-              blastDirectionality: BlastDirectionality.explosive,
-              blastDirection: -pi / 2,
-              emissionFrequency: 0.05,
-              numberOfParticles: 20,
-              maxBlastForce: 100,
-              minBlastForce: 80,
-              gravity: 0.1,
-            ),
-          ),
           SingleChildScrollView(
             child: Column(
               children: [
@@ -141,6 +127,34 @@ class VisitorHomeScreen extends ConsumerWidget {
                   icon: Icons.lightbulb,
                 ),
                 const SizedBox(height: 16.0),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ActionElevatedButton(
+                        onPressed: () async =>
+                            (await controller).onShowQRCodePressed(context),
+                        text: "参加者QRコードを\n表示する",
+                        icon: Icons.qr_code,
+                        colors: ActionElevatedButtonColors(
+                          borderColor: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 24.0),
+                    Expanded(
+                      child: ActionElevatedButton(
+                        onPressed: () async =>
+                            (await controller).onReadQRCodePressed(context),
+                        text: "スポットQRコードを\n読み取る",
+                        icon: Icons.qr_code_scanner,
+                        colors: ActionElevatedButtonColors(
+                          borderColor: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16.0),
                 WideElevatedButton(
                   onPressed: () async =>
                       (await controller).onDownloadImagePressed(context),
@@ -170,36 +184,20 @@ class VisitorHomeScreen extends ConsumerWidget {
                     backgroundColor: Theme.of(context).colorScheme.surface,
                   ),
                 ),
-                const SizedBox(height: 16.0),
-                Row(
-                  children: [
-                    Expanded(
-                      child: ActionElevatedButton(
-                        onPressed: () async =>
-                            (await controller).onShowQRCodePressed(context),
-                        text: "参加者QRコードを\n表示する",
-                        icon: Icons.qr_code,
-                        colors: ActionElevatedButtonColors(
-                          borderColor: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 24.0),
-                    Expanded(
-                      child: ActionElevatedButton(
-                        onPressed: () async =>
-                            (await controller).onReadQRCodePressed(context),
-                        text: "スポットQRコードを\n読み取る",
-                        icon: Icons.qr_code_scanner,
-                        colors: ActionElevatedButtonColors(
-                          borderColor: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
                 const BottomPadding(),
               ],
+            ),
+          ),
+          Align(
+            child: ConfettiWidget(
+              confettiController: confettiController,
+              blastDirectionality: BlastDirectionality.explosive,
+              blastDirection: -pi / 2,
+              emissionFrequency: 0.05,
+              numberOfParticles: 20,
+              maxBlastForce: 100,
+              minBlastForce: 80,
+              gravity: 0.1,
             ),
           ),
         ],
