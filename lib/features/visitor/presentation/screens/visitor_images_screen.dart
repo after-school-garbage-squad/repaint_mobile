@@ -53,47 +53,44 @@ class VisitorImagesScreen extends ConsumerWidget {
                 color: Colors.white,
                 elevation: 1.0,
                 child: InkWell(
-                  onTap: () async =>
-                      (await controller).onImagePressed(context, image.imageId),
+                  onTap: () async => (await controller)
+                      .onImagePressed(context, ref, image.imageId),
                   borderRadius: BorderRadius.circular(16.0),
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Flex(
                       direction: Axis.vertical,
                       children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(16.0),
-                          child: CachedNetworkImage(
-                            cacheManager: DioCacheManager.instance,
-                            imageUrl: image.url,
-                            imageBuilder: (context, imageProvider) {
-                              return Image(
-                                width: double.infinity,
-                                image: imageProvider,
-                                fit: BoxFit.cover,
-                              );
-                            },
-                            placeholder: (context, url) => const Center(
-                              child: Padding(
-                                padding: EdgeInsets.all(16.0),
-                                child: CircularProgressIndicator(),
-                              ),
-                            ),
-                            errorWidget: (context, url, error) => Container(
-                              width: double.infinity,
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(16.0),
+                        AspectRatio(
+                          aspectRatio: 1.0,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(16.0),
+                            child: CachedNetworkImage(
+                              cacheManager: DioCacheManager.instance,
+                              imageUrl: image.url,
+                              fit: BoxFit.contain,
+                              placeholder: (context, url) => const Center(
+                                child: Padding(
+                                  padding: EdgeInsets.all(16.0),
+                                  child: CircularProgressIndicator(),
                                 ),
                               ),
-                              child: const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.error),
-                                  SizedBox(width: 16.0),
-                                  Text("エラーが発生しました"),
-                                ],
+                              errorWidget: (context, url, error) => Container(
+                                width: double.infinity,
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(16.0),
+                                  ),
+                                ),
+                                child: const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.error),
+                                    SizedBox(width: 16.0),
+                                    Text("エラーが発生しました"),
+                                  ],
+                                ),
                               ),
                             ),
                           ),

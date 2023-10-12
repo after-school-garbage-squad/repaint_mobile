@@ -186,6 +186,7 @@ class VisitorUser extends _$VisitorUser {
   }
 
   Future<void> register(JoinEvent200Response joinEvent) async {
+    isImageRenewable = true;
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final user = await _get();

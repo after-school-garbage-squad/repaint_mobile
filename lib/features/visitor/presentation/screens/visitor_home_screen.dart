@@ -20,7 +20,6 @@ import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dar
 import 'package:repaint_mobile/features/common/presentation/widgets/topic.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/visitor/presentation/widgets/action_elevated_button.dart';
-import 'package:screen_brightness/screen_brightness.dart';
 
 @RoutePage()
 class VisitorHomeScreen extends ConsumerWidget {
@@ -87,69 +86,51 @@ class VisitorHomeScreen extends ConsumerWidget {
           SingleChildScrollView(
             child: Column(
               children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(16.0),
-                  ),
-                  child: imageUrl.maybeWhen(
-                    data: (data) => CachedNetworkImage(
-                      useOldImageOnUrlChange: true,
-                      cacheManager: DioCacheManager.instance,
-                      imageUrl: data!,
-                      width: double.infinity,
-                      fit: BoxFit.contain,
-                      errorWidget: (context, url, error) => Container(
-                        padding: const EdgeInsets.all(16.0),
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16.0),
-                          ),
-                        ),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.error),
-                            SizedBox(width: 16.0),
-                            Text("エラーが発生しました"),
-                          ],
-                        ),
+                AspectRatio(
+                  aspectRatio: 1.0,
+                  child: Container(
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(16.0),
                       ),
-                      placeholder: (context, url) => Container(
-                        padding: const EdgeInsets.all(16.0),
-                        width: double.infinity,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16.0),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(16.0),
+                      ),
+                      child: imageUrl.maybeWhen(
+                        data: (data) => CachedNetworkImage(
+                          useOldImageOnUrlChange: true,
+                          cacheManager: DioCacheManager.instance,
+                          imageUrl: data!,
+                          fit: BoxFit.contain,
+                          errorWidget: (context, url, error) => const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircularProgressIndicator(),
+                              SizedBox(width: 16.0),
+                              Text("画像を処理しています..."),
+                            ],
+                          ),
+                          placeholder: (context, url) => const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircularProgressIndicator(),
+                              SizedBox(width: 16.0),
+                              Text("読み込んでいます..."),
+                            ],
                           ),
                         ),
-                        child: const Row(
+                        orElse: () => const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CircularProgressIndicator(),
                             SizedBox(width: 16.0),
-                            Text("読み込み中..."),
+                            Text("読み込んでいます..."),
                           ],
                         ),
-                      ),
-                    ),
-                    orElse: () => Container(
-                      padding: const EdgeInsets.all(16.0),
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(16.0),
-                        ),
-                      ),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CircularProgressIndicator(),
-                          SizedBox(width: 16.0),
-                          Text("読み込み中..."),
-                        ],
                       ),
                     ),
                   ),
@@ -235,10 +216,6 @@ class QRCodeViewDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppDialog(
-      onDismissed: () {
-        ScreenBrightness().resetScreenBrightness();
-        context.popRoute();
-      },
       children: [
         QrImageView(
           data: jsonEncode(

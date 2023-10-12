@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_cache_manager_dio/flutter_cache_manager_dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:repaint_api_client/repaint_api_client.dart';
+import 'package:repaint_mobile/config/providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sentry_dio/sentry_dio.dart';
 
@@ -15,9 +16,16 @@ RepaintApiClient apiClient(ApiClientRef ref) {
       LogInterceptor(requestBody: true, responseBody: true),
       InterceptorsWrapper(
         onError: (error, handler) {
-          // ignore: avoid_manual_providers_as_generated_provider_dependency
-          ref.read(networkErrorProvider.notifier).state = error;
-          return handler.next(error);
+          if (error.requestOptions.uri.host == "image.asgs.dev") {
+            isImageRenewable = true;
+            handler.resolve(
+              Response(requestOptions: error.requestOptions, statusCode: 404),
+            );
+          } else {
+            // ignore: avoid_manual_providers_as_generated_provider_dependency
+            ref.read(networkErrorProvider.notifier).state = error;
+            handler.next(error);
+          }
         },
       ),
     ],

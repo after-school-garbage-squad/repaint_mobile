@@ -55,7 +55,7 @@ class OperatorBeaconListScreen extends ConsumerWidget {
                   // name: "未登録",
                   name: spots.maybeWhen(
                     data: (data) => data[beacon.hwid]?.name ?? "未登録",
-                    orElse: () => "読み込み中...",
+                    orElse: () => "読み込んでいます...",
                   ),
                   rssi: beacon.rssi ?? 0.0,
                   hwid: beacon.hwid ?? "",

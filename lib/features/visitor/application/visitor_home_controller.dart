@@ -80,8 +80,13 @@ class VisitorHomeController {
     if (context.mounted && _userdata.visitor != null) {
       showDialog(
         context: context,
-        builder: (context) =>
-            QRCodeViewDialog(_userdata.visitor!.visitorIdentification),
+        builder: (context) => WillPopScope(
+          child: QRCodeViewDialog(_userdata.visitor!.visitorIdentification),
+          onWillPop: () async {
+            await ScreenBrightness().resetScreenBrightness();
+            return true;
+          },
+        ),
       );
     }
   }

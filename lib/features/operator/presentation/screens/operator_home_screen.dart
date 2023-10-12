@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:beacon_plugin/pigeon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:repaint_mobile/config/providers.dart';
@@ -38,6 +39,10 @@ class OperatorHomeScreen extends ConsumerWidget {
         next.value,
       ),
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.read(visitorConfettiProvider.notifier).state = BeaconData();
+    });
 
     return Scaffold(
       appBar: AppBar(
