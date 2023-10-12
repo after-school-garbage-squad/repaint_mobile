@@ -22,7 +22,6 @@ Future<void> initializeProviders(ProviderContainer container) async {
   await container.read(sharedPreferencesProvider.future);
   await container.read(localDataSourceProvider.future);
   await container.read(firebaseProvider.future);
-  await container.read(firebaseClientIdProvider.future);
   await container.read(fcmRegistrationTokenProvider.future);
   await container.read(commonUserProvider.future);
   await container.read(visitorUserProvider.future);
