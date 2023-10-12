@@ -1,5 +1,7 @@
 // import 'dart:async';
 
+import 'dart:ui';
+
 import 'package:beacon_plugin/pigeon.dart';
 import 'package:logging/logging.dart';
 import 'package:repaint_api_client/repaint_api_client.dart';
@@ -21,14 +23,17 @@ Stream<String?> visitorSelectedImage(VisitorSelectedImageRef ref) async* {
 
   while (true) {
     if (visitorIdentification != null) {
-      final isUpdated = isImageRenewable ||
-          (await visitorApi.checkUpdate(
-                visitorId: visitorIdentification.visitorId,
-                eventId: visitorIdentification.eventId,
-              ))
-                  .data
-                  ?.isUpdated ==
-              true;
+      final lifecycle = ref.read(appLifecycleProvider);
+      logger.info("lifecycle: $lifecycle");
+      final isUpdated = lifecycle == AppLifecycleState.resumed &&
+          (isImageRenewable ||
+              (await visitorApi.checkUpdate(
+                    visitorId: visitorIdentification.visitorId,
+                    eventId: visitorIdentification.eventId,
+                  ))
+                      .data
+                      ?.isUpdated ==
+                  true);
 
       logger.info("isUpdated: $isUpdated");
 

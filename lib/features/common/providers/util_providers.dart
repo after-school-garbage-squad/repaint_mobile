@@ -23,7 +23,7 @@ AppLifecycleState? appLifecycle(AppLifecycleRef ref) {
   final binding = WidgetsBinding.instance..addObserver(observer);
   ref.onDispose(() => binding.removeObserver(observer));
 
-  return null;
+  return AppLifecycleState.resumed;
 }
 
 @Riverpod(keepAlive: true)
