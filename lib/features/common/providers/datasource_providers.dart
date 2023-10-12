@@ -1,6 +1,5 @@
 import 'package:logging/logging.dart';
 import 'package:repaint_mobile/features/common/infrastructures/datasources/local/local_data_source.dart';
-import 'package:repaint_mobile/features/common/providers/util_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
