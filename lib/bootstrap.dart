@@ -67,7 +67,7 @@ Future<ProviderContainer> bootstrap() async {
       final hwIds = visitor.event?.spots.map((e) => e.hwId).toList();
       if (visitorIdentification != null &&
           data.hwid != null &&
-          _scannedEpochLast - _scannedEpochFirst > 1000) {
+          _scannedEpochLast - _scannedEpochFirst > 10000) {
         _scannedEpochFirst = DateTime.now().millisecondsSinceEpoch;
         logger.info("scannedEpochFirst: $_scannedEpochFirst");
         logger.info("visitor logged in, hwId: ${data.hwid}");
