@@ -1,6 +1,8 @@
 import "package:beacon_plugin/beacon_plugin.dart";
 import "package:beacon_plugin/flutter_beacon_api.dart";
 import "package:beacon_plugin/pigeon.dart";
+import "package:collection/collection.dart";
+import "package:firebase_messaging/firebase_messaging.dart";
 import "package:flutter/cupertino.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter/services.dart";
@@ -9,6 +11,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import 'package:logging/logging.dart';
 import "package:repaint_api_client/repaint_api_client.dart";
 import 'package:repaint_mobile/config/providers.dart' as providers;
+import "package:repaint_mobile/features/common/domain/entities/user_entity.dart";
 
 int _notificationId = 0;
 int _scannedEpochFirst = 0;
@@ -39,6 +42,14 @@ Future<ProviderContainer> bootstrap() async {
   ]);
 
   final container = ProviderContainer();
+
+  FirebaseMessaging.instance.onTokenRefresh.listen((token) async {
+    logger.info("fcm token refreshed: $token");
+    await container
+        .read(providers.visitorUserProvider.notifier)
+        .updateVisitor((p0) => p0.copyWith(registrationId: token));
+  });
+
   await providers.initializeProviders(container);
   final localNotifications = await container.read(
     providers.localNotificationsProvider.future,
@@ -71,7 +82,7 @@ Future<ProviderContainer> bootstrap() async {
         logger.info("scannedEpochFirst: $_scannedEpochFirst");
         logger.info("visitor logged in, hwId: ${data.hwid}");
 
-        final matchedSpot = visitor.event?.spots.firstWhere(
+        final matchedSpot = visitor.event?.spots.firstWhereOrNull(
           (element) => element.hwId == data.hwid && element.isPick == true,
         );
         if (matchedSpot != null) {
@@ -89,7 +100,7 @@ Future<ProviderContainer> bootstrap() async {
             ),
           );
           logger.info("showed matched spot notification");
-          final response = await container
+          await container
               .read(providers.apiClientProvider)
               .getVisitorApi()
               .scannedSpot(
@@ -99,11 +110,6 @@ Future<ProviderContainer> bootstrap() async {
                   hwId: data.hwid!,
                 ),
               );
-          if (response.data?.isBonus == true) {
-            container.read(providers.visitorConfettiProvider.notifier).state =
-                data;
-            logger.info("showed confetti");
-          }
         }
       }
 

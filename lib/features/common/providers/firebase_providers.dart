@@ -2,6 +2,7 @@ import 'package:firebase_app_installations/firebase_app_installations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:logging/logging.dart';
+import 'package:repaint_mobile/config/providers.dart';
 import 'package:repaint_mobile/firebase_options.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -22,9 +23,12 @@ Future<String?> firebaseClientId(FirebaseClientIdRef ref) async {
   return id;
 }
 
-@Riverpod(keepAlive: true, dependencies: [])
+@Riverpod(keepAlive: true, dependencies: [VisitorUser])
 Future<String?> fcmRegistrationToken(FcmRegistrationTokenRef ref) async {
-  final token = await FirebaseMessaging.instance.getToken();
+  final registrationId = await ref.read(
+    visitorUserProvider.selectAsync((value) => value.visitor?.registrationId),
+  );
+  final token = registrationId ?? await FirebaseMessaging.instance.getToken();
   final logger = Logger("FcmRegistrationTokenProvider");
   logger.info("Firebase FCM Registration Token: $token");
   return token;
