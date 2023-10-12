@@ -128,6 +128,7 @@ class OperatorUser extends _$OperatorUser {
 
 @Riverpod(
   keepAlive: true,
+  // ignore: provider_dependencies
   dependencies: [localDataSource, CommonUser, fcmRegistrationToken, apiClient],
 )
 class VisitorUser extends _$VisitorUser {
