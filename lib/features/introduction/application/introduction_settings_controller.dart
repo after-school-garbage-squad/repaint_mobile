@@ -37,7 +37,7 @@ class IntroductionSettingsController {
             _logger.warning(e.toString());
           }
         } else {
-          context.pushRoute(const IntroductionStepperRoute());
+          context.pushRoute(const OperatorStepperRoute());
         }
       },
     );

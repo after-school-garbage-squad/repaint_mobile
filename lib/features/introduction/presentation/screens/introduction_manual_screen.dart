@@ -17,6 +17,7 @@ class IntroductionManualScreen extends ConsumerWidget {
     final webviewController = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..enableZoom(false)
+      ..setBackgroundColor(Colors.transparent)
       ..setNavigationDelegate(
         NavigationDelegate(
           onNavigationRequest: (request) {
