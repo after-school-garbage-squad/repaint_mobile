@@ -25,34 +25,42 @@ class SettingsTile extends StatelessWidget {
     return SettingsTile(
       padding: const EdgeInsets.all(16.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(title, style: titleStyle),
-          Text(value, style: valueStyle),
-        ],
-      ),
-    );
-  }
-
-  factory SettingsTile.toggle({
-    required String title,
-    required bool value,
-    required ValueChanged<bool> onChanged,
-  }) {
-    return SettingsTile(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(title),
-          Switch(
-            value: value,
-            onChanged: onChanged,
-            activeTrackColor: const Color(0xff49e400),
+          const SizedBox(width: 8.0),
+          Expanded(
+            child: Text(
+              value,
+              style: valueStyle,
+              textAlign: TextAlign.right,
+            ),
           ),
         ],
       ),
     );
   }
+
+  // factory SettingsTile.toggle({
+  //   required String title,
+  //   required bool value,
+  //   required ValueChanged<bool> onChanged,
+  // }) {
+  //   return SettingsTile(
+  //     child: Row(
+  //       children: [
+  //         Expanded(
+  //           child: Text(title),
+  //         ),
+  //         const SizedBox(width: 8.0),
+  //         Switch(
+  //           value: value,
+  //           onChanged: onChanged,
+  //           activeTrackColor: const Color(0xff49e400),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   factory SettingsTile.textField({
     required String label,
