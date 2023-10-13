@@ -88,8 +88,8 @@ class OperatorBeaconSettingsScreen extends ConsumerWidget {
       bottomChildren: [
         if (spot != null)
           WideElevatedButton(
-            onPressed: () async =>
-                (await controller).onUnregisterPressed(context, ref, hwId!),
+            onPressed: () async => (await controller)
+                .onUnregisterPressed(context, ref, spot.spotId),
             text: "登録解除",
             colors: const WideElevatedButtonColors(
               backgroundColor: Colors.white,

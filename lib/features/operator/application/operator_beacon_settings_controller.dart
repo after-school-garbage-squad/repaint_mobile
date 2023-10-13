@@ -15,16 +15,18 @@ class OperatorBeaconSettingsController {
   Future<void> onUnregisterPressed(
     BuildContext context,
     WidgetRef ref,
-    String hwId,
+    String? spotId,
   ) async {
-    await _client.getAdminApi().deleteSpot(
-          eventId: _user.eventId!,
-          deleteSpotRequest: DeleteSpotRequest(spotId: hwId),
-          headers: getAdminApiHeaders(_user.token!),
-        );
-    ref.invalidate(operatorSpotsByHwIdProvider);
-    if (context.mounted) {
-      await context.popRoute();
+    if (spotId != null) {
+      await _client.getAdminApi().deleteSpot(
+            eventId: _user.eventId!,
+            deleteSpotRequest: DeleteSpotRequest(spotId: spotId),
+            headers: getAdminApiHeaders(_user.token!),
+          );
+      ref.invalidate(operatorSpotsByHwIdProvider);
+      if (context.mounted) {
+        await context.popRoute();
+      }
     }
   }
 
