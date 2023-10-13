@@ -102,8 +102,6 @@ Future<ProviderContainer> bootstrap() async {
                 ),
               );
           if (response.data != null) {
-            print(
-                "bonus state: ${container.read(visitorSpotBonusStateProvider)}");
             container.read(visitorSpotBonusStateProvider.notifier).state =
                 response.data!.isBonus;
           }
