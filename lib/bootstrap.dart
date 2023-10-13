@@ -62,7 +62,6 @@ Future<ProviderContainer> bootstrap() async {
   final beaconManager = BeaconPlugin.beaconManager;
   FlutterBeaconApi.setup(
     FlutterBeaconApiImpl((data) async {
-      logger.info("beacon data: $data");
       container.read(providers.scannedBeaconsProvider.notifier).addBeacon(
             providers.ScannedBeaconData(
               data.serviceUUID,
@@ -76,11 +75,11 @@ Future<ProviderContainer> bootstrap() async {
       final visitorIdentification = visitor.visitor?.visitorIdentification;
       final hwIds = visitor.event?.spots.map((e) => e.hwId).toList();
       final epochDiff = _scannedEpochLast - _scannedEpochFirst;
-      logger.info("epochDiff: $epochDiff");
       if (visitorIdentification != null &&
           data.hwid != null &&
           epochDiff > 10000 &&
           hwIds?.contains(data.hwid) == true) {
+        logger.info("epochDiff: $epochDiff");
         final oldScannedEpochFirst = _scannedEpochFirst;
         _scannedEpochFirst = DateTime.now().millisecondsSinceEpoch;
         logger.info("scannedEpochFirst: $_scannedEpochFirst");
