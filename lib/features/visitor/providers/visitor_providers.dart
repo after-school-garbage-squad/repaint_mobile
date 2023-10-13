@@ -98,3 +98,14 @@ Future<List<GetVisitorImages200ResponseImagesInner>> visitorImages(
 
   return images ?? [];
 }
+
+@Riverpod(keepAlive: true)
+class VisitorSpotBonusState extends _$VisitorSpotBonusState {
+  @override
+  bool build() => false;
+
+  @override
+  set state(bool value) {
+    super.state = value;
+  }
+}

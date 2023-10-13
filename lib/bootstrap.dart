@@ -3,8 +3,8 @@ import "package:beacon_plugin/flutter_beacon_api.dart";
 import "package:beacon_plugin/pigeon.dart";
 import "package:collection/collection.dart";
 import "package:firebase_messaging/firebase_messaging.dart";
-import "package:flutter/cupertino.dart";
 import "package:flutter/foundation.dart";
+import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_local_notifications/flutter_local_notifications.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -12,6 +12,7 @@ import 'package:logging/logging.dart';
 import "package:repaint_api_client/repaint_api_client.dart";
 import 'package:repaint_mobile/config/providers.dart' as providers;
 import "package:repaint_mobile/features/common/domain/entities/user_entity.dart";
+import "package:repaint_mobile/features/visitor/providers/visitor_providers.dart";
 
 int _notificationId = 0;
 int _scannedEpochFirst = 0;
@@ -86,7 +87,7 @@ Future<ProviderContainer> bootstrap() async {
         logger.info("visitor logged in, hwId: ${data.hwid}");
 
         try {
-          await container
+          final response = await container
               .read(providers.apiClientProvider)
               .getVisitorApi()
               .scannedSpot(
@@ -96,6 +97,12 @@ Future<ProviderContainer> bootstrap() async {
                   hwId: data.hwid!,
                 ),
               );
+          if (response.data != null) {
+            print(
+                "bonus state: ${container.read(visitorSpotBonusStateProvider)}");
+            container.read(visitorSpotBonusStateProvider.notifier).state =
+                response.data!.isBonus;
+          }
         } catch (e) {
           // ignore
         }

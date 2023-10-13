@@ -26,6 +26,7 @@ class VisitorHomeScreen extends ConsumerWidget {
     final user = ref.watch(visitorUserProvider);
     final imageUrl = ref.watch(visitorSelectedImageProvider);
     final controller = ref.watch(visitorHomeControllerProvider.future);
+    final spotBonusState = ref.watch(visitorSpotBonusStateProvider);
 
     ref.listen(
       networkErrorProvider,
@@ -111,15 +112,26 @@ class VisitorHomeScreen extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 16.0),
-            ...[
-              if (user.value?.isCompleted == true)
-                Topic(
-                  text: "全てのパレットを獲得し、画像が完成しました！",
-                  icon: Icons.check,
-                  color: Theme.of(context).colorScheme.tertiaryContainer,
-                ),
-              const SizedBox(height: 16.0),
-            ],
+            ...(user.value?.isCompleted == true
+                ? [
+                    Topic(
+                      text: "全てのパレットを獲得し、画像が完成しました!",
+                      icon: Icons.check,
+                      color: Theme.of(context).colorScheme.tertiaryContainer,
+                    ),
+                    const SizedBox(height: 16.0),
+                  ]
+                : []),
+            ...(spotBonusState == true
+                ? [
+                    Topic(
+                      text: "近くのスポットがボーナス中になっています。\nパレットを多くゲットするチャンスです!",
+                      icon: Icons.star,
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                    ),
+                    const SizedBox(height: 16.0),
+                  ]
+                : []),
             const Topic(
               text: "スポットに近づいたり、QRを読み取ったりしてみましょう",
               icon: Icons.lightbulb,
