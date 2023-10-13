@@ -33,7 +33,9 @@ Future<IntroductionQRCodeReaderController> introductionQRCodeReaderController(
 IntroductionSettingsController introductionSettingsController(
   IntroductionSettingsControllerRef ref,
 ) {
-  return const IntroductionSettingsController();
+  return IntroductionSettingsController(
+    ref.watch(auth0Provider),
+  );
 }
 
 @Riverpod()

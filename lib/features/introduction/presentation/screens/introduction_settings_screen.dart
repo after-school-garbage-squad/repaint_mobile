@@ -44,7 +44,7 @@ class IntroductionSettingsScreen extends ConsumerWidget {
         const ListHeading("管理者設定"),
         const SizedBox(height: 16),
         WideElevatedButton(
-          onPressed: () async => controller.onLoginPressed(context),
+          onPressed: () => controller.onLoginPressed(context),
           text: "管理者としてログイン",
           colors: const WideElevatedButtonColors(backgroundColor: Colors.white),
         ),
@@ -54,7 +54,7 @@ class IntroductionSettingsScreen extends ConsumerWidget {
         VersionTile(packageInfo: packageInfo.value),
         const SizedBox(height: 16),
         WideElevatedButton(
-          onPressed: () async => controller.onLicensePressed(context),
+          onPressed: () => controller.onLicensePressed(context),
           text: "ライセンス",
           colors: const WideElevatedButtonColors(backgroundColor: Colors.white),
         ),
