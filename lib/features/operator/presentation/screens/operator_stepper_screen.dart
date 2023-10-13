@@ -10,46 +10,19 @@ import 'package:repaint_mobile/features/common/presentation/widgets/repaint_scaf
 import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/topic.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
+import 'package:repaint_mobile/features/operator/providers/state_providers.dart';
 
 @RoutePage()
-class IntroductionStepperScreen extends ConsumerWidget {
+class OperatorStepperScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final stepper = ref.watch(introductionStepperProvider);
-    final controller = ref.watch(introductionStepperControllerProvider);
+    final stepper = ref.watch(operatorStepperProvider);
+    final controller = ref.watch(operatorStepperControllerProvider);
     final steps = [
       Step(
-        state:
-            stepper.currentStep == 0 ? StepState.editing : StepState.complete,
-        title: const Text("通知の許可"),
-        subtitle: const Text("任意"),
-        content: Column(
-          children: [
-            const Text(
-              "Re:paintから通知を送信するために必要です。\n通知設定は後から変更できます。",
-            ),
-            const SizedBox(height: 12.0),
-            WideElevatedButton(
-              onPressed: controller.onStepNotificationPermit,
-              text: "通知を許可する",
-            ),
-            const SizedBox(height: 12.0),
-            WideElevatedButton(
-              onPressed: controller.onStepNotificationDeny,
-              text: "通知を許可しない",
-              colors: WideElevatedButtonColors(
-                backgroundColor: Colors.white,
-                textColor: Theme.of(context).colorScheme.onBackground,
-              ),
-            ),
-          ],
-        ),
-        isActive: stepper.currentStep >= 0,
-      ),
-      Step(
-        state: stepper.currentStep == 1
+        state: stepper.currentStep == 0
             ? StepState.editing
-            : stepper.currentStep > 1
+            : stepper.currentStep > 0
                 ? StepState.complete
                 : StepState.disabled,
         title: const Text("スポットへの接続設定"),
@@ -71,20 +44,20 @@ class IntroductionStepperScreen extends ConsumerWidget {
         isActive: stepper.currentStep >= 1,
       ),
       Step(
-        state: stepper.currentStep == 2
+        state: stepper.currentStep == 1
             ? StepState.editing
-            : stepper.currentStep > 2
+            : stepper.currentStep > 1
                 ? StepState.complete
                 : StepState.disabled,
-        title: const Text("イベントへの参加設定"),
+        title: const Text("イベントの管理設定"),
         subtitle: const Text("必須"),
         content: Column(
           children: [
-            const Text("イベント参加用QRコードを読み取るためにカメラの権限が必要です。"),
+            const Text("参加者の写真の撮影及びQRコードのスキャンにカメラの権限が必要です。"),
             const SizedBox(height: 12.0),
             WideElevatedButton(
               onPressed: () => controller.onStepEvent(context),
-              text: "QRコードを読み取る",
+              text: "管理者としてログイン",
             ),
           ],
         ),
@@ -128,7 +101,7 @@ class IntroductionStepperScreen extends ConsumerWidget {
             padding: const EdgeInsets.all(16.0),
             child: Topic(
               icon: Icons.info,
-              text: "ボタンを押して、イベント参加に必要な設定を行ってください。",
+              text: "ボタンを押して、イベント管理に必要な初期設定を行ってください。",
               color: Theme.of(context).colorScheme.tertiaryContainer,
             ),
           ),

@@ -19,6 +19,7 @@ import 'package:repaint_mobile/features/operator/presentation/screens/operator_e
 import 'package:repaint_mobile/features/operator/presentation/screens/operator_home_screen.dart';
 import 'package:repaint_mobile/features/operator/presentation/screens/operator_qrcode_reader_screen.dart';
 import 'package:repaint_mobile/features/operator/presentation/screens/operator_settings_screen.dart';
+import 'package:repaint_mobile/features/operator/presentation/screens/operator_stepper_screen.dart';
 import 'package:repaint_mobile/features/visitor/presentation/screens/visitor_home_screen.dart';
 import 'package:repaint_mobile/features/visitor/presentation/screens/visitor_images_screen.dart';
 import 'package:repaint_mobile/features/visitor/presentation/screens/visitor_qrcode_reader_screen.dart';
@@ -51,6 +52,7 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
 
     if (_isInitialized ||
         currentUserType == nextUserType ||
+        resolver.route.path == "/operator/stepper" ||
         resolver.route.path == "/operator/events" ||
         resolver.route.path.contains("/licenses")) {
       _logger.info(
@@ -112,6 +114,10 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
         RepaintRoute(
           path: '/visitor/settings',
           page: VisitorSettingsRoute.page,
+        ),
+        RepaintRoute(
+          path: '/operator/stepper',
+          page: OperatorStepperRoute.page,
         ),
         RepaintRoute(
           path: '/operator/home',

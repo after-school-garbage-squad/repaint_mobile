@@ -24,6 +24,7 @@ Future<FirebaseApp> firebase(FirebaseRef ref) {
 //   return id;
 // }
 
+// ignore: provider_dependencies
 @Riverpod(keepAlive: true, dependencies: [])
 Future<String?> fcmRegistrationToken(FcmRegistrationTokenRef ref) async {
   final registrationId = await ref.read(

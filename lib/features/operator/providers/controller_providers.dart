@@ -7,9 +7,21 @@ import 'package:repaint_mobile/features/operator/application/operator_event_list
 import 'package:repaint_mobile/features/operator/application/operator_home_controller.dart';
 import 'package:repaint_mobile/features/operator/application/operator_qrcode_reader_controller.dart';
 import 'package:repaint_mobile/features/operator/application/operator_settings_controller.dart';
+import 'package:repaint_mobile/features/operator/application/operator_stepper_controller.dart';
+import 'package:repaint_mobile/features/operator/providers/state_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'controller_providers.g.dart';
+
+@Riverpod()
+OperatorStepperController operatorStepperController(
+  OperatorStepperControllerRef ref,
+) {
+  return OperatorStepperController(
+    ref.watch(operatorStepperProvider.notifier),
+    ref.watch(auth0Provider),
+  );
+}
 
 @Riverpod()
 OperatorBeaconListController operatorBeaconListController(

@@ -14,7 +14,7 @@ class IntroductionSettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final packageInfo = ref.watch(packageInfoProvider);
-    final controller = ref.watch(introductionSettingsControllerProvider.future);
+    final controller = ref.watch(introductionSettingsControllerProvider);
 
     ref.listen(
       networkErrorProvider,
@@ -44,7 +44,7 @@ class IntroductionSettingsScreen extends ConsumerWidget {
         const ListHeading("管理者設定"),
         const SizedBox(height: 16),
         WideElevatedButton(
-          onPressed: () async => (await controller).onLoginPressed(context),
+          onPressed: () async => controller.onLoginPressed(context),
           text: "管理者としてログイン",
           colors: const WideElevatedButtonColors(backgroundColor: Colors.white),
         ),
@@ -54,7 +54,7 @@ class IntroductionSettingsScreen extends ConsumerWidget {
         VersionTile(packageInfo: packageInfo.value),
         const SizedBox(height: 16),
         WideElevatedButton(
-          onPressed: () async => (await controller).onLicensePressed(context),
+          onPressed: () async => controller.onLicensePressed(context),
           text: "ライセンス",
           colors: const WideElevatedButtonColors(backgroundColor: Colors.white),
         ),

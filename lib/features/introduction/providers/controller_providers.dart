@@ -30,10 +30,10 @@ Future<IntroductionQRCodeReaderController> introductionQRCodeReaderController(
 }
 
 @Riverpod(dependencies: [])
-Future<IntroductionSettingsController> introductionSettingsController(
+IntroductionSettingsController introductionSettingsController(
   IntroductionSettingsControllerRef ref,
-) async {
-  return IntroductionSettingsController(ref.watch(auth0Provider));
+) {
+  return const IntroductionSettingsController();
 }
 
 @Riverpod()
