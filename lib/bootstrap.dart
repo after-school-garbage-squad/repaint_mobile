@@ -7,6 +7,7 @@ import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_local_notifications/flutter_local_notifications.dart";
+import "package:flutter_native_splash/flutter_native_splash.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import 'package:logging/logging.dart';
 import "package:repaint_api_client/repaint_api_client.dart";
@@ -36,7 +37,8 @@ Future<ProviderContainer> bootstrap() async {
   final logger = Logger("Bootstrap");
   logger.info("started");
 
-  WidgetsFlutterBinding.ensureInitialized();
+  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -58,6 +60,8 @@ Future<ProviderContainer> bootstrap() async {
   });
   await container.read(providers.visitorUserProvider.notifier).initialize();
   logger.info("visitor user initialized");
+
+  FlutterNativeSplash.remove();
 
   logger.info("beacon state initializing...");
   final beaconManager = BeaconPlugin.beaconManager;
