@@ -10,7 +10,7 @@ Future<FlutterLocalNotificationsPlugin> localNotifications(
   return FlutterLocalNotificationsPlugin()
     ..initialize(
       const InitializationSettings(
-        android: AndroidInitializationSettings("@mipmap/ic_launcher"),
+        android: AndroidInitializationSettings("repaint"),
         iOS: DarwinInitializationSettings(),
       ),
     );
