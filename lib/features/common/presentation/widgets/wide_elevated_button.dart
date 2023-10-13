@@ -37,47 +37,47 @@ class WideElevatedButton extends StatelessWidget {
     final color = colors?.backgroundColor ??
         Theme.of(context).colorScheme.primaryContainer;
 
-    return ConstrainedBox(
-      constraints:
-          const BoxConstraints(minWidth: double.infinity, minHeight: 48.0),
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.all(12.0),
-          foregroundColor: Colors.grey.shade600,
-          backgroundColor: color,
-          shadowColor: colors?.shadowColor,
-          surfaceTintColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0),
-          ),
-        ).merge(
-          ButtonStyle(
-            elevation: MaterialStateProperty.resolveWith<double>(
-                (Set<MaterialState> states) {
-              if (states.contains(MaterialState.pressed)) {
-                return elevationOnPressed;
-              }
-              return elevation;
-            }),
-          ),
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.all(12.0),
+        foregroundColor: Colors.grey.shade600,
+        backgroundColor: color,
+        shadowColor: colors?.shadowColor,
+        surfaceTintColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (icon != null) ...[
-              Icon(icon, color: colors?.iconColor),
-              const SizedBox(width: 8.0),
-            ],
-            Text(
+      ).merge(
+        ButtonStyle(
+          elevation: MaterialStateProperty.resolveWith<double>(
+              (Set<MaterialState> states) {
+            if (states.contains(MaterialState.pressed)) {
+              return elevationOnPressed;
+            }
+            return elevation;
+          }),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (icon != null) ...[
+            Icon(icon, color: colors?.iconColor),
+            const SizedBox(width: 8.0),
+          ],
+          Expanded(
+            child: Text(
               text,
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium
                   ?.copyWith(color: colors?.textColor),
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
