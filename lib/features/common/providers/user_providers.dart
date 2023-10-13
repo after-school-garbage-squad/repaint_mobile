@@ -236,14 +236,14 @@ class VisitorUser extends _$VisitorUser {
     });
   }
 
-  Future<void> updateImageUrl(
-    String? Function(String?) update,
+  Future<void> updateImageId(
+    String Function(String) update,
   ) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() {
       return _set(
         state.value!.copyWith(
-          imageUrl: update(state.value!.imageUrl),
+          imageId: update(state.value!.imageId!),
         ),
       );
     });
@@ -270,6 +270,19 @@ class VisitorUser extends _$VisitorUser {
       return _set(
         state.value!.copyWith(
           event: update(state.value!.event!),
+        ),
+      );
+    });
+  }
+
+  Future<void> setIsCompleted(
+    bool Function(bool) update,
+  ) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() {
+      return _set(
+        state.value!.copyWith(
+          isCompleted: update(state.value!.isCompleted),
         ),
       );
     });

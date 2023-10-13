@@ -111,6 +111,15 @@ class VisitorHomeScreen extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 16.0),
+            ...[
+              if (user.value?.isCompleted == true)
+                Topic(
+                  text: "全てのパレットを獲得し、画像が完成しました！",
+                  icon: Icons.check,
+                  color: Theme.of(context).colorScheme.tertiaryContainer,
+                ),
+              const SizedBox(height: 16.0),
+            ],
             const Topic(
               text: "スポットに近づいたり、QRを読み取ったりしてみましょう",
               icon: Icons.lightbulb,
@@ -149,8 +158,8 @@ class VisitorHomeScreen extends ConsumerWidget {
                   (await controller).onDownloadImagePressed(context),
               text: "画像の保存",
               icon: Icons.download,
-              colors: WideElevatedButtonColors(
-                backgroundColor: Theme.of(context).colorScheme.surface,
+              colors: const WideElevatedButtonColors(
+                backgroundColor: Colors.white,
               ),
             ),
             const SizedBox(height: 16.0),
@@ -159,8 +168,8 @@ class VisitorHomeScreen extends ConsumerWidget {
                   (await controller).onChangeImagePressed(context),
               text: "画像の変更",
               icon: Icons.change_circle,
-              colors: WideElevatedButtonColors(
-                backgroundColor: Theme.of(context).colorScheme.surface,
+              colors: const WideElevatedButtonColors(
+                backgroundColor: Colors.white,
               ),
             ),
             const SizedBox(height: 16.0),
@@ -168,8 +177,8 @@ class VisitorHomeScreen extends ConsumerWidget {
               onPressed: () async => (await controller).onOpenEventPressed(),
               text: "イベントのHPを開く",
               icon: Icons.language,
-              colors: WideElevatedButtonColors(
-                backgroundColor: Theme.of(context).colorScheme.surface,
+              colors: const WideElevatedButtonColors(
+                backgroundColor: Colors.white,
               ),
             ),
             const BottomPadding(),

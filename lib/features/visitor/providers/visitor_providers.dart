@@ -1,5 +1,3 @@
-// import 'dart:async';
-
 import 'dart:ui';
 
 import 'package:logging/logging.dart';
@@ -44,6 +42,10 @@ Stream<String?> visitorSelectedImage(VisitorSelectedImageRef ref) async* {
             .data
             ?.imageId;
 
+        if (imageId != null) {
+          ref.read(visitorUserProvider.notifier).updateImageId((p0) => imageId);
+        }
+
         final imageUrl = imageId != null
             ? await visitorApi
                 .getCurrentImageURL(
@@ -54,7 +56,18 @@ Stream<String?> visitorSelectedImage(VisitorSelectedImageRef ref) async* {
                 .then((value) => value.data?.url)
             : null;
 
-        logger.info("imageUrl: $imageUrl");
+        final isCompleted = await visitorApi
+            .isPaletteCompleted(
+              visitorId: visitorIdentification.visitorId,
+              eventId: visitorIdentification.eventId,
+            )
+            .then((value) => value.data?.isCompleted);
+
+        logger.info("imageUrl: $imageUrl, isCompleted: $isCompleted");
+
+        await ref
+            .read(visitorUserProvider.notifier)
+            .setIsCompleted((p0) => isCompleted ?? p0);
 
         if (isImageRenewable) {
           isImageRenewable = false;

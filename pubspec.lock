@@ -869,10 +869,10 @@ packages:
     dependency: transitive
     description:
       name: permission_handler_android
-      sha256: ace7d15a3d1a4a0b91c041d01e5405df221edb9de9116525efc773c74e6fc790
+      sha256: f9fddd3b46109bd69ff3f9efa5006d2d309b7aec0f3c1c5637a60a2d5659e76e
       url: "https://pub.dev"
     source: hosted
-    version: "11.0.5"
+    version: "11.1.0"
   permission_handler_apple:
     dependency: transitive
     description:
@@ -982,7 +982,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "56716b8801e3f7a0c3f3a96107af0055ace6d1dc"
+      resolved-ref: "06506b3ceeac8d50fde3282a1079c15636eb4b33"
       url: "https://github.com/after-school-garbage-squad/repaint_api_client.git"
     source: git
     version: "1.0.0"

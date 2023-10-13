@@ -41,7 +41,7 @@ class VisitorQRCodeReaderScreen extends ConsumerWidget {
     return CameraScaffold(
       preview: MobileScanner(
         onDetect: (capture) async =>
-            (await controller).onQRCodeScanned(context, capture),
+            (await controller).onQRCodeScanned(context, ref, capture),
       ),
       children: const [
         Center(child: Text('スポットのQRコードを読み込んでください')),

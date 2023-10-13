@@ -45,7 +45,7 @@ class VisitorUserEntity with _$VisitorUserEntity {
     @Default(null) RegisterVisitor? visitor,
     @Default(null) Event? event,
     @Default(null) String? imageId,
-    @Default(null) String? imageUrl,
+    @Default(false) bool isCompleted,
     @Default(VisitorSettingsEntity()) VisitorSettingsEntity settings,
   }) = _VisitorUserEntity;
 

@@ -91,7 +91,7 @@ class SpotQRCodeReaderScannedDialog extends StatelessWidget {
         const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.check_circle, color: Colors.green),
+            Icon(Icons.check, color: Colors.green),
             SizedBox(width: 16.0),
             Text("スポットをスキャンしました"),
           ],
@@ -135,7 +135,7 @@ class VisitorQRCodeReaderScannedDialog extends StatelessWidget {
         const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.check_circle, color: Colors.green),
+            Icon(Icons.check, color: Colors.green),
             SizedBox(width: 16.0),
             Text("参加者の方に写真を追加しました"),
           ],

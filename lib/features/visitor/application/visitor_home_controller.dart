@@ -92,7 +92,16 @@ class VisitorHomeController {
   }
 
   void onReadQRCodePressed(BuildContext context) {
-    context.pushRoute(const VisitorQRCodeReaderRoute());
+    if (_userdata.isCompleted) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("全てのパレットを獲得済みです"),
+        ),
+      );
+    } else {
+      context.pushRoute(const VisitorQRCodeReaderRoute());
+    }
   }
 
   void onOpenEventPressed() {
