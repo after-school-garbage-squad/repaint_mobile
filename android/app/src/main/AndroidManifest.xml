@@ -61,8 +61,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="app.repaint.asgs.dev"
-                    android:scheme="repaint" />
+                    android:host="repaint.asgs.dev"
+                    android:scheme="https"
+                    android:path="/"/>
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.

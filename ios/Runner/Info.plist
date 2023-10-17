@@ -77,18 +77,10 @@
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
 		<key>CFBundleURLTypes</key>
-		<array>
-			<dict>
-				<key>CFBundleTypeRole</key>
-				<string>Editor</string>
-				<key>CFBundleURLName</key>
-				<string>app.repaint.asgs.dev</string>
-				<key>CFBundleURLSchemes</key>
-				<array>
-					<string>repaint</string>
-				</array>
-			</dict>
-		</array>
+		<key>com.apple.developer.associated-domains</key>
+        <array>
+            <string>applinks:repaint.asgs.dev</string>
+        </array>
 		<key>UIStatusBarHidden</key>
 		<true/>
 	</dict>
