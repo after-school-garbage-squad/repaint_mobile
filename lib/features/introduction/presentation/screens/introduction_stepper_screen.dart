@@ -50,21 +50,20 @@ class IntroductionStepperScreen extends ConsumerWidget {
         state: stepper.currentStep == 1
             ? StepState.editing
             : stepper.currentStep > 1
-                ? StepState.complete
-                : StepState.disabled,
-        title: const Text("スポットへの接続設定"),
+            ? StepState.complete
+            : StepState.disabled,
+        title: const Text("位置情報の許可"),
         subtitle: const Text("必須"),
         content: Column(
           children: [
-            Text(
-              "スポットに接続するために、Bluetoothと位置情報の権限が必要です。\n"
-              "位置情報は常にアクセスできるようにしてください。\n"
-              "${Platform.isAndroid ? "また、電池の最適化をオフにしてください。" : ""}",
+             const Text(
+                  "スポットに接続するために、位置情報の権限が必要です。\n"
+                  "位置情報は常にアクセスできるようにしてください。\n"
             ),
             const SizedBox(height: 12.0),
             WideElevatedButton(
-              onPressed: controller.onStepBeacon,
-              text: "スポットへの接続を許可する",
+              onPressed: controller.onStepLocation,
+              text: "位置情報へのアクセスを常に許可する",
             ),
           ],
         ),
@@ -74,13 +73,56 @@ class IntroductionStepperScreen extends ConsumerWidget {
         state: stepper.currentStep == 2
             ? StepState.editing
             : stepper.currentStep > 2
-                ? StepState.complete
-                : StepState.disabled,
-        title: const Text("イベントへの参加設定"),
+            ? StepState.complete
+            : StepState.disabled,
+        title: const Text("Bluetoothの許可"),
         subtitle: const Text("必須"),
         content: Column(
           children: [
-            const Text("イベント参加用QRコードを読み取るためにカメラの権限が必要です。"),
+            Text(
+              "スポットに接続するために、Bluetoothの権限が必要です。\n"
+              "${Platform.isAndroid ? "また、電池の最適化をオフにしてください。" : ""}"
+            ),
+            const SizedBox(height: 12.0),
+            WideElevatedButton(
+              onPressed: controller.onStepBluetooth,
+              text: "Bluetoothへのアクセスを許可する",
+            ),
+          ],
+        ),
+        isActive: stepper.currentStep >= 2,
+      ),
+      Step(
+        state: stepper.currentStep == 3
+            ? StepState.editing
+            : stepper.currentStep > 3
+            ? StepState.complete
+            : StepState.disabled,
+        title: const Text("カメラへのアクセスの許可"),
+        subtitle: const Text("必須"),
+        content: Column(
+          children: [
+            const Text("QRコードを読み取るためにカメラの権限が必要です。"),
+            const SizedBox(height: 12.0),
+            WideElevatedButton(
+              onPressed: controller.onStepCamera,
+              text: "カメラへのアクセスを許可する",
+            ),
+          ],
+        ),
+        isActive: stepper.currentStep >= 3,
+      ),
+      Step(
+        state: stepper.currentStep == 4
+            ? StepState.editing
+            : stepper.currentStep > 4
+            ? StepState.complete
+            : StepState.disabled,
+        title: const Text("イベントへの参加"),
+        subtitle: const Text("必須"),
+        content: Column(
+          children: [
+            const Text("イベント参加用QRコードを読み取ってください。"),
             const SizedBox(height: 12.0),
             WideElevatedButton(
               onPressed: () => controller.onStepEvent(context),
@@ -88,7 +130,7 @@ class IntroductionStepperScreen extends ConsumerWidget {
             ),
           ],
         ),
-        isActive: stepper.currentStep >= 2,
+        isActive: stepper.currentStep >= 4,
       ),
     ];
 

@@ -23,45 +23,90 @@ class OperatorStepperScreen extends ConsumerWidget {
         state: stepper.currentStep == 0
             ? StepState.editing
             : stepper.currentStep > 0
-                ? StepState.complete
-                : StepState.disabled,
-        title: const Text("スポットへの接続設定"),
+            ? StepState.complete
+            : StepState.disabled,
+        title: const Text("位置情報の許可"),
+        subtitle: const Text("必須"),
+        content: Column(
+          children: [
+            const Text(
+                "スポットに接続するために、位置情報の権限が必要です。\n"
+                    "位置情報は常にアクセスできるようにしてください。\n"
+            ),
+            const SizedBox(height: 12.0),
+            WideElevatedButton(
+              onPressed: controller.onStepLocation,
+              text: "位置情報へのアクセスを常に許可する",
+            ),
+          ],
+        ),
+        isActive: stepper.currentStep >= 0,
+      ),
+      Step(
+        state: stepper.currentStep == 1
+            ? StepState.editing
+            : stepper.currentStep > 1
+            ? StepState.complete
+            : StepState.disabled,
+        title: const Text("Bluetoothの許可"),
         subtitle: const Text("必須"),
         content: Column(
           children: [
             Text(
-              "スポットに接続するために、Bluetoothと位置情報の権限が必要です。\n"
-              "位置情報は常にアクセスできるようにしてください。\n"
-              "${Platform.isAndroid ? "また、電池の最適化をオフにしてください。" : ""}",
+                "スポットに接続するために、Bluetoothの権限が必要です。\n"
+                    "${Platform.isAndroid ? "また、電池の最適化をオフにしてください。" : ""}"
             ),
             const SizedBox(height: 12.0),
             WideElevatedButton(
-              onPressed: controller.onStepBeacon,
-              text: "スポットへの接続を許可する",
+              onPressed: controller.onStepBluetooth,
+              text: "Bluetoothへのアクセスを許可する",
             ),
           ],
         ),
         isActive: stepper.currentStep >= 1,
       ),
       Step(
-        state: stepper.currentStep == 1
+        state: stepper.currentStep == 2
             ? StepState.editing
-            : stepper.currentStep > 1
-                ? StepState.complete
-                : StepState.disabled,
-        title: const Text("イベントの管理設定"),
+            : stepper.currentStep > 2
+            ? StepState.complete
+            : StepState.disabled,
+        title: const Text("カメラへのアクセスの許可"),
         subtitle: const Text("必須"),
         content: Column(
           children: [
-            const Text("参加者の写真の撮影及びQRコードのスキャンにカメラの権限が必要です。"),
+            const Text("QRコードを読み取るためにカメラの権限が必要です。"),
             const SizedBox(height: 12.0),
             WideElevatedButton(
-              onPressed: () => controller.onStepEvent(context),
-              text: "管理者としてログイン",
+              onPressed: controller.onStepCamera,
+              text: "カメラへのアクセスを許可する",
             ),
           ],
         ),
         isActive: stepper.currentStep >= 2,
+      ),
+      Step(
+        state: stepper.currentStep == 3
+            ? StepState.editing
+            : stepper.currentStep > 3
+            ? StepState.complete
+            : StepState.disabled,
+        title: const Text("アカウントのログイン"),
+        subtitle: const Text("必須"),
+        content: Column(
+          children: [
+            const Text(
+                "イベントの運営を行うには運営者としてログインが必要です。\n"
+                "運営者のアカウントは、コンソール画面から行ってください。"
+            ),
+            const SizedBox(height: 12.0),
+            WideElevatedButton(
+              onPressed: () => controller.onStepEvent(context),
+              text: "運営者としてログイン",
+            ),
+          ],
+        ),
+        isActive: stepper.currentStep >= 3,
       ),
     ];
 
