@@ -6,6 +6,7 @@ import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:repaint_mobile/config/app_router.dart';
 import 'package:repaint_mobile/config/guards.dart';
+import 'package:repaint_mobile/features/common/providers/firebase_providers.dart';
 
 class IntroductionSettingsController {
   const IntroductionSettingsController(this._auth0);
@@ -14,6 +15,7 @@ class IntroductionSettingsController {
   static final _logger = Logger("IntroductionSettingsController");
 
   Future<void> onLoginPressed(BuildContext context) async {
+    await analytics.logEvent(name: 'operator_login_pressed');
     final futures = PermissionGuard.permissions
         .map((element) => element.isGranted)
         .toList();
@@ -43,7 +45,10 @@ class IntroductionSettingsController {
     );
   }
 
-  void onLicensePressed(BuildContext context) {
-    context.pushRoute(const OssLicensesRoute());
+  Future<void> onLicensePressed(BuildContext context) async {
+    await analytics.logEvent(name: 'introduction_license_pressed');
+    if (context.mounted) {
+      context.pushRoute(const OssLicensesRoute());
+    }
   }
 }

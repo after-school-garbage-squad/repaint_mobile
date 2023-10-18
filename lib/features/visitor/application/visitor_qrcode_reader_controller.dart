@@ -6,6 +6,7 @@ import 'package:repaint_api_client/repaint_api_client.dart';
 import 'package:repaint_mobile/config/app_router.dart';
 import 'package:repaint_mobile/features/common/domain/entities/qrcode_entity.dart';
 import 'package:repaint_mobile/features/common/domain/entities/user_entity.dart';
+import 'package:repaint_mobile/features/common/providers/firebase_providers.dart';
 import 'package:repaint_mobile/features/common/providers/user_providers.dart';
 import 'package:repaint_mobile/features/visitor/presentation/screens/visitor_qrcode_reader_screen.dart';
 
@@ -24,14 +25,21 @@ class VisitorQRCodeReaderController {
     if (_isScanned) return;
     _isScanned = true;
 
+    await analytics.logEvent(
+      name: 'spot_qrcode_scanned',
+      parameters: {'event_id': _user.event?.eventId},
+    );
+
     final result = parseQRCode<SpotQRCodeEntity>(capture.barcodes[0].rawValue);
-    if (_user.visitor == null && result == null) {
+    if (_user.visitor == null && result == null && context.mounted) {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("QRコードが不正です"),
         ),
       );
+      await analytics.logEvent(name: 'invalid_qrcode_scanned');
+      await Future.delayed(const Duration(seconds: 3));
       _isScanned = false;
       return;
     }

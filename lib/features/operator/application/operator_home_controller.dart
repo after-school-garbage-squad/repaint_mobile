@@ -3,34 +3,52 @@ import 'package:flutter/cupertino.dart';
 import 'package:repaint_mobile/config/app_router.dart';
 import 'package:repaint_mobile/features/common/domain/entities/qrcode_entity.dart';
 import 'package:repaint_mobile/features/common/domain/entities/user_entity.dart';
+import 'package:repaint_mobile/features/common/providers/firebase_providers.dart';
 
 class OperatorHomeController {
   const OperatorHomeController(this._user);
 
   final OperatorUserEntity _user;
 
-  void onSettingsPressed(BuildContext context) {
-    context.pushRoute(const OperatorSettingsRoute());
+  Future<void> onSettingsPressed(BuildContext context) async {
+    await analytics.logEvent(name: 'operator_settings_pressed');
+    if (context.mounted) {
+      context.pushRoute(const OperatorSettingsRoute());
+    }
   }
 
-  void onChangeEventPressed(BuildContext context) {
+  Future<void> onChangeEventPressed(BuildContext context) async {
     if (_user.token == null) return;
-    context.pushRoute(OperatorEventListRoute(token: _user.token));
+    await analytics.logEvent(name: 'operator_change_event_pressed');
+    if (context.mounted) {
+      context.pushRoute(
+        OperatorEventListRoute(token: _user.token),
+      );
+    }
   }
 
-  void onBeaconListPressed(BuildContext context) {
-    context.pushRoute(const OperatorBeaconListRoute());
+  Future<void> onBeaconListPressed(BuildContext context) async {
+    await analytics.logEvent(name: 'operator_beacon_list_pressed');
+    if (context.mounted) {
+      context.pushRoute(const OperatorBeaconListRoute());
+    }
   }
 
-  void onCameraPressed(BuildContext context) {
-    context.pushRoute(const OperatorCameraRoute());
+  Future<void> onCameraPressed(BuildContext context) async {
+    await analytics.logEvent(name: 'operator_camera_pressed');
+    if (context.mounted) {
+      context.pushRoute(const OperatorCameraRoute());
+    }
   }
 
-  void onQRCodePressed(BuildContext context) {
-    context.pushRoute(
-      OperatorQRCodeReaderRoute(
-        typeIndex: QRCodeType.spot.index,
-      ),
-    );
+  Future<void> onQRCodePressed(BuildContext context) async {
+    await analytics.logEvent(name: 'operator_qrcode_pressed');
+    if (context.mounted) {
+      context.pushRoute(
+        OperatorQRCodeReaderRoute(
+          typeIndex: QRCodeType.visitor.index,
+        ),
+      );
+    }
   }
 }

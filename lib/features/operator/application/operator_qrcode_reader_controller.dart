@@ -11,6 +11,7 @@ import 'package:repaint_api_client/repaint_api_client.dart';
 import 'package:repaint_mobile/config/app_router.dart';
 import 'package:repaint_mobile/features/common/domain/entities/qrcode_entity.dart';
 import 'package:repaint_mobile/features/common/domain/entities/user_entity.dart';
+import 'package:repaint_mobile/features/common/providers/firebase_providers.dart';
 import 'package:repaint_mobile/features/operator/presentation/screens/operator_qrcode_reader_screen.dart';
 import 'package:repaint_mobile/utils.dart';
 
@@ -34,9 +35,21 @@ class OperatorQRCodeReaderController {
     _isScanned = true;
 
     if (type == QRCodeType.spot) {
-      await onSpotQRCodeScanned(context, ref, capture);
+      await analytics.logEvent(
+        name: 'spot_qrcode_scanned',
+        parameters: {'event_id': _user.eventId},
+      );
+      if (context.mounted) {
+        await onSpotQRCodeScanned(context, ref, capture);
+      }
     } else if (type == QRCodeType.visitor) {
-      await onVisitorQRCodeScanned(context, capture, imagePath);
+      await analytics.logEvent(
+        name: 'visitor_qrcode_scanned',
+        parameters: {'event_id': _user.eventId},
+      );
+      if (context.mounted) {
+        await onVisitorQRCodeScanned(context, capture, imagePath);
+      }
     }
   }
 
@@ -53,6 +66,7 @@ class OperatorQRCodeReaderController {
           content: Text("QRコードが不正です"),
         ),
       );
+      await analytics.logEvent(name: 'invalid_qrcode_scanned');
       await Future.delayed(const Duration(seconds: 3));
       _isScanned = false;
       return;
@@ -97,6 +111,7 @@ class OperatorQRCodeReaderController {
           content: Text("QRコードが不正です"),
         ),
       );
+      await analytics.logEvent(name: 'invalid_qrcode_scanned');
       await Future.delayed(const Duration(seconds: 3));
       _isScanned = false;
       return;
@@ -141,12 +156,18 @@ class OperatorQRCodeReaderController {
     }
   }
 
-  void onContinueScanning(BuildContext context) {
+  Future<void> onContinueScanning(BuildContext context) async {
     _isScanned = false;
-    context.popRoute();
+    await analytics.logEvent(name: 'continue_scanning');
+    if (context.mounted) {
+      context.popRoute();
+    }
   }
 
-  void onMoveToHome(BuildContext context) {
-    context.replaceRoute(const OperatorHomeRoute());
+  Future<void> onMoveToHome(BuildContext context) async {
+    await analytics.logEvent(name: 'move_to_home');
+    if (context.mounted) {
+      context.replaceRoute(const OperatorHomeRoute());
+    }
   }
 }

@@ -13,6 +13,10 @@ class OperatorEventListController {
     String token,
     String eventId,
   ) async {
+    await analytics.logEvent(
+      name: 'operator_event_item_pressed',
+      parameters: {'event_id': eventId},
+    );
     await _user.register(token, eventId);
     if (context.mounted) {
       context.replaceRoute(const OperatorHomeRoute());

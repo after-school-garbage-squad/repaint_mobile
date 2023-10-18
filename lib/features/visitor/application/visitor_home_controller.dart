@@ -7,6 +7,7 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:repaint_api_client/repaint_api_client.dart';
 import 'package:repaint_mobile/config/app_router.dart';
 import 'package:repaint_mobile/features/common/domain/entities/user_entity.dart';
+import 'package:repaint_mobile/features/common/providers/firebase_providers.dart';
 import 'package:repaint_mobile/features/visitor/presentation/screens/visitor_home_screen.dart';
 import 'package:screen_brightness/screen_brightness.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -17,12 +18,17 @@ class VisitorHomeController {
   final RepaintApiClient _client;
   final VisitorUserEntity _userdata;
 
-  void onSettingsPressed(BuildContext context) {
-    context.pushRoute(const VisitorSettingsRoute());
+  Future<void> onSettingsPressed(BuildContext context) async {
+    await analytics.logEvent(name: 'visitor_settings_pressed');
+    if (context.mounted) {
+      context.pushRoute(const VisitorSettingsRoute());
+    }
   }
 
   Future<void> onDownloadImagePressed(BuildContext context) async {
     if (_userdata.visitor == null) return;
+
+    await analytics.logEvent(name: 'visitor_download_image_pressed');
 
     // final isDownloadable = await _client.getVisitorApi().checkDownload(
     //       visitorId: _userdata.visitor!.visitorIdentification.visitorId,
@@ -69,13 +75,17 @@ class VisitorHomeController {
     }
   }
 
-  void onChangeImagePressed(BuildContext context) {
-    context.pushRoute(const VisitorImagesRoute());
+  Future<void> onChangeImagePressed(BuildContext context) async {
+    await analytics.logEvent(name: 'visitor_change_image_pressed');
+    if (context.mounted) {
+      context.pushRoute(const VisitorImagesRoute());
+    }
   }
 
   Future<void> onShowQRCodePressed(
     BuildContext context,
   ) async {
+    await analytics.logEvent(name: 'visitor_show_qrcode_pressed');
     await ScreenBrightness().setScreenBrightness(1.0);
     if (context.mounted && _userdata.visitor != null) {
       showDialog(
@@ -91,20 +101,24 @@ class VisitorHomeController {
     }
   }
 
-  void onReadQRCodePressed(BuildContext context) {
-    if (_userdata.isCompleted) {
-      ScaffoldMessenger.of(context).clearSnackBars();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("全てのパレットを獲得済みです"),
-        ),
-      );
-    } else {
-      context.pushRoute(const VisitorQRCodeReaderRoute());
+  Future<void> onReadQRCodePressed(BuildContext context) async {
+    await analytics.logEvent(name: 'visitor_read_qrcode_pressed');
+    if (context.mounted) {
+      if (_userdata.isCompleted) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("全てのパレットを獲得済みです"),
+          ),
+        );
+      } else {
+        context.pushRoute(const VisitorQRCodeReaderRoute());
+      }
     }
   }
 
-  void onOpenEventPressed() {
+  Future<void> onOpenEventPressed() async {
+    await analytics.logEvent(name: 'visitor_open_event_pressed');
     if (_userdata.event != null) {
       launchUrlString(_userdata.event!.hpUrl);
     }

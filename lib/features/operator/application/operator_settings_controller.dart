@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:logging/logging.dart';
 import 'package:repaint_mobile/config/app_router.dart';
+import 'package:repaint_mobile/features/common/providers/firebase_providers.dart';
 import 'package:repaint_mobile/features/common/providers/user_providers.dart';
 
 class OperatorSettingsController {
@@ -14,6 +15,7 @@ class OperatorSettingsController {
   static final _logger = Logger("OperatorSettingsController");
 
   Future<void> onLogoutPressed(BuildContext context) async {
+    await analytics.logEvent(name: 'operator_logout_pressed');
     try {
       await _auth0
           .webAuthentication(scheme: dotenv.env["AUTH0_SCHEME"])
@@ -26,7 +28,10 @@ class OperatorSettingsController {
     }
   }
 
-  void onLicensePressed(BuildContext context) {
-    context.pushRoute(const OssLicensesRoute());
+  Future<void> onLicensePressed(BuildContext context) async {
+    await analytics.logEvent(name: 'operator_license_pressed');
+    if (context.mounted) {
+      context.pushRoute(const OssLicensesRoute());
+    }
   }
 }

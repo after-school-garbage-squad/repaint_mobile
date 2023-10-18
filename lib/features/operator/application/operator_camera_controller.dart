@@ -9,14 +9,18 @@ import 'package:native_device_orientation/native_device_orientation.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:repaint_mobile/config/app_router.dart';
+import 'package:repaint_mobile/features/common/providers/firebase_providers.dart';
 
 class OperatorCameraController {
   const OperatorCameraController();
 
   static final _logger = Logger("OperatorCameraController");
 
-  void onBackPressed(BuildContext context) {
-    context.popRoute();
+  Future<void> onBackPressed(BuildContext context) async {
+    await analytics.logEvent(name: 'operator_camera_back_pressed');
+    if (context.mounted) {
+      context.popRoute();
+    }
   }
 
   Future<void> onPictureTaken(
@@ -41,6 +45,7 @@ class OperatorCameraController {
 
     await File(path).writeAsBytes(img.encodePng(bitmap));
     _logger.info('picture taken: $path');
+    await analytics.logEvent(name: 'operator_camera_picture_taken');
 
     if (context.mounted) {
       context.replaceRoute(

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:repaint_mobile/config/app_router.dart';
 import 'package:repaint_mobile/config/guards.dart';
+import 'package:repaint_mobile/features/common/providers/firebase_providers.dart';
 import 'package:repaint_mobile/features/introduction/providers/state_providers.dart';
 
 class IntroductionStepperController {
@@ -10,17 +11,21 @@ class IntroductionStepperController {
 
   final IntroductionStepper _stepper;
 
-  void onPostFrameCallback(int steps) {
+  Future<void> onPostFrameCallback(int steps) async {
+    await analytics.logEvent(name: 'stepper_post_frame_callback');
     _stepper.setSteps(steps);
   }
 
-  void onStepTapped(int index) {
+  Future<void> onStepTapped(int index) async {
+    await analytics.logEvent(name: 'stepper_step_tapped');
     _stepper.jumpTo(index);
   }
 
   Future<Map<Permission, PermissionStatus>> _onStepContinue(
     List<Permission> permissions,
   ) async {
+    await analytics.logEvent(name: 'stepper_continue_pressed');
+
     final List<PermissionStatus> statuses = [];
 
     await Future.forEach(
@@ -57,10 +62,15 @@ class IntroductionStepperController {
   }
 
   Future<void> onStepEvent(BuildContext context) async {
-    context.pushRoute(const IntroductionQRCodeReaderRoute());
+    await analytics.logEvent(name: 'stepper_continue_pressed');
+
+    if (context.mounted) {
+      context.pushRoute(const IntroductionQRCodeReaderRoute());
+    }
   }
 
-  void onStepCancel() {
+  Future<void> onStepCancel() async {
+    await analytics.logEvent(name: 'stepper_cancel_pressed');
     _stepper.previous();
   }
 }

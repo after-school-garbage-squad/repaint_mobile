@@ -6,6 +6,7 @@ import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:repaint_mobile/config/app_router.dart';
 import 'package:repaint_mobile/config/guards.dart';
+import 'package:repaint_mobile/features/common/providers/firebase_providers.dart';
 import 'package:repaint_mobile/features/operator/providers/state_providers.dart';
 
 class OperatorStepperController {
@@ -15,17 +16,22 @@ class OperatorStepperController {
   final Auth0 _auth0;
   static final _logger = Logger("OperatorStepperController");
 
-  void onPostFrameCallback(int steps) {
+  Future<void> onPostFrameCallback(int steps) async {
+    await analytics.logEvent(name: 'stepper_post_frame_callback');
     _stepper.setSteps(steps);
   }
 
-  void onStepTapped(int index) {
+  Future<void> onStepTapped(int index) async {
+    await analytics
+        .logEvent(name: 'stepper_step_tapped', parameters: {'index': index});
     _stepper.jumpTo(index);
   }
 
   Future<Map<Permission, PermissionStatus>> _onStepContinue(
     List<Permission> permissions,
   ) async {
+    await analytics.logEvent(name: 'stepper_step_continue');
+
     final List<PermissionStatus> statuses = [];
 
     await Future.forEach(
@@ -62,6 +68,7 @@ class OperatorStepperController {
   }
 
   Future<void> onStepEvent(BuildContext context) async {
+    await analytics.logEvent(name: 'stepper_step_event');
     try {
       final credential = await _auth0
           .webAuthentication(scheme: dotenv.env["AUTH0_SCHEME"])
@@ -78,7 +85,8 @@ class OperatorStepperController {
     }
   }
 
-  void onStepCancel() {
+  Future<void> onStepCancel() async {
+    await analytics.logEvent(name: 'stepper_step_cancel');
     _stepper.previous();
   }
 }

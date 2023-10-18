@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:repaint_api_client/repaint_api_client.dart';
 import 'package:repaint_mobile/features/common/domain/entities/user_entity.dart';
+import 'package:repaint_mobile/features/common/providers/firebase_providers.dart';
 import 'package:repaint_mobile/features/visitor/providers/visitor_providers.dart';
 
 class VisitorImagesController {
@@ -17,6 +18,8 @@ class VisitorImagesController {
     String imageId,
   ) async {
     if (_userdata.visitor == null) return;
+
+    await analytics.logEvent(name: 'visitor_image_pressed');
 
     await _client.getVisitorApi().setCurrentImage(
           visitorId: _userdata.visitor!.visitorIdentification.visitorId,
