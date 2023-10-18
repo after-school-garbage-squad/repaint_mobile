@@ -69,7 +69,7 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
         await resolver.redirect(const OperatorHomeRoute());
       } else {
         _logger.info('default page');
-        await resolver.redirect(const IntroductionHomeRoute());
+        await resolver.redirect(const IntroductionWelcomeRoute());
       }
     }
   }
@@ -77,8 +77,8 @@ class AppRouter extends _$AppRouter implements AutoRouteGuard {
   @override
   List<RepaintRoute> get routes => [
         RepaintRoute(
-          path: '/introduction/home',
-          page: IntroductionHomeRoute.page,
+          path: '/introduction/welcome',
+          page: IntroductionWelcomeRoute.page,
           initial: true,
         ),
         RepaintRoute(

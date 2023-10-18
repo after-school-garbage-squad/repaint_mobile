@@ -17,7 +17,7 @@ void showNetworkErrorSnackBar(BuildContext context, DioException? error) {
           onPressed: () {
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
             context.router.pushAndPopUntil(
-              const IntroductionHomeRoute(),
+              const IntroductionWelcomeRoute(),
               predicate: (_) => false,
             );
           },

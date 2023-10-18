@@ -11,10 +11,10 @@ import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevate
 import 'package:url_launcher/url_launcher_string.dart';
 
 @RoutePage()
-class IntroductionHomeScreen extends ConsumerWidget {
+class IntroductionWelcomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.watch(introductionHomeControllerProvider);
+    final controller = ref.watch(introductionWelcomeControllerProvider);
 
     ref.listen(
       networkErrorProvider,
@@ -116,8 +116,9 @@ class WelcomeText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final baseStyle = Theme.of(context).textTheme.bodyMedium;
-    final linkStyle =
-        baseStyle?.copyWith(color: Theme.of(context).colorScheme.primary);
+    final linkStyle = baseStyle?.copyWith(
+      color: Theme.of(context).colorScheme.primary,
+    );
 
     return RichText(
       text: TextSpan(

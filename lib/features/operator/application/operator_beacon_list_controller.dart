@@ -9,10 +9,14 @@ class OperatorBeaconListController {
   final ScannedBeacons _beacons;
 
   Future<void> onBeaconSelected(
-      BuildContext context, ScannedBeaconData beacon) async {
+    BuildContext context,
+    ScannedBeaconData beacon,
+  ) async {
     if (beacon.hwid == null) return;
     await analytics.logEvent(
-        name: 'operator_beacon_selected', parameters: {'beacon': beacon.hwid});
+      name: 'operator_beacon_selected',
+      parameters: {'beacon': beacon.hwid},
+    );
     if (context.mounted) {
       context.pushRoute(OperatorBeaconSettingsRoute(hwId: beacon.hwid));
     }
