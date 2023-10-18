@@ -26,11 +26,15 @@ void showNetworkErrorSnackBar(BuildContext context, DioException? error) {
       ),
     );
     return;
-  } else if(error.response?.statusCode == 422) {
+  } else if (error.response?.statusCode == 422) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(kDebugMode ? error.toString() :  "QRコードの形式が違います\nRe:paintのQRコードをスキャンしてください"),
+        content: Text(
+          kDebugMode
+              ? error.toString()
+              : "QRコードの形式が違います\nRe:paintのQRコードをスキャンしてください",
+        ),
         action: SnackBarAction(
           label: "OK",
           onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
@@ -38,19 +42,21 @@ void showNetworkErrorSnackBar(BuildContext context, DioException? error) {
         duration: const Duration(seconds: 3),
       ),
     );
-  }else if(error.response?.statusCode == 400) {
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(kDebugMode ? error.toString() :  "イベントが見つかりません\nQRコードを確認してください"),
-          action: SnackBarAction(
-            label: "OK",
-            onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
-          ),
-          duration: const Duration(seconds: 3),
+  } else if (error.response?.statusCode == 400) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          kDebugMode ? error.toString() : "イベントが見つかりません\nQRコードを確認してください",
         ),
-      );
-    } else {
+        action: SnackBarAction(
+          label: "OK",
+          onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+        ),
+        duration: const Duration(seconds: 3),
+      ),
+    );
+  } else {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(

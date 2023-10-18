@@ -23,16 +23,14 @@ class OperatorStepperScreen extends ConsumerWidget {
         state: stepper.currentStep == 0
             ? StepState.editing
             : stepper.currentStep > 0
-            ? StepState.complete
-            : StepState.disabled,
+                ? StepState.complete
+                : StepState.disabled,
         title: const Text("位置情報の許可"),
         subtitle: const Text("必須"),
         content: Column(
           children: [
-            const Text(
-                "スポットに接続するために、位置情報の権限が必要です。\n"
-                    "位置情報は常にアクセスできるようにしてください。\n"
-            ),
+            const Text("スポットに接続するために、位置情報の権限が必要です。\n"
+                "位置情報は常にアクセスできるようにしてください。\n"),
             const SizedBox(height: 12.0),
             WideElevatedButton(
               onPressed: controller.onStepLocation,
@@ -46,16 +44,14 @@ class OperatorStepperScreen extends ConsumerWidget {
         state: stepper.currentStep == 1
             ? StepState.editing
             : stepper.currentStep > 1
-            ? StepState.complete
-            : StepState.disabled,
+                ? StepState.complete
+                : StepState.disabled,
         title: const Text("Bluetoothの許可"),
         subtitle: const Text("必須"),
         content: Column(
           children: [
-            Text(
-                "スポットに接続するために、Bluetoothの権限が必要です。\n"
-                    "${Platform.isAndroid ? "また、電池の最適化をオフにしてください。" : ""}"
-            ),
+            Text("スポットに接続するために、Bluetoothの権限が必要です。\n"
+                "${Platform.isAndroid ? "また、電池の最適化をオフにしてください。" : ""}"),
             const SizedBox(height: 12.0),
             WideElevatedButton(
               onPressed: controller.onStepBluetooth,
@@ -69,8 +65,8 @@ class OperatorStepperScreen extends ConsumerWidget {
         state: stepper.currentStep == 2
             ? StepState.editing
             : stepper.currentStep > 2
-            ? StepState.complete
-            : StepState.disabled,
+                ? StepState.complete
+                : StepState.disabled,
         title: const Text("カメラへのアクセスの許可"),
         subtitle: const Text("必須"),
         content: Column(
@@ -89,16 +85,14 @@ class OperatorStepperScreen extends ConsumerWidget {
         state: stepper.currentStep == 3
             ? StepState.editing
             : stepper.currentStep > 3
-            ? StepState.complete
-            : StepState.disabled,
+                ? StepState.complete
+                : StepState.disabled,
         title: const Text("アカウントのログイン"),
         subtitle: const Text("必須"),
         content: Column(
           children: [
-            const Text(
-                "イベントの運営を行うには運営者としてログインが必要です。\n"
-                "運営者のアカウントは、コンソール画面から行ってください。"
-            ),
+            const Text("イベントの運営を行うには運営者としてログインが必要です。\n"
+                "運営者のアカウントは、コンソール画面から行ってください。"),
             const SizedBox(height: 12.0),
             WideElevatedButton(
               onPressed: () => controller.onStepEvent(context),
