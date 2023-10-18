@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:repaint_api_client/repaint_api_client.dart';
 import 'package:repaint_mobile/features/common/domain/entities/user_entity.dart';
@@ -37,6 +37,13 @@ class OperatorBeaconSettingsController {
     String hwId,
     String serviceUuid,
   ) async {
+    if (name.isEmpty) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("名前を入力してください")),
+      );
+      return;
+    }
     await _client.getAdminApi().registerSpot(
           eventId: _user.eventId!,
           registerSpotRequest: RegisterSpotRequest(

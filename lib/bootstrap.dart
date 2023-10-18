@@ -20,7 +20,7 @@ int _scannedEpochFirst = 0;
 int _scannedEpochLast = DateTime.now().millisecondsSinceEpoch;
 
 Future<ProviderContainer> bootstrap() async {
-  Logger.root.level = Level.ALL;
+  Logger.root.level = Level.INFO;
   Logger.root.onRecord.listen((record) {
     if (kDebugMode) {
       print(
@@ -52,6 +52,24 @@ Future<ProviderContainer> bootstrap() async {
   );
 
   logger.info("visitor user initializing...");
+  FirebaseMessaging.onMessage.listen((message) async {
+    logger.info("fcm message received: $message");
+    if (message.notification?.android != null) {
+      await localNotifications.show(
+        _notificationId++,
+        message.notification?.title ?? "",
+        message.notification?.body ?? "",
+        const NotificationDetails(
+          android: AndroidNotificationDetails(
+            "spot",
+            "スポット通知",
+            channelDescription: "スポット通知",
+            importance: Importance.high,
+          ),
+        ),
+      );
+    }
+  });
   FirebaseMessaging.instance.onTokenRefresh.listen((token) async {
     logger.info("fcm token refreshed: $token");
     await container
@@ -85,10 +103,10 @@ Future<ProviderContainer> bootstrap() async {
           data.hwid != null &&
           epochDiff > 10000 &&
           hwIds?.contains(data.hwid) == true) {
-        logger.info("epochDiff: $epochDiff");
+        logger.fine("epochDiff: $epochDiff");
         final oldScannedEpochFirst = _scannedEpochFirst;
         _scannedEpochFirst = DateTime.now().millisecondsSinceEpoch;
-        logger.info("scannedEpochFirst: $_scannedEpochFirst");
+        logger.fine("scannedEpochFirst: $_scannedEpochFirst");
         logger.info("visitor logged in, hwId: ${data.hwid}");
 
         try {
@@ -124,9 +142,10 @@ Future<ProviderContainer> bootstrap() async {
                 : "アプリからQRコードをスキャンして、パレットを入手しましょう!",
             const NotificationDetails(
               android: AndroidNotificationDetails(
-                "スポット通知",
+                "spot",
                 "スポット通知",
                 channelDescription: "スポット通知",
+                importance: Importance.high,
               ),
             ),
           );
@@ -136,7 +155,7 @@ Future<ProviderContainer> bootstrap() async {
 
       await Future.delayed(const Duration(seconds: 10), () {
         _scannedEpochLast = DateTime.now().millisecondsSinceEpoch;
-        logger.info("scannedEpochLast: $_scannedEpochLast");
+        logger.fine("scannedEpochLast: $_scannedEpochLast");
       });
     }),
   );

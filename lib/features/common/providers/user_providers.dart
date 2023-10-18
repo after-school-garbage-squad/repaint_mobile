@@ -17,6 +17,10 @@ class CommonUser extends _$CommonUser {
   @override
   FutureOr<CommonUserEntity> build() async {
     final user = await _get();
+    await FirebaseAnalytics.instance.setUserProperty(
+      name: 'type',
+      value: user.type.name,
+    );
     _logger.info('initialized: $user');
     return user;
   }

@@ -5,7 +5,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 
 part 'qrcode_entity.freezed.dart';
-
 part 'qrcode_entity.g.dart';
 
 enum QRCodeType {
@@ -53,9 +52,11 @@ T? parseQRCode<T>(String? text) {
   final logger = Logger("parseQRCode");
   if (text == null) return null;
   final uri = Uri.tryParse(text);
-  if (T == EventQRCodeEntity && uri != null) {
+  if (T == EventQRCodeEntity) {
+    final input =
+        uri?.queryParameters ?? jsonDecode(text) as Map<String, dynamic>;
     logger.info("qrcode: $text");
-    return EventQRCodeEntity.fromJson(uri.queryParameters) as T;
+    return EventQRCodeEntity.fromJson(input) as T;
   } else if (uri == null) {
     final data = jsonDecode(text) as Map<String, dynamic>;
     logger.info("qrcode: $data");

@@ -84,8 +84,9 @@ void showFCMMaterialBanner(BuildContext context, RemoteMessage message) {
         TextSpan(
           children: [
             TextSpan(
-                text: message.notification?.title ?? "",
-                style: Theme.of(context).textTheme.titleMedium),
+              text: message.notification?.title ?? "",
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
             const TextSpan(text: "\n"),
             TextSpan(text: message.notification?.body ?? ""),
           ],
