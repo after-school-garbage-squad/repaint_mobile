@@ -49,8 +49,16 @@ class OperatorStepperController {
     _onStepContinue([]);
   }
 
-  Future<void> onStepBeacon() async {
-    _onStepContinue(PermissionGuard.beaconPermissions);
+  Future<void> onStepLocation() async {
+    _onStepContinue(PermissionGuard.locationPermissions);
+  }
+
+  Future<void> onStepBluetooth() async {
+    _onStepContinue(PermissionGuard.bluetoothPermissions);
+  }
+
+  Future<void> onStepCamera() async {
+    _onStepContinue(PermissionGuard.cameraPermissions);
   }
 
   Future<void> onStepEvent(BuildContext context) async {

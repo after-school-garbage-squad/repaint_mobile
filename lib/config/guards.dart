@@ -10,24 +10,28 @@ class PermissionGuard extends AutoRouteGuard {
 
   final Ref _ref;
   static final permissions = [
-    ...beaconPermissions,
-    ...eventPermissions,
+    ...locationPermissions,
+    ...bluetoothPermissions,
+    ...cameraPermissions,
   ];
 
   static final notificationPermissions = [
     Permission.notification,
   ];
 
-  static final beaconPermissions = [
+  static final locationPermissions = [
     Permission.location,
     Permission.locationWhenInUse,
     Permission.locationAlways,
+  ];
+
+  static final bluetoothPermissions = [
     Permission.bluetooth,
     if (Platform.isAndroid) Permission.bluetoothScan,
     if (Platform.isAndroid) Permission.ignoreBatteryOptimizations,
   ];
 
-  static final eventPermissions = [
+  static final cameraPermissions = [
     Permission.camera,
   ];
 
