@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:logging/logging.dart';
 import 'package:repaint_api_client/repaint_api_client.dart';
 import 'package:repaint_mobile/config/providers.dart';
@@ -51,6 +52,10 @@ class CommonUser extends _$CommonUser {
       final user = await _get();
       final newUser = user.copyWith(type: type);
       await _set(newUser);
+      await FirebaseAnalytics.instance.setUserProperty(
+        name: 'type',
+        value: type.name,
+      );
       _logger.info("user type: ${newUser.type}");
       return newUser;
     });
@@ -61,6 +66,10 @@ class CommonUser extends _$CommonUser {
     state = await AsyncValue.guard(() async {
       const value = CommonUserEntity();
       await _set(value);
+      await FirebaseAnalytics.instance.setUserProperty(
+        name: 'type',
+        value: null,
+      );
       _logger.info("user type: ${value.type}");
       return value;
     });

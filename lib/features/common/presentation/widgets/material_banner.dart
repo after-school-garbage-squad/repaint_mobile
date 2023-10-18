@@ -1,5 +1,6 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -71,4 +72,31 @@ void showLocationErrorMaterialBanner(
       _excludedPaths.contains(context.routeData.path)) {
     ScaffoldMessenger.of(context).clearMaterialBanners();
   }
+}
+
+void showFCMMaterialBanner(BuildContext context, RemoteMessage message) {
+  ScaffoldMessenger.of(context).showMaterialBanner(
+    MaterialBanner(
+      backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+      dividerColor: Colors.transparent,
+      margin: const EdgeInsets.only(bottom: 16.0),
+      content: Text.rich(
+        TextSpan(
+          children: [
+            TextSpan(
+                text: message.notification?.title ?? "",
+                style: Theme.of(context).textTheme.titleMedium),
+            const TextSpan(text: "\n"),
+            TextSpan(text: message.notification?.body ?? ""),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          child: const Text("OK"),
+          onPressed: () => ScaffoldMessenger.of(context).clearMaterialBanners(),
+        ),
+      ],
+    ),
+  );
 }

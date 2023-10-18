@@ -378,6 +378,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.8"
+  dependency_validator:
+    dependency: "direct dev"
+    description:
+      name: dependency_validator
+      sha256: f727a5627aa405965fab4aef4f468e50a9b632ba0737fd2f98c932fec6d712b9
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.3"
   dio:
     dependency: "direct main"
     description:
@@ -410,30 +418,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.0"
-  firebase_app_installations:
+  firebase_analytics:
     dependency: "direct main"
     description:
-      name: firebase_app_installations
-      sha256: c7ca6ed1ca5f38d1047302b17115bf0dea2e72dfdb09f06d72bf70c902808439
+      name: firebase_analytics
+      sha256: "6a8b509b81760dca2abe70c46811f3824c150e9a3f85982f062624a7bae31857"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.3+7"
-  firebase_app_installations_platform_interface:
+    version: "10.5.1"
+  firebase_analytics_platform_interface:
     dependency: transitive
     description:
-      name: firebase_app_installations_platform_interface
-      sha256: c5decf010fe70807eb604bd6a50bec98a3cd3ef40cff7acdb891a56d74384bd2
+      name: firebase_analytics_platform_interface
+      sha256: acb9cb733fff14041c030ec9c71fc9be6c9d60dbe8932b2a38bc1428d638a915
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.4+7"
-  firebase_app_installations_web:
+    version: "3.7.1"
+  firebase_analytics_web:
     dependency: transitive
     description:
-      name: firebase_app_installations_web
-      sha256: f8bf015af5b4289718567cc2ca7eb1d610aca4359f23b8db55e721536cd66c0f
+      name: firebase_analytics_web
+      sha256: "56ee5baf213cae47eab0ec926261dfecb9d7089ee28edf38dca3ad0ca01601c7"
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.3+7"
+    version: "0.5.5+1"
   firebase_core:
     dependency: "direct main"
     description:
@@ -585,14 +593,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  fpdart:
-    dependency: "direct main"
-    description:
-      name: fpdart
-      sha256: "7413acc5a6569a3fe8277928fc7487f3198530f0c4e635d0baef199ea36e8ee9"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
   freezed:
     dependency: "direct dev"
     description:
@@ -714,7 +714,7 @@ packages:
     source: hosted
     version: "0.6.7"
   json_annotation:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: json_annotation
       sha256: b10a7b2ff83d83c777edba3c6a0f97045ddadd56c944e1a23a3fdf43a1bf4467
@@ -722,7 +722,7 @@ packages:
     source: hosted
     version: "4.8.1"
   json_serializable:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: json_serializable
       sha256: aa1f5a8912615733e0fdc7a02af03308933c93235bdc8d50d0b0c8a8ccb0b969

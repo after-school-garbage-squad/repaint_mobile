@@ -58,6 +58,7 @@ Future<ProviderContainer> bootstrap() async {
         .read(providers.visitorUserProvider.notifier)
         .updateVisitor((p0) => p0.copyWith(registrationId: token));
   });
+  // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await container.read(providers.visitorUserProvider.notifier).initialize();
   logger.info("visitor user initialized");
 

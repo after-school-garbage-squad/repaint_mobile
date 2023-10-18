@@ -5,12 +5,11 @@ part 'local_notifications_providers.g.dart';
 
 @Riverpod(keepAlive: true)
 Future<FlutterLocalNotificationsPlugin> localNotifications(
-  LocalNotificationsRef ref,
-) async {
+    LocalNotificationsRef ref,) async {
   return FlutterLocalNotificationsPlugin()
     ..initialize(
       const InitializationSettings(
-        android: AndroidInitializationSettings("repaint"),
+        android: AndroidInitializationSettings("@drawable/repaint"),
         iOS: DarwinInitializationSettings(),
       ),
     );

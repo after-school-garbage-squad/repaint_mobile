@@ -1,10 +1,9 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
-// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import 'package:repaint_mobile/bootstrap.dart';
 import 'package:repaint_mobile/config/providers.dart';
@@ -13,15 +12,8 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 import 'package:uni_links/uni_links.dart';
 
-// @pragma('vm:entry-point')
-// void notificationTapBackground(NotificationResponse notificationResponse) {
-//   // handle action
-// }
-
 @pragma('vm:entry-point')
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
 
   if (kDebugMode) {
@@ -31,7 +23,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 void main() async {
   await dotenv.load();
-  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await SentryFlutter.init(
     (options) {
       options.dsn = kDebugMode ? '' : dotenv.env["SENTRY_DSN"];
@@ -90,6 +81,9 @@ class RepaintApp extends ConsumerWidget {
             routerConfig: snapshot.data?.config(
               navigatorObservers: () => [
                 SentryNavigatorObserver(),
+                FirebaseAnalyticsObserver(
+                  analytics: analytics,
+                ),
               ],
             ),
           );

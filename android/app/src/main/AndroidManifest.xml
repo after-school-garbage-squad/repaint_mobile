@@ -61,9 +61,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="repaint.asgs.dev"
-                    android:scheme="https"
-                    android:path="/"/>
+                    android:scheme="http"
+                    android:host="repaint.asgs.dev" />
+                <data android:scheme="https" />
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.
@@ -71,6 +71,11 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/repaint" />
 
         <receiver
             android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver"
