@@ -19,6 +19,8 @@ import 'package:repaint_mobile/features/common/presentation/widgets/topic.dart';
 import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
 import 'package:repaint_mobile/features/visitor/presentation/widgets/action_elevated_button.dart';
 
+bool _isShowTaskKillWarningDialog = false;
+
 @RoutePage()
 class VisitorHomeScreen extends ConsumerWidget {
   @override
@@ -50,6 +52,17 @@ class VisitorHomeScreen extends ConsumerWidget {
         next.value,
       ),
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (!_isShowTaskKillWarningDialog) {
+        _isShowTaskKillWarningDialog = true;
+        showDialog(
+          context: context,
+          builder: (context) => const TaskKillWarningDialog(),
+          barrierDismissible: false,
+        );
+      }
+    });
 
     return RepaintScaffold(
       title: "${user.value?.event?.name}",
@@ -133,7 +146,7 @@ class VisitorHomeScreen extends ConsumerWidget {
                   ]
                 : []),
             const Topic(
-              text: "スポットに近づいたり、QRを読み取ったりしてみましょう",
+              text: "スポットに近づいたり、QRコードを読み取ったりしてみましょう",
               icon: Icons.lightbulb,
             ),
             const SizedBox(height: 16.0),
@@ -222,6 +235,37 @@ class QRCodeViewDialog extends StatelessWidget {
         ),
         const SizedBox(height: 24.0),
         const Text("写真撮影の際にご掲示ください"),
+      ],
+    );
+  }
+}
+
+class TaskKillWarningDialog extends StatelessWidget {
+  const TaskKillWarningDialog();
+
+  @override
+  Widget build(BuildContext context) {
+    return AppDialog(
+      automaticallyImplyLeading: false,
+      children: [
+        // icon
+        const Spacer(),
+        const Icon(
+          Icons.lightbulb,
+          size: 64.0,
+        ),
+        const SizedBox(height: 16.0),
+        const Text(
+          "このアプリはバックグラウンドで動作する必要があります。\n"
+          "イベント参加中はアプリを終了しないでください。",
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 16.0),
+        WideElevatedButton(
+          onPressed: () => Navigator.of(context).pop(),
+          text: "OK",
+        ),
+        const Spacer(),
       ],
     );
   }
