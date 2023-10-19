@@ -1,8 +1,7 @@
 import "package:beacon_plugin/beacon_plugin.dart";
 import "package:beacon_plugin/flutter_beacon_api.dart";
 import "package:beacon_plugin/pigeon.dart";
-import "package:collection/collection.dart";
-import "package:firebase_messaging/firebase_messaging.dart";
+import 'package:firebase_messaging/firebase_messaging.dart';
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
@@ -104,7 +103,7 @@ Future<ProviderContainer> bootstrap() async {
           epochDiff > 10000 &&
           hwIds?.contains(data.hwid) == true) {
         logger.fine("epochDiff: $epochDiff");
-        final oldScannedEpochFirst = _scannedEpochFirst;
+        // final oldScannedEpochFirst = _scannedEpochFirst;
         _scannedEpochFirst = DateTime.now().millisecondsSinceEpoch;
         logger.fine("scannedEpochFirst: $_scannedEpochFirst");
         logger.info("visitor logged in, hwId: ${data.hwid}");
@@ -128,29 +127,29 @@ Future<ProviderContainer> bootstrap() async {
           // ignore
         }
 
-        final matchedSpot = visitor.event?.spots.firstWhereOrNull(
-          (element) => element.hwId == data.hwid && element.isPick == true,
-        );
-        if (matchedSpot != null) {
-          logger.info("event hwId list contains hwId: ${data.hwid}");
-          await localNotifications.show(
-            _notificationId++,
-            "${matchedSpot.name}の近くにいます",
-            kDebugMode
-                ? "前回から今回の検知までの時間: ${_scannedEpochFirst - oldScannedEpochFirst}ms\n"
-                    "検知から遅延含む処理完了までの時間: ${epochDiff}ms"
-                : "アプリからQRコードをスキャンして、パレットを入手しましょう!",
-            const NotificationDetails(
-              android: AndroidNotificationDetails(
-                "spot",
-                "スポット通知",
-                channelDescription: "スポット通知",
-                importance: Importance.high,
-              ),
-            ),
-          );
-          logger.info("showed matched spot notification");
-        }
+        // final matchedSpot = visitor.event?.spots.firstWhereOrNull(
+        //   (element) => element.hwId == data.hwid && element.isPick == true,
+        // );
+        // if (matchedSpot != null) {
+        //   logger.info("event hwId list contains hwId: ${data.hwid}");
+        //   await localNotifications.show(
+        //     _notificationId++,
+        //     "${matchedSpot.name}の近くにいます",
+        //     kDebugMode
+        //         ? "前回から今回の検知までの時間: ${_scannedEpochFirst - oldScannedEpochFirst}ms\n"
+        //             "検知から遅延含む処理完了までの時間: ${epochDiff}ms"
+        //         : "アプリからQRコードをスキャンして、パレットを入手しましょう!",
+        //     const NotificationDetails(
+        //       android: AndroidNotificationDetails(
+        //         "spot",
+        //         "スポット通知",
+        //         channelDescription: "スポット通知",
+        //         importance: Importance.high,
+        //       ),
+        //     ),
+        //   );
+        //   logger.info("showed matched spot notification");
+        // }
       }
 
       await Future.delayed(const Duration(seconds: 10), () {
