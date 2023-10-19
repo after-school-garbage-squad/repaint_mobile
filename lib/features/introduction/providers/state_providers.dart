@@ -30,3 +30,21 @@ class IntroductionStepper extends _$IntroductionStepper {
     state = state.copyWith(currentStep: step);
   }
 }
+
+enum ManualWebViewStateEnum { loading, loaded, error }
+
+@Riverpod()
+class ManualWebViewState extends _$ManualWebViewState {
+  @override
+  ManualWebViewStateEnum build() {
+    return ManualWebViewStateEnum.loading;
+  }
+
+  void setLoaded() {
+    state = ManualWebViewStateEnum.loaded;
+  }
+
+  void setError() {
+    state = ManualWebViewStateEnum.error;
+  }
+}

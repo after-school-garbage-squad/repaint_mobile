@@ -38,6 +38,7 @@ dependencies:
   cached_network_image: ^3.3.0
   camera: ^0.10.5+5
   collection: ^1.17.2
+  connectivity_plus: ^5.0.1
   dio: ^5.3.2
   firebase_analytics: ^10.5.1
   firebase_core: ^2.16.0

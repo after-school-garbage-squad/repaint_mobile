@@ -23,6 +23,7 @@ class WideElevatedButton extends StatelessWidget {
     this.colors,
     this.elevation = 1.0,
     this.elevationOnPressed = 3.0,
+    this.disabled = false,
   });
 
   final VoidCallback onPressed;
@@ -31,6 +32,7 @@ class WideElevatedButton extends StatelessWidget {
   final WideElevatedButtonColors? colors;
   final double elevation;
   final double elevationOnPressed;
+  final bool disabled;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class WideElevatedButton extends StatelessWidget {
         Theme.of(context).colorScheme.primaryContainer;
 
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: disabled ? null : onPressed,
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.all(12.0),
         foregroundColor: Colors.grey.shade600,

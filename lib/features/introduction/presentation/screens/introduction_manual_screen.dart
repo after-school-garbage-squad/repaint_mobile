@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:repaint_mobile/config/providers.dart';
@@ -14,12 +15,30 @@ class IntroductionManualScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(introductionManualControllerProvider);
+    final manualWebViewLoaded = ref.watch(manualWebViewStateProvider);
+    final manualWebViewLoadedNotifier =
+        ref.watch(manualWebViewStateProvider.notifier);
     final webviewController = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..enableZoom(false)
-      ..setBackgroundColor(Colors.transparent)
+      ..setBackgroundColor(Colors.transparent);
+
+    webviewController
       ..setNavigationDelegate(
         NavigationDelegate(
+          onPageFinished: (url) async {
+            if (await Connectivity().checkConnectivity() ==
+                ConnectivityResult.none) {
+              manualWebViewLoadedNotifier.setError();
+              await Future.delayed(const Duration(seconds: 2));
+              await webviewController.reload();
+            } else {
+              manualWebViewLoadedNotifier.setLoaded();
+            }
+          },
+          onWebResourceError: (error) {
+            manualWebViewLoadedNotifier.setError();
+          },
           onNavigationRequest: (request) {
             if (request.url == "https://repaint.asgs.dev/webview") {
               return NavigationDecision.navigate;
@@ -60,11 +79,14 @@ class IntroductionManualScreen extends ConsumerWidget {
           Expanded(
             child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-              child: WebViewWidget(controller: webviewController),
+              child: manualWebViewLoaded == ManualWebViewStateEnum.loaded
+                  ? WebViewWidget(controller: webviewController)
+                  : const Center(child: CircularProgressIndicator()),
             ),
           ),
           const SizedBox(height: 16.0),
           WideElevatedButton(
+            disabled: manualWebViewLoaded != ManualWebViewStateEnum.loaded,
             onPressed: () => controller.onContinuePressed(context),
             text: "進む",
           ),
