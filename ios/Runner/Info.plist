@@ -79,7 +79,7 @@
 		<key>CFBundleURLTypes</key>
 		<key>com.apple.developer.associated-domains</key>
         <array>
-            <string>applinks:repaint.asgs.dev</string>
+            <string>applinks:app.repaint.asgs.dev</string>
         </array>
 		<key>UIStatusBarHidden</key>
 		<true/>
