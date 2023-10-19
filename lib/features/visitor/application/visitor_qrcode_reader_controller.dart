@@ -59,7 +59,7 @@ class VisitorQRCodeReaderController {
           context: context,
           builder: (_) => WillPopScope(
             child: VisitorQRCodeReaderScannedDialog(
-              isConflict: response.statusCode == 409,
+              isConflict: response.statusCode == 400,
               onMoveToHome: () async {
                 ref.invalidate(visitorUserProvider);
                 await context.router.pushAndPopUntil(

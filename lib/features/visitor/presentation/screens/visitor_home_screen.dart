@@ -230,10 +230,13 @@ class QRCodeViewDialog extends StatelessWidget {
               userId: visitorIdentification.visitorId,
             ).toJson(),
           ),
-          size: 200,
-          gapless: false,
+          size: 216,
+          embeddedImage: const AssetImage("assets/repaint.png"),
+          embeddedImageStyle: const QrEmbeddedImageStyle(
+            size: Size(48, 48),
+          ),
         ),
-        const SizedBox(height: 24.0),
+        const SizedBox(height: 16.0),
         const Text("写真撮影の際にご掲示ください"),
       ],
     );
