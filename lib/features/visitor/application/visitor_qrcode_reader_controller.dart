@@ -31,13 +31,15 @@ class VisitorQRCodeReaderController {
     );
 
     final result = parseQRCode<SpotQRCodeEntity>(capture.barcodes[0].rawValue);
-    if (_user.visitor == null && result == null && context.mounted) {
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("QRコードが不正です"),
-        ),
-      );
+    if (_user.visitor == null || result?.spotId == null) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("QRコードが不正です"),
+          ),
+        );
+      }
       await analytics.logEvent(name: 'invalid_qrcode_scanned');
       await Future.delayed(const Duration(seconds: 3));
       _isScanned = false;
@@ -49,7 +51,7 @@ class VisitorQRCodeReaderController {
             visitorId: _user.visitor!.visitorIdentification.visitorId,
             pickPaletteRequest: PickPaletteRequest(
               eventId: _user.visitor!.visitorIdentification.eventId,
-              spotId: result!.spotId,
+              spotId: result!.spotId!,
             ),
           );
       if (context.mounted) {
@@ -57,7 +59,7 @@ class VisitorQRCodeReaderController {
           context: context,
           builder: (_) => WillPopScope(
             child: VisitorQRCodeReaderScannedDialog(
-              isConflict: response.statusCode == 409,
+              isConflict: response.statusCode == 400,
               onMoveToHome: () async {
                 ref.invalidate(visitorUserProvider);
                 await context.router.pushAndPopUntil(
