@@ -17,8 +17,8 @@ enum QRCodeType {
 class VisitorQRCodeEntity with _$VisitorQRCodeEntity {
   @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory VisitorQRCodeEntity({
-    @Default("") String eventId,
-    @Default("") String userId,
+    @Default(null) String? eventId,
+    @Default(null) String? userId,
   }) = _VisitorQRCodeEntity;
 
   factory VisitorQRCodeEntity.fromJson(Map<String, dynamic> json) =>
@@ -29,8 +29,8 @@ class VisitorQRCodeEntity with _$VisitorQRCodeEntity {
 class SpotQRCodeEntity with _$SpotQRCodeEntity {
   @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory SpotQRCodeEntity({
-    @Default("") String eventId,
-    @Default("") String spotId,
+    @Default(null) String? eventId,
+    @Default(null) String? spotId,
   }) = _SpotQRCodeEntity;
 
   factory SpotQRCodeEntity.fromJson(Map<String, dynamic> json) =>
@@ -41,7 +41,7 @@ class SpotQRCodeEntity with _$SpotQRCodeEntity {
 class EventQRCodeEntity with _$EventQRCodeEntity {
   @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
   const factory EventQRCodeEntity({
-    @Default("") String eventId,
+    @Default(null) String? eventId,
   }) = _EventQRCodeEntity;
 
   factory EventQRCodeEntity.fromJson(Map<String, dynamic> json) =>

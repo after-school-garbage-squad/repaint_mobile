@@ -27,13 +27,15 @@ class IntroductionQRCodeReaderController {
     _isScanned = true;
     await analytics.logEvent(name: "qrcode_scanned");
     final data = parseQRCode<EventQRCodeEntity>(capture.barcodes[0].rawValue);
-    if (data == null && context.mounted) {
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("QRコードが不正です"),
-        ),
-      );
+    if (data?.eventId == null) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("QRコードが不正です"),
+          ),
+        );
+      }
       await analytics.logEvent(name: 'invalid_qrcode_scanned');
       await Future.delayed(const Duration(seconds: 3));
       _isScanned = false;
@@ -50,7 +52,7 @@ class IntroductionQRCodeReaderController {
     try {
       final result = await _client.getVisitorApi().joinEvent(
             joinEventRequest: JoinEventRequest(
-              eventId: data!.eventId,
+              eventId: data!.eventId!,
               registrationId: _registrationId!,
             ),
           );
