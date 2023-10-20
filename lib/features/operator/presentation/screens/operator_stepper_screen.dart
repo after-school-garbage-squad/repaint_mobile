@@ -1,21 +1,23 @@
-import 'dart:io';
+import "dart:io";
 
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:repaint_mobile/config/guards.dart';
-import 'package:repaint_mobile/config/providers.dart';
-import 'package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart';
-import 'package:repaint_mobile/features/common/presentation/widgets/material_banner.dart';
-import 'package:repaint_mobile/features/common/presentation/widgets/repaint_scaffold.dart';
-import 'package:repaint_mobile/features/common/presentation/widgets/snackbar.dart';
-import 'package:repaint_mobile/features/common/presentation/widgets/topic.dart';
-import 'package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart';
-import 'package:repaint_mobile/features/operator/application/operator_stepper_controller.dart';
-import 'package:repaint_mobile/features/operator/domain/entities/operator_stepper_entity.dart';
-import 'package:repaint_mobile/features/operator/providers/state_providers.dart';
+import "package:app_settings/app_settings.dart";
+import "package:auto_route/auto_route.dart";
+import "package:flutter/foundation.dart";
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:permission_handler/permission_handler.dart";
+import "package:repaint_mobile/config/guards.dart";
+import "package:repaint_mobile/config/providers.dart";
+import "package:repaint_mobile/features/common/presentation/widgets/app_dialog.dart";
+import "package:repaint_mobile/features/common/presentation/widgets/bottom_constrained_padding.dart";
+import "package:repaint_mobile/features/common/presentation/widgets/material_banner.dart";
+import "package:repaint_mobile/features/common/presentation/widgets/repaint_scaffold.dart";
+import "package:repaint_mobile/features/common/presentation/widgets/snackbar.dart";
+import "package:repaint_mobile/features/common/presentation/widgets/topic.dart";
+import "package:repaint_mobile/features/common/presentation/widgets/wide_elevated_button.dart";
+import "package:repaint_mobile/features/operator/application/operator_stepper_controller.dart";
+import "package:repaint_mobile/features/operator/domain/entities/operator_stepper_entity.dart";
+import "package:repaint_mobile/features/operator/providers/state_providers.dart";
 
 @RoutePage()
 class OperatorStepperScreen extends ConsumerWidget {
@@ -60,7 +62,7 @@ class OperatorStepperScreen extends ConsumerWidget {
                 "位置情報はオンにして、常に利用できるようにしてください。"),
             const SizedBox(height: 12.0),
             WideElevatedButton(
-              onPressed: controller.onStepLocation,
+              onPressed: () => controller.onStepLocation(context),
               text: permissions[Permission.location]?.isGranted == true &&
                       permissions[Permission.locationWhenInUse]?.isGranted ==
                           true &&
@@ -86,7 +88,7 @@ class OperatorStepperScreen extends ConsumerWidget {
                 "${Platform.isAndroid ? "また、電池の最適化をオフにしてください。" : ""}"),
             const SizedBox(height: 12.0),
             WideElevatedButton(
-              onPressed: controller.onStepBluetooth,
+              onPressed: () => controller.onStepBluetooth(context),
               text: permissions[Permission.bluetooth]?.isGranted == true &&
                       (Platform.isIOS ||
                           permissions[Permission.bluetoothScan]?.isGranted ==
@@ -115,7 +117,7 @@ class OperatorStepperScreen extends ConsumerWidget {
             const Text("QRコードを読み取るためにカメラの権限が必要です。"),
             const SizedBox(height: 12.0),
             WideElevatedButton(
-              onPressed: controller.onStepCamera,
+              onPressed: () => controller.onStepCamera(context),
               text: permissions[Permission.camera]?.isGranted == true
                   ? "続ける"
                   : "カメラへのアクセスを許可する",
@@ -210,6 +212,83 @@ class OperatorStepperScreen extends ConsumerWidget {
           }
         },
       ),
+    );
+  }
+}
+
+class PermissionDeniedDialog extends StatelessWidget {
+  const PermissionDeniedDialog({
+    super.key,
+    required this.permission,
+  });
+
+  final Permission permission;
+
+  String getTitle() {
+    switch (permission) {
+      case Permission.notification:
+        return "通知";
+      case Permission.location:
+      case Permission.locationAlways:
+      case Permission.locationWhenInUse:
+        return "位置情報";
+      case Permission.bluetooth:
+      case Permission.bluetoothScan:
+        return "Bluetooth";
+      case Permission.ignoreBatteryOptimizations:
+        return "電池の最適化";
+      case Permission.camera:
+        return "カメラ";
+      default:
+        return "";
+    }
+  }
+
+  AppSettingsType getAppSettingsType() {
+    switch (permission) {
+      case Permission.notification:
+        return AppSettingsType.notification;
+      case Permission.location:
+      case Permission.locationAlways:
+      case Permission.locationWhenInUse:
+        return AppSettingsType.location;
+      case Permission.bluetooth:
+      case Permission.bluetoothScan:
+        return AppSettingsType.bluetooth;
+      case Permission.ignoreBatteryOptimizations:
+        return AppSettingsType.batteryOptimization;
+      default:
+        return AppSettingsType.settings;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AppDialog(
+      automaticallyImplyLeading: false,
+      children: [
+        const Spacer(),
+        const Icon(Icons.warning, color: Colors.orange, size: 48.0),
+        const SizedBox(height: 12.0),
+        Text("${getTitle()}の許可が必要です"),
+        const SizedBox(height: 12.0),
+        const Text("設定から許可をお願いいたします"),
+        const SizedBox(height: 12.0),
+        WideElevatedButton(
+          onPressed: () =>
+              AppSettings.openAppSettings(type: getAppSettingsType()),
+          text: "設定を開く",
+        ),
+        const SizedBox(height: 12.0),
+        WideElevatedButton(
+          onPressed: context.popRoute,
+          text: "キャンセル",
+          colors: const WideElevatedButtonColors(
+            backgroundColor: Colors.white,
+          ),
+        ),
+        const Spacer(),
+      ],
     );
   }
 }
