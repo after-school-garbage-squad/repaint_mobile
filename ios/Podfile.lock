@@ -1,8 +1,6 @@
 PODS:
   - app_settings (5.1.1):
     - Flutter
-  - app_tracking_transparency (0.0.1):
-    - Flutter
   - Auth0 (2.5.0):
     - JWTDecode (~> 3.1)
     - SimpleKeychain (~> 1.1)
@@ -16,18 +14,16 @@ PODS:
   - connectivity_plus (0.0.1):
     - Flutter
     - ReachabilitySwift
-  - Firebase/Analytics (10.15.0):
-    - Firebase/Core
-  - Firebase/Core (10.15.0):
+  - Firebase/AnalyticsWithoutAdIdSupport (10.15.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (~> 10.15.0)
+    - FirebaseAnalytics/WithoutAdIdSupport (~> 10.15.0)
   - Firebase/CoreOnly (10.15.0):
     - FirebaseCore (= 10.15.0)
   - Firebase/Messaging (10.15.0):
     - Firebase/CoreOnly
     - FirebaseMessaging (~> 10.15.0)
   - firebase_analytics (10.5.1):
-    - Firebase/Analytics (= 10.15.0)
+    - Firebase/AnalyticsWithoutAdIdSupport (= 10.15.0)
     - firebase_core
     - Flutter
   - firebase_core (2.17.0):
@@ -37,19 +33,10 @@ PODS:
     - Firebase/Messaging (= 10.15.0)
     - firebase_core
     - Flutter
-  - FirebaseAnalytics (10.15.0):
-    - FirebaseAnalytics/AdIdSupport (= 10.15.0)
+  - FirebaseAnalytics/WithoutAdIdSupport (10.15.0):
     - FirebaseCore (~> 10.0)
     - FirebaseInstallations (~> 10.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
-    - GoogleUtilities/MethodSwizzler (~> 7.11)
-    - GoogleUtilities/Network (~> 7.11)
-    - "GoogleUtilities/NSData+zlib (~> 7.11)"
-    - nanopb (< 2.30910.0, >= 2.30908.0)
-  - FirebaseAnalytics/AdIdSupport (10.15.0):
-    - FirebaseCore (~> 10.0)
-    - FirebaseInstallations (~> 10.0)
-    - GoogleAppMeasurement (= 10.15.0)
+    - GoogleAppMeasurement/WithoutAdIdSupport (= 10.15.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
     - GoogleUtilities/MethodSwizzler (~> 7.11)
     - GoogleUtilities/Network (~> 7.11)
@@ -83,20 +70,6 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - GoogleAppMeasurement (10.15.0):
-    - GoogleAppMeasurement/AdIdSupport (= 10.15.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
-    - GoogleUtilities/MethodSwizzler (~> 7.11)
-    - GoogleUtilities/Network (~> 7.11)
-    - "GoogleUtilities/NSData+zlib (~> 7.11)"
-    - nanopb (< 2.30910.0, >= 2.30908.0)
-  - GoogleAppMeasurement/AdIdSupport (10.15.0):
-    - GoogleAppMeasurement/WithoutAdIdSupport (= 10.15.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
-    - GoogleUtilities/MethodSwizzler (~> 7.11)
-    - GoogleUtilities/Network (~> 7.11)
-    - "GoogleUtilities/NSData+zlib (~> 7.11)"
-    - nanopb (< 2.30910.0, >= 2.30908.0)
   - GoogleAppMeasurement/WithoutAdIdSupport (10.15.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
     - GoogleUtilities/MethodSwizzler (~> 7.11)
@@ -211,7 +184,6 @@ PODS:
 
 DEPENDENCIES:
   - app_settings (from `.symlinks/plugins/app_settings/ios`)
-  - app_tracking_transparency (from `.symlinks/plugins/app_tracking_transparency/ios`)
   - auth0_flutter (from `.symlinks/plugins/auth0_flutter/ios`)
   - beacon_plugin (from `.symlinks/plugins/beacon_plugin/ios`)
   - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
@@ -268,8 +240,6 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   app_settings:
     :path: ".symlinks/plugins/app_settings/ios"
-  app_tracking_transparency:
-    :path: ".symlinks/plugins/app_tracking_transparency/ios"
   auth0_flutter:
     :path: ".symlinks/plugins/auth0_flutter/ios"
   beacon_plugin:
@@ -319,14 +289,13 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   app_settings: 017320c6a680cdc94c799949d95b84cb69389ebc
-  app_tracking_transparency: 5b1745ef9ade815f7455cb6a0848349589afb7c5
   Auth0: 72f19ad566fdf57f07bf37f828afd0c1570769a5
   auth0_flutter: ce053409c0a080736e341c3b94084c96cc8d4136
   beacon_plugin: 8fab831be4bd7d4d8c0e0b6941a2b5889976f6e6
   camera_avfoundation: 3125e8cd1a4387f6f31c6c63abb8a55892a9eeeb
   connectivity_plus: bf0076dd84a130856aa636df1c71ccaff908fa1d
   Firebase: 66043bd4579e5b73811f96829c694c7af8d67435
-  firebase_analytics: f153c564d6a7675e56e4f171454b9f1b3e7b6601
+  firebase_analytics: c95cb9418d255916f039b5ebb0f280aa0a06d3a8
   firebase_core: 28e84c2a4fcf6a50ef83f47b145ded8c1fa331e4
   firebase_messaging: 91ec967913a5d144f951b3c3ac17a57796d38735
   FirebaseAnalytics: 47cef43728f81a839cf1306576bdd77ffa2eac7e
@@ -370,6 +339,6 @@ SPEC CHECKSUMS:
   url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
   webview_flutter_wkwebview: 2e2d318f21a5e036e2c3f26171342e95908bd60a
 
-PODFILE CHECKSUM: 3e6aafd7e703d96a468f098af2553ef9f2d918be
+PODFILE CHECKSUM: 77fe294df633d39bd1766fc06f1b549a57089c87
 
 COCOAPODS: 1.13.0

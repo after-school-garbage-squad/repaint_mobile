@@ -153,6 +153,11 @@ class WelcomeText extends StatelessWidget {
             style: baseStyle,
             text: 'に同意する必要があります。',
           ),
+          TextSpan(
+            style: baseStyle,
+            text: '\n\n'
+                '本アプリには課金要素は含まれず、利用に一切料金は発生しません。',
+          ),
         ],
       ),
     );
