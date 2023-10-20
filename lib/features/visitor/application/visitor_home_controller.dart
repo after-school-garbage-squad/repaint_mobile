@@ -1,9 +1,11 @@
-import 'dart:typed_data';
+import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:gallery_saver/gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:repaint_api_client/repaint_api_client.dart';
 import 'package:repaint_mobile/config/app_router.dart';
 import 'package:repaint_mobile/features/common/domain/entities/user_entity.dart';
@@ -58,20 +60,32 @@ class VisitorHomeController {
     );
     if (image.data == null) return;
 
-    await ImageGallerySaver.saveImage(
-      Uint8List.fromList(image.data as List<int>),
-      quality: 60,
-      name:
-          "repaint_${_userdata.visitor!.visitorIdentification.eventId}_${_userdata.visitor!.visitorIdentification.visitorId}",
-    );
+    final tempDir = await getTemporaryDirectory();
+    final file = File('${tempDir.path}/temp.png');
+    await file.writeAsBytes(image.data as List<int>);
+
+    final isSuccess =
+        await GallerySaver.saveImage(file.path, albumName: "Repaint");
 
     if (context.mounted) {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("画像を保存しました"),
-        ),
-      );
+      if (isSuccess == true) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("画像を保存しました"),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("画像を保存するためには許可が必要です"),
+            action: SnackBarAction(
+              label: "設定",
+              onPressed: openAppSettings,
+            ),
+          ),
+        );
+      }
     }
   }
 

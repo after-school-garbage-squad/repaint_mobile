@@ -70,6 +70,8 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
+  - gallery_saver (0.0.1):
+    - Flutter
   - GoogleAppMeasurement/WithoutAdIdSupport (10.15.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
     - GoogleUtilities/MethodSwizzler (~> 7.11)
@@ -119,8 +121,6 @@ PODS:
   - GoogleUtilitiesComponents (1.1.0):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (2.3.0)
-  - image_gallery_saver (2.0.2):
-    - Flutter
   - JWTDecode (3.1.0)
   - MLImage (1.0.0-beta4)
   - MLKitBarcodeScanning (3.0.0):
@@ -194,7 +194,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
-  - image_gallery_saver (from `.symlinks/plugins/image_gallery_saver/ios`)
+  - gallery_saver (from `.symlinks/plugins/gallery_saver/ios`)
   - mobile_scanner (from `.symlinks/plugins/mobile_scanner/ios`)
   - native_device_orientation (from `.symlinks/plugins/native_device_orientation/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
@@ -260,8 +260,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
   flutter_native_splash:
     :path: ".symlinks/plugins/flutter_native_splash/ios"
-  image_gallery_saver:
-    :path: ".symlinks/plugins/image_gallery_saver/ios"
+  gallery_saver:
+    :path: ".symlinks/plugins/gallery_saver/ios"
   mobile_scanner:
     :path: ".symlinks/plugins/mobile_scanner/ios"
   native_device_orientation:
@@ -307,6 +307,7 @@ SPEC CHECKSUMS:
   flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   flutter_native_splash: 52501b97d1c0a5f898d687f1646226c1f93c56ef
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  gallery_saver: 9fc173c9f4fcc48af53b2a9ebea1b643255be542
   GoogleAppMeasurement: 722db6550d1e6d552b08398b69a975ac61039338
   GoogleDataTransport: 54dee9d48d14580407f8f5fbf2f496e92437a2f2
   GoogleMLKit: 2bd0dc6253c4d4f227aad460f69215a504b2980e
@@ -314,7 +315,6 @@ SPEC CHECKSUMS:
   GoogleUtilities: 13e2c67ede716b8741c7989e26893d151b2b2084
   GoogleUtilitiesComponents: 679b2c881db3b615a2777504623df6122dd20afe
   GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
-  image_gallery_saver: cb43cc43141711190510e92c460eb1655cd343cb
   JWTDecode: 3eaab1e06b6f4dcbdd6716aff09ba4c2104ca8b7
   MLImage: 7bb7c4264164ade9bf64f679b40fb29c8f33ee9b
   MLKitBarcodeScanning: 04e264482c5f3810cb89ebc134ef6b61e67db505

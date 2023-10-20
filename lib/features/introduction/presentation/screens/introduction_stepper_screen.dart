@@ -128,7 +128,15 @@ class IntroductionStepperScreen extends ConsumerWidget {
                   const SizedBox(height: 12.0),
                   WideElevatedButton(
                     onPressed: controller.onStepBluetooth,
-                    text: permissions[Permission.bluetooth]?.isGranted == true
+                    text: permissions[Permission.bluetooth]?.isGranted ==
+                                true &&
+                            permissions[Permission.bluetoothScan]?.isGranted ==
+                                true &&
+                            (Platform.isIOS ||
+                                permissions[Permission
+                                            .ignoreBatteryOptimizations]
+                                        ?.isGranted ==
+                                    true)
                         ? "続ける"
                         : "Bluetoothへのアクセスを許可する",
                   ),
