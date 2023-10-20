@@ -1,10 +1,8 @@
-import 'dart:io';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:gallery_saver/gallery_saver.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:gal/gal.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:repaint_api_client/repaint_api_client.dart';
 import 'package:repaint_mobile/config/app_router.dart';
@@ -60,22 +58,21 @@ class VisitorHomeController {
     );
     if (image.data == null) return;
 
-    final tempDir = await getTemporaryDirectory();
-    final file = File('${tempDir.path}/temp.png');
-    await file.writeAsBytes(image.data as List<int>);
-
-    final isSuccess =
-        await GallerySaver.saveImage(file.path, albumName: "Repaint");
-
-    if (context.mounted) {
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      if (isSuccess == true) {
+    try {
+      await Gal.putImageBytes(
+        Uint8List.fromList(image.data! as List<int>),
+      );
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text("画像を保存しました"),
           ),
         );
-      } else {
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text("画像を保存するためには許可が必要です"),

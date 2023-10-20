@@ -57,6 +57,8 @@
 		<string>ビーコンに接続するために必要です</string>
 		<key>NSLocationWhenInUseUsageDescription</key>
 		<string>Re:paintを開いている時にビーコンに接続するために必要です</string>
+		<key>NSPhotoLibraryAddUsageDescription</key>
+		<string>画像を保存するために必要です</string>
 		<key>NSPhotoLibraryUsageDescription</key>
 		<string>画像を保存するために必要です</string>
 		<key>UIBackgroundModes</key>
