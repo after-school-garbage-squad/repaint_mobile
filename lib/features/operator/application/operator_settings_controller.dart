@@ -1,6 +1,6 @@
 import 'package:auth0_flutter/auth0_flutter.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:logging/logging.dart';
 import 'package:repaint_mobile/config/app_router.dart';
@@ -20,11 +20,20 @@ class OperatorSettingsController {
       await _auth0
           .webAuthentication(scheme: dotenv.env["AUTH0_SCHEME"])
           .logout();
-    } catch (e) {
-      _logger.warning(e.toString());
-    } finally {
       await _user.clear();
       _logger.info("logged out");
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text("ログアウトに失敗しました"),
+            action: SnackBarAction(
+              label: "再試行",
+              onPressed: () => onLogoutPressed(context),
+            ),
+          ),
+        );
+      }
     }
   }
 
