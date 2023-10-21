@@ -46,7 +46,7 @@ class OperatorHomeController {
     if (context.mounted) {
       context.pushRoute(
         OperatorQRCodeReaderRoute(
-          typeIndex: QRCodeType.visitor.index,
+          typeIndex: QRCodeType.spot.index,
         ),
       );
     }
