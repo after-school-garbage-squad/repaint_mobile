@@ -63,12 +63,7 @@ class OperatorStepperScreen extends ConsumerWidget {
             const SizedBox(height: 12.0),
             WideElevatedButton(
               onPressed: () => controller.onStepLocation(context),
-              text: permissions[Permission.location]?.isGranted == true &&
-                      permissions[Permission.locationWhenInUse]?.isGranted ==
-                          true &&
-                      permissions[Permission.locationAlways]?.isGranted == true
-                  ? "続ける"
-                  : "位置情報へのアクセスを許可する",
+              text: "続ける",
             ),
           ],
         ),
@@ -89,16 +84,7 @@ class OperatorStepperScreen extends ConsumerWidget {
             const SizedBox(height: 12.0),
             WideElevatedButton(
               onPressed: () => controller.onStepBluetooth(context),
-              text: permissions[Permission.bluetooth]?.isGranted == true &&
-                      (Platform.isIOS ||
-                          permissions[Permission.bluetoothScan]?.isGranted ==
-                              true) &&
-                      (Platform.isIOS ||
-                          permissions[Permission.ignoreBatteryOptimizations]
-                                  ?.isGranted ==
-                              true)
-                  ? "続ける"
-                  : "Bluetoothへのアクセスを許可する",
+              text: "続ける",
             ),
           ],
         ),
@@ -110,7 +96,7 @@ class OperatorStepperScreen extends ConsumerWidget {
             : stepper.currentStep > 2
                 ? StepState.complete
                 : StepState.disabled,
-        title: const Text("カメラへのアクセスの許可"),
+        title: const Text("カメラの許可"),
         subtitle: const Text("必須"),
         content: Column(
           children: [
@@ -118,9 +104,7 @@ class OperatorStepperScreen extends ConsumerWidget {
             const SizedBox(height: 12.0),
             WideElevatedButton(
               onPressed: () => controller.onStepCamera(context),
-              text: permissions[Permission.camera]?.isGranted == true
-                  ? "続ける"
-                  : "カメラへのアクセスを許可する",
+              text: "続ける",
             ),
           ],
         ),
