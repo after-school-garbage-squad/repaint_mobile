@@ -26,9 +26,9 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  app_settings: ^6.0.0
+  app_settings: 7.0.0
   auth0_flutter: ^1.2.1
-  auto_route: ^10.0.0
+  auto_route: 11.1.0
   #  beacon_plugin:
   #    path: ../beacon_plugin
   beacon_plugin:
@@ -47,7 +47,7 @@ dependencies:
     sdk: flutter
   flutter_cache_manager_dio: ^4.0.0
   flutter_dotenv: ^6.0.0
-  flutter_local_notifications: ^19.0.0
+  flutter_local_notifications: 20.1.0
   flutter_native_splash: ^2.3.3
   flutter_riverpod: ^3.0.0
   freezed_annotation: ^3.0.0
@@ -69,7 +69,7 @@ dependencies:
     git:
       url: https://github.com/after-school-garbage-squad/repaint_api_client.git
       ref: HEAD
-  riverpod_annotation: ^3.0.0
+  riverpod_annotation: 4.0.2
   screen_brightness: ^2.0.0
   sentry_dio: ^9.0.0
   sentry_flutter: ^9.0.0
