@@ -47,7 +47,7 @@ dependencies:
     sdk: flutter
   flutter_cache_manager_dio: ^4.0.0
   flutter_dotenv: ^6.0.0
-  flutter_local_notifications: 21.0.0
+  flutter_local_notifications: 22.0.1
   flutter_native_splash: ^2.3.3
   flutter_riverpod: ^3.0.0
   freezed_annotation: ^3.0.0
@@ -60,7 +60,7 @@ dependencies:
   logging: ^1.2.0
   mobile_scanner: ^7.0.0
   native_device_orientation: ^2.0.0
-  package_info_plus: ^9.0.0
+  package_info_plus: ^10.0.0
   path: ^1.8.3
   path_provider: ^2.1.0
   permission_handler: ^12.0.0
