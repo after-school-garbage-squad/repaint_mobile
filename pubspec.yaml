@@ -36,7 +36,7 @@ dependencies:
       url: https://github.com/after-school-garbage-squad/beacon_plugin.git
       ref: HEAD
   cached_network_image: ^3.3.0
-  camera: ^0.11.0
+  camera: ^0.12.0
   collection: ^1.17.2
   connectivity_plus: ^7.0.0
   dio: ^5.3.2
@@ -69,7 +69,7 @@ dependencies:
     git:
       url: https://github.com/after-school-garbage-squad/repaint_api_client.git
       ref: HEAD
-  riverpod_annotation: 4.0.2
+  riverpod_annotation: 4.0.3
   screen_brightness: ^2.0.0
   sentry_dio: ^9.0.0
   sentry_flutter: ^9.0.0
