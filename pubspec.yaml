@@ -26,7 +26,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  app_settings: 8.0.0
+  app_settings: 8.0.3
   auth0_flutter: ^2.0.0
   auto_route: 11.1.0
   #  beacon_plugin:
@@ -47,7 +47,7 @@ dependencies:
     sdk: flutter
   flutter_cache_manager_dio: ^4.0.0
   flutter_dotenv: ^6.0.0
-  flutter_local_notifications: 22.0.1
+  flutter_local_notifications: 22.1.0
   flutter_native_splash: ^2.3.3
   flutter_riverpod: ^3.0.0
   freezed_annotation: ^3.0.0
