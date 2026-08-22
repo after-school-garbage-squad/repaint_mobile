@@ -26,7 +26,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  app_settings: 8.0.3
+  app_settings: 9.0.0
   auth0_flutter: ^2.0.0
   auto_route: 11.1.0
   #  beacon_plugin:
