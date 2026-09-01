@@ -35,7 +35,7 @@ dependencies:
     git:
       url: https://github.com/after-school-garbage-squad/beacon_plugin.git
       ref: HEAD
-  cached_network_image: ^3.3.0
+  cached_network_image: ^4.0.0
   camera: ^0.12.0
   collection: ^1.17.2
   connectivity_plus: ^7.0.0
