@@ -89,7 +89,7 @@ dev_dependencies:
     sdk: flutter
   freezed: ^4.0.0
   lint: ^2.1.2
-  riverpod_generator: 4.0.8
+  riverpod_generator: 4.0.9
   riverpod_lint: ^3.0.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
