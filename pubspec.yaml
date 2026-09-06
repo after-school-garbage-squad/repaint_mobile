@@ -69,7 +69,7 @@ dependencies:
     git:
       url: https://github.com/after-school-garbage-squad/repaint_api_client.git
       ref: HEAD
-  riverpod_annotation: 4.0.6
+  riverpod_annotation: 4.0.7
   screen_brightness: ^2.0.0
   sentry_dio: ^9.0.0
   sentry_flutter: ^9.0.0
