@@ -71,9 +71,9 @@ dependencies:
       ref: HEAD
   riverpod_annotation: 4.0.7
   screen_brightness: ^2.0.0
-  sentry_dio: ^9.0.0
-  sentry_flutter: ^9.0.0
-  sentry_logging: ^9.0.0
+  sentry_dio: ^10.0.0
+  sentry_flutter: ^10.0.0
+  sentry_logging: ^10.0.0
   shared_preferences: ^2.2.0
   uni_links: ^0.5.1
   url_launcher: ^6.1.14
